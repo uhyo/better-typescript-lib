@@ -1,5 +1,7 @@
-import { mkdir, readdir, readFile, writeFile } from "fs/promises";
+import { mkdir, readdir, writeFile } from "fs/promises";
 import path from "path";
+import ts from "typescript";
+import { betterLibs, replacement } from "./replacement";
 
 const projectDir = process.env.PROJECT || process.cwd();
 const distDir = path.join(projectDir, "dist", "lib");
@@ -12,15 +14,60 @@ async function main() {
 
   // copy TypeScript lib files
   const libs = await readdir(path.join(tsDir, "lib"));
-  for (const libFile of libs) {
+  const libFiles: string[] = libs.filter((libFile) =>
+    /(?:^|\/|\\)lib\..+\.d\.ts$/.test(libFile)
+  );
+
+  // modify each lib file
+  for (const libFile of libFiles) {
+    const tsLibFile = path.join(tsDir, "lib", libFile);
+    const program = ts.createProgram([tsLibFile], {});
+    const file = program.getSourceFile(tsLibFile);
+    if (!file) {
+      continue;
+    }
+    let result = betterLibs.has(libFile)
+      ? `/// <reference path="../../lib/${libFile}" />\n`
+      : "";
+    for (const statement of file.statements) {
+      const res = checkStatement(statement);
+      if (res) {
+        result += res.getFullText(file);
+      }
+    }
+    result += file.text.slice(file.endOfFileToken.pos);
+
+    await writeFile(path.join(distDir, libFile), result);
     console.log(libFile);
-    if (/(?:^|\/|\\)lib\..+\.d\.ts$/.test(libFile)) {
-      await writeFile(
-        path.join(distDir, libFile),
-        await readFile(path.join(path.join(tsDir, "lib", libFile)))
-      );
+  }
+}
+
+function checkStatement(statement: ts.Statement): ts.Statement | undefined {
+  // check for declrations
+  if (ts.isVariableStatement(statement)) {
+    for (const dec of statement.declarationList.declarations) {
+      if (ts.isIdentifier(dec.name)) {
+        if (replacement.has(dec.name.text)) {
+          return undefined;
+        }
+      }
+    }
+  } else if (
+    ts.isFunctionDeclaration(statement) ||
+    ts.isInterfaceDeclaration(statement) ||
+    ts.isTypeAliasDeclaration(statement)
+  ) {
+    const repl = statement.name && replacement.has(statement.name.text);
+    if (repl) {
+      return undefined;
+    }
+  } else if (ts.isInterfaceDeclaration(statement)) {
+    const repl = statement.name && replacement.has(statement.name.text);
+    if (repl) {
+      return undefined;
     }
   }
+  return statement;
 }
 
 main().catch((err) => {

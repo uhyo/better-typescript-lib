@@ -6,14 +6,22 @@
   "devDependencies": {
     "@types/node": "^14.14.16",
     "prettier": "^2.2.1",
+    "tsd": "^0.14.0",
     "typescript": "^4.1.3"
   },
   "scripts": {
     "build:tsc": "tsc",
     "build:lib": "node dist/build/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsd"
   },
   "keywords": [],
   "author": "uhyo <uhyo@uhy.ooo>",
-  "license": "MIT"
+  "license": "MIT",
+  "tsd": {
+    "directory": "tests",
+    "compilerOptions": {
+      "lib": [],
+      "types": []
+    }
+  }
 }
