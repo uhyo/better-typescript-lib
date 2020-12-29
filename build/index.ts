@@ -68,7 +68,8 @@ function checkStatement(
   } else if (
     ts.isFunctionDeclaration(statement) ||
     ts.isInterfaceDeclaration(statement) ||
-    ts.isTypeAliasDeclaration(statement)
+    ts.isTypeAliasDeclaration(statement) ||
+    ts.isModuleDeclaration(statement)
   ) {
     const repl = statement.name && replacement.has(statement.name.text);
     if (repl) {

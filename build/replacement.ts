@@ -38,4 +38,6 @@ export const replacement = new Map([
     ]),
   ],
   ["lib.es2015.promise.d.ts", new Set(["PromiseConstructor"])],
+  ["lib.es2015.proxy.d.ts", new Set(["ProxyHandler"])],
+  ["lib.es2015.reflect.d.ts", new Set(["Reflect"])],
 ]);
