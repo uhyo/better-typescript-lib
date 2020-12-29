@@ -1,7 +1,7 @@
 import { mkdir, readdir, writeFile } from "fs/promises";
 import path from "path";
 import ts from "typescript";
-import { betterLibs, replacement } from "./replacement";
+import { replacement } from "./replacement";
 
 const projectDir = process.env.PROJECT || process.cwd();
 const distDir = path.join(projectDir, "dist", "lib");
@@ -26,13 +26,18 @@ async function main() {
     if (!file) {
       continue;
     }
-    let result = betterLibs.has(libFile)
-      ? `/// <reference path="../../lib/${libFile}" />\n`
-      : "";
-    for (const statement of file.statements) {
-      const res = checkStatement(statement);
-      if (res) {
-        result += res.getFullText(file);
+    const repl = replacement.get(libFile);
+    let result = repl ? `/// <reference path="../../lib/${libFile}" />\n` : "";
+    if (!repl) {
+      for (const statement of file.statements) {
+        result += statement.getFullText(file);
+      }
+    } else {
+      for (const statement of file.statements) {
+        const res = checkStatement(statement, repl);
+        if (res) {
+          result += res.getFullText(file);
+        }
       }
     }
     result += file.text.slice(file.endOfFileToken.pos);
@@ -47,7 +52,10 @@ async function main() {
   }
 }
 
-function checkStatement(statement: ts.Statement): ts.Statement | undefined {
+function checkStatement(
+  statement: ts.Statement,
+  replacement: Set<string>
+): ts.Statement | undefined {
   // check for declrations
   if (ts.isVariableStatement(statement)) {
     for (const dec of statement.declarationList.declarations) {

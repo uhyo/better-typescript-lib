@@ -1,4 +1,5 @@
 /// <reference no-default-lib="true" />
+/// <reference path="./util.d.ts" />
 
 /**
  * Evaluates JavaScript code and executes it.

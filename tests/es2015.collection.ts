@@ -64,3 +64,5 @@ import { expectType } from "tsd";
     { foo: "foo" }
   );
 }
+
+export {};
