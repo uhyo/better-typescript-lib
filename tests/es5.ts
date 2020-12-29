@@ -1,6 +1,6 @@
 /// <reference path="../dist/lib/lib.es5.d.ts" />
 
-import { expectType } from "tsd";
+import { expectError, expectType } from "tsd";
 
 // eval
 expectType<unknown>(eval("foo"));
@@ -53,5 +53,60 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
     }
   )
 );
+
+// CallableFunction
+{
+  const add = (a: number, b: number): number => a + b;
+  expectType<(a: number, b: number) => number>(add.bind(null));
+  expectType<(b: number) => number>(add.bind(null, 123));
+  expectType<() => number>(add.bind(null, 123, 456));
+  expectError(add.bind(null, 123, 456, 789));
+
+  const add2 = function (this: { num: number }, a: number): number {
+    return this.num + a;
+  };
+  expectError(add2.bind(null));
+  expectError(add2.bind(null, 123));
+  expectType<(a: number) => number>(add2.bind({ num: 0 }));
+  expectType<() => number>(add2.bind({ num: 100 }, 123));
+  expectError(add2.bind({ num: 100 }, 123, 456));
+}
+
+// IArguments
+(function () {
+  expectType<unknown>(arguments[0]);
+})();
+
+// JSON
+expectType<JSONValue>(JSON.parse("{}"));
+
+// ArrayConstructor
+{
+  const a1 = new Array();
+  expectType<unknown[]>(a1);
+  const a2 = new Array<number>();
+  expectType<number[]>(a2);
+  const a3: number[] = new Array();
+  expectType<number[]>(a3);
+  const a4 = new Array("foo", "bar");
+  expectType<string[]>(a4);
+
+  const a5 = new Array(1);
+  expectType<unknown[]>(a5);
+
+  const a6 = new Array<boolean>(1);
+  expectType<boolean[]>(a6);
+
+  const a7: boolean[] = new Array(1);
+  expectType<boolean[]>(a7);
+
+  const a8: {} = {};
+  if (Array.isArray(a7)) {
+    expectType<boolean>(a7[0]);
+  }
+  if (Array.isArray(a8)) {
+    expectType<unknown>(a8[0]);
+  }
+}
 
 export {};

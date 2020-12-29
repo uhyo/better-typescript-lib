@@ -154,3 +154,105 @@ interface ObjectConstructor {
    */
   keys(o: object): string[];
 }
+
+interface CallableFunction extends Function {
+  /**
+   * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
+   * @param thisArg The object to be used as the this object.
+   * @param args An array of argument values to be passed to the function.
+   */
+  apply<T, R>(this: (this: T) => R, thisArg: T): R;
+  apply<T, A extends any[], R>(
+    this: (this: T, ...args: A) => R,
+    thisArg: T,
+    args: A
+  ): R;
+
+  /**
+   * Calls the function with the specified object as the this value and the specified rest arguments as the arguments.
+   * @param thisArg The object to be used as the this object.
+   * @param args Argument values to be passed to the function.
+   */
+  call<T, A extends any[], R>(
+    this: (this: T, ...args: A) => R,
+    thisArg: T,
+    ...args: A
+  ): R;
+
+  /**
+   * For a given function, creates a bound function that has the same body as the original function.
+   * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
+   * @param thisArg The object to be used as the this object.
+   * @param args Arguments to bind to the parameters of the function.
+   */
+  bind<T, A extends readonly any[], B extends readonly any[], R>(
+    this: (this: T, ...args: [...A, ...B]) => R,
+    thisArg: T,
+    ...args: A
+  ): (...args: B) => R;
+}
+
+interface IArguments {
+  [index: number]: unknown;
+  length: number;
+  callee: Function;
+}
+
+type JSONValue =
+  | null
+  | string
+  | number
+  | boolean
+  | {
+      [K in string]?: JSONValue;
+    }
+  | JSONValue[];
+
+interface JSON {
+  /**
+   * Converts a JavaScript Object Notation (JSON) string into an object.
+   * @param text A valid JSON string.
+   * @param reviver A function that transforms the results. This function is called for each member of the object.
+   * If a member contains nested objects, the nested objects are transformed before the parent object is.
+   */
+  parse(
+    text: string,
+    reviver?: (this: JSONValue, key: string, value: JSONValue) => any
+  ): JSONValue;
+  /**
+   * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
+   * @param value A JavaScript value, usually an object or array, to be converted.
+   * @param replacer A function that transforms the results.
+   * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
+   */
+  stringify(
+    value: JSONValue,
+    replacer?: (this: JSONValue, key: string, value: JSONValue) => any,
+    space?: string | number
+  ): string;
+  /**
+   * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
+   * @param value A JavaScript value, usually an object or array, to be converted.
+   * @param replacer An array of strings and numbers that acts as a approved list for selecting the object properties that will be stringified.
+   * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
+   */
+  stringify(
+    value: JSONValue,
+    replacer?: (number | string)[] | null,
+    space?: string | number
+  ): string;
+}
+
+/**
+ * An intrinsic object that provides functions to convert JavaScript values to and from the JavaScript Object Notation (JSON) format.
+ */
+declare var JSON: JSON;
+
+interface ArrayConstructor {
+  new <T>(arrayLength: number): T[];
+  new <T>(...items: T[]): T[];
+  <T>(arrayLength: number): T[];
+  <T>(...items: T[]): T[];
+  isArray(arg: any): arg is unknown[];
+  readonly prototype: unknown[];
+}

@@ -36,6 +36,11 @@ async function main() {
       }
     }
     result += file.text.slice(file.endOfFileToken.pos);
+    // Replace <reference lib="" /> to <reference path="" />
+    result = result.replace(
+      /^\/\/\/\s*<reference\s+lib="(.+?)"\s*\/>/gm,
+      (_, lib) => `/// <reference path="./lib.${lib}.d.ts" />`
+    );
 
     await writeFile(path.join(distDir, libFile), result);
     console.log(libFile);
