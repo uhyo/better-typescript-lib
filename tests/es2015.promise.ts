@@ -29,6 +29,11 @@ new Promise((resolve) => {
   expectType<string>(v2);
   expectType<boolean>(v3);
 
+  const a = await Promise.all([num, str, bool]);
+  expectType<number>(a[0]);
+  expectType<string>(a[1]);
+  expectType<boolean>(a[2]);
+
   const ps: Promise<string | number>[] = [num, str, num];
   const [v4, v5, v6] = await Promise.all(ps);
   expectType<string | number>(v4);
@@ -41,3 +46,7 @@ new Promise((resolve) => {
   const p2 = Promise.resolve<Promise<number>>(p1);
   expectType<Promise<number>>(p2);
 }
+
+(async function (): Promise<number> {
+  return 3;
+});

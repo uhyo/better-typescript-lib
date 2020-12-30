@@ -8,6 +8,7 @@ export const replacement = new Map([
       "IArguments",
       "JSON",
       "ArrayConstructor",
+      "PromiseConstructorLike",
     ]),
   ],
   [

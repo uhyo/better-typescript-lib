@@ -257,3 +257,16 @@ interface ArrayConstructor {
   isArray(arg: any): arg is unknown[];
   readonly prototype: unknown[];
 }
+
+declare type PromiseConstructorLike = new <T>(
+  executor: (
+    resolve: undefined extends T
+      ? {
+          (value?: T | PromiseLike<T>): void;
+        }
+      : {
+          (value: T | PromiseLike<T>): void;
+        },
+    reject: (reason?: any) => void
+  ) => void
+) => PromiseLike<T>;

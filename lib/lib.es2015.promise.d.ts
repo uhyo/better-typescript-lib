@@ -14,13 +14,21 @@ interface PromiseConstructor {
    */
   new <T>(
     executor: (
-      resolve: {
-        (value: T | PromiseLike<T>): void;
-      } & (undefined extends T
+      resolve: undefined extends T
         ? {
             (value?: T | PromiseLike<T>): void;
           }
-        : {}),
+        : {
+            (value: T | PromiseLike<T>): void;
+          },
+      // TODO: Revisit after https://github.com/microsoft/TypeScript/issues/42156 solves
+      //  {
+      //   (value: T | PromiseLike<T>): void;
+      // } & (undefined extends T
+      //   ? {
+      //       (value?: T | PromiseLike<T>): void;
+      //     }
+      //   : {}),
       reject: (reason?: any) => void
     ) => void
   ): Promise<T>;
@@ -32,7 +40,7 @@ interface PromiseConstructor {
    * @returns A new Promise.
    */
   all<T extends readonly any[]>(
-    values: T
+    values: [...T]
   ): Promise<
     {
       [K in keyof T]: Awaited<T[K]>;

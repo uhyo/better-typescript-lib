@@ -10,7 +10,9 @@ Ideally TypeScript's built-in type definitions should have been better in view o
 
 ## The Solution
 
-This package provides an alternative type definitions which are safer than TypeScript's built-in ones. With this package, TypeScript users obtain less chance of unexpectedly getting `any` values. This package also includes other improved, stricter type definitions.
+This package provides an alternative type definitions which are safer than TypeScript's built-in ones. With this package, TypeScript users obtain less chance of unexpectedly getting `any` values. For example, in this type definition the return type of `JSON.parse` is not `any`, but `JSONData` which represents all possible JSON data.
+
+This package also includes other improved, stricter type definitions.
 
 ## Usage
 
@@ -20,7 +22,7 @@ This package provides an alternative type definitions which are safer than TypeS
 npm i -D better-typescript-lib
 ```
 
-### Remove built-in library from tsconfig.json
+### Disable built-in library from tsconfig.json
 
 ```diff
 - "lib": ["es5", "dom"]
@@ -35,6 +37,22 @@ Include better-typescript-lib with triple-slash directives from the entry point 
 /// <reference path="./node_modules/better-typescript-lib/lib.es5.d.ts" />
 /// <reference path="./node_modules/better-typescript-lib/lib.dom.d.ts" />
 ```
+
+## Supported TypeScript Versions
+
+| better-typescript-lib | TypeScript      |
+| --------------------- | --------------- |
+| 1.0.0                 | TS 4.1 or later |
+
+## Concepts
+
+Better-typescript-lib is _not_ meant to be compatible with TypeScript's built-in library. Therefore it is the most suitable to new TypeScript projects. An existing project may also adopt better-typescript-lib but additional type errors need to be fixed.
+
+As this is only an alternative to TypeScript's built-in type definitions, we have no plan of providing any runtime implemention through better-typescript-lib.
+
+### Versioning Policy
+
+Improvements to type definitions may be released as a new minor version even if it may cause new type errors to existing codebases.
 
 ## Contributing
 
