@@ -57,3 +57,7 @@ Improvements to type definitions may be released as a new minor version even if 
 ## Contributing
 
 Welcome
+
+## License
+
+This work is based on [TypeScript](https://github.com/microsoft/TypeScript)'s standard library created by Microsoft Corporation. We modify it as programmed in this repository and redistribute it under Apache 2.0 License.

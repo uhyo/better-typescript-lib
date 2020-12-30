@@ -1,6 +1,6 @@
 {
   "name": "better-typescript-lib",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Better TypeScript standard library",
   "main": "index.js",
   "devDependencies": {
@@ -17,7 +17,7 @@
   },
   "keywords": [],
   "author": "uhyo <uhyo@uhy.ooo>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "tsd": {
     "directory": "tests",
     "compilerOptions": {

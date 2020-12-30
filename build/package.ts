@@ -23,7 +23,11 @@ async function main() {
     .map((libFile) => path.join(libDir, libFile))
     .concat(
       (await readdir(templateDir)).map((file) => path.join(templateDir, file))
-    );
+    )
+    .concat([
+      path.join(projectDir, "README.md"),
+      path.join(projectDir, "LICENSE"),
+    ]);
   await Promise.all(
     files
       .map(async (libFile) => {
