@@ -1,6 +1,6 @@
 {
   "name": "better-typescript-lib",
-  "version": "1.0.0-rc",
+  "version": "1.0.0",
   "description": "Better TypeScript standard library",
   "main": "index.js",
   "types": "./lib.esnext.d.ts",
