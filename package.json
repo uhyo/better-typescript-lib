@@ -11,7 +11,8 @@
   },
   "scripts": {
     "build:tsc": "tsc",
-    "build:lib": "node dist/build/index.js",
+    "build:lib": "node dist/build/build.js",
+    "build:package": "node dist/build/package.js",
     "test": "tsd"
   },
   "keywords": [],

@@ -1,0 +1,12 @@
+{
+  "name": "better-typescript-lib",
+  "version": "0.0.1",
+  "description": "Better TypeScript standard library",
+  "main": "index.js",
+  "types": "./lib.esnext.d.ts",
+  "keywords": [
+    "TypeScript"
+  ],
+  "author": "uhyo <uhyo@uhy.ooo>",
+  "license": "MIT"
+}
