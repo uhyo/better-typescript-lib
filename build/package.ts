@@ -3,6 +3,7 @@ import path from "path";
 
 const projectDir = process.env.PROJECT || process.cwd();
 const libDir = path.join(projectDir, "dist", "lib");
+const betterDir = path.join(projectDir, "lib");
 const templateDir = path.join(projectDir, "package-template");
 const packageDir = path.join(projectDir, "dist-package");
 
@@ -11,24 +12,34 @@ async function main() {
     force: true,
     recursive: true,
   });
-  await mkdir(packageDir, {
+  await mkdir(path.join(packageDir, "better"), {
     recursive: true,
   });
 
   // copy package template
   // copy lib files
   const files = (await readdir(libDir))
+    .filter((libFile) => /\.d\.ts$/.test(libFile))
     .map((libFile) => path.join(libDir, libFile))
     .concat(
       (await readdir(templateDir)).map((file) => path.join(templateDir, file))
     );
   await Promise.all(
-    files.map(async (libFile) => {
-      await writeFile(
-        path.join(packageDir, path.basename(libFile)),
-        await readFile(libFile)
-      );
-    })
+    files
+      .map(async (libFile) => {
+        await writeFile(
+          path.join(packageDir, path.basename(libFile)),
+          await readFile(libFile)
+        );
+      })
+      .concat(
+        (await readdir(betterDir)).map(async (libFile) => {
+          await writeFile(
+            path.join(packageDir, "better", libFile),
+            await readFile(path.join(betterDir, libFile))
+          );
+        })
+      )
   );
 }
 

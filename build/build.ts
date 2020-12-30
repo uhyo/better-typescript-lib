@@ -1,4 +1,4 @@
-import { mkdir, readdir, writeFile } from "fs/promises";
+import { mkdir, readdir, rm, symlink, writeFile } from "fs/promises";
 import path from "path";
 import ts from "typescript";
 import { replacement } from "./replacement";
@@ -8,9 +8,14 @@ const distDir = path.join(projectDir, "dist", "lib");
 const tsDir = path.join(projectDir, "TypeScript");
 
 async function main() {
+  await rm(distDir, {
+    force: true,
+    recursive: true,
+  });
   await mkdir(distDir, {
     recursive: true,
   });
+  await symlink(path.join(projectDir, "lib"), path.join(distDir, "better"));
 
   // copy TypeScript lib files
   const libs = await readdir(path.join(tsDir, "lib"));
@@ -27,7 +32,7 @@ async function main() {
       continue;
     }
     const repl = replacement.get(libFile);
-    let result = repl ? `/// <reference path="../../lib/${libFile}" />\n` : "";
+    let result = repl ? `/// <reference path="./better/${libFile}" />\n` : "";
     if (!repl) {
       for (const statement of file.statements) {
         result += statement.getFullText(file);
