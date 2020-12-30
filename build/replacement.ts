@@ -41,4 +41,7 @@ export const replacement = new Map([
   ["lib.es2015.proxy.d.ts", new Set(["ProxyHandler"])],
   ["lib.es2015.reflect.d.ts", new Set(["Reflect"])],
   ["lib.es2017.object.d.ts", new Set(["ObjectConstructor"])],
+  ["lib.es2018.asyncgenerator.d.ts", new Set(["AsyncGenerator"])],
+  ["lib.es2018.asynciterable.d.ts", new Set(["AsyncIterator"])],
+  ["lib.es2019.object.d.ts", new Set(["ObjectConstructor"])],
 ]);
