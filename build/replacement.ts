@@ -44,4 +44,6 @@ export const replacement = new Map([
   ["lib.es2018.asyncgenerator.d.ts", new Set(["AsyncGenerator"])],
   ["lib.es2018.asynciterable.d.ts", new Set(["AsyncIterator"])],
   ["lib.es2019.object.d.ts", new Set(["ObjectConstructor"])],
+  ["lib.esnext.promise.d.ts", new Set(["AggregateError"])],
+  ["lib.esnext.string.d.ts", new Set(["String"])],
 ]);
