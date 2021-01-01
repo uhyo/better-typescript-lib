@@ -78,7 +78,17 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
 })();
 
 // JSON
-expectType<JSONValue>(JSON.parse("{}"));
+{
+  expectType<JSONValue>(JSON.parse("{}"));
+  const arr = [1, 2, "foo"];
+  expectType<string>(JSON.stringify(arr));
+  const obj = { foo: { bar: 1 } };
+  expectType<string>(JSON.stringify(obj));
+  const readonlyArr = [1, 2, 3] as const;
+  expectType<string>(JSON.stringify(readonlyArr));
+  const readonlyObj = { foo: { bar: 1 } } as const;
+  expectType<string>(JSON.stringify(readonlyObj));
+}
 
 // ArrayConstructor
 {
