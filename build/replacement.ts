@@ -1,6 +1,6 @@
 export const replacement = new Map([
   [
-    "lib.es5.d.ts",
+    "es5.d.ts",
     new Set([
       "eval",
       "ObjectConstructor",
@@ -12,7 +12,7 @@ export const replacement = new Map([
     ]),
   ],
   [
-    "lib.es2015.collection.d.ts",
+    "es2015.collection.d.ts",
     new Set([
       "Map",
       "MapConstructor",
@@ -25,12 +25,12 @@ export const replacement = new Map([
     ]),
   ],
   [
-    "lib.es2015.core.d.ts",
+    "es2015.core.d.ts",
     new Set(["NumberConstructor", "ObjectConstructor", "String"]),
   ],
-  ["lib.es2015.generator.d.ts", new Set(["Generator"])],
+  ["es2015.generator.d.ts", new Set(["Generator"])],
   [
-    "lib.es2015.iterable.d.ts",
+    "es2015.iterable.d.ts",
     new Set([
       "Iterator",
       "IterableIterator",
@@ -38,13 +38,13 @@ export const replacement = new Map([
       "PromiseConstructor",
     ]),
   ],
-  ["lib.es2015.promise.d.ts", new Set(["PromiseConstructor"])],
-  ["lib.es2015.proxy.d.ts", new Set(["ProxyHandler"])],
-  ["lib.es2015.reflect.d.ts", new Set(["Reflect"])],
-  ["lib.es2017.object.d.ts", new Set(["ObjectConstructor"])],
-  ["lib.es2018.asyncgenerator.d.ts", new Set(["AsyncGenerator"])],
-  ["lib.es2018.asynciterable.d.ts", new Set(["AsyncIterator"])],
-  ["lib.es2019.object.d.ts", new Set(["ObjectConstructor"])],
-  ["lib.esnext.promise.d.ts", new Set(["AggregateError"])],
-  ["lib.esnext.string.d.ts", new Set(["String"])],
+  ["es2015.promise.d.ts", new Set(["PromiseConstructor"])],
+  ["es2015.proxy.d.ts", new Set(["ProxyHandler"])],
+  ["es2015.reflect.d.ts", new Set(["Reflect"])],
+  ["es2017.object.d.ts", new Set(["ObjectConstructor"])],
+  ["es2018.asyncgenerator.d.ts", new Set(["AsyncGenerator"])],
+  ["es2018.asynciterable.d.ts", new Set(["AsyncIterator"])],
+  ["es2019.object.d.ts", new Set(["ObjectConstructor"])],
+  ["esnext.promise.d.ts", new Set(["AggregateError"])],
+  ["esnext.string.d.ts", new Set(["String"])],
 ]);

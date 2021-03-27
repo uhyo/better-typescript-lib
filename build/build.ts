@@ -18,21 +18,24 @@ async function main() {
   await symlink(path.join(projectDir, "lib"), path.join(distDir, "better"));
 
   // copy TypeScript lib files
-  const libs = await readdir(path.join(tsDir, "lib"));
+  const tsLibDir = path.join(tsDir, "src", "lib");
+  const libs = await readdir(tsLibDir);
   const libFiles: string[] = libs.filter((libFile) =>
-    /(?:^|\/|\\)lib\..+\.d\.ts$/.test(libFile)
+    /(?:^|\/|\\).+\.d\.ts$/.test(libFile)
   );
 
   // modify each lib file
   for (const libFile of libFiles) {
-    const tsLibFile = path.join(tsDir, "lib", libFile);
+    const tsLibFile = path.join(tsLibDir, libFile);
     const program = ts.createProgram([tsLibFile], {});
     const file = program.getSourceFile(tsLibFile);
     if (!file) {
       continue;
     }
     const repl = replacement.get(libFile);
-    let result = repl ? `/// <reference path="./better/${libFile}" />\n` : "";
+    let result = repl
+      ? `/// <reference path="./better/lib.${libFile}" />\n`
+      : "";
     if (!repl) {
       for (const statement of file.statements) {
         result += statement.getFullText(file);
@@ -52,7 +55,7 @@ async function main() {
       (_, lib) => `/// <reference path="./lib.${lib}.d.ts" />`
     );
 
-    await writeFile(path.join(distDir, libFile), result);
+    await writeFile(path.join(distDir, "lib." + libFile), result);
     console.log(libFile);
   }
 }
