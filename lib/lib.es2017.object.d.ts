@@ -5,32 +5,17 @@ interface ObjectConstructor {
    * Returns an array of values of the enumerable properties of an object
    * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
    */
-  values<T>(
-    o: T
-  ): string | number extends keyof T
-    ? T[string | number][]
-    : string extends keyof T
-    ? T[string][]
-    : number extends keyof T
-    ? T[number][]
-    : unknown[];
+  values<T>(o: ArrayLike<T>): T[];
+  values<K extends string | number | symbol, V>(o: Record<K, V>): V[];
+  values(o: unknown): unknown[];
 
   /**
    * Returns an array of key/values of the enumerable properties of an object
    * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
    */
-  entries<T>(
-    o: T
-  ): [
-    string,
-    string | number extends keyof T
-      ? T[string | number]
-      : string extends keyof T
-      ? T[string]
-      : number extends keyof T
-      ? T[number]
-      : unknown
-  ][];
+  entries<T>(o: ArrayLike<T>): [string, T][];
+  entries<K extends string | number | symbol, V>(o: Record<K, V>): [string, V][];
+  entries<T>(o: T): [string, unknown][];
 
   /**
    * Returns an object containing all own property descriptors of an object
