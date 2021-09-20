@@ -1,4 +1,4 @@
-/// <reference path="../dist/lib/lib.esnext.d.ts" />
+/// <reference path="../generated/lib.esnext.d.ts" />
 
 import { expectType } from "tsd";
 
