@@ -42,6 +42,7 @@ Include better-typescript-lib with triple-slash directives from the entry point 
 
 | better-typescript-lib | TypeScript      |
 | --------------------- | --------------- |
+| 1.2.0                 | TS 4.4 or later |
 | 1.1.0                 | TS 4.2 or later |
 | 1.0.0                 | TS 4.1 or later |
 
