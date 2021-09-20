@@ -6,11 +6,11 @@ An alternative TypeScript standard library with better type definitions.
 
 While it is well known that TypeScript is not _very_ type safe due to the existence of `any` and other pitfalls, TypeScript's built-in type definitions are also to blame for that unsafety. For example, it is handy but very unsafe that the return type of `JSON.parse` is `any`.
 
-Ideally TypeScript's built-in type definitions should have been better in view of type safety, but it is nearly impossible if we take backward compatibility into account.
+The core type checker of TypeScript has been improved to be more type safe, maintaining backwards compatibility through compiler options. Unfortunately, however, the type definitions are still not very good, and are harder to improve keeping backwards compatibility.
 
 ## The Solution
 
-This package provides an alternative type definitions which are safer than TypeScript's built-in ones. With this package, TypeScript users obtain less chance of unexpectedly getting `any` values. For example, in this type definition the return type of `JSON.parse` is not `any`, but `JSONData` which represents all possible JSON data.
+This package provides an alternative set of type definitions which replaces, and is safer than TypeScript's built-in ones. With this package, TypeScript users obtain less chance of unexpectedly getting `any` values. For example, in this type definition the return type of `JSON.parse` is not `any`, but `JSONData` which represents all possible JSON data.
 
 This package also includes other improved, stricter type definitions.
 
