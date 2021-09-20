@@ -15,7 +15,11 @@ interface String {
    */
   replaceAll(
     searchValue: string | RegExp,
-    // TODO: possible improvement in TS4.2
-    replacer: (substring: string, ...args: (string | number)[]) => string
+    replacer: (
+      substring: string,
+      // TODO: could be improved, but blocked by issue:
+      // https://github.com/microsoft/TypeScript/issues/45972
+      ...rest: (string | number)[]
+    ) => string
   ): string;
 }

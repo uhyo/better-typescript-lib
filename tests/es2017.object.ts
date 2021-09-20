@@ -1,4 +1,4 @@
-/// <reference path="../dist/lib/lib.es2017.d.ts" />
+/// <reference path="../generated/lib.es2017.d.ts" />
 
 import { expectType } from "tsd";
 
