@@ -4,7 +4,7 @@ import ts from "typescript";
 import { replacement } from "./replacement";
 
 const projectDir = process.env.PROJECT || process.cwd();
-const distDir = path.join(projectDir, "dist", "lib");
+const distDir = path.join(projectDir, "generated");
 const tsDir = path.join(projectDir, "TypeScript");
 
 async function main() {
@@ -45,6 +45,10 @@ async function main() {
         const res = checkStatement(statement, repl);
         if (res) {
           result += res.getFullText(file);
+        } else {
+          // Replaced statements are emitted as comments
+          // to make it easier to detect original lib changes
+          result += "\n" + commentOut(statement.getFullText(file)) + "\n";
         }
       }
     }
@@ -90,6 +94,12 @@ function checkStatement(
     }
   }
   return statement;
+}
+
+function commentOut(code: string): string {
+  const lines = code.split("\n");
+  const result = lines.map((line) => `// ${line}`);
+  return result.join("\n");
 }
 
 main().catch((err) => {

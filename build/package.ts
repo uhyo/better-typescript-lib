@@ -2,7 +2,7 @@ import { mkdir, readdir, readFile, rm, writeFile } from "fs/promises";
 import path from "path";
 
 const projectDir = process.env.PROJECT || process.cwd();
-const libDir = path.join(projectDir, "dist", "lib");
+const libDir = path.join(projectDir, "generated");
 const betterDir = path.join(projectDir, "lib");
 const templateDir = path.join(projectDir, "package-template");
 const packageDir = path.join(projectDir, "dist-package");
