@@ -1,4 +1,11 @@
-/// <reference path="./better/lib.es2021.promise.d.ts" />
+/// <reference no-default-lib="true"/>
+
+interface AggregateError extends Error {
+  errors: unknown[];
+}
+
+declare var AggregateError: AggregateErrorConstructor;
+// --------------------
 
 // interface AggregateError extends Error {
 //     errors: any[]

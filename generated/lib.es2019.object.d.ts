@@ -1,4 +1,15 @@
-/// <reference path="./better/lib.es2019.object.d.ts" />
+/// <reference no-default-lib="true"/>
+
+interface ObjectConstructor {
+  /**
+   * Returns an object created by key-value entries for properties and methods
+   * @param entries An iterable object that contains key-value entries for properties and methods.
+   */
+  fromEntries<T extends readonly [PropertyKey, unknown]>(
+    entries: Iterable<T>
+  ): Record<T[0], T[1]>;
+}
+// --------------------
 
 // /// <reference lib="es2015.iterable" />
 // 

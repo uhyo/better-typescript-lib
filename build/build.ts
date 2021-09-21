@@ -1,9 +1,10 @@
-import { mkdir, readdir, rm, symlink, writeFile } from "fs/promises";
+import { mkdir, readdir, readFile, rm, writeFile } from "fs/promises";
 import path from "path";
 import ts from "typescript";
 import { replacement } from "./replacement";
 
 const projectDir = process.env.PROJECT || process.cwd();
+const betterLibDir = path.join(projectDir, "lib");
 const distDir = path.join(projectDir, "generated");
 const tsDir = path.join(projectDir, "TypeScript");
 
@@ -15,13 +16,19 @@ async function main() {
   await mkdir(distDir, {
     recursive: true,
   });
-  await symlink(path.join(projectDir, "lib"), path.join(distDir, "better"));
 
   // copy TypeScript lib files
   const tsLibDir = path.join(tsDir, "src", "lib");
   const libs = await readdir(tsLibDir);
   const libFiles: string[] = libs.filter((libFile) =>
     /(?:^|\/|\\).+\.d\.ts$/.test(libFile)
+  );
+
+  // copy special "util" file
+  const utilFile = path.join(betterLibDir, "util.d.ts");
+  await writeFile(
+    path.join(distDir, "util.d.ts"),
+    await readFile(utilFile, "utf8")
   );
 
   // modify each lib file
@@ -32,10 +39,17 @@ async function main() {
     if (!file) {
       continue;
     }
+    let result = "";
     const repl = replacement.get(libFile);
-    let result = repl
-      ? `/// <reference path="./better/lib.${libFile}" />\n`
-      : "";
+    if (repl) {
+      // copy better lib into the top of the file
+      result += await readFile(
+        path.join(betterLibDir, `lib.${libFile}`),
+        "utf8"
+      );
+      result += "// --------------------\n";
+    }
+
     if (!repl) {
       for (const statement of file.statements) {
         result += statement.getFullText(file);
