@@ -25,9 +25,9 @@ async function main() {
   );
 
   // copy special "util" file
-  const utilFile = path.join(betterLibDir, "util.d.ts");
+  const utilFile = path.join(betterLibDir, "lib.util.d.ts");
   await writeFile(
-    path.join(distDir, "util.d.ts"),
+    path.join(distDir, "lib.util.d.ts"),
     await readFile(utilFile, "utf8")
   );
 
