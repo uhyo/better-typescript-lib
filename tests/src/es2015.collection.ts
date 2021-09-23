@@ -1,5 +1,3 @@
-/// <reference path="../generated/lib.es2015.d.ts" />
-
 import { expectType } from "tsd";
 
 // Map

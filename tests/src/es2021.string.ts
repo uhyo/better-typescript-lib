@@ -1,5 +1,3 @@
-/// <reference path="../generated/lib.es2021.d.ts" />
-
 // String
 "foobar".replaceAll(/foo/g, (substr, p1, p2) => {
   // expectType<string>(substr);

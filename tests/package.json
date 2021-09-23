@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsd"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "",
+  "tsd": {
+    "directory": "src"
+  },
   "devDependencies": {
     "@types/node": "^16.9.6",
     "typescript": "^4.4.2",
