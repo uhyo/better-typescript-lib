@@ -7,6 +7,7 @@ const projectDir = process.env.PROJECT || process.cwd();
 const libDir = path.join(projectDir, "generated");
 const templateDir = path.join(projectDir, "package-template");
 const packageDir = path.join(projectDir, "dist-package");
+const testsDir = path.join(projectDir, "tests");
 
 async function main() {
   await rm(packageDir, {
@@ -30,14 +31,13 @@ async function main() {
     /\.d\.ts$/.test(libFile)
   );
 
-  const packageNames: string[] = [];
+  const packageNames = new Set<string>();
   for (const libFile of libFiles) {
     console.log(`Processing ${libFile}`);
     const libFilePath = path.join(libDir, libFile);
     const { packageName, packagePath } =
       getPackageNameAndPathOfLib(libFilePath);
-    const p = `@${scope}/${packageName}`;
-    packageNames.push(p);
+    packageNames.add(packageName);
 
     const alreadyExisted = await mkdir(path.join(packageDir, packageName))
       .then(() => false)
@@ -56,10 +56,10 @@ async function main() {
         packageName,
         "package.json"
       );
-      await writeToPackageJson(packageJsonPath, {
-        name: p,
+      await writeToPackageJson(packageJsonPath, () => ({
+        name: toScopedPackageName(packageName),
         version,
-      });
+      }));
     }
 
     // copy lib file
@@ -82,17 +82,40 @@ async function main() {
     );
     // update package.json
     const packageJsonPath = path.join(mainPackageDir, "package.json");
-    await writeToPackageJson(packageJsonPath, {
+    await writeToPackageJson(packageJsonPath, () => ({
       name: rootPackageName,
       version,
       types: "./dist/index.d.ts",
-      dependencies: Object.fromEntries(packageNames.map((p) => [p, version])),
-    });
+      dependencies: Object.fromEntries(
+        [...packageNames].map((packageName) => [
+          `@typescript/${packageName}`,
+          `npm:${toScopedPackageName(packageName)}@${version}`,
+        ])
+      ),
+    }));
     // prepare symlink to dist
     await symlink(
       path.join(projectDir, "dist"),
       path.join(mainPackageDir, "dist")
     );
+  }
+  // update package.json in "tests" folder
+  {
+    const packageJsonPath = path.join(testsDir, "package.json");
+    await writeToPackageJson(packageJsonPath, (original) => ({
+      dependencies: {
+        ...original.dependencies,
+        ...Object.fromEntries(
+          [...packageNames].map((packageName) => [
+            `@typescript/${packageName}`,
+            `file:${path.relative(
+              path.dirname(packageJsonPath),
+              path.join(packageDir, packageName)
+            )}`,
+          ])
+        ),
+      },
+    }));
   }
 
   function installPackageTemplateFiles(dir: string) {
@@ -106,19 +129,23 @@ async function main() {
   }
   async function writeToPackageJson(
     packageJsonPath: string,
-    obj: Record<string, unknown>
+    updates: (original: any) => Record<string, unknown>
   ) {
+    const original = JSON.parse(await readFile(packageJsonPath, "utf-8"));
     return writeFile(
       packageJsonPath,
       JSON.stringify(
         {
-          ...JSON.parse(await readFile(packageJsonPath, "utf-8")),
-          ...obj,
+          ...original,
+          ...updates(original),
         },
         null,
         2
       ) + "\n"
     );
+  }
+  function toScopedPackageName(packageName: string) {
+    return `@${scope}/${packageName}`;
   }
 }
 
