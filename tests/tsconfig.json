@@ -8,5 +8,5 @@
     "strict": true,
     "types": []
   },
-  "include": ["./*.ts", "src/es5.ts"]
+  "include": ["./src/*.ts"]
 }
