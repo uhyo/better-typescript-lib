@@ -24,13 +24,6 @@ async function main() {
     /(?:^|\/|\\).+\.d\.ts$/.test(libFile)
   );
 
-  // copy special "util" file
-  const utilFile = path.join(betterLibDir, "lib.util.d.ts");
-  await writeFile(
-    path.join(distDir, "lib.util.d.ts"),
-    await readFile(utilFile, "utf8")
-  );
-
   // modify each lib file
   for (const libFile of libFiles) {
     const tsLibFile = path.join(tsLibDir, libFile);

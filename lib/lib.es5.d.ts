@@ -1,5 +1,15 @@
 /// <reference no-default-lib="true" />
-/// <reference lib="util" />
+
+// -----------
+// additional utility types
+type UnionToIntersection<T> = (
+  T extends any ? (arg: T) => void : never
+) extends (arg: infer F) => void
+  ? F
+  : unknown;
+
+type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T;
+// -----------
 
 /**
  * Evaluates JavaScript code and executes it.
