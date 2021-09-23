@@ -17,6 +17,11 @@ async function main() {
     recursive: true,
   });
 
+  // Read version from root package.json
+  const version: string = JSON.parse(
+    await readFile(path.join(projectDir, "package.json"), "utf-8")
+  ).version;
+
   const packageTemplateFiles = await readdir(templateDir);
 
   const libFiles = (await readdir(libDir)).filter((libFile) =>
@@ -52,6 +57,7 @@ async function main() {
       );
       const packageJson = JSON.parse(await readFile(packageJsonPath, "utf-8"));
       packageJson.name = `@${scope}/${packageName}`;
+      packageJson.version = version;
 
       await writeFile(
         packageJsonPath,
