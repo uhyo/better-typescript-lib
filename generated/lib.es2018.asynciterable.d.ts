@@ -9,8 +9,8 @@ interface AsyncIterator<T, TReturn = unknown, TNext = undefined> {
   throw?(e?: any): Promise<IteratorResult<T, TReturn>>;
 }
 // --------------------
-/// <reference path="./lib.es2015.symbol.d.ts" />
-/// <reference path="./lib.es2015.iterable.d.ts" />
+/// <reference lib="es2015.symbol" />
+/// <reference lib="es2015.iterable" />
 
 interface SymbolConstructor {
     /**

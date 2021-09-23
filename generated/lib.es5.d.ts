@@ -1,5 +1,5 @@
 /// <reference no-default-lib="true" />
-/// <reference path="./lib.util.d.ts" />
+/// <reference lib="util" />
 
 /**
  * Evaluates JavaScript code and executes it.

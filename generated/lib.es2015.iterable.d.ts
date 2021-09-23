@@ -36,7 +36,7 @@ interface PromiseConstructor {
   race<T>(values: Iterable<T>): Promise<T extends PromiseLike<infer U> ? U : T>;
 }
 // --------------------
-/// <reference path="./lib.es2015.symbol.d.ts" />
+/// <reference lib="es2015.symbol" />
 
 interface SymbolConstructor {
     /**

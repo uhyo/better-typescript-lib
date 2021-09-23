@@ -1,4 +1,4 @@
-/// <reference path="./lib.es2015.iterable.d.ts" />
+/// <reference lib="es2015.iterable" />
 
 interface String {
     /**
