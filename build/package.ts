@@ -1,4 +1,4 @@
-import { mkdir, readdir, readFile, rm, writeFile } from "fs/promises";
+import { mkdir, readdir, readFile, rm, symlink, writeFile } from "fs/promises";
 import path from "path";
 
 const scope = "better-typescript-lib";
@@ -18,9 +18,11 @@ async function main() {
   });
 
   // Read version from root package.json
-  const version: string = JSON.parse(
+  const rootPackageJson = JSON.parse(
     await readFile(path.join(projectDir, "package.json"), "utf-8")
-  ).version;
+  );
+  const rootPackageName: string = rootPackageJson.name;
+  const version: string = rootPackageJson.version;
 
   const packageTemplateFiles = await readdir(templateDir);
 
@@ -28,11 +30,14 @@ async function main() {
     /\.d\.ts$/.test(libFile)
   );
 
+  const packageNames: string[] = [];
   for (const libFile of libFiles) {
     console.log(`Processing ${libFile}`);
     const libFilePath = path.join(libDir, libFile);
     const { packageName, packagePath } =
       getPackageNameAndPathOfLib(libFilePath);
+    const p = `@${scope}/${packageName}`;
+    packageNames.push(p);
 
     const alreadyExisted = await mkdir(path.join(packageDir, packageName))
       .then(() => false)
@@ -44,25 +49,17 @@ async function main() {
       });
     if (!alreadyExisted) {
       // install package template files
-      for (const file of packageTemplateFiles) {
-        const filePath = path.join(templateDir, file);
-        const targetPath = path.join(packageDir, packageName, file);
-        await writeFile(targetPath, await readFile(filePath));
-      }
+      await installPackageTemplateFiles(path.join(packageDir, packageName));
       // update package.json
       const packageJsonPath = path.join(
         packageDir,
         packageName,
         "package.json"
       );
-      const packageJson = JSON.parse(await readFile(packageJsonPath, "utf-8"));
-      packageJson.name = `@${scope}/${packageName}`;
-      packageJson.version = version;
-
-      await writeFile(
-        packageJsonPath,
-        JSON.stringify(packageJson, null, 2) + "\n"
-      );
+      await writeToPackageJson(packageJsonPath, {
+        name: p,
+        version,
+      });
     }
 
     // copy lib file
@@ -70,6 +67,58 @@ async function main() {
     const targetDir = path.dirname(targetPath);
     await mkdir(targetDir, { recursive: true });
     await writeFile(targetPath, await readFile(libFilePath));
+  }
+  // Prepare "main" package
+  {
+    const mainPackageDir = path.join(packageDir, "__main");
+    await mkdir(mainPackageDir);
+
+    // install package template files
+    await installPackageTemplateFiles(mainPackageDir);
+    // copy root README to main package
+    await writeFile(
+      path.join(mainPackageDir, "README.md"),
+      await readFile(path.join(projectDir, "README.md"))
+    );
+    // update package.json
+    const packageJsonPath = path.join(mainPackageDir, "package.json");
+    await writeToPackageJson(packageJsonPath, {
+      name: rootPackageName,
+      version,
+      types: "./dist/index.d.ts",
+      dependencies: Object.fromEntries(packageNames.map((p) => [p, version])),
+    });
+    // prepare symlink to dist
+    await symlink(
+      path.join(projectDir, "dist"),
+      path.join(mainPackageDir, "dist")
+    );
+  }
+
+  function installPackageTemplateFiles(dir: string) {
+    return Promise.all(
+      packageTemplateFiles.map(async (file) => {
+        const filePath = path.join(templateDir, file);
+        const targetPath = path.join(dir, file);
+        return writeFile(targetPath, await readFile(filePath));
+      })
+    );
+  }
+  async function writeToPackageJson(
+    packageJsonPath: string,
+    obj: Record<string, unknown>
+  ) {
+    return writeFile(
+      packageJsonPath,
+      JSON.stringify(
+        {
+          ...JSON.parse(await readFile(packageJsonPath, "utf-8")),
+          ...obj,
+        },
+        null,
+        2
+      ) + "\n"
+    );
   }
 }
 
