@@ -5,6 +5,7 @@
   "description": "Better TypeScript standard library",
   "main": "index.js",
   "devDependencies": {
+    "@jsdevtools/npm-publish": "^1.4.3",
     "@types/node": "^16.9.4",
     "prettier": "^2.4.1",
     "tsd": "^0.17.0",
