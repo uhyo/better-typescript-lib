@@ -15,22 +15,21 @@
   "devDependencies": {
     "@types/node": "^16.9.6",
     "tsd": "^0.17.0",
-    "typescript": "^4.5.0-dev.20210923"
+    "typescript": "^4.5.0-dev.20210925"
   },
   "dependencies": {
-    "@typescript/dom": "file:../dist-package/dom",
-    "@typescript/es2015": "file:../dist-package/es2015",
-    "@typescript/es2016": "file:../dist-package/es2016",
-    "@typescript/es2017": "file:../dist-package/es2017",
-    "@typescript/es2018": "file:../dist-package/es2018",
-    "@typescript/es2019": "file:../dist-package/es2019",
-    "@typescript/es2020": "file:../dist-package/es2020",
-    "@typescript/es2021": "file:../dist-package/es2021",
-    "@typescript/es5": "file:../dist-package/es5",
-    "@typescript/esnext": "file:../dist-package/esnext",
-    "@typescript/header": "file:../dist-package/header",
-    "@typescript/scripthost": "file:../dist-package/scripthost",
-    "@typescript/util": "file:../dist-package/util",
-    "@typescript/webworker": "file:../dist-package/webworker"
+    "@typescript/lib-dom": "file:../dist-package/dom",
+    "@typescript/lib-es2015": "file:../dist-package/es2015",
+    "@typescript/lib-es2016": "file:../dist-package/es2016",
+    "@typescript/lib-es2017": "file:../dist-package/es2017",
+    "@typescript/lib-es2018": "file:../dist-package/es2018",
+    "@typescript/lib-es2019": "file:../dist-package/es2019",
+    "@typescript/lib-es2020": "file:../dist-package/es2020",
+    "@typescript/lib-es2021": "file:../dist-package/es2021",
+    "@typescript/lib-es5": "file:../dist-package/es5",
+    "@typescript/lib-esnext": "file:../dist-package/esnext",
+    "@typescript/lib-header": "file:../dist-package/header",
+    "@typescript/lib-scripthost": "file:../dist-package/scripthost",
+    "@typescript/lib-webworker": "file:../dist-package/webworker"
   }
 }

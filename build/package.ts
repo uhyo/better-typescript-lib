@@ -88,7 +88,7 @@ async function main() {
       types: "./dist/index.d.ts",
       dependencies: Object.fromEntries(
         [...packageNames].map((packageName) => [
-          `@typescript/${packageName}`,
+          `@typescript/lib-${packageName}`,
           `npm:${toScopedPackageName(packageName)}@${version}`,
         ])
       ),
@@ -107,7 +107,7 @@ async function main() {
         ...original.dependencies,
         ...Object.fromEntries(
           [...packageNames].map((packageName) => [
-            `@typescript/${packageName}`,
+            `@typescript/lib-${packageName}`,
             `file:${path.relative(
               path.dirname(packageJsonPath),
               path.join(packageDir, packageName)
@@ -153,9 +153,9 @@ function getPackageNameAndPathOfLib(libFile: string) {
   const libFileName = path.basename(libFile, ".d.ts");
   const components = libFileName.split(".");
 
-  // lib.dom.d.ts -> @typescript/dom
-  // lib.dom.iterable.d.ts -> @typescript/dom/iterable
-  // lib.es2015.symbol.wellknown.d.ts -> @typescript/es2015/symbol-wellknown
+  // lib.dom.d.ts -> @typescript/lib-dom
+  // lib.dom.iterable.d.ts -> @typescript/lib-dom/iterable
+  // lib.es2015.symbol.wellknown.d.ts -> @typescript/lib-es2015/symbol-wellknown
 
   if (components[0] !== "lib") {
     throw new Error(`Invalid lib file: ${libFile}`);
