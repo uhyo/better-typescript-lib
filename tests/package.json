@@ -15,7 +15,7 @@
   "devDependencies": {
     "@types/node": "^16.9.6",
     "tsd": "^0.17.0",
-    "typescript": "^4.5.0-dev.20210925"
+    "typescript": "^4.5.0-beta"
   },
   "dependencies": {
     "@typescript/lib-dom": "file:../dist-package/dom",

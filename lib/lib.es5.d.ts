@@ -7,8 +7,6 @@ type UnionToIntersection<T> = (
 ) extends (arg: infer F) => void
   ? F
   : unknown;
-
-type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T;
 // -----------
 
 /**
