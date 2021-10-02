@@ -18,10 +18,10 @@ This package also includes other improved, stricter type definitions.
 
 You only need to install `better-typescript-lib`. Additional configuration is not needed; your TypeScript project automatically use `better-typescript-lib` definitions.
 
-Currently v2 is alpha-released.
+Currently v2 is beta-released.
 
 ```sh
-npm i -D better-typescript-lib@2.0.0-alpha.1
+npm i -D better-typescript-lib@2.0.0-beta
 ```
 
 ### How it works
