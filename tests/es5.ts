@@ -88,6 +88,16 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   expectType<string>(JSON.stringify(readonlyArr));
   const readonlyObj = { foo: { bar: 1 } } as const;
   expectType<string>(JSON.stringify(readonlyObj));
+
+  // https://github.com/uhyo/better-typescript-lib/issues/5
+  interface Param {
+    id: string;
+    value: number;
+  }
+  +function foo(param: Param, readonlyParam: Readonly<Param>) {
+    JSON.stringify(param); // error
+    JSON.stringify(readonlyParam);
+  };
 }
 
 // ArrayConstructor

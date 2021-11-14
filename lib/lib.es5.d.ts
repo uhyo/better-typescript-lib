@@ -209,16 +209,6 @@ type JSONValue =
     }
   | JSONValue[];
 
-type ReadonlyJSONValue =
-  | null
-  | string
-  | number
-  | boolean
-  | {
-      readonly [K in string]?: ReadonlyJSONValue;
-    }
-  | readonly ReadonlyJSONValue[];
-
 interface JSON {
   /**
    * Converts a JavaScript Object Notation (JSON) string into an object.
@@ -237,12 +227,8 @@ interface JSON {
    * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
    */
   stringify(
-    value: ReadonlyJSONValue,
-    replacer?: (
-      this: ReadonlyJSONValue,
-      key: string,
-      value: ReadonlyJSONValue
-    ) => any,
+    value: unknown,
+    replacer?: (this: unknown, key: string, value: unknown) => any,
     space?: string | number
   ): string;
   /**
@@ -252,7 +238,7 @@ interface JSON {
    * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
    */
   stringify(
-    value: ReadonlyJSONValue,
+    value: unknown,
     replacer?: (number | string)[] | null,
     space?: string | number
   ): string;
