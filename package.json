@@ -1,7 +1,7 @@
 {
   "name": "better-typescript-lib",
   "private": true,
-  "version": "2.0.0-beta",
+  "version": "2.0.0",
   "description": "Better TypeScript standard library",
   "main": "index.js",
   "devDependencies": {
