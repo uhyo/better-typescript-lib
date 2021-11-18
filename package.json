@@ -9,7 +9,7 @@
     "@types/node": "^16.9.4",
     "prettier": "^2.4.1",
     "tsd": "^0.18.0",
-    "typescript": "file:typescript"
+    "typescript": "^4.5.2"
   },
   "scripts": {
     "build:tsc": "tsc",
