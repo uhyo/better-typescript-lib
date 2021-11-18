@@ -16,37 +16,27 @@ This package provides an alternative set of type definitions which replaces, and
 
 This package also includes other improved, stricter type definitions.
 
-## Usage
+## Installation
 
-### Install
+You only need to install `better-typescript-lib`. Additional configuration is not needed; your TypeScript project automatically use `better-typescript-lib` definitions.
+
+Currently v2 is beta-released.
 
 ```sh
-npm i -D better-typescript-lib
+npm i -D better-typescript-lib@2.0.0-beta
 ```
 
-### Disable built-in library from tsconfig.json
+### How it works
 
-```diff
-- "lib": ["es5", "dom"]
-+ "noLib": true
-```
-
-### Include better-typescript-lib
-
-Include better-typescript-lib with triple-slash directives from the entry point of your code. Note that these directives must be placed at the very top of a `.ts` file.
-
-```ts
-/// <reference path="./node_modules/better-typescript-lib/lib.es5.d.ts" />
-/// <reference path="./node_modules/better-typescript-lib/lib.dom.d.ts" />
-```
+Starting from TypeScript 4.5, the TypeScript compiler detects existence of `@typescript/xxx` packages (e.g. `@typescript/es2015`) and uses them instead of the built-in definitions. By installing `better-typescript-lib`, these package names are mapped to corresponding `@better-typescript-lib/xxx` packages.
 
 ## Supported TypeScript Versions
 
 | better-typescript-lib | TypeScript      |
 | --------------------- | --------------- |
-| 1.2.0                 | TS 4.4 or later |
-| 1.1.0                 | TS 4.2 or later |
-| 1.0.0                 | TS 4.1 or later |
+| 2.0.0                 | TS 4.5 or later |
+
+For TS 4.4 and lower, see `v1` branch.
 
 ## Concepts
 

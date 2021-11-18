@@ -1,9 +1,10 @@
-import { mkdir, readdir, rm, symlink, writeFile } from "fs/promises";
+import { mkdir, readdir, readFile, rm, writeFile } from "fs/promises";
 import path from "path";
 import ts from "typescript";
 import { replacement } from "./replacement";
 
 const projectDir = process.env.PROJECT || process.cwd();
+const betterLibDir = path.join(projectDir, "lib");
 const distDir = path.join(projectDir, "generated");
 const tsDir = path.join(projectDir, "TypeScript");
 
@@ -15,7 +16,6 @@ async function main() {
   await mkdir(distDir, {
     recursive: true,
   });
-  await symlink(path.join(projectDir, "lib"), path.join(distDir, "better"));
 
   // copy TypeScript lib files
   const tsLibDir = path.join(tsDir, "src", "lib");
@@ -32,10 +32,17 @@ async function main() {
     if (!file) {
       continue;
     }
+    let result = "";
     const repl = replacement.get(libFile);
-    let result = repl
-      ? `/// <reference path="./better/lib.${libFile}" />\n`
-      : "";
+    if (repl) {
+      // copy better lib into the top of the file
+      result += await readFile(
+        path.join(betterLibDir, `lib.${libFile}`),
+        "utf8"
+      );
+      result += "// --------------------\n";
+    }
+
     if (!repl) {
       for (const statement of file.statements) {
         result += statement.getFullText(file);
@@ -53,11 +60,6 @@ async function main() {
       }
     }
     result += file.text.slice(file.endOfFileToken.pos);
-    // Replace <reference lib="" /> to <reference path="" />
-    result = result.replace(
-      /^\/\/\/\s*<reference\s+lib="(.+?)"\s*\/>/gm,
-      (_, lib) => `/// <reference path="./lib.${lib}.d.ts" />`
-    );
 
     await writeFile(path.join(distDir, "lib." + libFile), result);
     console.log(libFile);

@@ -41,11 +41,9 @@ interface PromiseConstructor {
    */
   all<T extends readonly any[]>(
     values: [...T]
-  ): Promise<
-    {
-      [K in keyof T]: Awaited<T[K]>;
-    }
-  >;
+  ): Promise<{
+    -readonly [K in keyof T]: Awaited<T[K]>;
+  }>;
 
   // see: lib.es2015.iterable.d.ts
   // all<T>(values: Iterable<T | PromiseLike<T>>): Promise<T[]>;

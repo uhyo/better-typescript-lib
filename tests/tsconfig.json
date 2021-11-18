@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
+    "lib": ["esnext"],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
-    "lib": [],
     "strict": true,
     "types": []
   },
-  "include": ["./*.ts"]
+  "include": ["./src/*.ts"]
 }

@@ -23,9 +23,7 @@ interface PromiseConstructor {
    * @param values An iterable of Promises.
    * @returns A new Promise.
    */
-  all<T>(
-    values: Iterable<T>
-  ): Promise<(T extends PromiseLike<infer U> ? U : T)[]>;
+  all<T>(values: Iterable<T>): Promise<Awaited<T>[]>;
 
   /**
    * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
@@ -33,5 +31,5 @@ interface PromiseConstructor {
    * @param values An iterable of Promises.
    * @returns A new Promise.
    */
-  race<T>(values: Iterable<T>): Promise<T extends PromiseLike<infer U> ? U : T>;
+  race<T>(values: Iterable<T>): Promise<Awaited<T>>;
 }

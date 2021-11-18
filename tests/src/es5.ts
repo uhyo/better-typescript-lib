@@ -1,5 +1,3 @@
-/// <reference path="../generated/lib.es5.d.ts" />
-
 import { expectError, expectType } from "tsd";
 
 // eval

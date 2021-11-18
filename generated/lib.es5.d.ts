@@ -1,4 +1,284 @@
-/// <reference path="./better/lib.es5.d.ts" />
+/// <reference no-default-lib="true" />
+
+// -----------
+// additional utility types
+type UnionToIntersection<T> = (
+  T extends any ? (arg: T) => void : never
+) extends (arg: infer F) => void
+  ? F
+  : unknown;
+// -----------
+
+/**
+ * Evaluates JavaScript code and executes it.
+ * @param x A String value that contains valid JavaScript code.
+ */
+declare function eval(x: string): unknown;
+
+interface ObjectConstructor {
+  new (value?: any): Object;
+  (): {};
+  <T>(value: T): T extends object ? T : {};
+
+  /** A reference to the prototype for a class of objects. */
+  readonly prototype: Object;
+
+  /**
+   * Returns the prototype of an object.
+   * @param o The object that references the prototype.
+   */
+  getPrototypeOf(o: any): unknown;
+
+  /**
+   * Gets the own property descriptor of the specified object.
+   * An own property descriptor is one that is defined directly on the object and is not inherited from the object's prototype.
+   * @param o Object that contains the property.
+   * @param p Name of the property.
+   */
+  getOwnPropertyDescriptor(
+    o: any,
+    p: PropertyKey
+  ): PropertyDescriptor | undefined;
+
+  /**
+   * Returns the names of the own properties of an object. The own properties of an object are those that are defined directly
+   * on that object, and are not inherited from the object's prototype. The properties of an object include both fields (objects) and functions.
+   * @param o Object that contains the own properties.
+   */
+  getOwnPropertyNames(o: any): string[];
+
+  /**
+   * Creates an object that has the specified prototype or that has null prototype.
+   * @param o Object to use as a prototype. May be null.
+   */
+  create(o: object | null): {};
+
+  /**
+   * Creates an object that has the specified prototype, and that optionally contains specified properties.
+   * @param o Object to use as a prototype. May be null
+   * @param properties JavaScript object that contains one or more property descriptors.
+   */
+  create<P extends Record<string, PropertyDescriptor>>(
+    o: object | null,
+    properties: P & ThisType<any>
+  ): {
+    [K in keyof P]: P[K] extends { value: infer V }
+      ? V
+      : P[K] extends { get: () => infer V }
+      ? V
+      : unknown;
+  };
+
+  /**
+   * Adds a property to an object, or modifies attributes of an existing property.
+   * @param o Object on which to add or modify the property. This can be a native JavaScript object (that is, a user-defined object or a built in object) or a DOM object.
+   * @param p The property name.
+   * @param attributes Descriptor for the property. It can be for a data property or an accessor property.
+   */
+  defineProperty<O, K extends PropertyKey, D extends PropertyDescriptor>(
+    o: O,
+    p: K,
+    attributes: D & ThisType<any>
+  ): O &
+    (K extends PropertyKey
+      ? Record<
+          K,
+          D extends { value: infer V }
+            ? V
+            : D extends { get: () => infer V }
+            ? V
+            : unknown
+        >
+      : unknown);
+
+  /**
+   * Adds one or more properties to an object, and/or modifies attributes of existing properties.
+   * @param o Object on which to add or modify the properties. This can be a native JavaScript object or a DOM object.
+   * @param properties JavaScript object that contains one or more descriptor objects. Each descriptor object describes a data property or an accessor property.
+   */
+  defineProperties<O, P extends Record<PropertyKey, PropertyDescriptor>>(
+    o: O,
+    properties: P & ThisType<any>
+  ): {
+    [K in keyof (O & P)]: P[K] extends { value: infer V }
+      ? V
+      : P[K] extends { get: () => infer V }
+      ? V
+      : K extends keyof O
+      ? O[K]
+      : unknown;
+  };
+
+  /**
+   * Prevents the modification of attributes of existing properties, and prevents the addition of new properties.
+   * @param o Object on which to lock the attributes.
+   */
+  seal<T>(o: T): T;
+
+  /**
+   * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
+   * @param o Object on which to lock the attributes.
+   */
+  freeze<T>(a: T[]): readonly T[];
+
+  /**
+   * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
+   * @param o Object on which to lock the attributes.
+   */
+  freeze<T extends Function>(f: T): T;
+
+  /**
+   * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
+   * @param o Object on which to lock the attributes.
+   */
+  freeze<T>(o: T): Readonly<T>;
+
+  /**
+   * Prevents the addition of new properties to an object.
+   * @param o Object to make non-extensible.
+   */
+  preventExtensions<T>(o: T): T;
+
+  /**
+   * Returns true if existing property attributes cannot be modified in an object and new properties cannot be added to the object.
+   * @param o Object to test.
+   */
+  isSealed(o: any): boolean;
+
+  /**
+   * Returns true if existing property attributes and values cannot be modified in an object, and new properties cannot be added to the object.
+   * @param o Object to test.
+   */
+  isFrozen(o: any): boolean;
+
+  /**
+   * Returns a value that indicates whether new properties can be added to an object.
+   * @param o Object to test.
+   */
+  isExtensible(o: any): boolean;
+
+  /**
+   * Returns the names of the enumerable string properties and methods of an object.
+   * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
+   */
+  keys(o: object): string[];
+}
+
+interface CallableFunction extends Function {
+  /**
+   * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
+   * @param thisArg The object to be used as the this object.
+   * @param args An array of argument values to be passed to the function.
+   */
+  apply<T, R>(this: (this: T) => R, thisArg: T): R;
+  apply<T, A extends any[], R>(
+    this: (this: T, ...args: A) => R,
+    thisArg: T,
+    args: A
+  ): R;
+
+  /**
+   * Calls the function with the specified object as the this value and the specified rest arguments as the arguments.
+   * @param thisArg The object to be used as the this object.
+   * @param args Argument values to be passed to the function.
+   */
+  call<T, A extends any[], R>(
+    this: (this: T, ...args: A) => R,
+    thisArg: T,
+    ...args: A
+  ): R;
+
+  /**
+   * For a given function, creates a bound function that has the same body as the original function.
+   * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
+   * @param thisArg The object to be used as the this object.
+   * @param args Arguments to bind to the parameters of the function.
+   */
+  bind<T, A extends readonly any[], B extends readonly any[], R>(
+    this: (this: T, ...args: [...A, ...B]) => R,
+    thisArg: T,
+    ...args: A
+  ): (...args: B) => R;
+}
+
+interface IArguments {
+  [index: number]: unknown;
+  length: number;
+  callee: Function;
+}
+
+type JSONValue =
+  | null
+  | string
+  | number
+  | boolean
+  | {
+      [K in string]?: JSONValue;
+    }
+  | JSONValue[];
+
+interface JSON {
+  /**
+   * Converts a JavaScript Object Notation (JSON) string into an object.
+   * @param text A valid JSON string.
+   * @param reviver A function that transforms the results. This function is called for each member of the object.
+   * If a member contains nested objects, the nested objects are transformed before the parent object is.
+   */
+  parse(
+    text: string,
+    reviver?: (this: JSONValue, key: string, value: JSONValue) => any
+  ): JSONValue;
+  /**
+   * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
+   * @param value A JavaScript value, usually an object or array, to be converted.
+   * @param replacer A function that transforms the results.
+   * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
+   */
+  stringify(
+    value: unknown,
+    replacer?: (this: unknown, key: string, value: unknown) => any,
+    space?: string | number
+  ): string;
+  /**
+   * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
+   * @param value A JavaScript value, usually an object or array, to be converted.
+   * @param replacer An array of strings and numbers that acts as a approved list for selecting the object properties that will be stringified.
+   * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
+   */
+  stringify(
+    value: unknown,
+    replacer?: (number | string)[] | null,
+    space?: string | number
+  ): string;
+}
+
+/**
+ * An intrinsic object that provides functions to convert JavaScript values to and from the JavaScript Object Notation (JSON) format.
+ */
+declare var JSON: JSON;
+
+interface ArrayConstructor {
+  new <T>(arrayLength: number): T[];
+  new <T>(...items: T[]): T[];
+  <T>(arrayLength: number): T[];
+  <T>(...items: T[]): T[];
+  isArray(arg: any): arg is unknown[];
+  readonly prototype: unknown[];
+}
+
+declare type PromiseConstructorLike = new <T>(
+  executor: (
+    resolve: undefined extends T
+      ? {
+          (value?: T | PromiseLike<T>): void;
+        }
+      : {
+          (value: T | PromiseLike<T>): void;
+        },
+    reject: (reason?: any) => void
+  ) => void
+) => PromiseLike<T>;
+// --------------------
 /////////////////////////////
 /// ECMAScript APIs
 /////////////////////////////
@@ -67,12 +347,14 @@ declare function encodeURIComponent(uriComponent: string | number | boolean): st
 
 /**
  * Computes a new string in which certain characters have been replaced by a hexadecimal escape sequence.
+ * @deprecated A legacy feature for browser compatibility
  * @param string A string value
  */
 declare function escape(string: string): string;
 
 /**
  * Computes a new string in which hexadecimal escape sequences are replaced with the character that it represents.
+ * @deprecated A legacy feature for browser compatibility
  * @param string A string value
  */
 declare function unescape(string: string): string;
@@ -198,13 +480,13 @@ interface Object {
 // 
 //     /**
 //      * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
-//      * @param o Object on which to lock the attributes.
+//      * @param a Object on which to lock the attributes.
 //      */
 //     freeze<T>(a: T[]): readonly T[];
 // 
 //     /**
 //      * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
-//      * @param o Object on which to lock the attributes.
+//      * @param f Object on which to lock the attributes.
 //      */
 //     freeze<T extends Function>(f: T): T;
 // 
@@ -492,6 +774,7 @@ interface String {
     // IE extensions
     /**
      * Gets a substring beginning at the specified location and having the specified length.
+     * @deprecated A legacy feature for browser compatibility
      * @param from The starting position of the desired substring. The index of the first character in the string is zero.
      * @param length The number of characters to include in the returned substring.
      */
@@ -601,6 +884,23 @@ interface TemplateStringsArray extends ReadonlyArray<string> {
  * this type may be augmented via interface merging.
  */
 interface ImportMeta {
+}
+
+/**
+ * The type for the optional second argument to `import()`.
+ *
+ * If your host environment supports additional options, this type may be
+ * augmented via interface merging.
+ */
+interface ImportCallOptions {
+    assert?: ImportAssertions;
+}
+
+/**
+ * The type for the `assert` property of the optional second argument to `import()`.
+ */
+interface ImportAssertions {
+    [key: string]: string;
 }
 
 interface Math {
@@ -933,7 +1233,8 @@ interface RegExp {
     lastIndex: number;
 
     // Non-standard extensions
-    compile(): this;
+    /** @deprecated A legacy feature for browser compatibility */
+    compile(pattern: string, flags?: string): this;
 }
 
 interface RegExpConstructor {
@@ -944,16 +1245,44 @@ interface RegExpConstructor {
     readonly prototype: RegExp;
 
     // Non-standard extensions
+    /** @deprecated A legacy feature for browser compatibility */
     $1: string;
+    /** @deprecated A legacy feature for browser compatibility */
     $2: string;
+    /** @deprecated A legacy feature for browser compatibility */
     $3: string;
+    /** @deprecated A legacy feature for browser compatibility */
     $4: string;
+    /** @deprecated A legacy feature for browser compatibility */
     $5: string;
+    /** @deprecated A legacy feature for browser compatibility */
     $6: string;
+    /** @deprecated A legacy feature for browser compatibility */
     $7: string;
+    /** @deprecated A legacy feature for browser compatibility */
     $8: string;
+    /** @deprecated A legacy feature for browser compatibility */
     $9: string;
+    /** @deprecated A legacy feature for browser compatibility */
+    input: string;
+    /** @deprecated A legacy feature for browser compatibility */
+    $_: string;
+    /** @deprecated A legacy feature for browser compatibility */
     lastMatch: string;
+    /** @deprecated A legacy feature for browser compatibility */
+    "$&": string;
+    /** @deprecated A legacy feature for browser compatibility */
+    lastParen: string;
+    /** @deprecated A legacy feature for browser compatibility */
+    "$+": string;
+    /** @deprecated A legacy feature for browser compatibility */
+    leftContext: string;
+    /** @deprecated A legacy feature for browser compatibility */
+    "$`": string;
+    /** @deprecated A legacy feature for browser compatibility */
+    rightContext: string;
+    /** @deprecated A legacy feature for browser compatibility */
+    "$'": string;
 }
 
 declare var RegExp: RegExpConstructor;
@@ -1274,7 +1603,7 @@ interface Array<T> {
      * Sorts an array in place.
      * This method mutates the array and returns a reference to the same array.
      * @param compareFn Function used to determine the order of the elements. It is expected to return
-     * a negative value if first argument is less than second argument, zero if they're equal and a positive
+     * a negative value if the first argument is less than the second argument, zero if they're equal, and a positive
      * value otherwise. If omitted, the elements are sorted in ascending, ASCII character order.
      * ```ts
      * [11,2,22,1].sort((a, b) => a - b)
@@ -1456,6 +1785,17 @@ interface Promise<T> {
      */
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
 }
+
+/**
+ * Recursively unwraps the "awaited type" of a type. Non-promise "thenables" should resolve to `never`. This emulates the behavior of `await`.
+ */
+type Awaited<T> =
+    T extends null | undefined ? T : // special case for `null | undefined` when not in `--strictNullChecks` mode
+        T extends object & { then(onfulfilled: infer F): any } ? // `await` only unwraps object types with a callable `then`. Non-object types are not unwrapped
+            F extends ((value: infer V) => any) ? // if the argument to `then` is callable, extracts the argument
+                Awaited<V> : // recursively unwrap the value
+                never : // the argument to `then` was not callable
+        T; // non-object or non-thenable
 
 interface ArrayLike<T> {
     readonly length: number;
@@ -1963,7 +2303,7 @@ interface Int8Array {
      * Sorts an array.
      * @param compareFn Function used to determine the order of the elements. It is expected to return
      * a negative value if first argument is less than second argument, zero if they're equal and a positive
-     * value otherwise. If omitted, the elements are sorted in ascending, ASCII character order.
+     * value otherwise. If omitted, the elements are sorted in ascending order.
      * ```ts
      * [11,2,22,1].sort((a, b) => a - b)
      * ```
@@ -2245,7 +2585,7 @@ interface Uint8Array {
      * Sorts an array.
      * @param compareFn Function used to determine the order of the elements. It is expected to return
      * a negative value if first argument is less than second argument, zero if they're equal and a positive
-     * value otherwise. If omitted, the elements are sorted in ascending, ASCII character order.
+     * value otherwise. If omitted, the elements are sorted in ascending order.
      * ```ts
      * [11,2,22,1].sort((a, b) => a - b)
      * ```
@@ -2527,7 +2867,7 @@ interface Uint8ClampedArray {
      * Sorts an array.
      * @param compareFn Function used to determine the order of the elements. It is expected to return
      * a negative value if first argument is less than second argument, zero if they're equal and a positive
-     * value otherwise. If omitted, the elements are sorted in ascending, ASCII character order.
+     * value otherwise. If omitted, the elements are sorted in ascending order.
      * ```ts
      * [11,2,22,1].sort((a, b) => a - b)
      * ```
@@ -2807,7 +3147,7 @@ interface Int16Array {
      * Sorts an array.
      * @param compareFn Function used to determine the order of the elements. It is expected to return
      * a negative value if first argument is less than second argument, zero if they're equal and a positive
-     * value otherwise. If omitted, the elements are sorted in ascending, ASCII character order.
+     * value otherwise. If omitted, the elements are sorted in ascending order.
      * ```ts
      * [11,2,22,1].sort((a, b) => a - b)
      * ```
@@ -3090,7 +3430,7 @@ interface Uint16Array {
      * Sorts an array.
      * @param compareFn Function used to determine the order of the elements. It is expected to return
      * a negative value if first argument is less than second argument, zero if they're equal and a positive
-     * value otherwise. If omitted, the elements are sorted in ascending, ASCII character order.
+     * value otherwise. If omitted, the elements are sorted in ascending order.
      * ```ts
      * [11,2,22,1].sort((a, b) => a - b)
      * ```
@@ -3372,7 +3712,7 @@ interface Int32Array {
      * Sorts an array.
      * @param compareFn Function used to determine the order of the elements. It is expected to return
      * a negative value if first argument is less than second argument, zero if they're equal and a positive
-     * value otherwise. If omitted, the elements are sorted in ascending, ASCII character order.
+     * value otherwise. If omitted, the elements are sorted in ascending order.
      * ```ts
      * [11,2,22,1].sort((a, b) => a - b)
      * ```
@@ -3653,7 +3993,7 @@ interface Uint32Array {
      * Sorts an array.
      * @param compareFn Function used to determine the order of the elements. It is expected to return
      * a negative value if first argument is less than second argument, zero if they're equal and a positive
-     * value otherwise. If omitted, the elements are sorted in ascending, ASCII character order.
+     * value otherwise. If omitted, the elements are sorted in ascending order.
      * ```ts
      * [11,2,22,1].sort((a, b) => a - b)
      * ```
@@ -3935,7 +4275,7 @@ interface Float32Array {
      * Sorts an array.
      * @param compareFn Function used to determine the order of the elements. It is expected to return
      * a negative value if first argument is less than second argument, zero if they're equal and a positive
-     * value otherwise. If omitted, the elements are sorted in ascending, ASCII character order.
+     * value otherwise. If omitted, the elements are sorted in ascending order.
      * ```ts
      * [11,2,22,1].sort((a, b) => a - b)
      * ```
@@ -4218,7 +4558,7 @@ interface Float64Array {
      * Sorts an array.
      * @param compareFn Function used to determine the order of the elements. It is expected to return
      * a negative value if first argument is less than second argument, zero if they're equal and a positive
-     * value otherwise. If omitted, the elements are sorted in ascending, ASCII character order.
+     * value otherwise. If omitted, the elements are sorted in ascending order.
      * ```ts
      * [11,2,22,1].sort((a, b) => a - b)
      * ```
@@ -4280,12 +4620,12 @@ declare var Float64Array: Float64ArrayConstructor;
 
 declare namespace Intl {
     interface CollatorOptions {
-        usage?: string;
-        localeMatcher?: string;
-        numeric?: boolean;
-        caseFirst?: string;
-        sensitivity?: string;
-        ignorePunctuation?: boolean;
+        usage?: string | undefined;
+        localeMatcher?: string | undefined;
+        numeric?: boolean | undefined;
+        caseFirst?: string | undefined;
+        sensitivity?: string | undefined;
+        ignorePunctuation?: boolean | undefined;
     }
 
     interface ResolvedCollatorOptions {
@@ -4309,17 +4649,17 @@ declare namespace Intl {
     };
 
     interface NumberFormatOptions {
-        localeMatcher?: string;
-        style?: string;
-        currency?: string;
-        currencyDisplay?: string;
-        currencySign?: string;
-        useGrouping?: boolean;
-        minimumIntegerDigits?: number;
-        minimumFractionDigits?: number;
-        maximumFractionDigits?: number;
-        minimumSignificantDigits?: number;
-        maximumSignificantDigits?: number;
+        localeMatcher?: string | undefined;
+        style?: string | undefined;
+        currency?: string | undefined;
+        currencyDisplay?: string | undefined;
+        currencySign?: string | undefined;
+        useGrouping?: boolean | undefined;
+        minimumIntegerDigits?: number | undefined;
+        minimumFractionDigits?: number | undefined;
+        maximumFractionDigits?: number | undefined;
+        minimumSignificantDigits?: number | undefined;
+        maximumSignificantDigits?: number | undefined;
     }
 
     interface ResolvedNumberFormatOptions {
@@ -4347,19 +4687,19 @@ declare namespace Intl {
     };
 
     interface DateTimeFormatOptions {
-        localeMatcher?: "best fit" | "lookup";
-        weekday?: "long" | "short" | "narrow";
-        era?: "long" | "short" | "narrow";
-        year?: "numeric" | "2-digit";
-        month?: "numeric" | "2-digit" | "long" | "short" | "narrow";
-        day?: "numeric" | "2-digit";
-        hour?: "numeric" | "2-digit";
-        minute?: "numeric" | "2-digit";
-        second?: "numeric" | "2-digit";
-        timeZoneName?: "long" | "short";
-        formatMatcher?: "best fit" | "basic";
-        hour12?: boolean;
-        timeZone?: string;
+        localeMatcher?: "best fit" | "lookup" | undefined;
+        weekday?: "long" | "short" | "narrow" | undefined;
+        era?: "long" | "short" | "narrow" | undefined;
+        year?: "numeric" | "2-digit" | undefined;
+        month?: "numeric" | "2-digit" | "long" | "short" | "narrow" | undefined;
+        day?: "numeric" | "2-digit" | undefined;
+        hour?: "numeric" | "2-digit" | undefined;
+        minute?: "numeric" | "2-digit" | undefined;
+        second?: "numeric" | "2-digit" | undefined;
+        timeZoneName?: "long" | "short" | undefined;
+        formatMatcher?: "best fit" | "basic" | undefined;
+        hour12?: boolean | undefined;
+        timeZone?: string | undefined;
     }
 
     interface ResolvedDateTimeFormatOptions {

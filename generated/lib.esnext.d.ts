@@ -1,2 +1,2 @@
-/// <reference path="./lib.es2021.d.ts" />
-/// <reference path="./lib.esnext.intl.d.ts" />
+/// <reference lib="es2021" />
+/// <reference lib="esnext.intl" />

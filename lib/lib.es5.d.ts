@@ -1,5 +1,13 @@
 /// <reference no-default-lib="true" />
-/// <reference path="./util.d.ts" />
+
+// -----------
+// additional utility types
+type UnionToIntersection<T> = (
+  T extends any ? (arg: T) => void : never
+) extends (arg: infer F) => void
+  ? F
+  : unknown;
+// -----------
 
 /**
  * Evaluates JavaScript code and executes it.
