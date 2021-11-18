@@ -26,4 +26,7 @@ jobs:
       - run: npm ci
       - run: npm run build:tsc
       - run: npm run build:lib
+      - run: npm ci
+        working-directory: ./tests
       - run: npm test
+        working-directory: ./tests
