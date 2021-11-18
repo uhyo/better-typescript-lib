@@ -2,6 +2,8 @@
 
 An alternative TypeScript standard library with better type definitions.
 
+[See the v2 branch for 2.0.0 that supports TypeScript 4.5.](https://github.com/uhyo/better-typescript-lib/tree/v2)
+
 ## The Problem
 
 While it is well known that TypeScript is not _very_ type safe due to the existence of `any` and other pitfalls, TypeScript's built-in type definitions are also to blame for that unsafety. For example, it is handy but very unsafe that the return type of `JSON.parse` is `any`.
