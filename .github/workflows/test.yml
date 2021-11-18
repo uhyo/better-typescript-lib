@@ -25,7 +25,8 @@ jobs:
           node-version: 14
       - run: npm ci
       - run: npm run build:tsc
-      - run: npm run build:lib
+      # - run: npm run build:lib
+      - run: npm run build:package
       - run: npm ci
         working-directory: ./tests
       - run: npm test
