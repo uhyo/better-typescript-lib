@@ -2,8 +2,6 @@
 
 An alternative TypeScript standard library with better type definitions.
 
-[See the v2 branch for 2.0.0 that supports TypeScript 4.5.](https://github.com/uhyo/better-typescript-lib/tree/v2)
-
 ## The Problem
 
 While it is well known that TypeScript is not _very_ type safe due to the existence of `any` and other pitfalls, TypeScript's built-in type definitions are also to blame for that unsafety. For example, it is handy but very unsafe that the return type of `JSON.parse` is `any`.
@@ -20,11 +18,11 @@ This package also includes other improved, stricter type definitions.
 
 You only need to install `better-typescript-lib`. Additional configuration is not needed; your TypeScript project automatically use `better-typescript-lib` definitions.
 
-Currently v2 is beta-released.
-
 ```sh
-npm i -D better-typescript-lib@2.0.0-beta
+npm i -D better-typescript-lib
 ```
+
+[If you are using TypeScript 4.4 or prior, see the v1 branch.](https://github.com/uhyo/better-typescript-lib/tree/v1)
 
 ### How it works
 
@@ -36,7 +34,7 @@ Starting from TypeScript 4.5, the TypeScript compiler detects existence of `@typ
 | --------------------- | --------------- |
 | 2.0.0                 | TS 4.5 or later |
 
-For TS 4.4 and lower, see `v1` branch.
+[If you are using TypeScript 4.4 or prior, see the v1 branch.](https://github.com/uhyo/better-typescript-lib/tree/v1)
 
 ## Concepts
 
