@@ -30,13 +30,15 @@ function createGenericRecord<K extends string, V>(
   const values4 = Object.values(obj4);
   const entries4 = Object.entries(obj4);
   expectType<number[]>(values4);
-  expectType<[string, number][]>(entries4);
+  expectType<(["foo", number] | ["bar", number] | ["baz", number])[]>(entries4);
 
-  const obj5 = createGenericRecord(["foo", "bar", "baz"], [1, obj1, 3]);
+  const obj5 = { foo: 1, bar: obj1, baz: 3 };
   const values5 = Object.values(obj5);
   const entries5 = Object.entries(obj5);
   expectType<(number | { [k: string]: number })[]>(values5);
-  expectType<[string, number | { [k: string]: number }][]>(entries5);
+  expectType<
+    (["foo", number] | ["baz", number] | ["bar", { [k: string]: number }])[]
+  >(entries5);
 }
 function test<T>(obj: T) {
   const values = Object.values(obj);
