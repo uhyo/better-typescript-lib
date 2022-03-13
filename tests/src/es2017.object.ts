@@ -39,6 +39,51 @@ function createGenericRecord<K extends string, V>(
   expectType<
     (["foo", number] | ["baz", number] | ["bar", { [k: string]: number }])[]
   >(entries5);
+
+  const hasDifferentTypeOfKeys = {
+    foo: "bar",
+    123: 456,
+    [Symbol.iterator]: Symbol.asyncIterator,
+  };
+  const entries6 = Object.entries(hasDifferentTypeOfKeys);
+  expectType<(["foo", string] | ["123", number])[]>(entries6);
+
+  const ClassConstructor = class {
+    foo = "bar";
+    baz = 123;
+  };
+  const entries7 = Object.entries(ClassConstructor);
+  expectType<[string, unknown][]>(entries7);
+
+  const classInstance = new ClassConstructor();
+  const entries8 = Object.entries(classInstance);
+  expectType<(["baz", number] | ["foo", string])[]>(entries8);
+
+  const classWithMethodInstance = new (class ClassWithMethod {
+    foo() {
+      return 123;
+    }
+  })();
+  const entries9 = Object.entries(classWithMethodInstance);
+  expectType<[string, unknown][]>(entries9);
+
+  const date = new Date();
+  const entries10 = Object.entries(date);
+  expectType<[string, unknown][]>(entries10);
+
+  const objectWithMethod = {
+    foo: "bar",
+    baz() {
+      return 123;
+    },
+  };
+  const entries11 = Object.entries(objectWithMethod);
+  expectType<[string, unknown][]>(entries11);
+  const entries12 = Object.entries<
+    typeof objectWithMethod,
+    typeof objectWithMethod[keyof typeof objectWithMethod]
+  >(objectWithMethod);
+  expectType<[string, string | (() => number)][]>(entries12);
 }
 function test<T>(obj: T) {
   const values = Object.values(obj);
