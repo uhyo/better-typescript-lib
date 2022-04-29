@@ -234,11 +234,32 @@ interface JSON {
    * @param replacer A function that transforms the results.
    * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
    */
+  stringify<T>(
+    value: T,
+    replacer?: (this: unknown, key: string, value: unknown) => any,
+    space?: string | number
+  ): T extends unknown
+    ? T extends
+        | undefined
+        | ((...args: any) => any)
+        | (new (...args: any) => any)
+        | symbol
+      ? undefined
+      : object extends T
+      ? string | undefined
+      : string
+    : never;
+  /**
+   * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
+   * @param value A JavaScript value, usually an object or array, to be converted.
+   * @param replacer A function that transforms the results.
+   * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
+   */
   stringify(
     value: unknown,
     replacer?: (this: unknown, key: string, value: unknown) => any,
     space?: string | number
-  ): string;
+  ): string | undefined;
   /**
    * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
    * @param value A JavaScript value, usually an object or array, to be converted.
@@ -249,7 +270,7 @@ interface JSON {
     value: unknown,
     replacer?: (number | string)[] | null,
     space?: string | number
-  ): string;
+  ): string | undefined;
 }
 
 /**

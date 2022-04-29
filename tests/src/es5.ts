@@ -96,6 +96,19 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
     JSON.stringify(param); // error
     JSON.stringify(readonlyParam);
   };
+
+  // https://github.com/uhyo/better-typescript-lib/issues/6
+  expectType<undefined>(JSON.stringify(undefined));
+  expectType<undefined>(JSON.stringify(() => {}));
+  expectType<undefined>(JSON.stringify(class A {}));
+  const unknown: unknown = 123;
+  expectType<string | undefined>(JSON.stringify(unknown));
+  const funcOrNum = Math.random() < 0.5 ? () => {} : 123;
+  expectType<string | undefined>(JSON.stringify(funcOrNum));
+  const empty = {};
+  expectType<string | undefined>(JSON.stringify(empty));
+  const o: object = () => {};
+  expectType<string | undefined>(JSON.stringify(o));
 }
 
 // ArrayConstructor
