@@ -111,6 +111,36 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   expectType<string | undefined>(JSON.stringify(o));
 }
 
+// ReadonlyArray
+{
+  // https://github.com/uhyo/better-typescript-lib/issues/7
+  const a1: readonly number[] = [1, 2, 3];
+  expectType<number[]>(a1.filter((a1) => a1 > 2));
+  expectType<1[]>(a1.filter((x): x is 1 => x === 1));
+  if (a1.every((x): x is 2 => x === 2)) {
+    expectType<readonly 2[]>(a1);
+  }
+
+  expectError(a1.filter((x) => x));
+  expectError(a1.every((x) => x));
+  expectError(a1.some((x) => x));
+}
+
+// Array
+{
+  // https://github.com/uhyo/better-typescript-lib/issues/7
+  const a1: number[] = [1, 2, 3];
+  expectType<number[]>(a1.filter((a1) => a1 > 2));
+  expectType<1[]>(a1.filter((x): x is 1 => x === 1));
+  if (a1.every((x): x is 2 => x === 2)) {
+    expectType<2[]>(a1);
+  }
+
+  expectError(a1.filter((x) => x));
+  expectError(a1.every((x) => x));
+  expectError(a1.some((x) => x));
+}
+
 // ArrayConstructor
 {
   const a1 = new Array();

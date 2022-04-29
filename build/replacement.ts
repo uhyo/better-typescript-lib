@@ -8,6 +8,8 @@ export const replacement = new Map([
       "IArguments",
       "JSON",
       "ArrayConstructor",
+      "ReadonlyArray",
+      "Array",
       "PromiseConstructorLike",
     ]),
   ],
