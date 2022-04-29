@@ -36,6 +36,7 @@ export const replacement = new Map([
       "IterableIterator",
       "IArguments",
       "PromiseConstructor",
+      "MapConstructor",
     ]),
   ],
   ["es2015.promise.d.ts", new Set(["PromiseConstructor"])],

@@ -33,3 +33,7 @@ interface PromiseConstructor {
    */
   race<T>(values: Iterable<T>): Promise<Awaited<T>>;
 }
+
+interface MapConstructor {
+  new <K, V>(iterable?: Iterable<readonly [K, V]> | null): Map<K, V>;
+}

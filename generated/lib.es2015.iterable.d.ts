@@ -33,6 +33,10 @@ interface PromiseConstructor {
    */
   race<T>(values: Iterable<T>): Promise<Awaited<T>>;
 }
+
+interface MapConstructor {
+  new <K, V>(iterable?: Iterable<readonly [K, V]> | null): Map<K, V>;
+}
 // --------------------
 /// <reference lib="es2015.symbol" />
 
@@ -177,10 +181,13 @@ interface ReadonlyMap<K, V> {
      */
     values(): IterableIterator<V>;
 }
+// 
+// 
+// interface MapConstructor {
+//     new(): Map<any, any>;
+//     new <K, V>(iterable?: Iterable<readonly [K, V]> | null): Map<K, V>;
+// }
 
-interface MapConstructor {
-    new <K, V>(iterable: Iterable<readonly [K, V]>): Map<K, V>;
-}
 
 interface WeakMap<K extends object, V> { }
 
