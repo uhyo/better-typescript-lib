@@ -32,6 +32,7 @@ Starting from TypeScript 4.5, the TypeScript compiler detects existence of `@typ
 
 | better-typescript-lib | TypeScript      |
 | --------------------- | --------------- |
+| 2.1.0                 | TS 4.6 or later |
 | 2.0.0                 | TS 4.5 or later |
 
 [If you are using TypeScript 4.4 or prior, see the v1 branch.](https://github.com/uhyo/better-typescript-lib/tree/v1)
