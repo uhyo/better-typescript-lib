@@ -24,33 +24,68 @@ expectType<{ foo: number; bar: string }>(
   })
 );
 
-// Object.defineProperty
-expectType<{ foo: number }>(
-  Object.defineProperty({}, "foo", {
-    value: 123,
-  })
-);
-expectType<{ foo: number } | { bar: number }>(
-  Object.defineProperty({}, "foo" as "foo" | "bar", {
-    value: 123,
-  })
-);
+// Object
+{
+  // https://github.com/uhyo/better-typescript-lib/issues/4
+  const obj: object = {};
+  if (obj.hasOwnProperty("foo")) {
+    expectType<unknown>(obj.foo);
+    expectType<{ foo: unknown }>(obj);
+  }
+  const obj2 = { foo: 123 };
+  if (obj2.hasOwnProperty("bar")) {
+    expectType<unknown>(obj2.bar);
+    expectType<{ foo: number } & { bar: unknown }>(obj2);
+  }
+  const obj3 = () => {};
+  if (obj3.hasOwnProperty("baz")) {
+    expectType<unknown>(obj3.baz);
+    expectType<(() => void) & { baz: unknown }>(obj3);
+  }
 
-expectType<{ foo: number; bar: string; baz: boolean }>(
-  Object.defineProperties(
-    { foo: 123 },
-    {
-      bar: {
-        value: "hi",
-      },
-      baz: {
-        get() {
-          return true;
+  const emptyObj = {};
+  const key = Math.random() ? "foo" : "bar";
+  if (emptyObj.hasOwnProperty(key)) {
+    expectError(emptyObj.foo);
+    expectError(emptyObj.bar);
+    expectType<{ foo: unknown } | { bar: unknown }>(emptyObj);
+  }
+  const key2: string = "123";
+  if (emptyObj.hasOwnProperty(key2)) {
+    expectType<{}>(emptyObj);
+  }
+}
+
+// ObjectConstructor
+{
+  // Object.defineProperty
+  expectType<{ foo: number }>(
+    Object.defineProperty({}, "foo", {
+      value: 123,
+    })
+  );
+  expectType<{ foo: number } | { bar: number }>(
+    Object.defineProperty({}, "foo" as "foo" | "bar", {
+      value: 123,
+    })
+  );
+
+  expectType<{ foo: number; bar: string; baz: boolean }>(
+    Object.defineProperties(
+      { foo: 123 },
+      {
+        bar: {
+          value: "hi",
         },
-      },
-    }
-  )
-);
+        baz: {
+          get() {
+            return true;
+          },
+        },
+      }
+    )
+  );
+}
 
 // CallableFunction
 {

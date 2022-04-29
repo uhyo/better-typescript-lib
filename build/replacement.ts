@@ -11,6 +11,7 @@ export const replacement = new Map([
       "ReadonlyArray",
       "Array",
       "PromiseConstructorLike",
+      "Object",
     ]),
   ],
   [
@@ -50,4 +51,5 @@ export const replacement = new Map([
   ["es2019.object.d.ts", new Set(["ObjectConstructor"])],
   ["es2021.promise.d.ts", new Set(["AggregateError"])],
   ["es2021.string.d.ts", new Set(["String"])],
+  ["es2022.object.d.ts", new Set(["ObjectConstructor"])],
 ]);
