@@ -24,33 +24,68 @@ expectType<{ foo: number; bar: string }>(
   })
 );
 
-// Object.defineProperty
-expectType<{ foo: number }>(
-  Object.defineProperty({}, "foo", {
-    value: 123,
-  })
-);
-expectType<{ foo: number } | { bar: number }>(
-  Object.defineProperty({}, "foo" as "foo" | "bar", {
-    value: 123,
-  })
-);
+// Object
+{
+  // https://github.com/uhyo/better-typescript-lib/issues/4
+  const obj: object = {};
+  if (obj.hasOwnProperty("foo")) {
+    expectType<unknown>(obj.foo);
+    expectType<{ foo: unknown }>(obj);
+  }
+  const obj2 = { foo: 123 };
+  if (obj2.hasOwnProperty("bar")) {
+    expectType<unknown>(obj2.bar);
+    expectType<{ foo: number } & { bar: unknown }>(obj2);
+  }
+  const obj3 = () => {};
+  if (obj3.hasOwnProperty("baz")) {
+    expectType<unknown>(obj3.baz);
+    expectType<(() => void) & { baz: unknown }>(obj3);
+  }
 
-expectType<{ foo: number; bar: string; baz: boolean }>(
-  Object.defineProperties(
-    { foo: 123 },
-    {
-      bar: {
-        value: "hi",
-      },
-      baz: {
-        get() {
-          return true;
+  const emptyObj = {};
+  const key = Math.random() ? "foo" : "bar";
+  if (emptyObj.hasOwnProperty(key)) {
+    expectError(emptyObj.foo);
+    expectError(emptyObj.bar);
+    expectType<{ foo: unknown } | { bar: unknown }>(emptyObj);
+  }
+  const key2: string = "123";
+  if (emptyObj.hasOwnProperty(key2)) {
+    expectType<{}>(emptyObj);
+  }
+}
+
+// ObjectConstructor
+{
+  // Object.defineProperty
+  expectType<{ foo: number }>(
+    Object.defineProperty({}, "foo", {
+      value: 123,
+    })
+  );
+  expectType<{ foo: number } | { bar: number }>(
+    Object.defineProperty({}, "foo" as "foo" | "bar", {
+      value: 123,
+    })
+  );
+
+  expectType<{ foo: number; bar: string; baz: boolean }>(
+    Object.defineProperties(
+      { foo: 123 },
+      {
+        bar: {
+          value: "hi",
         },
-      },
-    }
-  )
-);
+        baz: {
+          get() {
+            return true;
+          },
+        },
+      }
+    )
+  );
+}
 
 // CallableFunction
 {
@@ -96,6 +131,49 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
     JSON.stringify(param); // error
     JSON.stringify(readonlyParam);
   };
+
+  // https://github.com/uhyo/better-typescript-lib/issues/6
+  expectType<undefined>(JSON.stringify(undefined));
+  expectType<undefined>(JSON.stringify(() => {}));
+  expectType<undefined>(JSON.stringify(class A {}));
+  const unknown: unknown = 123;
+  expectType<string | undefined>(JSON.stringify(unknown));
+  const funcOrNum = Math.random() < 0.5 ? () => {} : 123;
+  expectType<string | undefined>(JSON.stringify(funcOrNum));
+  const empty = {};
+  expectType<string | undefined>(JSON.stringify(empty));
+  const o: object = () => {};
+  expectType<string | undefined>(JSON.stringify(o));
+}
+
+// ReadonlyArray
+{
+  // https://github.com/uhyo/better-typescript-lib/issues/7
+  const a1: readonly number[] = [1, 2, 3];
+  expectType<number[]>(a1.filter((a1) => a1 > 2));
+  expectType<1[]>(a1.filter((x): x is 1 => x === 1));
+  if (a1.every((x): x is 2 => x === 2)) {
+    expectType<readonly 2[]>(a1);
+  }
+
+  expectError(a1.filter((x) => x));
+  expectError(a1.every((x) => x));
+  expectError(a1.some((x) => x));
+}
+
+// Array
+{
+  // https://github.com/uhyo/better-typescript-lib/issues/7
+  const a1: number[] = [1, 2, 3];
+  expectType<number[]>(a1.filter((a1) => a1 > 2));
+  expectType<1[]>(a1.filter((x): x is 1 => x === 1));
+  if (a1.every((x): x is 2 => x === 2)) {
+    expectType<2[]>(a1);
+  }
+
+  expectError(a1.filter((x) => x));
+  expectError(a1.every((x) => x));
+  expectError(a1.some((x) => x));
 }
 
 // ArrayConstructor
