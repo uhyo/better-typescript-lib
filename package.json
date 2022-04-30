@@ -6,8 +6,10 @@
   "main": "index.js",
   "devDependencies": {
     "@jsdevtools/npm-publish": "^1.4.3",
+    "@types/diff": "^5.0.2",
     "@types/node": "^16.9.4",
     "@types/prettier": "^2.6.0",
+    "diff": "^5.0.0",
     "prettier": "^2.6.2",
     "tsd": "^0.18.0",
     "typescript": "^4.5.2"
@@ -16,6 +18,7 @@
     "build:tsc": "tsc",
     "build:lib": "node dist/build/build.js",
     "build:package": "node dist/build/package.js",
+    "build:diff": "node dist/build/diff.js",
     "test": "echo 'Please run tests in the tests/ directory' && exit 1"
   },
   "keywords": [],
