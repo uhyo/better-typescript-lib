@@ -1,13 +1,11 @@
-import { mkdir, readdir, rm, writeFile } from "fs/promises";
+import { mkdir, rm, writeFile } from "fs/promises";
 import path from "path";
 import prettier from "prettier";
 import { generate } from "./logic/generate";
+import { getLibFiles } from "./logic/getLibFiles";
+import { projectDir } from "./logic/projectDir";
 
-const projectDir = process.env.PROJECT || process.cwd();
-const betterLibDir = path.join(projectDir, "lib");
 const distDir = path.join(projectDir, "generated");
-const tsDir = path.join(projectDir, "TypeScript");
-const tsLibDir = path.join(tsDir, "src", "lib");
 
 async function main() {
   await rm(distDir, {
@@ -19,14 +17,11 @@ async function main() {
   });
 
   // copy TypeScript lib files
-  const libs = await readdir(tsLibDir);
-  const libFiles: string[] = libs.filter((libFile) =>
-    /(?:^|\/|\\).+\.d\.ts$/.test(libFile)
-  );
+  const { tsLibDir, libFiles } = await getLibFiles();
 
   // modify each lib file
   for (const libFile of libFiles) {
-    let result = generate(libFile, true);
+    let result = generate(tsLibDir, libFile, true);
     if (result === undefined) {
       continue;
     }

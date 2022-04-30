@@ -2,16 +2,15 @@ import path from "path";
 import ts from "typescript";
 import { replacement } from "../replacement";
 import { upsert } from "../util/upsert";
+import { projectDir } from "./projectDir";
 
-const projectDir = process.env.PROJECT || process.cwd();
 const betterLibDir = path.join(projectDir, "lib");
-const tsDir = path.join(projectDir, "TypeScript");
-const tsLibDir = path.join(tsDir, "src", "lib");
 
 /**
  * Generate one better lib file.
  */
 export function generate(
+  tsLibDir: string,
   libFile: string,
   emitOriginalAsComment: boolean
 ): string | undefined {
