@@ -17,8 +17,6 @@ interface ObjectConstructor {
     ? { [key in Key]: unknown }
     : {};
 }
-// --------------------
-
 // interface ObjectConstructor {
 //     /**
 //      * Determines whether an object has a property with the specified name.
@@ -27,4 +25,3 @@ interface ObjectConstructor {
 //      */
 //     hasOwn(o: object, v: PropertyKey): boolean;
 // }
-

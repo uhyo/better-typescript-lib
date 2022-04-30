@@ -1,12 +1,11 @@
-import { mkdir, readdir, readFile, rm, writeFile } from "fs/promises";
+import { mkdir, rm, writeFile } from "fs/promises";
 import path from "path";
-import ts from "typescript";
-import { replacement } from "./replacement";
+import prettier from "prettier";
+import { generate } from "./logic/generate";
+import { getLibFiles } from "./logic/getLibFiles";
+import { projectDir } from "./logic/projectDir";
 
-const projectDir = process.env.PROJECT || process.cwd();
-const betterLibDir = path.join(projectDir, "lib");
 const distDir = path.join(projectDir, "generated");
-const tsDir = path.join(projectDir, "TypeScript");
 
 async function main() {
   await rm(distDir, {
@@ -18,90 +17,21 @@ async function main() {
   });
 
   // copy TypeScript lib files
-  const tsLibDir = path.join(tsDir, "src", "lib");
-  const libs = await readdir(tsLibDir);
-  const libFiles: string[] = libs.filter((libFile) =>
-    /(?:^|\/|\\).+\.d\.ts$/.test(libFile)
-  );
+  const { tsLibDir, libFiles } = await getLibFiles();
 
   // modify each lib file
   for (const libFile of libFiles) {
-    const tsLibFile = path.join(tsLibDir, libFile);
-    const program = ts.createProgram([tsLibFile], {});
-    const file = program.getSourceFile(tsLibFile);
-    if (!file) {
+    let result = generate(tsLibDir, libFile, true);
+    if (result === undefined) {
       continue;
     }
-    let result = "";
-    const repl = replacement.get(libFile);
-    if (repl) {
-      // copy better lib into the top of the file
-      result += await readFile(
-        path.join(betterLibDir, `lib.${libFile}`),
-        "utf8"
-      );
-      result += "// --------------------\n";
-    }
-
-    if (!repl) {
-      for (const statement of file.statements) {
-        result += statement.getFullText(file);
-      }
-    } else {
-      for (const statement of file.statements) {
-        const res = checkStatement(statement, repl);
-        if (res) {
-          result += res.getFullText(file);
-        } else {
-          // Replaced statements are emitted as comments
-          // to make it easier to detect original lib changes
-          result += "\n" + commentOut(statement.getFullText(file)) + "\n";
-        }
-      }
-    }
-    result += file.text.slice(file.endOfFileToken.pos);
+    result = prettier.format(result, {
+      parser: "typescript",
+    });
 
     await writeFile(path.join(distDir, "lib." + libFile), result);
     console.log(libFile);
   }
-}
-
-function checkStatement(
-  statement: ts.Statement,
-  replacement: Set<string>
-): ts.Statement | undefined {
-  // check for declrations
-  if (ts.isVariableStatement(statement)) {
-    for (const dec of statement.declarationList.declarations) {
-      if (ts.isIdentifier(dec.name)) {
-        if (replacement.has(dec.name.text)) {
-          return undefined;
-        }
-      }
-    }
-  } else if (
-    ts.isFunctionDeclaration(statement) ||
-    ts.isInterfaceDeclaration(statement) ||
-    ts.isTypeAliasDeclaration(statement) ||
-    ts.isModuleDeclaration(statement)
-  ) {
-    const repl = statement.name && replacement.has(statement.name.text);
-    if (repl) {
-      return undefined;
-    }
-  } else if (ts.isInterfaceDeclaration(statement)) {
-    const repl = statement.name && replacement.has(statement.name.text);
-    if (repl) {
-      return undefined;
-    }
-  }
-  return statement;
-}
-
-function commentOut(code: string): string {
-  const lines = code.split("\n");
-  const result = lines.map((line) => `// ${line}`);
-  return result.join("\n");
 }
 
 main().catch((err) => {
