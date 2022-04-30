@@ -79,8 +79,6 @@ interface PromiseConstructor {
    */
   resolve(): Promise<void>;
 }
-// --------------------
-
 // interface PromiseConstructor {
 //     /**
 //      * A reference to the prototype.

@@ -1,14 +1,3 @@
-/// <reference no-default-lib="true"/>
-
-interface AsyncIterator<T, TReturn = unknown, TNext = undefined> {
-  // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
-  next(...args: [] | [TNext]): Promise<IteratorResult<T, TReturn>>;
-  return?(
-    value?: TReturn | PromiseLike<TReturn>
-  ): Promise<IteratorResult<T, TReturn>>;
-  throw?(e?: any): Promise<IteratorResult<T, TReturn>>;
-}
-// --------------------
 /// <reference lib="es2015.symbol" />
 /// <reference lib="es2015.iterable" />
 
@@ -18,6 +7,15 @@ interface SymbolConstructor {
      * the for-await-of statement.
      */
     readonly asyncIterator: unique symbol;
+}/// <reference no-default-lib="true"/>
+
+interface AsyncIterator<T, TReturn = unknown, TNext = undefined> {
+  // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
+  next(...args: [] | [TNext]): Promise<IteratorResult<T, TReturn>>;
+  return?(
+    value?: TReturn | PromiseLike<TReturn>
+  ): Promise<IteratorResult<T, TReturn>>;
+  throw?(e?: any): Promise<IteratorResult<T, TReturn>>;
 }
 // 
 // 

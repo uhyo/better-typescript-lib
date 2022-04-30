@@ -8,8 +8,6 @@ interface Generator<T = unknown, TReturn = unknown, TNext = unknown>
   throw(e: any): IteratorResult<T, TReturn>;
   [Symbol.iterator](): Generator<T, TReturn, TNext>;
 }
-// --------------------
-
 // /// <reference lib="es2015.iterable" />
 // 
 // interface Generator<T = unknown, TReturn = any, TNext = unknown> extends Iterator<T, TReturn, TNext> {

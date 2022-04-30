@@ -23,8 +23,6 @@ interface ProxyHandler<T extends object> {
   apply?(target: T, thisArg: unknown, argArray: unknown[]): any;
   construct?(target: T, argArray: unknown[], newTarget: unknown): object;
 }
-// --------------------
-
 // interface ProxyHandler<T extends object> {
 //     apply?(target: T, thisArg: any, argArray: any[]): any;
 //     construct?(target: T, argArray: any[], newTarget: Function): object;

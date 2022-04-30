@@ -39,8 +39,6 @@ declare namespace Reflect {
   ): boolean;
   function setPrototypeOf(target: object, proto: any): boolean;
 }
-// --------------------
-
 // declare namespace Reflect {
 //     /**
 //      * Calls the function with the specified object as the this value

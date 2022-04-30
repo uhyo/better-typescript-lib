@@ -10,8 +10,6 @@ interface AsyncGenerator<T = unknown, TReturn = unknown, TNext = unknown>
   throw(e: any): Promise<IteratorResult<T, TReturn>>;
   [Symbol.asyncIterator](): AsyncGenerator<T, TReturn, TNext>;
 }
-// --------------------
-
 // /// <reference lib="es2018.asynciterable" />
 // 
 // interface AsyncGenerator<T = unknown, TReturn = any, TNext = unknown> extends AsyncIterator<T, TReturn, TNext> {

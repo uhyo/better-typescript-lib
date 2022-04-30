@@ -9,8 +9,6 @@ interface ObjectConstructor {
     entries: Iterable<T>
   ): Record<T[0], T[1]>;
 }
-// --------------------
-
 // /// <reference lib="es2015.iterable" />
 // 
 // interface ObjectConstructor {

@@ -27,8 +27,6 @@ interface ObjectConstructor {
     [x: string]: PropertyDescriptor;
   };
 }
-// --------------------
-
 // interface ObjectConstructor {
 //     /**
 //      * Returns an array of values of the enumerable properties of an object

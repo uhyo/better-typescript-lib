@@ -1,7 +1,8 @@
-import { mkdir, readdir, readFile, rm, writeFile } from "fs/promises";
+import { mkdir, readdir, rm, writeFile } from "fs/promises";
 import path from "path";
 import ts from "typescript";
 import { replacement } from "./replacement";
+import { upsert } from "./util/upsert";
 
 const projectDir = process.env.PROJECT || process.cwd();
 const betterLibDir = path.join(projectDir, "lib");
@@ -27,56 +28,109 @@ async function main() {
   // modify each lib file
   for (const libFile of libFiles) {
     const tsLibFile = path.join(tsLibDir, libFile);
-    const program = ts.createProgram([tsLibFile], {});
-    const file = program.getSourceFile(tsLibFile);
-    if (!file) {
+    const originalProgram = ts.createProgram([tsLibFile], {});
+    const originalFile = originalProgram.getSourceFile(tsLibFile);
+    if (!originalFile) {
       continue;
     }
     let result = "";
-    const repl = replacement.get(libFile);
-    if (repl) {
-      // copy better lib into the top of the file
-      result += await readFile(
-        path.join(betterLibDir, `lib.${libFile}`),
-        "utf8"
-      );
-      result += "// --------------------\n";
-    }
-
-    if (!repl) {
-      for (const statement of file.statements) {
-        result += statement.getFullText(file);
-      }
-    } else {
-      for (const statement of file.statements) {
-        const res = checkStatement(statement, repl);
-        if (res) {
-          result += res.getFullText(file);
-        } else {
-          // Replaced statements are emitted as comments
-          // to make it easier to detect original lib changes
-          result += "\n" + commentOut(statement.getFullText(file)) + "\n";
+    const replacementTargets = new Map<
+      string,
+      {
+        statement: ts.Statement;
+        sourceFile: ts.SourceFile;
+      }[]
+    >();
+    {
+      const replSet = replacement.get(libFile);
+      if (replSet) {
+        const betterLibFile = path.join(betterLibDir, `lib.${libFile}`);
+        const betterProgram = ts.createProgram([betterLibFile], {});
+        const betterFile = betterProgram.getSourceFile(betterLibFile);
+        if (betterFile) {
+          for (const statement of betterFile.statements) {
+            const name = getStatementDeclName(statement) ?? "";
+            upsert(replacementTargets, name, (statements = []) => [
+              ...statements,
+              {
+                statement,
+                sourceFile: betterFile,
+              },
+            ]);
+          }
+          // copy other statements
+          result +=
+            replacementTargets
+              .get("")
+              ?.map(({ statement, sourceFile }) =>
+                statement.getFullText(sourceFile)
+              )
+              .join("") ?? "";
+          if (result) {
+            result += "// --------------------\n";
+          }
         }
       }
     }
-    result += file.text.slice(file.endOfFileToken.pos);
+
+    if (replacementTargets.size === 0) {
+      for (const statement of originalFile.statements) {
+        result += statement.getFullText(originalFile);
+      }
+    } else {
+      const emittedNames = new Set<string>();
+      for (const statement of originalFile.statements) {
+        const name = getStatementDeclName(statement);
+        if (name === undefined) {
+          result += statement.getFullText(originalFile);
+          continue;
+        }
+        const replacementTarget = replacementTargets.get(name);
+        if (replacementTarget === undefined) {
+          result += statement.getFullText(originalFile);
+          continue;
+        }
+        if (!emittedNames.has(name)) {
+          // Emit replaced statements
+          result +=
+            replacementTarget
+              .map(({ statement, sourceFile }) =>
+                statement.getFullText(sourceFile)
+              )
+              .join("") ?? "";
+          emittedNames.add(name);
+        }
+        // Replaced statements are emitted as comments
+        // to make it easier to detect original lib changes
+        result += "\n" + commentOut(statement.getFullText(originalFile)) + "\n";
+      }
+      // Emit remaining statements
+      for (const name of emittedNames) {
+        replacementTargets.delete(name);
+      }
+      const header = Array.from(replacementTargets.values())
+        .map((statements) =>
+          statements
+            .map(({ statement, sourceFile }) =>
+              statement.getFullText(sourceFile)
+            )
+            .join("")
+        )
+        .join("");
+      result = (header ? header + "\n" : "") + result;
+    }
+    result += originalFile.text.slice(originalFile.endOfFileToken.pos);
 
     await writeFile(path.join(distDir, "lib." + libFile), result);
     console.log(libFile);
   }
 }
 
-function checkStatement(
-  statement: ts.Statement,
-  replacement: Set<string>
-): ts.Statement | undefined {
-  // check for declrations
+function getStatementDeclName(statement: ts.Statement): string | undefined {
   if (ts.isVariableStatement(statement)) {
     for (const dec of statement.declarationList.declarations) {
       if (ts.isIdentifier(dec.name)) {
-        if (replacement.has(dec.name.text)) {
-          return undefined;
-        }
+        return dec.name.text;
       }
     }
   } else if (
@@ -85,17 +139,11 @@ function checkStatement(
     ts.isTypeAliasDeclaration(statement) ||
     ts.isModuleDeclaration(statement)
   ) {
-    const repl = statement.name && replacement.has(statement.name.text);
-    if (repl) {
-      return undefined;
-    }
+    return statement.name?.text;
   } else if (ts.isInterfaceDeclaration(statement)) {
-    const repl = statement.name && replacement.has(statement.name.text);
-    if (repl) {
-      return undefined;
-    }
+    return statement.name.text;
   }
-  return statement;
+  return undefined;
 }
 
 function commentOut(code: string): string {

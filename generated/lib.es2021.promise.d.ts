@@ -5,8 +5,6 @@ interface AggregateError extends Error {
 }
 
 declare var AggregateError: AggregateErrorConstructor;
-// --------------------
-
 // interface AggregateError extends Error {
 //     errors: any[]
 // }

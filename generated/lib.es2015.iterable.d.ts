@@ -1,43 +1,3 @@
-/// <reference no-default-lib="true"/>
-
-interface Iterator<T, TReturn = unknown, TNext = undefined> {
-  // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
-  next(...args: [] | [TNext]): IteratorResult<T, TReturn>;
-  return?(value?: TReturn): IteratorResult<T, TReturn>;
-  throw?(e?: any): IteratorResult<T, TReturn>;
-}
-
-interface IterableIterator<T> extends Iterator<T, undefined, void> {
-  [Symbol.iterator](): IterableIterator<T>;
-}
-
-interface IArguments {
-  /** Iterator */
-  [Symbol.iterator](): IterableIterator<unknown>;
-}
-
-interface PromiseConstructor {
-  /**
-   * Creates a Promise that is resolved with an array of results when all of the provided Promises
-   * resolve, or rejected when any Promise is rejected.
-   * @param values An iterable of Promises.
-   * @returns A new Promise.
-   */
-  all<T>(values: Iterable<T>): Promise<Awaited<T>[]>;
-
-  /**
-   * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
-   * or rejected.
-   * @param values An iterable of Promises.
-   * @returns A new Promise.
-   */
-  race<T>(values: Iterable<T>): Promise<Awaited<T>>;
-}
-
-interface MapConstructor {
-  new <K, V>(iterable?: Iterable<readonly [K, V]> | null): Map<K, V>;
-}
-// --------------------
 /// <reference lib="es2015.symbol" />
 
 interface SymbolConstructor {
@@ -58,7 +18,14 @@ interface IteratorReturnResult<TReturn> {
     value: TReturn;
 }
 
-type IteratorResult<T, TReturn = any> = IteratorYieldResult<T> | IteratorReturnResult<TReturn>;
+type IteratorResult<T, TReturn = any> = IteratorYieldResult<T> | IteratorReturnResult<TReturn>;/// <reference no-default-lib="true"/>
+
+interface Iterator<T, TReturn = unknown, TNext = undefined> {
+  // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
+  next(...args: [] | [TNext]): IteratorResult<T, TReturn>;
+  return?(value?: TReturn): IteratorResult<T, TReturn>;
+  throw?(e?: any): IteratorResult<T, TReturn>;
+}
 // 
 // 
 // interface Iterator<T, TReturn = any, TNext = undefined> {
@@ -71,6 +38,10 @@ type IteratorResult<T, TReturn = any> = IteratorYieldResult<T> | IteratorReturnR
 
 interface Iterable<T> {
     [Symbol.iterator](): Iterator<T>;
+}
+
+interface IterableIterator<T> extends Iterator<T, undefined, void> {
+  [Symbol.iterator](): IterableIterator<T>;
 }
 // 
 // 
@@ -134,6 +105,11 @@ interface ReadonlyArray<T> {
      */
     values(): IterableIterator<T>;
 }
+
+interface IArguments {
+  /** Iterator */
+  [Symbol.iterator](): IterableIterator<unknown>;
+}
 // 
 // 
 // interface IArguments {
@@ -180,6 +156,10 @@ interface ReadonlyMap<K, V> {
      * Returns an iterable of values in the map
      */
     values(): IterableIterator<V>;
+}
+
+interface MapConstructor {
+  new <K, V>(iterable?: Iterable<readonly [K, V]> | null): Map<K, V>;
 }
 // 
 // 
@@ -244,6 +224,24 @@ interface WeakSetConstructor {
 }
 
 interface Promise<T> { }
+
+interface PromiseConstructor {
+  /**
+   * Creates a Promise that is resolved with an array of results when all of the provided Promises
+   * resolve, or rejected when any Promise is rejected.
+   * @param values An iterable of Promises.
+   * @returns A new Promise.
+   */
+  all<T>(values: Iterable<T>): Promise<Awaited<T>[]>;
+
+  /**
+   * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
+   * or rejected.
+   * @param values An iterable of Promises.
+   * @returns A new Promise.
+   */
+  race<T>(values: Iterable<T>): Promise<Awaited<T>>;
+}
 // 
 // 
 // interface PromiseConstructor {
