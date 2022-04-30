@@ -14,6 +14,8 @@ This package provides an alternative set of type definitions which replaces, and
 
 This package also includes other improved, stricter type definitions.
 
+[You can see the diff from the original TypeScript lib here](./docs/diff.md).
+
 ## Installation
 
 You only need to install `better-typescript-lib`. Additional configuration is not needed; your TypeScript project automatically use `better-typescript-lib` definitions.
