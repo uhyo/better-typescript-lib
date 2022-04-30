@@ -1,5 +1,6 @@
 import { mkdir, readdir, rm, writeFile } from "fs/promises";
 import path from "path";
+import prettier from "prettier";
 import ts from "typescript";
 import { replacement } from "./replacement";
 import { upsert } from "./util/upsert";
@@ -120,6 +121,9 @@ async function main() {
       result = (header ? header + "\n" : "") + result;
     }
     result += originalFile.text.slice(originalFile.endOfFileToken.pos);
+    result = prettier.format(result, {
+      parser: "typescript",
+    });
 
     await writeFile(path.join(distDir, "lib." + libFile), result);
     console.log(libFile);
