@@ -5,6 +5,7 @@ export const replacement = new Map([
       "eval",
       "ObjectConstructor",
       "CallableFunction",
+      "NewableFunction",
       "IArguments",
       "JSON",
       "ArrayConstructor",

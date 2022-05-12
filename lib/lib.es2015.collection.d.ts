@@ -1,3 +1,5 @@
+/// <reference no-default-lib="true"/>
+
 interface Map<K, V> {
   clear(): void;
   delete(key: K): boolean;

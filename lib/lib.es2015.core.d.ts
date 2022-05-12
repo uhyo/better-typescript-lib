@@ -1,3 +1,5 @@
+/// <reference no-default-lib="true"/>
+
 interface NumberConstructor {
   /**
    * The value of Number.EPSILON is the difference between 1 and the smallest value greater than 1
@@ -93,7 +95,7 @@ interface ObjectConstructor {
    * @param value1 The first value.
    * @param value2 The second value.
    */
-  is(value1: any, value2: any): boolean;
+  is<T>(value1: T, value2: T): boolean;
 
   /**
    * Sets the prototype of a specified object o to object proto or null. Returns the object o.

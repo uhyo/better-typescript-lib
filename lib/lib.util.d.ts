@@ -1,3 +1,5 @@
+/// <reference no-default-lib="true"/>
+
 type First<T> = T extends [any] ? T[0] : unknown;
 
 type UnionToIntersection<T> = (

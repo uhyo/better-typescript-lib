@@ -1,3 +1,5 @@
+/// <reference no-default-lib="true"/>
+
 type First<T> = T extends [any] ? T[0] : unknown;
 
 type UnionToIntersection<T> = (
@@ -269,6 +271,48 @@ interface CallableFunction extends Function {
     thisArg: T,
     ...args: A
   ): (...args: B) => R;
+}
+
+interface NewableFunction extends Function {
+  /**
+   * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
+   * @param thisArg The object to be used as the this object.
+   */
+  apply<T>(this: new () => T, thisArg: T): void;
+
+  /**
+   * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
+   * @param thisArg The object to be used as the this object.
+   * @param args An array of argument values to be passed to the function.
+   */
+  apply<T, A extends any[]>(
+    this: new (...args: A) => T,
+    thisArg: T,
+    args: A
+  ): void;
+
+  /**
+   * Calls the function with the specified object as the this value and the specified rest arguments as the arguments.
+   * @param thisArg The object to be used as the this object.
+   * @param args Argument values to be passed to the function.
+   */
+  call<T, A extends any[]>(
+    this: new (...args: A) => T,
+    thisArg: T,
+    ...args: A
+  ): void;
+
+  /**
+   * For a given function, creates a bound function that has the same body as the original function.
+   * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
+   * @param thisArg The object to be used as the this object.
+   * @param args Arguments to bind to the parameters of the function.
+   */
+  bind<A extends readonly any[], B extends readonly any[], R>(
+    this: new (...args: [...A, ...B]) => R,
+    thisArg: any,
+    ...args: A
+  ): new (...args: B) => R;
 }
 
 interface IArguments {
