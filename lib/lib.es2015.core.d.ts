@@ -74,7 +74,7 @@ interface ObjectConstructor {
   assign<T, Ts extends readonly any[]>(
     target: T,
     ...sources: Ts
-  ): UnionToIntersection<T | Ts[number]>;
+  ): First<UnionToIntersection<[T] | { [K in keyof Ts]: [Ts[K]] }[number]>>;
 
   /**
    * Returns an array of all symbol properties found directly on object o.
