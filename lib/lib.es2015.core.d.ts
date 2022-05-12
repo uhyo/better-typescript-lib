@@ -100,7 +100,7 @@ interface ObjectConstructor {
    * @param o The object to change its prototype.
    * @param proto The value of the new prototype or null.
    */
-  setPrototypeOf<T>(o: T, proto: object | null): T;
+  setPrototypeOf<T, U extends object = {}>(o: T, proto: U | null): T & U;
 }
 
 interface String {

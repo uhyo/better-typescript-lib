@@ -89,13 +89,31 @@ interface ObjectConstructor {
    * on that object, and are not inherited from the object's prototype. The properties of an object include both fields (objects) and functions.
    * @param o Object that contains the own properties.
    */
-  getOwnPropertyNames(o: any): string[];
+  getOwnPropertyNames<O>(o: O): O extends undefined | null ? never : string[];
 
   /**
    * Creates an object that has the specified prototype or that has null prototype.
    * @param o Object to use as a prototype. May be null.
    */
-  create(o: object | null): {};
+  create<O extends object = {}>(o: O | null): O;
+
+  /**
+   * Creates an object that has the specified prototype, and that optionally contains specified properties.
+   * @param o Object to use as a prototype. May be null
+   * @param properties JavaScript object that contains one or more property descriptors.
+   */
+  create<O extends object, P extends Record<PropertyKey, PropertyDescriptor>>(
+    o: O,
+    properties: P & ThisType<any>
+  ): {
+    [K in keyof (O & P)]: P[K] extends { value: infer V }
+      ? V
+      : P[K] extends { get: () => infer V }
+      ? V
+      : K extends keyof O
+      ? O[K]
+      : unknown;
+  };
 
   /**
    * Creates an object that has the specified prototype, and that optionally contains specified properties.
@@ -103,7 +121,7 @@ interface ObjectConstructor {
    * @param properties JavaScript object that contains one or more property descriptors.
    */
   create<P extends Record<string, PropertyDescriptor>>(
-    o: object | null,
+    o: null,
     properties: P & ThisType<any>
   ): {
     [K in keyof P]: P[K] extends { value: infer V }
@@ -119,28 +137,31 @@ interface ObjectConstructor {
    * @param p The property name.
    * @param attributes Descriptor for the property. It can be for a data property or an accessor property.
    */
-  defineProperty<O, K extends PropertyKey, D extends PropertyDescriptor>(
+  defineProperty<
+    O extends object,
+    P extends PropertyKey,
+    D extends PropertyDescriptor
+  >(
     o: O,
-    p: K,
+    p: P,
     attributes: D & ThisType<any>
-  ): O &
-    (K extends PropertyKey
-      ? Record<
-          K,
-          D extends { value: infer V }
-            ? V
-            : D extends { get: () => infer V }
-            ? V
-            : unknown
-        >
-      : unknown);
+  ): O & {
+    [K in P]: D extends { value: infer V }
+      ? V
+      : D extends { get: () => infer V }
+      ? V
+      : unknown;
+  };
 
   /**
    * Adds one or more properties to an object, and/or modifies attributes of existing properties.
    * @param o Object on which to add or modify the properties. This can be a native JavaScript object or a DOM object.
    * @param properties JavaScript object that contains one or more descriptor objects. Each descriptor object describes a data property or an accessor property.
    */
-  defineProperties<O, P extends Record<PropertyKey, PropertyDescriptor>>(
+  defineProperties<
+    O extends object,
+    P extends Record<PropertyKey, PropertyDescriptor>
+  >(
     o: O,
     properties: P & ThisType<any>
   ): {
