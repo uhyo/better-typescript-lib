@@ -163,13 +163,13 @@ interface ObjectConstructor {
    * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
    * @param o Object on which to lock the attributes.
    */
-  freeze<T>(a: T[]): readonly T[];
+  freeze<T>(o: T[]): readonly T[];
 
   /**
    * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
    * @param o Object on which to lock the attributes.
    */
-  freeze<T extends Function>(f: T): T;
+  freeze<T extends Function>(o: T): T;
 
   /**
    * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
@@ -212,9 +212,14 @@ interface CallableFunction extends Function {
   /**
    * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
    * @param thisArg The object to be used as the this object.
-   * @param args An array of argument values to be passed to the function.
    */
   apply<T, R>(this: (this: T) => R, thisArg: T): R;
+
+  /**
+   * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
+   * @param thisArg The object to be used as the this object.
+   * @param args An array of argument values to be passed to the function.
+   */
   apply<T, A extends any[], R>(
     this: (this: T, ...args: A) => R,
     thisArg: T,

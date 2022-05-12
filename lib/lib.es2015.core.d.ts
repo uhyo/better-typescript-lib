@@ -57,7 +57,7 @@ interface NumberConstructor {
   /**
    * Converts A string to an integer.
    * @param string A string to convert into a number.
-   * @param radix A value between 2 and 36 that specifies the base of the number in numString.
+   * @param radix A value between 2 and 36 that specifies the base of the number in `string`.
    * If this argument is not supplied, strings with a prefix of '0x' are considered hexadecimal.
    * All other strings are considered decimal.
    */
@@ -159,25 +159,25 @@ interface String {
   anchor(name: string): string;
 
   /**
-   *  Returns a `<big>` HTML element
+   * Returns a `<big>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   big(): string;
 
   /**
-   *  Returns a `<blink>` HTML element
+   * Returns a `<blink>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   blink(): string;
 
   /**
-   *  Returns a `<bold>` HTML element
+   * Returns a `<bold>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   bold(): string;
 
   /**
-   *  Returns a `<tt>` HTML element
+   * Returns a `<tt>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   fixed(): string;
@@ -201,7 +201,7 @@ interface String {
   fontsize(size: string): string;
 
   /**
-   *  Returns a `<i>` HTML element
+   * Returns a `<i>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   italics(): string;
@@ -213,25 +213,25 @@ interface String {
   link(url: string): string;
 
   /**
-   *  Returns a `<small>` HTML element
+   * Returns a `<small>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   small(): string;
 
   /**
-   *  Returns a `<strike>` HTML element
+   * Returns a `<strike>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   strike(): string;
 
   /**
-   *  Returns a `<sub>` HTML element
+   * Returns a `<sub>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   sub(): string;
 
   /**
-   *  Returns a `<sup>` HTML element
+   * Returns a `<sup>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   sup(): string;
