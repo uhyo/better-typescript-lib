@@ -102,7 +102,14 @@ interface ObjectConstructor {
    * @param o The object to change its prototype.
    * @param proto The value of the new prototype or null.
    */
-  setPrototypeOf<T, U extends object = {}>(o: T, proto: U | null): T & U;
+  setPrototypeOf<T extends object, U extends object>(o: T, proto: U): T & U;
+
+  /**
+   * Sets the prototype of a specified object o to object proto or null. Returns the object o.
+   * @param o The object to change its prototype.
+   * @param proto The value of the new prototype or null.
+   */
+  setPrototypeOf<T extends object>(o: T, proto: null): T;
 }
 
 interface String {
@@ -173,7 +180,7 @@ interface String {
   blink(): string;
 
   /**
-   * Returns a `<bold>` HTML element
+   * Returns a `<b>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   bold(): string;

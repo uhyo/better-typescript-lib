@@ -25,6 +25,11 @@ import { expectType } from "tsd";
   expectType<{ foo: number } & { bar: string }>(obj2);
   const obj3 = Object.assign({ foo: 123 }, { bar: "wow" }, { baz: true });
   expectType<{ foo: number } & { bar: string } & { baz: boolean }>(obj3);
+  const obj4 = Object.assign(
+    { foo: 123 } as { foo: number } | { bar: string },
+    { baz: true }
+  );
+  expectType<({ foo: number } | { bar: string }) & { baz: boolean }>(obj4);
+  const obj5 = Object.setPrototypeOf({ foo: 123 }, { bar: "wow" });
+  expectType<{ foo: number } & { bar: string }>(obj5);
 }
-
-export {};

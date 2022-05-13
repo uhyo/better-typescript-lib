@@ -97,7 +97,13 @@ interface ObjectConstructor {
    * Creates an object that has the specified prototype or that has null prototype.
    * @param o Object to use as a prototype. May be null.
    */
-  create<O extends object = {}>(o: O | null): O;
+  create<O extends object>(o: O): O;
+
+  /**
+   * Creates an object that has the specified prototype or that has null prototype.
+   * @param o Object to use as a prototype. May be null.
+   */
+  create(o: null): {};
 
   /**
    * Creates an object that has the specified prototype, and that optionally contains specified properties.
@@ -147,13 +153,16 @@ interface ObjectConstructor {
     o: O,
     p: P,
     attributes: D & ThisType<any>
-  ): O & {
-    [K in P]: D extends { value: infer V }
-      ? V
-      : D extends { get: () => infer V }
-      ? V
-      : unknown;
-  };
+  ): O &
+    (P extends PropertyKey // required to make P distributive
+      ? {
+          [K in P]: D extends { value: infer V }
+            ? V
+            : D extends { get: () => infer V }
+            ? V
+            : unknown;
+        }
+      : unknown);
 
   /**
    * Adds one or more properties to an object, and/or modifies attributes of existing properties.
@@ -451,6 +460,22 @@ interface String {
   valueOf(): string;
 
   readonly [index: number]: string;
+
+  /////////////////////////////
+  /// ECMAScript Internationalization API
+  /////////////////////////////
+
+  /**
+   * Determines whether two strings are equivalent in the current or specified locale.
+   * @param that String to compare to target string
+   * @param locales A locale string or array of locale strings that contain one or more language or locale tags. If you include more than one locale string, list them in descending order of priority so that the first entry is the preferred locale. If you omit this parameter, the default locale of the JavaScript runtime is used. This parameter must conform to BCP 47 standards; see the Intl.Collator object for details.
+   * @param options An object that contains one or more properties that specify comparison options. see the Intl.Collator object for details.
+   */
+  localeCompare(
+    that: string,
+    locales?: string | string[],
+    options?: Intl.CollatorOptions
+  ): number;
 }
 
 type JSONValue =
