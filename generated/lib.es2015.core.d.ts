@@ -201,7 +201,8 @@ interface Math {
    * @param x A numeric expression.
    */
   cbrt(x: number): number;
-}
+} /// <reference no-default-lib="true"/>
+
 interface NumberConstructor {
   /**
    * The value of Number.EPSILON is the difference between 1 and the smallest value greater than 1
@@ -261,7 +262,7 @@ interface NumberConstructor {
   /**
    * Converts A string to an integer.
    * @param string A string to convert into a number.
-   * @param radix A value between 2 and 36 that specifies the base of the number in numString.
+   * @param radix A value between 2 and 36 that specifies the base of the number in `string`.
    * If this argument is not supplied, strings with a prefix of '0x' are considered hexadecimal.
    * All other strings are considered decimal.
    */
@@ -345,7 +346,7 @@ interface ObjectConstructor {
   assign<T, Ts extends readonly any[]>(
     target: T,
     ...sources: Ts
-  ): UnionToIntersection<T | Ts[number]>;
+  ): First<UnionToIntersection<[T] | { [K in keyof Ts]: [Ts[K]] }[number]>>;
 
   /**
    * Returns an array of all symbol properties found directly on object o.
@@ -364,14 +365,21 @@ interface ObjectConstructor {
    * @param value1 The first value.
    * @param value2 The second value.
    */
-  is(value1: any, value2: any): boolean;
+  is<T>(value1: T, value2: T): boolean;
 
   /**
    * Sets the prototype of a specified object o to object proto or null. Returns the object o.
    * @param o The object to change its prototype.
    * @param proto The value of the new prototype or null.
    */
-  setPrototypeOf<T>(o: T, proto: object | null): T;
+  setPrototypeOf<T extends object, U extends object>(o: T, proto: U): T & U;
+
+  /**
+   * Sets the prototype of a specified object o to object proto or null. Returns the object o.
+   * @param o The object to change its prototype.
+   * @param proto The value of the new prototype or null.
+   */
+  setPrototypeOf<T extends object>(o: T, proto: null): T;
 }
 //
 //
@@ -566,25 +574,25 @@ interface String {
   anchor(name: string): string;
 
   /**
-   *  Returns a `<big>` HTML element
+   * Returns a `<big>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   big(): string;
 
   /**
-   *  Returns a `<blink>` HTML element
+   * Returns a `<blink>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   blink(): string;
 
   /**
-   *  Returns a `<bold>` HTML element
+   * Returns a `<b>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   bold(): string;
 
   /**
-   *  Returns a `<tt>` HTML element
+   * Returns a `<tt>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   fixed(): string;
@@ -608,7 +616,7 @@ interface String {
   fontsize(size: string): string;
 
   /**
-   *  Returns a `<i>` HTML element
+   * Returns a `<i>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   italics(): string;
@@ -620,25 +628,25 @@ interface String {
   link(url: string): string;
 
   /**
-   *  Returns a `<small>` HTML element
+   * Returns a `<small>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   small(): string;
 
   /**
-   *  Returns a `<strike>` HTML element
+   * Returns a `<strike>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   strike(): string;
 
   /**
-   *  Returns a `<sub>` HTML element
+   * Returns a `<sub>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   sub(): string;
 
   /**
-   *  Returns a `<sup>` HTML element
+   * Returns a `<sup>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   sup(): string;

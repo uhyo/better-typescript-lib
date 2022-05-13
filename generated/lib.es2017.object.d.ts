@@ -6,7 +6,15 @@ interface ObjectConstructor {
    * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
    */
   values<T>(o: ArrayLike<T>): T[];
-  values<K extends string | number | symbol, V>(o: Record<K, V>): V[];
+  /**
+   * Returns an array of values of the enumerable properties of an object
+   * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
+   */
+  values<K extends PropertyKey, V>(o: Record<K, V>): V[];
+  /**
+   * Returns an array of values of the enumerable properties of an object
+   * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
+   */
   values(o: unknown): unknown[];
 
   /**
@@ -14,9 +22,15 @@ interface ObjectConstructor {
    * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
    */
   entries<T>(o: ArrayLike<T>): [string, T][];
-  entries<K extends string | number | symbol, V>(
-    o: Record<K, V>
-  ): [string, V][];
+  /**
+   * Returns an array of key/values of the enumerable properties of an object
+   * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
+   */
+  entries<K extends PropertyKey, V>(o: Record<K, V>): [string, V][];
+  /**
+   * Returns an array of key/values of the enumerable properties of an object
+   * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
+   */
   entries<T>(o: T): [string, unknown][];
 
   /**
