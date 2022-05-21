@@ -10,6 +10,7 @@ The following files are improved in better-typescript-lib:
 - [es2015.promise.d.ts](./diff/es2015.promise.d.ts.md)
 - [es2015.proxy.d.ts](./diff/es2015.proxy.d.ts.md)
 - [es2015.reflect.d.ts](./diff/es2015.reflect.d.ts.md)
+- [es2015.symbol.wellknown.d.ts](./diff/es2015.symbol.wellknown.d.ts.md)
 - [es2017.object.d.ts](./diff/es2017.object.d.ts.md)
 - [es2018.asyncgenerator.d.ts](./diff/es2018.asyncgenerator.d.ts.md)
 - [es2018.asynciterable.d.ts](./diff/es2018.asynciterable.d.ts.md)

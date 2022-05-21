@@ -8,20 +8,26 @@ expectType<{ foo: number }>(Object({ foo: 123 }));
 expectType<{}>(Object(123));
 // $ExpctType unknown
 expectType<unknown>(Object.getPrototypeOf([]));
+// Object.getOwnPropertyNames
+expectType<never>(Object.getOwnPropertyNames(null));
 // Object.create
 expectType<{}>(Object.create(null));
-// $ExpectType { foo: number; bar: string }
-expectType<{ foo: number; bar: string }>(
-  Object.create(null, {
-    foo: {
-      value: 123,
+expectType<{ foo: number }>(Object.create({ foo: 123 }));
+
+const obj = {
+  foo: {
+    value: 123,
+  },
+  bar: {
+    get() {
+      return "hi";
     },
-    bar: {
-      get() {
-        return "hi";
-      },
-    },
-  })
+  },
+};
+const obj1 = { baz: true };
+expectType<{ foo: number; bar: string }>(Object.create(null, obj));
+expectType<{ foo: number; bar: string; baz: boolean }>(
+  Object.create(obj1, obj)
 );
 
 // Object
@@ -105,10 +111,31 @@ expectType<{ foo: number; bar: string }>(
   expectError(add2.bind({ num: 100 }, 123, 456));
 }
 
+// NewableFunction
+{
+  class Foo {
+    constructor(private a: number, private b: number) {}
+  }
+  expectType<new (a: number, b: number) => Foo>(Foo.bind(null));
+  expectType<new (b: number) => Foo>(Foo.bind(null, 123));
+  expectType<new () => Foo>(Foo.bind(null, 123, 456));
+  expectError(Foo.bind(null, 123, 456, 789));
+}
+
 // IArguments
 (function () {
   expectType<unknown>(arguments[0]);
 })();
+
+// String
+{
+  "foobar".replace(/foo/g, (substr, p1, p2) => {
+    // expectType<string>(substr);
+    // expectType<string | number>(p1);
+    // expectType<string | number>(p2);
+    return "";
+  });
+}
 
 // JSON
 {

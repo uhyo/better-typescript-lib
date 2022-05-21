@@ -1,7 +1,9 @@
+/// <reference no-default-lib="true"/>
+
 interface Map<K, V> {
   clear(): void;
   delete(key: K): boolean;
-  forEach<This>(
+  forEach<This = undefined>(
     callbackfn: (this: This, value: V, key: K, map: Map<K, V>) => void,
     thisArg?: This
   ): void;
@@ -38,7 +40,7 @@ interface MapConstructor {
 // declare var Map: MapConstructor;
 
 interface ReadonlyMap<K, V> {
-  forEach<This>(
+  forEach<This = undefined>(
     callbackfn: (this: This, value: V, key: K, map: ReadonlyMap<K, V>) => void,
     thisArg?: This
   ): void;
@@ -72,8 +74,8 @@ declare var WeakMap: WeakMapConstructor;
 // }
 
 interface WeakMapConstructor {
-  new <K extends object = object, V = unknown>(
-    entries?: readonly [K, V][] | null
+  new <K extends object, V>(
+    entries?: readonly (readonly [K, V])[] | null
   ): WeakMap<K, V>;
   readonly prototype: WeakMap<object, unknown>;
 }
@@ -91,7 +93,7 @@ interface Set<T> {
   add(value: T): this;
   clear(): void;
   delete(value: T): boolean;
-  forEach<This>(
+  forEach<This = undefined>(
     callbackfn: (this: This, value: T, value2: T, set: Set<T>) => void,
     thisArg?: This
   ): void;
@@ -125,7 +127,7 @@ interface SetConstructor {
 // declare var Set: SetConstructor;
 
 interface ReadonlySet<T> {
-  forEach<This>(
+  forEach<This = undefined>(
     callbackfn: (this: This, value: T, value2: T, set: ReadonlySet<T>) => void,
     thisArg?: This
   ): void;
