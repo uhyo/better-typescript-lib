@@ -8,6 +8,68 @@ type UnionToIntersection<T> = (
   ? F
   : unknown;
 
+/*
+type Item<A extends readonly unknown[], T> = number extends A["length"]
+  ? T | undefined
+  : A["length"] extends 0
+  ? undefined
+  : T;
+*/
+
+type ReverseArray<T extends unknown[], U extends unknown[]> = T extends [
+  infer F,
+  ...infer R
+]
+  ? ReverseArray<R, [F, ...U]>
+  : U;
+
+type Reverse<A extends unknown[], T> = number extends A["length"]
+  ? T[]
+  : ReverseArray<A, []>;
+
+type RangeArray<N extends number, A extends number[]> = A["length"] extends N
+  ? A
+  : RangeArray<N, [...A, A["length"]]>;
+
+type Indices<A extends readonly unknown[]> = number extends A["length"]
+  ? number
+  : RangeArray<A["length"], []> extends (infer A)[]
+  ? A
+  : never;
+
+type FilterArray<
+  T extends readonly unknown[],
+  S,
+  U extends unknown[]
+> = T extends readonly [infer F, ...infer R]
+  ? FilterArray<R, S, First<F> extends S ? [...U, First<F>] : U>
+  : U;
+
+type Filter<T extends readonly unknown[], S> = number extends T["length"]
+  ? S[]
+  : FilterArray<{ [K in keyof T]: [T[K]] }, S, []>;
+
+type Cast<T, U> = T extends U ? T : U;
+
+type ValueIndexPairArray<
+  T extends readonly unknown[],
+  A extends unknown[] = []
+> = A["length"] extends T["length"]
+  ? A
+  : ValueIndexPairArray<
+      T,
+      [...A, [value: T[A["length"]], index: A["length"], array: T]]
+    >;
+
+type ValueIndexPair<A extends readonly T[], T> = Cast<
+  number extends A["length"]
+    ? unknown
+    : ValueIndexPairArray<A> extends (infer R)[]
+    ? R
+    : unknown,
+  [value: T, index: number, array: A]
+>;
+
 /**
  * Evaluates JavaScript code and executes it.
  * @param x A String value that contains valid JavaScript code.
@@ -609,13 +671,13 @@ interface ReadonlyArray<T> {
    * @param searchElement The value to locate in the array.
    * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
    */
-  indexOf(searchElement: T, fromIndex?: number): number;
+  indexOf(searchElement: T, fromIndex?: number): -1 | Indices<this>;
   /**
    * Returns the index of the last occurrence of a specified value in an array.
    * @param searchElement The value to locate in the array.
    * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at the last index in the array.
    */
-  lastIndexOf(searchElement: T, fromIndex?: number): number;
+  lastIndexOf(searchElement: T, fromIndex?: number): -1 | Indices<this>;
   /**
    * Determines whether all the members of an array satisfy the specified test.
    * @param predicate A function that accepts up to three arguments. The every method calls
@@ -628,11 +690,11 @@ interface ReadonlyArray<T> {
     predicate: (
       this: This,
       value: T,
-      index: number,
-      array: readonly T[]
+      index: Indices<this>,
+      array: this
     ) => value is S,
     thisArg?: This
-  ): this is readonly S[];
+  ): this is { [K in keyof this]: S };
   /**
    * Determines whether all the members of an array satisfy the specified test.
    * @param predicate A function that accepts up to three arguments. The every method calls
@@ -642,12 +704,7 @@ interface ReadonlyArray<T> {
    * If thisArg is omitted, undefined is used as the this value.
    */
   every<This = undefined>(
-    predicate: (
-      this: This,
-      value: T,
-      index: number,
-      array: readonly T[]
-    ) => boolean,
+    predicate: (this: This, ...args: ValueIndexPair<this, T>) => boolean,
     thisArg?: This
   ): boolean;
   /**
@@ -659,12 +716,7 @@ interface ReadonlyArray<T> {
    * If thisArg is omitted, undefined is used as the this value.
    */
   some<This = undefined>(
-    predicate: (
-      this: This,
-      value: T,
-      index: number,
-      array: readonly T[]
-    ) => boolean,
+    predicate: (this: This, ...args: ValueIndexPair<this, T>) => boolean,
     thisArg?: This
   ): boolean;
   /**
@@ -673,12 +725,7 @@ interface ReadonlyArray<T> {
    * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
    */
   forEach<This = undefined>(
-    callbackfn: (
-      this: This,
-      value: T,
-      index: number,
-      array: readonly T[]
-    ) => void,
+    callbackfn: (this: This, ...args: ValueIndexPair<this, T>) => void,
     thisArg?: This
   ): void;
   /**
@@ -687,9 +734,9 @@ interface ReadonlyArray<T> {
    * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
    */
   map<U, This = undefined>(
-    callbackfn: (this: This, value: T, index: number, array: readonly T[]) => U,
+    callbackfn: (this: This, ...args: ValueIndexPair<this, T>) => U,
     thisArg?: This
-  ): U[];
+  ): { -readonly [K in keyof this]: U };
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
    * @param predicate A function that accepts up to three arguments. The filter method calls the predicate function one time for each element in the array.
@@ -699,23 +746,18 @@ interface ReadonlyArray<T> {
     predicate: (
       this: This,
       value: T,
-      index: number,
-      array: readonly T[]
+      index: Indices<this>,
+      array: this
     ) => value is S,
     thisArg?: This
-  ): S[];
+  ): Filter<this, S>;
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
    * @param predicate A function that accepts up to three arguments. The filter method calls the predicate function one time for each element in the array.
    * @param thisArg An object to which the this keyword can refer in the predicate function. If thisArg is omitted, undefined is used as the this value.
    */
   filter<This = undefined>(
-    predicate: (
-      this: This,
-      value: T,
-      index: number,
-      array: readonly T[]
-    ) => boolean,
+    predicate: (this: This, ...args: ValueIndexPair<this, T>) => boolean,
     thisArg?: This
   ): T[];
   /**
@@ -723,35 +765,16 @@ interface ReadonlyArray<T> {
    * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
    * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
    */
-  reduce(
-    callbackfn: (
-      previousValue: T,
-      currentValue: T,
-      currentIndex: number,
-      array: readonly T[]
-    ) => T
-  ): T;
-  reduce(
-    callbackfn: (
-      previousValue: T,
-      currentValue: T,
-      currentIndex: number,
-      array: readonly T[]
-    ) => T,
-    initialValue: T
-  ): T;
+  reduce<U = T>(
+    callbackfn: (previousValue: T | U, ...args: ValueIndexPair<this, T>) => U
+  ): U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
    * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
    * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
    */
-  reduce<U>(
-    callbackfn: (
-      previousValue: U,
-      currentValue: T,
-      currentIndex: number,
-      array: readonly T[]
-    ) => U,
+  reduce<U = T>(
+    callbackfn: (previousValue: U, ...args: ValueIndexPair<this, T>) => U,
     initialValue: U
   ): U;
   /**
@@ -759,35 +782,16 @@ interface ReadonlyArray<T> {
    * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
    * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
    */
-  reduceRight(
-    callbackfn: (
-      previousValue: T,
-      currentValue: T,
-      currentIndex: number,
-      array: readonly T[]
-    ) => T
-  ): T;
-  reduceRight(
-    callbackfn: (
-      previousValue: T,
-      currentValue: T,
-      currentIndex: number,
-      array: readonly T[]
-    ) => T,
-    initialValue: T
-  ): T;
+  reduceRight<U = T>(
+    callbackfn: (previousValue: T | U, ...args: ValueIndexPair<this, T>) => U
+  ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
    * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
    * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
    */
-  reduceRight<U>(
-    callbackfn: (
-      previousValue: U,
-      currentValue: T,
-      currentIndex: number,
-      array: readonly T[]
-    ) => U,
+  reduceRight<U = T>(
+    callbackfn: (previousValue: U, ...args: ValueIndexPair<this, T>) => U,
     initialValue: U
   ): U;
 
@@ -838,7 +842,7 @@ interface Array<T> {
    * Reverses the elements in an array in place.
    * This method mutates the array and returns a reference to the same array.
    */
-  reverse(): T[];
+  reverse(): Reverse<this, T>;
   /**
    * Removes the first element from an array and returns it.
    * If the array is empty, undefined is returned and the array is not modified.
@@ -864,14 +868,14 @@ interface Array<T> {
    * [11,2,22,1].sort((a, b) => a - b)
    * ```
    */
-  sort(compareFn?: (a: T, b: T) => number): this;
+  sort(compareFn?: (a: T, b: T) => number): T[];
   /**
    * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
    * @param start The zero-based location in the array from which to start removing elements.
    * @param deleteCount The number of elements to remove.
    * @returns An array containing the elements that were deleted.
    */
-  splice(start: number, deleteCount?: number): this;
+  splice(start: number, deleteCount?: number): T[];
   /**
    * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
    * @param start The zero-based location in the array from which to start removing elements.
@@ -879,7 +883,7 @@ interface Array<T> {
    * @param items Elements to insert into the array in place of the deleted elements.
    * @returns An array containing the elements that were deleted.
    */
-  splice(start: number, deleteCount: number, ...items: T[]): this;
+  splice(start: number, deleteCount: number, ...items: T[]): T[];
   /**
    * Inserts new elements at the start of an array, and returns the new length of the array.
    * @param items Elements to insert at the start of the array.
@@ -888,15 +892,13 @@ interface Array<T> {
   /**
    * Returns the index of the first occurrence of a value in an array, or -1 if it is not present.
    * @param searchElement The value to locate in the array.
-   * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
    */
-  indexOf(searchElement: T, fromIndex?: number): number;
+  indexOf(searchElement: T, fromIndex?: number): -1 | Indices<this>;
   /**
    * Returns the index of the last occurrence of a specified value in an array, or -1 if it is not present.
    * @param searchElement The value to locate in the array.
-   * @param fromIndex The array index at which to begin searching backward. If fromIndex is omitted, the search starts at the last index in the array.
    */
-  lastIndexOf(searchElement: T, fromIndex?: number): number;
+  lastIndexOf(searchElement: T, fromIndex?: number): -1 | Indices<this>;
   /**
    * Determines whether all the members of an array satisfy the specified test.
    * @param predicate A function that accepts up to three arguments. The every method calls
@@ -906,9 +908,14 @@ interface Array<T> {
    * If thisArg is omitted, undefined is used as the this value.
    */
   every<S extends T, This = undefined>(
-    predicate: (this: This, value: T, index: number, array: T[]) => value is S,
+    predicate: (
+      this: This,
+      value: T,
+      index: Indices<this>,
+      array: this
+    ) => value is S,
     thisArg?: This
-  ): this is S[];
+  ): this is { [K in keyof this]: S };
   /**
    * Determines whether all the members of an array satisfy the specified test.
    * @param predicate A function that accepts up to three arguments. The every method calls
@@ -918,7 +925,7 @@ interface Array<T> {
    * If thisArg is omitted, undefined is used as the this value.
    */
   every<This = undefined>(
-    predicate: (this: This, value: T, index: number, array: T[]) => boolean,
+    predicate: (this: This, ...args: ValueIndexPair<this, T>) => boolean,
     thisArg?: This
   ): boolean;
   /**
@@ -930,7 +937,7 @@ interface Array<T> {
    * If thisArg is omitted, undefined is used as the this value.
    */
   some<This = undefined>(
-    predicate: (this: This, value: T, index: number, array: T[]) => boolean,
+    predicate: (this: This, ...args: ValueIndexPair<this, T>) => boolean,
     thisArg?: This
   ): boolean;
   /**
@@ -939,7 +946,7 @@ interface Array<T> {
    * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
    */
   forEach<This = undefined>(
-    callbackfn: (this: This, value: T, index: number, array: T[]) => void,
+    callbackfn: (this: This, ...args: ValueIndexPair<this, T>) => void,
     thisArg?: This
   ): void;
   /**
@@ -948,97 +955,62 @@ interface Array<T> {
    * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
    */
   map<U, This = undefined>(
-    callbackfn: (this: This, value: T, index: number, array: T[]) => U,
+    callbackfn: (this: This, ...args: ValueIndexPair<this, T>) => U,
     thisArg?: This
-  ): U[];
+  ): { [K in keyof this]: U };
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
    * @param predicate A function that accepts up to three arguments. The filter method calls the predicate function one time for each element in the array.
    * @param thisArg An object to which the this keyword can refer in the predicate function. If thisArg is omitted, undefined is used as the this value.
    */
   filter<S extends T, This = undefined>(
-    predicate: (this: This, value: T, index: number, array: T[]) => value is S,
+    predicate: (
+      this: This,
+      value: T,
+      index: Indices<this>,
+      array: this
+    ) => value is S,
     thisArg?: This
-  ): S[];
+  ): Filter<this, S>;
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
    * @param predicate A function that accepts up to three arguments. The filter method calls the predicate function one time for each element in the array.
    * @param thisArg An object to which the this keyword can refer in the predicate function. If thisArg is omitted, undefined is used as the this value.
    */
   filter<This = undefined>(
-    predicate: (this: This, value: T, index: number, array: T[]) => boolean,
+    predicate: (this: This, ...args: ValueIndexPair<this, T>) => boolean,
     thisArg?: This
   ): T[];
   /**
    * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
    * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
-   * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
    */
-  reduce(
-    callbackfn: (
-      previousValue: T,
-      currentValue: T,
-      currentIndex: number,
-      array: T[]
-    ) => T
-  ): T;
-  reduce(
-    callbackfn: (
-      previousValue: T,
-      currentValue: T,
-      currentIndex: number,
-      array: T[]
-    ) => T,
-    initialValue: T
-  ): T;
+  reduce<U = T>(
+    callbackfn: (previousValue: T | U, ...args: ValueIndexPair<this, T>) => U
+  ): U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
    * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
    * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
    */
-  reduce<U>(
-    callbackfn: (
-      previousValue: U,
-      currentValue: T,
-      currentIndex: number,
-      array: T[]
-    ) => U,
+  reduce<U = T>(
+    callbackfn: (previousValue: U, ...args: ValueIndexPair<this, T>) => U,
     initialValue: U
+  ): U;
+  /**
+   * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+   * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
+   */
+  reduceRight<U = T>(
+    callbackfn: (previousValue: T | U, ...args: ValueIndexPair<this, T>) => U
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
    * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
    * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
    */
-  reduceRight(
-    callbackfn: (
-      previousValue: T,
-      currentValue: T,
-      currentIndex: number,
-      array: T[]
-    ) => T
-  ): T;
-  reduceRight(
-    callbackfn: (
-      previousValue: T,
-      currentValue: T,
-      currentIndex: number,
-      array: T[]
-    ) => T,
-    initialValue: T
-  ): T;
-  /**
-   * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-   * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
-   * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
-   */
-  reduceRight<U>(
-    callbackfn: (
-      previousValue: U,
-      currentValue: T,
-      currentIndex: number,
-      array: T[]
-    ) => U,
+  reduceRight<U = T>(
+    callbackfn: (previousValue: U, ...args: ValueIndexPair<this, T>) => U,
     initialValue: U
   ): U;
 

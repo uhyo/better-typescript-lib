@@ -162,7 +162,6 @@ interface String {
 
   /**
    * Returns an `<a>` HTML anchor element and sets the name attribute to the text value
-   * @param name
    * @deprecated A legacy feature for browser compatibility
    */
   anchor(name: string): string;
@@ -210,7 +209,7 @@ interface String {
   fontsize(size: string): string;
 
   /**
-   * Returns a `<i>` HTML element
+   * Returns an `<i>` HTML element
    * @deprecated A legacy feature for browser compatibility
    */
   italics(): string;

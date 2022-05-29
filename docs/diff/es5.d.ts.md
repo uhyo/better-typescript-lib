@@ -5,7 +5,7 @@ Index: es5.d.ts
 ===================================================================
 --- es5.d.ts
 +++ es5.d.ts
-@@ -1,4 +1,23 @@
+@@ -1,4 +1,85 @@
 +/// <reference no-default-lib="true"/>
 +
 +type First<T> = T extends [any] ? T[0] : unknown;
@@ -15,6 +15,68 @@ Index: es5.d.ts
 +) extends (arg: infer F) => void
 +  ? F
 +  : unknown;
++
++/*
++type Item<A extends readonly unknown[], T> = number extends A["length"]
++  ? T | undefined
++  : A["length"] extends 0
++  ? undefined
++  : T;
++*/
++
++type ReverseArray<T extends unknown[], U extends unknown[]> = T extends [
++  infer F,
++  ...infer R
++]
++  ? ReverseArray<R, [F, ...U]>
++  : U;
++
++type Reverse<A extends unknown[], T> = number extends A["length"]
++  ? T[]
++  : ReverseArray<A, []>;
++
++type RangeArray<N extends number, A extends number[]> = A["length"] extends N
++  ? A
++  : RangeArray<N, [...A, A["length"]]>;
++
++type Indices<A extends readonly unknown[]> = number extends A["length"]
++  ? number
++  : RangeArray<A["length"], []> extends (infer A)[]
++  ? A
++  : never;
++
++type FilterArray<
++  T extends readonly unknown[],
++  S,
++  U extends unknown[]
++> = T extends readonly [infer F, ...infer R]
++  ? FilterArray<R, S, First<F> extends S ? [...U, First<F>] : U>
++  : U;
++
++type Filter<T extends readonly unknown[], S> = number extends T["length"]
++  ? S[]
++  : FilterArray<{ [K in keyof T]: [T[K]] }, S, []>;
++
++type Cast<T, U> = T extends U ? T : U;
++
++type ValueIndexPairArray<
++  T extends readonly unknown[],
++  A extends unknown[] = []
++> = A["length"] extends T["length"]
++  ? A
++  : ValueIndexPairArray<
++      T,
++      [...A, [value: T[A["length"]], index: A["length"], array: T]]
++    >;
++
++type ValueIndexPair<A extends readonly T[], T> = Cast<
++  number extends A["length"]
++    ? unknown
++    : ValueIndexPairArray<A> extends (infer R)[]
++    ? R
++    : unknown,
++  [value: T, index: number, array: A]
++>;
 +
 +type JSONValue =
 +  | null
@@ -29,7 +91,7 @@ Index: es5.d.ts
  /// ECMAScript APIs
  /////////////////////////////
  
-@@ -8,9 +27,9 @@
+@@ -8,9 +89,9 @@
  /**
   * Evaluates JavaScript code and executes it.
   * @param x A String value that contains valid JavaScript code.
@@ -40,7 +102,7 @@ Index: es5.d.ts
  /**
   * Converts a string to an integer.
   * @param string A string to convert into a number.
-@@ -117,9 +136,19 @@
+@@ -117,9 +198,19 @@
    /**
     * Determines whether an object has a property with the specified name.
     * @param v A property name.
@@ -61,7 +123,7 @@ Index: es5.d.ts
    /**
     * Determines whether an object exists in another object's prototype chain.
     * @param v Another object whose prototype chain is to be checked.
-@@ -132,21 +161,26 @@
+@@ -132,21 +223,26 @@
     */
    propertyIsEnumerable(v: PropertyKey): boolean;
  }
@@ -91,7 +153,7 @@ Index: es5.d.ts
    /**
     * Gets the own property descriptor of the specified object.
     * An own property descriptor is one that is defined directly on the object and is not inherited from the object's prototype.
-@@ -162,47 +196,101 @@
+@@ -162,47 +258,101 @@
     * Returns the names of the own properties of an object. The own properties of an object are those that are defined directly
     * on that object, and are not inherited from the object's prototype. The properties of an object include both fields (objects) and functions.
     * @param o Object that contains the own properties.
@@ -208,7 +270,7 @@ Index: es5.d.ts
    /**
     * Prevents the modification of attributes of existing properties, and prevents the addition of new properties.
     * @param o Object on which to lock the attributes.
-@@ -210,17 +298,17 @@
+@@ -210,17 +360,17 @@
    seal<T>(o: T): T;
  
    /**
@@ -230,7 +292,7 @@ Index: es5.d.ts
    /**
     * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
     * @param o Object on which to lock the attributes.
-@@ -258,13 +346,8 @@
+@@ -258,13 +408,8 @@
    keys(o: object): string[];
  }
  
@@ -244,7 +306,7 @@ Index: es5.d.ts
   */
  interface Function {
    /**
-@@ -331,11 +414,16 @@
+@@ -331,11 +476,16 @@
  interface CallableFunction extends Function {
    /**
     * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
@@ -262,7 +324,7 @@ Index: es5.d.ts
      this: (this: T, ...args: A) => R,
      thisArg: T,
      args: A
-@@ -357,49 +445,27 @@
+@@ -357,49 +507,27 @@
     * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
     * @param thisArg The object to be used as the this object.
     * @param args Arguments to bind to the parameters of the function.
@@ -322,7 +384,7 @@ Index: es5.d.ts
      this: new (...args: A) => T,
      thisArg: T,
      args: A
-@@ -421,44 +487,17 @@
+@@ -421,44 +549,17 @@
     * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
     * @param thisArg The object to be used as the this object.
     * @param args Arguments to bind to the parameters of the function.
@@ -372,7 +434,7 @@ Index: es5.d.ts
    callee: Function;
  }
  
-@@ -511,21 +550,26 @@
+@@ -511,21 +612,26 @@
    match(regexp: string | RegExp): RegExpMatchArray | null;
  
    /**
@@ -402,7 +464,7 @@ Index: es5.d.ts
  
    /**
     * Finds the first substring match in a regular expression search.
-@@ -586,8 +630,24 @@
+@@ -586,8 +692,24 @@
    /** Returns the primitive value of the specified object. */
    valueOf(): string;
  
@@ -427,7 +489,7 @@ Index: es5.d.ts
  
  interface StringConstructor {
    new (value?: any): String;
-@@ -595,13 +655,8 @@
+@@ -595,13 +717,8 @@
    readonly prototype: String;
    fromCharCode(...codes: number[]): string;
  }
@@ -441,7 +503,7 @@ Index: es5.d.ts
    /** Returns the primitive value of the specified object. */
    valueOf(): boolean;
  }
-@@ -1187,43 +1242,81 @@
+@@ -1187,43 +1304,81 @@
     * If a member contains nested objects, the nested objects are transformed before the parent object is.
     */
    parse(
@@ -536,7 +598,24 @@ Index: es5.d.ts
    /**
     * Gets the length of the array. This is a number one higher than the highest element defined in an array.
     */
-@@ -1276,11 +1369,16 @@
+@@ -1261,38 +1416,43 @@
+    * Returns the index of the first occurrence of a value in an array.
+    * @param searchElement The value to locate in the array.
+    * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
+    */
+-  indexOf(searchElement: T, fromIndex?: number): number;
++  indexOf(searchElement: T, fromIndex?: number): -1 | Indices<this>;
+   /**
+    * Returns the index of the last occurrence of a specified value in an array.
+    * @param searchElement The value to locate in the array.
+    * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at the last index in the array.
+    */
+-  lastIndexOf(searchElement: T, fromIndex?: number): number;
++  lastIndexOf(searchElement: T, fromIndex?: number): -1 | Indices<this>;
+   /**
+    * Determines whether all the members of an array satisfy the specified test.
+    * @param predicate A function that accepts up to three arguments. The every method calls
+    * the predicate function for each element in the array until the predicate returns a value
     * which is coercible to the Boolean value false, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -544,19 +623,20 @@ Index: es5.d.ts
 -  every<S extends T>(
 -    predicate: (value: T, index: number, array: readonly T[]) => value is S,
 -    thisArg?: any
+-  ): this is readonly S[];
 +  every<S extends T, This = undefined>(
 +    predicate: (
 +      this: This,
 +      value: T,
-+      index: number,
-+      array: readonly T[]
++      index: Indices<this>,
++      array: this
 +    ) => value is S,
 +    thisArg?: This
-   ): this is readonly S[];
++  ): this is { [K in keyof this]: S };
    /**
     * Determines whether all the members of an array satisfy the specified test.
     * @param predicate A function that accepts up to three arguments. The every method calls
-@@ -1288,11 +1386,16 @@
+    * the predicate function for each element in the array until the predicate returns a value
     * which is coercible to the Boolean value false, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -565,18 +645,13 @@ Index: es5.d.ts
 -    predicate: (value: T, index: number, array: readonly T[]) => unknown,
 -    thisArg?: any
 +  every<This = undefined>(
-+    predicate: (
-+      this: This,
-+      value: T,
-+      index: number,
-+      array: readonly T[]
-+    ) => boolean,
++    predicate: (this: This, ...args: ValueIndexPair<this, T>) => boolean,
 +    thisArg?: This
    ): boolean;
    /**
     * Determines whether the specified callback function returns true for any element of an array.
     * @param predicate A function that accepts up to three arguments. The some method calls
-@@ -1300,47 +1403,67 @@
+@@ -1300,118 +1460,85 @@
     * which is coercible to the Boolean value true, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -585,12 +660,7 @@ Index: es5.d.ts
 -    predicate: (value: T, index: number, array: readonly T[]) => unknown,
 -    thisArg?: any
 +  some<This = undefined>(
-+    predicate: (
-+      this: This,
-+      value: T,
-+      index: number,
-+      array: readonly T[]
-+    ) => boolean,
++    predicate: (this: This, ...args: ValueIndexPair<this, T>) => boolean,
 +    thisArg?: This
    ): boolean;
    /**
@@ -602,12 +672,7 @@ Index: es5.d.ts
 -    callbackfn: (value: T, index: number, array: readonly T[]) => void,
 -    thisArg?: any
 +  forEach<This = undefined>(
-+    callbackfn: (
-+      this: This,
-+      value: T,
-+      index: number,
-+      array: readonly T[]
-+    ) => void,
++    callbackfn: (this: This, ...args: ValueIndexPair<this, T>) => void,
 +    thisArg?: This
    ): void;
    /**
@@ -618,10 +683,11 @@ Index: es5.d.ts
 -  map<U>(
 -    callbackfn: (value: T, index: number, array: readonly T[]) => U,
 -    thisArg?: any
+-  ): U[];
 +  map<U, This = undefined>(
-+    callbackfn: (this: This, value: T, index: number, array: readonly T[]) => U,
++    callbackfn: (this: This, ...args: ValueIndexPair<this, T>) => U,
 +    thisArg?: This
-   ): U[];
++  ): { -readonly [K in keyof this]: U };
    /**
     * Returns the elements of an array that meet the condition specified in a callback function.
     * @param predicate A function that accepts up to three arguments. The filter method calls the predicate function one time for each element in the array.
@@ -630,15 +696,16 @@ Index: es5.d.ts
 -  filter<S extends T>(
 -    predicate: (value: T, index: number, array: readonly T[]) => value is S,
 -    thisArg?: any
+-  ): S[];
 +  filter<S extends T, This = undefined>(
 +    predicate: (
 +      this: This,
 +      value: T,
-+      index: number,
-+      array: readonly T[]
++      index: Indices<this>,
++      array: this
 +    ) => value is S,
 +    thisArg?: This
-   ): S[];
++  ): Filter<this, S>;
    /**
     * Returns the elements of an array that meet the condition specified in a callback function.
     * @param predicate A function that accepts up to three arguments. The filter method calls the predicate function one time for each element in the array.
@@ -648,38 +715,135 @@ Index: es5.d.ts
 -    predicate: (value: T, index: number, array: readonly T[]) => unknown,
 -    thisArg?: any
 +  filter<This = undefined>(
-+    predicate: (
-+      this: This,
-+      value: T,
-+      index: number,
-+      array: readonly T[]
-+    ) => boolean,
++    predicate: (this: This, ...args: ValueIndexPair<this, T>) => boolean,
 +    thisArg?: This
    ): T[];
    /**
     * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
     * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
-@@ -1500,17 +1623,17 @@
-    * @param start The zero-based location in the array from which to start removing elements.
-    * @param deleteCount The number of elements to remove.
-    * @returns An array containing the elements that were deleted.
+    * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
     */
--  splice(start: number, deleteCount?: number): T[];
-+  splice(start: number, deleteCount?: number): this;
+-  reduce(
+-    callbackfn: (
+-      previousValue: T,
+-      currentValue: T,
+-      currentIndex: number,
+-      array: readonly T[]
+-    ) => T
+-  ): T;
+-  reduce(
+-    callbackfn: (
+-      previousValue: T,
+-      currentValue: T,
+-      currentIndex: number,
+-      array: readonly T[]
+-    ) => T,
+-    initialValue: T
+-  ): T;
++  reduce<U = T>(
++    callbackfn: (previousValue: T | U, ...args: ValueIndexPair<this, T>) => U
++  ): U;
+   /**
+    * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+    * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
+    * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+    */
+-  reduce<U>(
+-    callbackfn: (
+-      previousValue: U,
+-      currentValue: T,
+-      currentIndex: number,
+-      array: readonly T[]
+-    ) => U,
++  reduce<U = T>(
++    callbackfn: (previousValue: U, ...args: ValueIndexPair<this, T>) => U,
+     initialValue: U
+   ): U;
+   /**
+    * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+    * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
+    * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+    */
+-  reduceRight(
+-    callbackfn: (
+-      previousValue: T,
+-      currentValue: T,
+-      currentIndex: number,
+-      array: readonly T[]
+-    ) => T
+-  ): T;
+-  reduceRight(
+-    callbackfn: (
+-      previousValue: T,
+-      currentValue: T,
+-      currentIndex: number,
+-      array: readonly T[]
+-    ) => T,
+-    initialValue: T
+-  ): T;
++  reduceRight<U = T>(
++    callbackfn: (previousValue: T | U, ...args: ValueIndexPair<this, T>) => U
++  ): U;
+   /**
+    * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+    * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
+    * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+    */
+-  reduceRight<U>(
+-    callbackfn: (
+-      previousValue: U,
+-      currentValue: T,
+-      currentIndex: number,
+-      array: readonly T[]
+-    ) => U,
++  reduceRight<U = T>(
++    callbackfn: (previousValue: U, ...args: ValueIndexPair<this, T>) => U,
+     initialValue: U
+   ): U;
+ 
+   readonly [n: number]: T;
+@@ -1467,9 +1594,9 @@
+   /**
+    * Reverses the elements in an array in place.
+    * This method mutates the array and returns a reference to the same array.
+    */
+-  reverse(): T[];
++  reverse(): Reverse<this, T>;
+   /**
+    * Removes the first element from an array and returns it.
+    * If the array is empty, undefined is returned and the array is not modified.
+    */
+@@ -1493,9 +1620,9 @@
+    * ```ts
+    * [11,2,22,1].sort((a, b) => a - b)
+    * ```
+    */
+-  sort(compareFn?: (a: T, b: T) => number): this;
++  sort(compareFn?: (a: T, b: T) => number): T[];
    /**
     * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
     * @param start The zero-based location in the array from which to start removing elements.
     * @param deleteCount The number of elements to remove.
-    * @param items Elements to insert into the array in place of the deleted elements.
-    * @returns An array containing the elements that were deleted.
-    */
--  splice(start: number, deleteCount: number, ...items: T[]): T[];
-+  splice(start: number, deleteCount: number, ...items: T[]): this;
+@@ -1517,40 +1644,43 @@
+   unshift(...items: T[]): number;
    /**
-    * Inserts new elements at the start of an array, and returns the new length of the array.
-    * @param items Elements to insert at the start of the array.
+    * Returns the index of the first occurrence of a value in an array, or -1 if it is not present.
+    * @param searchElement The value to locate in the array.
+-   * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
     */
-@@ -1534,11 +1657,11 @@
+-  indexOf(searchElement: T, fromIndex?: number): number;
++  indexOf(searchElement: T, fromIndex?: number): -1 | Indices<this>;
+   /**
+    * Returns the index of the last occurrence of a specified value in an array, or -1 if it is not present.
+    * @param searchElement The value to locate in the array.
+-   * @param fromIndex The array index at which to begin searching backward. If fromIndex is omitted, the search starts at the last index in the array.
+    */
+-  lastIndexOf(searchElement: T, fromIndex?: number): number;
++  lastIndexOf(searchElement: T, fromIndex?: number): -1 | Indices<this>;
+   /**
+    * Determines whether all the members of an array satisfy the specified test.
+    * @param predicate A function that accepts up to three arguments. The every method calls
+    * the predicate function for each element in the array until the predicate returns a value
     * which is coercible to the Boolean value false, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -687,14 +851,20 @@ Index: es5.d.ts
 -  every<S extends T>(
 -    predicate: (value: T, index: number, array: T[]) => value is S,
 -    thisArg?: any
+-  ): this is S[];
 +  every<S extends T, This = undefined>(
-+    predicate: (this: This, value: T, index: number, array: T[]) => value is S,
++    predicate: (
++      this: This,
++      value: T,
++      index: Indices<this>,
++      array: this
++    ) => value is S,
 +    thisArg?: This
-   ): this is S[];
++  ): this is { [K in keyof this]: S };
    /**
     * Determines whether all the members of an array satisfy the specified test.
     * @param predicate A function that accepts up to three arguments. The every method calls
-@@ -1546,11 +1669,11 @@
+    * the predicate function for each element in the array until the predicate returns a value
     * which is coercible to the Boolean value false, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -703,13 +873,13 @@ Index: es5.d.ts
 -    predicate: (value: T, index: number, array: T[]) => unknown,
 -    thisArg?: any
 +  every<This = undefined>(
-+    predicate: (this: This, value: T, index: number, array: T[]) => boolean,
++    predicate: (this: This, ...args: ValueIndexPair<this, T>) => boolean,
 +    thisArg?: This
    ): boolean;
    /**
     * Determines whether the specified callback function returns true for any element of an array.
     * @param predicate A function that accepts up to three arguments. The some method calls
-@@ -1558,47 +1681,47 @@
+@@ -1558,137 +1688,100 @@
     * which is coercible to the Boolean value true, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -718,7 +888,7 @@ Index: es5.d.ts
 -    predicate: (value: T, index: number, array: T[]) => unknown,
 -    thisArg?: any
 +  some<This = undefined>(
-+    predicate: (this: This, value: T, index: number, array: T[]) => boolean,
++    predicate: (this: This, ...args: ValueIndexPair<this, T>) => boolean,
 +    thisArg?: This
    ): boolean;
    /**
@@ -730,7 +900,7 @@ Index: es5.d.ts
 -    callbackfn: (value: T, index: number, array: T[]) => void,
 -    thisArg?: any
 +  forEach<This = undefined>(
-+    callbackfn: (this: This, value: T, index: number, array: T[]) => void,
++    callbackfn: (this: This, ...args: ValueIndexPair<this, T>) => void,
 +    thisArg?: This
    ): void;
    /**
@@ -741,10 +911,11 @@ Index: es5.d.ts
 -  map<U>(
 -    callbackfn: (value: T, index: number, array: T[]) => U,
 -    thisArg?: any
+-  ): U[];
 +  map<U, This = undefined>(
-+    callbackfn: (this: This, value: T, index: number, array: T[]) => U,
++    callbackfn: (this: This, ...args: ValueIndexPair<this, T>) => U,
 +    thisArg?: This
-   ): U[];
++  ): { [K in keyof this]: U };
    /**
     * Returns the elements of an array that meet the condition specified in a callback function.
     * @param predicate A function that accepts up to three arguments. The filter method calls the predicate function one time for each element in the array.
@@ -753,10 +924,16 @@ Index: es5.d.ts
 -  filter<S extends T>(
 -    predicate: (value: T, index: number, array: T[]) => value is S,
 -    thisArg?: any
+-  ): S[];
 +  filter<S extends T, This = undefined>(
-+    predicate: (this: This, value: T, index: number, array: T[]) => value is S,
++    predicate: (
++      this: This,
++      value: T,
++      index: Indices<this>,
++      array: this
++    ) => value is S,
 +    thisArg?: This
-   ): S[];
++  ): Filter<this, S>;
    /**
     * Returns the elements of an array that meet the condition specified in a callback function.
     * @param predicate A function that accepts up to three arguments. The filter method calls the predicate function one time for each element in the array.
@@ -766,13 +943,91 @@ Index: es5.d.ts
 -    predicate: (value: T, index: number, array: T[]) => unknown,
 -    thisArg?: any
 +  filter<This = undefined>(
-+    predicate: (this: This, value: T, index: number, array: T[]) => boolean,
++    predicate: (this: This, ...args: ValueIndexPair<this, T>) => boolean,
 +    thisArg?: This
    ): T[];
    /**
     * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
     * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
-@@ -1674,21 +1797,19 @@
+-   * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+    */
+-  reduce(
+-    callbackfn: (
+-      previousValue: T,
+-      currentValue: T,
+-      currentIndex: number,
+-      array: T[]
+-    ) => T
+-  ): T;
+-  reduce(
+-    callbackfn: (
+-      previousValue: T,
+-      currentValue: T,
+-      currentIndex: number,
+-      array: T[]
+-    ) => T,
+-    initialValue: T
+-  ): T;
++  reduce<U = T>(
++    callbackfn: (previousValue: T | U, ...args: ValueIndexPair<this, T>) => U
++  ): U;
+   /**
+    * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+    * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
+    * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+    */
+-  reduce<U>(
+-    callbackfn: (
+-      previousValue: U,
+-      currentValue: T,
+-      currentIndex: number,
+-      array: T[]
+-    ) => U,
++  reduce<U = T>(
++    callbackfn: (previousValue: U, ...args: ValueIndexPair<this, T>) => U,
+     initialValue: U
+   ): U;
+   /**
+    * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+    * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
+-   * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+    */
+-  reduceRight(
+-    callbackfn: (
+-      previousValue: T,
+-      currentValue: T,
+-      currentIndex: number,
+-      array: T[]
+-    ) => T
+-  ): T;
+-  reduceRight(
+-    callbackfn: (
+-      previousValue: T,
+-      currentValue: T,
+-      currentIndex: number,
+-      array: T[]
+-    ) => T,
+-    initialValue: T
+-  ): T;
++  reduceRight<U = T>(
++    callbackfn: (previousValue: T | U, ...args: ValueIndexPair<this, T>) => U
++  ): U;
+   /**
+    * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+    * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
+    * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+    */
+-  reduceRight<U>(
+-    callbackfn: (
+-      previousValue: U,
+-      currentValue: T,
+-      currentIndex: number,
+-      array: T[]
+-    ) => U,
++  reduceRight<U = T>(
++    callbackfn: (previousValue: U, ...args: ValueIndexPair<this, T>) => U,
+     initialValue: U
+   ): U;
  
    [n: number]: T;
  }
@@ -798,7 +1053,7 @@ Index: es5.d.ts
    enumerable?: boolean;
    configurable?: boolean;
    writable?: boolean;
-@@ -1716,9 +1837,15 @@
+@@ -1716,9 +1809,15 @@
  ) => void;
  
  declare type PromiseConstructorLike = new <T>(
@@ -815,7 +1070,7 @@ Index: es5.d.ts
    ) => void
  ) => PromiseLike<T>;
  
-@@ -5435,22 +5562,8 @@
+@@ -5435,22 +5534,8 @@
      ): string[];
    };
  }

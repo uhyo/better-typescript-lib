@@ -173,34 +173,288 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   expectType<string | undefined>(JSON.stringify(o));
 }
 
+let reduce!: "reduce" | "reduceRight";
+
 // ReadonlyArray
 {
   // https://github.com/uhyo/better-typescript-lib/issues/7
   const a1: readonly number[] = [1, 2, 3];
-  expectType<number[]>(a1.filter((a1) => a1 > 2));
-  expectType<1[]>(a1.filter((x): x is 1 => x === 1));
-  if (a1.every((x): x is 2 => x === 2)) {
+  expectError(a1.reverse());
+  expectType<number>(a1.indexOf(1));
+  expectType<number>(a1.lastIndexOf(1));
+
+  expectType<number[]>(
+    a1.filter((x, index) => {
+      expectType<number>(x);
+      expectType<number>(index);
+      return x > 2;
+    })
+  );
+  expectType<1[]>(
+    a1.filter((x, index): x is 1 => {
+      expectType<number>(x);
+      expectType<number>(index);
+      return x === 1;
+    })
+  );
+  if (
+    a1.every((x, index): x is 2 => {
+      expectType<number>(x);
+      expectType<number>(index);
+      return x === 2;
+    })
+  ) {
     expectType<readonly 2[]>(a1);
   }
+
+  a1.some((...[x, index]) => {
+    expectType<number>(x);
+    expectType<number>(index);
+    return true;
+  });
+  a1.forEach((...[x, index]) => {
+    expectType<number>(x);
+    expectType<number>(index);
+  });
+  expectType<"bar"[]>(
+    a1.map((...[x, index]) => {
+      expectType<number>(x);
+      expectType<number>(index);
+      return "bar" as const;
+    })
+  );
+
+  expectType<"bar">(
+    a1[reduce]<"bar">((p, x, index) => {
+      expectType<number | "bar">(p);
+      expectType<number>(x);
+      expectType<number>(index);
+      return "bar";
+    })
+  );
+  expectType<"bar">(
+    a1[reduce]<"bar">((p, x, index) => {
+      expectType<"bar">(p);
+      expectType<number>(x);
+      expectType<number>(index);
+      return "bar";
+    }, "bar")
+  );
 
   expectError(a1.filter((x) => x));
   expectError(a1.every((x) => x));
   expectError(a1.some((x) => x));
+
+  // Tuple
+  const t1 = ["foo", 42, true] as const;
+  expectError(t1.reverse());
+  expectType<-1 | 0 | 1 | 2>(t1.indexOf(true));
+  expectType<-1 | 0 | 1 | 2>(t1.lastIndexOf(true));
+
+  // https://github.com/microsoft/TypeScript/issues/48663
+  expectType<("foo" | 42 | true)[]>(
+    t1.filter((...[x, index]) => {
+      expectType<"foo" | 42 | true>(x);
+      expectType<0 | 1 | 2>(index);
+      return x === 42;
+    })
+  );
+  expectType<[42]>(
+    t1.filter((x, index): x is 42 => {
+      expectType<"foo" | 42 | true>(x);
+      expectType<0 | 1 | 2>(index);
+      return x === 42;
+    })
+  );
+  const t2: readonly [number, number, number] = [42, 42, 42];
+  if (
+    t2.every((x, index): x is 42 => {
+      expectType<number>(x);
+      expectType<0 | 1 | 2>(index);
+      return x === 42;
+    })
+  ) {
+    expectType<readonly [42, 42, 42]>(t2);
+  }
+
+  t1.some((...[x, index]) => {
+    expectType<"foo" | 42 | true>(x);
+    expectType<0 | 1 | 2>(index);
+    return true;
+  });
+  t1.forEach((...[x, index]) => {
+    expectType<"foo" | 42 | true>(x);
+    expectType<0 | 1 | 2>(index);
+  });
+  expectType<["bar", "bar", "bar"]>(
+    t1.map((...[x, index]) => {
+      expectType<"foo" | 42 | true>(x);
+      expectType<0 | 1 | 2>(index);
+      return "bar" as const;
+    })
+  );
+
+  expectType<"bar">(
+    t1[reduce]<"bar">((p, ...[x, index]) => {
+      expectType<"foo" | 42 | true | "bar">(p);
+      expectType<"foo" | 42 | true>(x);
+      expectType<0 | 1 | 2>(index);
+      return "bar";
+    })
+  );
+  expectType<"bar">(
+    t1[reduce]<"bar">((p, ...[x, index]) => {
+      expectType<"bar">(p);
+      expectType<"foo" | 42 | true>(x);
+      expectType<0 | 1 | 2>(index);
+      return "bar";
+    }, "bar")
+  );
+
+  expectError(t1.filter((x) => x));
+  expectError(t1.every((x) => x));
+  expectError(t1.some((x) => x));
 }
 
 // Array
 {
   // https://github.com/uhyo/better-typescript-lib/issues/7
   const a1: number[] = [1, 2, 3];
-  expectType<number[]>(a1.filter((a1) => a1 > 2));
-  expectType<1[]>(a1.filter((x): x is 1 => x === 1));
-  if (a1.every((x): x is 2 => x === 2)) {
+  expectType<number[]>(a1.reverse());
+  expectType<number>(a1.indexOf(1));
+  expectType<number>(a1.lastIndexOf(1));
+
+  expectType<number[]>(
+    a1.filter((x, index) => {
+      expectType<number>(x);
+      expectType<number>(index);
+      return x > 2;
+    })
+  );
+  expectType<1[]>(
+    a1.filter((x, index): x is 1 => {
+      expectType<number>(x);
+      expectType<number>(index);
+      return x === 1;
+    })
+  );
+  if (
+    a1.every((x, index): x is 2 => {
+      expectType<number>(x);
+      expectType<number>(index);
+      return x === 2;
+    })
+  ) {
     expectType<2[]>(a1);
   }
+
+  a1.some((...[x, index]) => {
+    expectType<number>(x);
+    expectType<number>(index);
+    return true;
+  });
+  a1.forEach((...[x, index]) => {
+    expectType<number>(x);
+    expectType<number>(index);
+  });
+  expectType<"bar"[]>(
+    a1.map((...[x, index]) => {
+      expectType<number>(x);
+      expectType<number>(index);
+      return "bar" as const;
+    })
+  );
+
+  expectType<"bar">(
+    a1[reduce]<"bar">((p, x, index) => {
+      expectType<number | "bar">(p);
+      expectType<number>(x);
+      expectType<number>(index);
+      return "bar";
+    })
+  );
+  expectType<"bar">(
+    a1[reduce]<"bar">((p, x, index) => {
+      expectType<"bar">(p);
+      expectType<number>(x);
+      expectType<number>(index);
+      return "bar";
+    }, "bar")
+  );
 
   expectError(a1.filter((x) => x));
   expectError(a1.every((x) => x));
   expectError(a1.some((x) => x));
+
+  // Tuple
+  const t1: ["foo", 42, true] = ["foo", 42, true];
+  expectType<[true, 42, "foo"]>(t1.reverse());
+  expectType<-1 | 0 | 1 | 2>(t1.indexOf(true));
+  expectType<-1 | 0 | 1 | 2>(t1.lastIndexOf(true));
+
+  // https://github.com/microsoft/TypeScript/issues/48663
+  expectType<("foo" | 42 | true)[]>(
+    t1.filter((...[x, index]) => {
+      expectType<"foo" | 42 | true>(x);
+      expectType<0 | 1 | 2>(index);
+      return x === 42;
+    })
+  );
+  expectType<[42]>(
+    t1.filter((x, index): x is 42 => {
+      expectType<"foo" | 42 | true>(x);
+      expectType<0 | 1 | 2>(index);
+      return x === 42;
+    })
+  );
+  const t2: [number, number, number] = [42, 42, 42];
+  if (
+    t2.every((x, index): x is 42 => {
+      expectType<number>(x);
+      expectType<0 | 1 | 2>(index);
+      return x === 42;
+    })
+  ) {
+    expectType<[42, 42, 42]>(t2);
+  }
+
+  t1.some((...[x, index]) => {
+    expectType<"foo" | 42 | true>(x);
+    expectType<0 | 1 | 2>(index);
+    return true;
+  });
+  t1.forEach((...[x, index]) => {
+    expectType<"foo" | 42 | true>(x);
+    expectType<0 | 1 | 2>(index);
+  });
+  expectType<["bar", "bar", "bar"]>(
+    t1.map((...[x, index]) => {
+      expectType<"foo" | 42 | true>(x);
+      expectType<0 | 1 | 2>(index);
+      return "bar" as const;
+    })
+  );
+
+  expectType<"bar">(
+    t1[reduce]<"bar">((p, ...[x, index]) => {
+      expectType<"foo" | 42 | true | "bar">(p);
+      expectType<"foo" | 42 | true>(x);
+      expectType<0 | 1 | 2>(index);
+      return "bar";
+    })
+  );
+  expectType<"bar">(
+    t1[reduce]<"bar">((p, ...[x, index]) => {
+      expectType<"bar">(p);
+      expectType<"foo" | 42 | true>(x);
+      expectType<0 | 1 | 2>(index);
+      return "bar";
+    }, "bar")
+  );
+
+  expectError(t1.filter((x) => x));
+  expectError(t1.every((x) => x));
+  expectError(t1.some((x) => x));
 }
 
 // ArrayConstructor
