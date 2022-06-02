@@ -5,7 +5,7 @@ Index: es5.d.ts
 ===================================================================
 --- es5.d.ts
 +++ es5.d.ts
-@@ -1,4 +1,85 @@
+@@ -1,4 +1,77 @@
 +/// <reference no-default-lib="true"/>
 +
 +type First<T> = T extends [any] ? T[0] : unknown;
@@ -16,24 +16,16 @@ Index: es5.d.ts
 +  ? F
 +  : unknown;
 +
-+/*
-+type Item<A extends readonly unknown[], T> = number extends A["length"]
-+  ? T | undefined
-+  : A["length"] extends 0
-+  ? undefined
-+  : T;
-+*/
-+
-+type ReverseArray<T extends unknown[], U extends unknown[]> = T extends [
++type Reverse<T extends unknown[], U extends unknown[] = []> = T extends [
 +  infer F,
 +  ...infer R
 +]
-+  ? ReverseArray<R, [F, ...U]>
++  ? Reverse<R, [F, ...U]>
++  : T extends [...infer R, infer L]
++  ? [L, ...Reverse<R, U>]
++  : T extends unknown[]
++  ? [...T, ...U]
 +  : U;
-+
-+type Reverse<A extends unknown[], T> = number extends A["length"]
-+  ? T[]
-+  : ReverseArray<A, []>;
 +
 +type RangeArray<N extends number, A extends number[]> = A["length"] extends N
 +  ? A
@@ -45,17 +37,17 @@ Index: es5.d.ts
 +  ? A
 +  : never;
 +
-+type FilterArray<
++type FilterMatch<T, U> = T extends Readonly<U> ? T : U extends T ? U | [] : [];
++
++type Filter<
 +  T extends readonly unknown[],
 +  S,
-+  U extends unknown[]
++  U extends unknown[] = []
 +> = T extends readonly [infer F, ...infer R]
-+  ? FilterArray<R, S, First<F> extends S ? [...U, First<F>] : U>
-+  : U;
-+
-+type Filter<T extends readonly unknown[], S> = number extends T["length"]
-+  ? S[]
-+  : FilterArray<{ [K in keyof T]: [T[K]] }, S, []>;
++  ? Filter<R, S, [...U, ...FilterMatch<[F], [S]>]>
++  : T extends readonly [...infer R, infer L]
++  ? [...Filter<R, S, U>, ...FilterMatch<[L], [S]>]
++  : [...U, ...FilterMatch<T, S[]>];
 +
 +type Cast<T, U> = T extends U ? T : U;
 +
@@ -91,7 +83,7 @@ Index: es5.d.ts
  /// ECMAScript APIs
  /////////////////////////////
  
-@@ -8,9 +89,9 @@
+@@ -8,9 +81,9 @@
  /**
   * Evaluates JavaScript code and executes it.
   * @param x A String value that contains valid JavaScript code.
@@ -102,7 +94,7 @@ Index: es5.d.ts
  /**
   * Converts a string to an integer.
   * @param string A string to convert into a number.
-@@ -117,9 +198,19 @@
+@@ -117,9 +190,19 @@
    /**
     * Determines whether an object has a property with the specified name.
     * @param v A property name.
@@ -123,7 +115,7 @@ Index: es5.d.ts
    /**
     * Determines whether an object exists in another object's prototype chain.
     * @param v Another object whose prototype chain is to be checked.
-@@ -132,21 +223,26 @@
+@@ -132,21 +215,26 @@
     */
    propertyIsEnumerable(v: PropertyKey): boolean;
  }
@@ -153,7 +145,7 @@ Index: es5.d.ts
    /**
     * Gets the own property descriptor of the specified object.
     * An own property descriptor is one that is defined directly on the object and is not inherited from the object's prototype.
-@@ -162,47 +258,101 @@
+@@ -162,47 +250,101 @@
     * Returns the names of the own properties of an object. The own properties of an object are those that are defined directly
     * on that object, and are not inherited from the object's prototype. The properties of an object include both fields (objects) and functions.
     * @param o Object that contains the own properties.
@@ -270,7 +262,7 @@ Index: es5.d.ts
    /**
     * Prevents the modification of attributes of existing properties, and prevents the addition of new properties.
     * @param o Object on which to lock the attributes.
-@@ -210,17 +360,17 @@
+@@ -210,17 +352,17 @@
    seal<T>(o: T): T;
  
    /**
@@ -292,7 +284,7 @@ Index: es5.d.ts
    /**
     * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
     * @param o Object on which to lock the attributes.
-@@ -258,13 +408,8 @@
+@@ -258,13 +400,8 @@
    keys(o: object): string[];
  }
  
@@ -306,7 +298,7 @@ Index: es5.d.ts
   */
  interface Function {
    /**
-@@ -331,11 +476,16 @@
+@@ -331,11 +468,16 @@
  interface CallableFunction extends Function {
    /**
     * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
@@ -324,7 +316,7 @@ Index: es5.d.ts
      this: (this: T, ...args: A) => R,
      thisArg: T,
      args: A
-@@ -357,49 +507,27 @@
+@@ -357,49 +499,27 @@
     * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
     * @param thisArg The object to be used as the this object.
     * @param args Arguments to bind to the parameters of the function.
@@ -384,7 +376,7 @@ Index: es5.d.ts
      this: new (...args: A) => T,
      thisArg: T,
      args: A
-@@ -421,44 +549,17 @@
+@@ -421,44 +541,17 @@
     * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
     * @param thisArg The object to be used as the this object.
     * @param args Arguments to bind to the parameters of the function.
@@ -434,7 +426,7 @@ Index: es5.d.ts
    callee: Function;
  }
  
-@@ -511,21 +612,26 @@
+@@ -511,21 +604,26 @@
    match(regexp: string | RegExp): RegExpMatchArray | null;
  
    /**
@@ -464,7 +456,7 @@ Index: es5.d.ts
  
    /**
     * Finds the first substring match in a regular expression search.
-@@ -586,8 +692,24 @@
+@@ -586,8 +684,24 @@
    /** Returns the primitive value of the specified object. */
    valueOf(): string;
  
@@ -489,7 +481,7 @@ Index: es5.d.ts
  
  interface StringConstructor {
    new (value?: any): String;
-@@ -595,13 +717,8 @@
+@@ -595,13 +709,8 @@
    readonly prototype: String;
    fromCharCode(...codes: number[]): string;
  }
@@ -503,7 +495,7 @@ Index: es5.d.ts
    /** Returns the primitive value of the specified object. */
    valueOf(): boolean;
  }
-@@ -1187,43 +1304,81 @@
+@@ -1187,43 +1296,81 @@
     * If a member contains nested objects, the nested objects are transformed before the parent object is.
     */
    parse(
@@ -598,7 +590,7 @@ Index: es5.d.ts
    /**
     * Gets the length of the array. This is a number one higher than the highest element defined in an array.
     */
-@@ -1261,38 +1416,43 @@
+@@ -1261,38 +1408,43 @@
     * Returns the index of the first occurrence of a value in an array.
     * @param searchElement The value to locate in the array.
     * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
@@ -651,7 +643,7 @@ Index: es5.d.ts
    /**
     * Determines whether the specified callback function returns true for any element of an array.
     * @param predicate A function that accepts up to three arguments. The some method calls
-@@ -1300,118 +1460,85 @@
+@@ -1300,118 +1452,85 @@
     * which is coercible to the Boolean value true, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -802,18 +794,18 @@ Index: es5.d.ts
    ): U;
  
    readonly [n: number]: T;
-@@ -1467,9 +1594,9 @@
+@@ -1467,9 +1586,9 @@
    /**
     * Reverses the elements in an array in place.
     * This method mutates the array and returns a reference to the same array.
     */
 -  reverse(): T[];
-+  reverse(): Reverse<this, T>;
++  reverse(): Reverse<this>;
    /**
     * Removes the first element from an array and returns it.
     * If the array is empty, undefined is returned and the array is not modified.
     */
-@@ -1493,9 +1620,9 @@
+@@ -1493,9 +1612,9 @@
     * ```ts
     * [11,2,22,1].sort((a, b) => a - b)
     * ```
@@ -824,7 +816,7 @@ Index: es5.d.ts
     * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
     * @param start The zero-based location in the array from which to start removing elements.
     * @param deleteCount The number of elements to remove.
-@@ -1517,40 +1644,43 @@
+@@ -1517,40 +1636,43 @@
    unshift(...items: T[]): number;
    /**
     * Returns the index of the first occurrence of a value in an array, or -1 if it is not present.
@@ -879,7 +871,7 @@ Index: es5.d.ts
    /**
     * Determines whether the specified callback function returns true for any element of an array.
     * @param predicate A function that accepts up to three arguments. The some method calls
-@@ -1558,137 +1688,100 @@
+@@ -1558,137 +1680,100 @@
     * which is coercible to the Boolean value true, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -1053,7 +1045,7 @@ Index: es5.d.ts
    enumerable?: boolean;
    configurable?: boolean;
    writable?: boolean;
-@@ -1716,9 +1809,15 @@
+@@ -1716,9 +1801,15 @@
  ) => void;
  
  declare type PromiseConstructorLike = new <T>(
@@ -1070,7 +1062,7 @@ Index: es5.d.ts
    ) => void
  ) => PromiseLike<T>;
  
-@@ -5435,22 +5534,8 @@
+@@ -5435,22 +5526,8 @@
      ): string[];
    };
  }

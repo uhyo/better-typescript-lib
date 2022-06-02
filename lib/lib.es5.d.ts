@@ -8,24 +8,16 @@ type UnionToIntersection<T> = (
   ? F
   : unknown;
 
-/*
-type Item<A extends readonly unknown[], T> = number extends A["length"]
-  ? T | undefined
-  : A["length"] extends 0
-  ? undefined
-  : T;
-*/
-
-type ReverseArray<T extends unknown[], U extends unknown[]> = T extends [
+type Reverse<T extends unknown[], U extends unknown[] = []> = T extends [
   infer F,
   ...infer R
 ]
-  ? ReverseArray<R, [F, ...U]>
+  ? Reverse<R, [F, ...U]>
+  : T extends [...infer R, infer L]
+  ? [L, ...Reverse<R, U>]
+  : T extends unknown[]
+  ? [...T, ...U]
   : U;
-
-type Reverse<A extends unknown[], T> = number extends A["length"]
-  ? T[]
-  : ReverseArray<A, []>;
 
 type RangeArray<N extends number, A extends number[]> = A["length"] extends N
   ? A
@@ -37,17 +29,17 @@ type Indices<A extends readonly unknown[]> = number extends A["length"]
   ? A
   : never;
 
-type FilterArray<
+type FilterMatch<T, U> = T extends Readonly<U> ? T : U extends T ? U | [] : [];
+
+type Filter<
   T extends readonly unknown[],
   S,
-  U extends unknown[]
+  U extends unknown[] = []
 > = T extends readonly [infer F, ...infer R]
-  ? FilterArray<R, S, First<F> extends S ? [...U, First<F>] : U>
-  : U;
-
-type Filter<T extends readonly unknown[], S> = number extends T["length"]
-  ? S[]
-  : FilterArray<{ [K in keyof T]: [T[K]] }, S, []>;
+  ? Filter<R, S, [...U, ...FilterMatch<[F], [S]>]>
+  : T extends readonly [...infer R, infer L]
+  ? [...Filter<R, S, U>, ...FilterMatch<[L], [S]>]
+  : [...U, ...FilterMatch<T, S[]>];
 
 type Cast<T, U> = T extends U ? T : U;
 
@@ -842,7 +834,7 @@ interface Array<T> {
    * Reverses the elements in an array in place.
    * This method mutates the array and returns a reference to the same array.
    */
-  reverse(): Reverse<this, T>;
+  reverse(): Reverse<this>;
   /**
    * Removes the first element from an array and returns it.
    * If the array is empty, undefined is returned and the array is not modified.
