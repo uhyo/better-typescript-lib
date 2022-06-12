@@ -10,7 +10,6 @@ interface AggregateErrorConstructor {
 }
 
 declare var AggregateError: AggregateErrorConstructor;
-// declare var AggregateError: AggregateErrorConstructor;
 
 /**
  * Represents the completion of an asynchronous operation

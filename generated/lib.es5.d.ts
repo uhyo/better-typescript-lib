@@ -558,8 +558,6 @@ interface IArguments {
   callee: Function;
 }
 //     [index: number]: any;
-//     length: number;
-//     callee: Function;
 
 interface String {
   /** Returns a string representation of a string. */
@@ -5823,8 +5821,6 @@ interface Date {
   ): string;
 }
 // --------------------
-/// <reference no-default-lib="true"/>
-
 type First<T> = T extends [any] ? T[0] : unknown;
 
 type UnionToIntersection<T> = (

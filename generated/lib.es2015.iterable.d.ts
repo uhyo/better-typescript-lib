@@ -20,8 +20,7 @@ interface IteratorReturnResult<TReturn> {
 
 type IteratorResult<T, TReturn = any> =
   | IteratorYieldResult<T>
-  | IteratorReturnResult<TReturn>; /// <reference no-default-lib="true"/>
-
+  | IteratorReturnResult<TReturn>;
 interface Iterator<T, TReturn = unknown, TNext = undefined> {
   // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
   next(...args: [] | [TNext]): IteratorResult<T, TReturn>;

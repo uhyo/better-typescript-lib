@@ -35,9 +35,9 @@ interface ObjectConstructor {
    * Returns an object containing all own property descriptors of an object
    * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
    */
-  getOwnPropertyDescriptors<T>(o: T): {
-    [P in keyof T]: TypedPropertyDescriptor<T[P]>;
-  } & {
+  getOwnPropertyDescriptors<T>(
+    o: T
+  ): { [P in keyof T]: TypedPropertyDescriptor<T[P]> } & {
     [x: string]: PropertyDescriptor;
   };
 }
@@ -61,8 +61,3 @@ interface ObjectConstructor {
 //      * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
 //      */
 //     entries(o: {}): [string, any][];
-//     /**
-//      * Returns an object containing all own property descriptors of an object
-//      * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
-//      */
-//     getOwnPropertyDescriptors<T>(o: T): {[P in keyof T]: TypedPropertyDescriptor<T[P]>} & { [x: string]: PropertyDescriptor };

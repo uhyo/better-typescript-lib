@@ -1,5 +1,3 @@
-/// <reference no-default-lib="true"/>
-
 type First<T> = T extends [any] ? T[0] : unknown;
 
 type UnionToIntersection<T> = (
@@ -201,8 +199,6 @@ interface NewableFunction extends Function {
 
 interface IArguments {
   [index: number]: unknown;
-  length: number;
-  callee: Function;
 }
 
 interface String {

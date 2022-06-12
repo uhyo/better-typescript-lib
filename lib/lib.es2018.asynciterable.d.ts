@@ -1,5 +1,3 @@
-/// <reference no-default-lib="true"/>
-
 interface AsyncIterator<T, TReturn = unknown, TNext = undefined> {
   // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
   next(...args: [] | [TNext]): Promise<IteratorResult<T, TReturn>>;

@@ -1,5 +1,3 @@
-/// <reference no-default-lib="true"/>
-
 interface ObjectConstructor {
   /**
    * Returns an object created by key-value entries for properties and methods

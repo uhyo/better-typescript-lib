@@ -1,5 +1,3 @@
-/// <reference no-default-lib="true"/>
-
 interface String {
   /**
    * Replace all instances of a substring in a string, using a regular expression or search string.

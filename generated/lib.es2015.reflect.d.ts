@@ -1,5 +1,3 @@
-/// <reference no-default-lib="true"/>
-
 declare namespace Reflect {
   /**
    * Calls the function with the specified object as the this value

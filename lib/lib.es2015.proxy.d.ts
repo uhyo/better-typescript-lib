@@ -1,5 +1,3 @@
-/// <reference no-default-lib="true"/>
-
 interface ProxyHandler<T extends object> {
   apply?(target: T, thisArg: unknown, argArray: unknown[]): any;
   construct?(target: T, argArray: unknown[], newTarget: unknown): object;
@@ -16,9 +14,7 @@ interface ProxyHandler<T extends object> {
   ): PropertyDescriptor | undefined;
   getPrototypeOf?(target: T): object | null;
   has?(target: T, p: PropertyKey): boolean;
-  isExtensible?(target: T): boolean;
   ownKeys?(target: T): PropertyKey[];
-  preventExtensions?(target: T): boolean;
   set?(target: T, p: PropertyKey, value: unknown, receiver: unknown): boolean;
   setPrototypeOf?(target: T, v: unknown): boolean;
 }
