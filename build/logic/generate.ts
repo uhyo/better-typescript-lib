@@ -138,9 +138,10 @@ export function generate(
       result += "\n";
       for (const originalMems of emittedMembers.values()) {
         for (const originalMem of originalMems) {
-          result += commentOut(originalMem.getFullText(originalFile)) + "\n";
+          result += commentOut(originalMem.getFullText(originalFile));
         }
       }
+      result += "\n";
     }
   }
   result += originalFile.text.slice(originalFile.endOfFileToken.pos);
@@ -268,8 +269,10 @@ function isPartialReplacement(
     ) {
       return false;
     }
-  }
-  if (interfaceDecl.typeParameters !== replacementDecl.typeParameters) {
+  } else if (
+    interfaceDecl.typeParameters !== undefined ||
+    replacementDecl.typeParameters !== undefined
+  ) {
     return false;
   }
   if (
@@ -289,8 +292,10 @@ function isPartialReplacement(
     ) {
       return false;
     }
-  }
-  if (interfaceDecl.heritageClauses !== replacementDecl.heritageClauses) {
+  } else if (
+    interfaceDecl.heritageClauses !== undefined ||
+    replacementDecl.heritageClauses !== undefined
+  ) {
     return false;
   }
   return true;
@@ -363,7 +368,7 @@ function getStatementDeclName(statement: ts.Statement): string | undefined {
 }
 
 function commentOut(code: string): string {
-  const lines = code.split("\n");
+  const lines = code.split("\n").filter((line) => line.trim().length > 0);
   const result = lines.map((line) => `// ${line}`);
-  return result.join("\n");
+  return result.join("\n") + "\n";
 }

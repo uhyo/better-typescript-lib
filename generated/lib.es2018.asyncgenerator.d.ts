@@ -11,7 +11,6 @@ interface AsyncGenerator<T = unknown, TReturn = unknown, TNext = unknown>
   [Symbol.asyncIterator](): AsyncGenerator<T, TReturn, TNext>;
 }
 // /// <reference lib="es2018.asynciterable" />
-//
 // interface AsyncGenerator<T = unknown, TReturn = any, TNext = unknown> extends AsyncIterator<T, TReturn, TNext> {
 //     // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
 //     next(...args: [] | [TNext]): Promise<IteratorResult<T, TReturn>>;

@@ -28,8 +28,6 @@ interface Iterator<T, TReturn = unknown, TNext = undefined> {
   return?(value?: TReturn): IteratorResult<T, TReturn>;
   throw?(e?: any): IteratorResult<T, TReturn>;
 }
-//
-//
 // interface Iterator<T, TReturn = any, TNext = undefined> {
 //     // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
 //     next(...args: [] | [TNext]): IteratorResult<T, TReturn>;
@@ -44,8 +42,6 @@ interface Iterable<T> {
 interface IterableIterator<T> extends Iterator<T, undefined, void> {
   [Symbol.iterator](): IterableIterator<T>;
 }
-//
-//
 // interface IterableIterator<T> extends Iterator<T> {
 //     [Symbol.iterator](): IterableIterator<T>;
 // }
@@ -113,7 +109,6 @@ interface IArguments {
   /** Iterator */
   [Symbol.iterator](): IterableIterator<unknown>;
 }
-//
 //     /** Iterator */
 //     [Symbol.iterator](): IterableIterator<any>;
 
@@ -159,9 +154,7 @@ interface ReadonlyMap<K, V> {
 interface MapConstructor {
   new <K, V>(iterable?: Iterable<readonly [K, V]> | null): Map<K, V>;
 }
-//
 //     new(): Map<any, any>;
-//
 //     new <K, V>(iterable?: Iterable<readonly [K, V]> | null): Map<K, V>;
 
 interface WeakMap<K extends object, V> {}
@@ -236,7 +229,6 @@ interface PromiseConstructor {
    */
   race<T>(values: Iterable<T>): Promise<Awaited<T>>;
 }
-//
 //     /**
 //      * Creates a Promise that is resolved with an array of results when all of the provided Promises
 //      * resolve, or rejected when any Promise is rejected.
@@ -244,8 +236,6 @@ interface PromiseConstructor {
 //      * @returns A new Promise.
 //      */
 //     all<T>(values: Iterable<T | PromiseLike<T>>): Promise<Awaited<T>[]>;
-//
-//
 //     /**
 //      * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
 //      * or rejected.

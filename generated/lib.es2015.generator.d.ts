@@ -9,7 +9,6 @@ interface Generator<T = unknown, TReturn = unknown, TNext = unknown>
   [Symbol.iterator](): Generator<T, TReturn, TNext>;
 }
 // /// <reference lib="es2015.iterable" />
-//
 // interface Generator<T = unknown, TReturn = any, TNext = unknown> extends Iterator<T, TReturn, TNext> {
 //     // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
 //     next(...args: [] | [TNext]): IteratorResult<T, TReturn>;

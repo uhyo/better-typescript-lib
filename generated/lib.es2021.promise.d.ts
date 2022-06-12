@@ -1,11 +1,7 @@
-/// <reference no-default-lib="true"/>
-
 interface AggregateError extends Error {
   errors: unknown[];
 }
-// interface AggregateError extends Error {
 //     errors: any[]
-// }
 
 interface AggregateErrorConstructor {
   new (errors: Iterable<any>, message?: string): AggregateError;
@@ -14,8 +10,6 @@ interface AggregateErrorConstructor {
 }
 
 declare var AggregateError: AggregateErrorConstructor;
-//
-//
 // declare var AggregateError: AggregateErrorConstructor;
 
 /**
