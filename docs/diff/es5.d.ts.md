@@ -5,31 +5,7 @@ Index: es5.d.ts
 ===================================================================
 --- es5.d.ts
 +++ es5.d.ts
-@@ -1,4 +1,23 @@
-+/// <reference no-default-lib="true"/>
-+
-+type First<T> = T extends [any] ? T[0] : unknown;
-+
-+type UnionToIntersection<T> = (
-+  T extends any ? (arg: T) => void : never
-+) extends (arg: infer F) => void
-+  ? F
-+  : unknown;
-+
-+type JSONValue =
-+  | null
-+  | string
-+  | number
-+  | boolean
-+  | {
-+      [K in string]?: JSONValue;
-+    }
-+  | JSONValue[];
- /////////////////////////////
- /// ECMAScript APIs
- /////////////////////////////
- 
-@@ -8,9 +27,9 @@
+@@ -8,9 +8,9 @@
  /**
   * Evaluates JavaScript code and executes it.
   * @param x A String value that contains valid JavaScript code.
@@ -40,7 +16,22 @@ Index: es5.d.ts
  /**
   * Converts a string to an integer.
   * @param string A string to convert into a number.
-@@ -117,9 +136,19 @@
+@@ -99,9 +99,8 @@
+ 
+ interface PropertyDescriptorMap {
+   [key: PropertyKey]: PropertyDescriptor;
+ }
+-
+ interface Object {
+   /** The initial value of Object.prototype.constructor is the standard built-in Object constructor. */
+   constructor: Function;
+ 
+@@ -112,14 +111,23 @@
+   toLocaleString(): string;
+ 
+   /** Returns the primitive value of the specified object. */
+   valueOf(): Object;
+-
    /**
     * Determines whether an object has a property with the specified name.
     * @param v A property name.
@@ -61,16 +52,12 @@ Index: es5.d.ts
    /**
     * Determines whether an object exists in another object's prototype chain.
     * @param v Another object whose prototype chain is to be checked.
-@@ -132,21 +161,26 @@
+@@ -131,22 +139,21 @@
+    * @param v A property name.
     */
    propertyIsEnumerable(v: PropertyKey): boolean;
  }
- 
-+/**
-+ * Provides functionality common to all JavaScript objects.
-+ */
-+declare var Object: ObjectConstructor;
-+
+-
  interface ObjectConstructor {
    new (value?: any): Object;
 -  (): any;
@@ -91,7 +78,7 @@ Index: es5.d.ts
    /**
     * Gets the own property descriptor of the specified object.
     * An own property descriptor is one that is defined directly on the object and is not inherited from the object's prototype.
-@@ -162,47 +196,101 @@
+@@ -162,47 +169,101 @@
     * Returns the names of the own properties of an object. The own properties of an object are those that are defined directly
     * on that object, and are not inherited from the object's prototype. The properties of an object include both fields (objects) and functions.
     * @param o Object that contains the own properties.
@@ -208,61 +195,24 @@ Index: es5.d.ts
    /**
     * Prevents the modification of attributes of existing properties, and prevents the addition of new properties.
     * @param o Object on which to lock the attributes.
-@@ -210,17 +298,17 @@
-   seal<T>(o: T): T;
- 
-   /**
-    * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
--   * @param a Object on which to lock the attributes.
-+   * @param o Object on which to lock the attributes.
-    */
--  freeze<T>(a: T[]): readonly T[];
-+  freeze<T>(o: T[]): readonly T[];
- 
-   /**
-    * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
--   * @param f Object on which to lock the attributes.
-+   * @param o Object on which to lock the attributes.
-    */
--  freeze<T extends Function>(f: T): T;
-+  freeze<T extends Function>(o: T): T;
- 
-   /**
-    * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
-    * @param o Object on which to lock the attributes.
-@@ -258,13 +346,8 @@
-   keys(o: object): string[];
- }
- 
- /**
-- * Provides functionality common to all JavaScript objects.
-- */
--declare var Object: ObjectConstructor;
+@@ -326,9 +387,8 @@
+   ? T
+   : T extends (...args: infer A) => infer R
+   ? (...args: A) => R
+   : T;
 -
--/**
-  * Creates a new function.
-  */
- interface Function {
-   /**
-@@ -331,11 +414,16 @@
  interface CallableFunction extends Function {
    /**
     * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
     * @param thisArg The object to be used as the this object.
-+   */
-+  apply<T, R>(this: (this: T) => R, thisArg: T): R;
-+
-+  /**
-+   * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
-+   * @param thisArg The object to be used as the this object.
-    * @param args An array of argument values to be passed to the function.
-    */
--  apply<T, R>(this: (this: T) => R, thisArg: T): R;
-   apply<T, A extends any[], R>(
+@@ -350,56 +410,32 @@
      this: (this: T, ...args: A) => R,
      thisArg: T,
-     args: A
-@@ -357,49 +445,27 @@
+     ...args: A
+   ): R;
+-
+   /**
+    * For a given function, creates a bound function that has the same body as the original function.
     * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
     * @param thisArg The object to be used as the this object.
     * @param args Arguments to bind to the parameters of the function.
@@ -304,7 +254,7 @@ Index: es5.d.ts
 +    ...args: A
 +  ): (...args: B) => R;
  }
- 
+-
  interface NewableFunction extends Function {
    /**
     * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
@@ -322,7 +272,7 @@ Index: es5.d.ts
      this: new (...args: A) => T,
      thisArg: T,
      args: A
-@@ -421,44 +487,17 @@
+@@ -421,48 +457,19 @@
     * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
     * @param thisArg The object to be used as the this object.
     * @param args Arguments to bind to the parameters of the function.
@@ -364,17 +314,24 @@ Index: es5.d.ts
 +    ...args: A
 +  ): new (...args: B) => R;
  }
- 
+-
  interface IArguments {
 -  [index: number]: any;
 +  [index: number]: unknown;
    length: number;
    callee: Function;
  }
+-
+ interface String {
+   /** Returns a string representation of a string. */
+   toString(): string;
  
-@@ -511,21 +550,26 @@
+@@ -508,24 +515,28 @@
+    * Matches a string with a regular expression, and returns an array containing the results of that search.
+    * @param regexp A variable name or string literal containing the regular expression pattern and flags.
+    */
    match(regexp: string | RegExp): RegExpMatchArray | null;
- 
+-
    /**
     * Replaces text in a string, using a regular expression or search string.
 -   * @param searchValue A string to search for.
@@ -402,46 +359,17 @@ Index: es5.d.ts
  
    /**
     * Finds the first substring match in a regular expression search.
-@@ -586,8 +630,24 @@
-   /** Returns the primitive value of the specified object. */
-   valueOf(): string;
- 
-   readonly [index: number]: string;
-+
-+  /////////////////////////////
-+  /// ECMAScript Internationalization API
-+  /////////////////////////////
-+
-+  /**
-+   * Determines whether two strings are equivalent in the current or specified locale.
-+   * @param that String to compare to target string
-+   * @param locales A locale string or array of locale strings that contain one or more language or locale tags. If you include more than one locale string, list them in descending order of priority so that the first entry is the preferred locale. If you omit this parameter, the default locale of the JavaScript runtime is used. This parameter must conform to BCP 47 standards; see the Intl.Collator object for details.
-+   * @param options An object that contains one or more properties that specify comparison options. see the Intl.Collator object for details.
-+   */
-+  localeCompare(
-+    that: string,
-+    locales?: string | string[],
-+    options?: Intl.CollatorOptions
-+  ): number;
+@@ -1177,9 +1188,8 @@
+   readonly prototype: URIError;
  }
  
- interface StringConstructor {
-   new (value?: any): String;
-@@ -595,13 +655,8 @@
-   readonly prototype: String;
-   fromCharCode(...codes: number[]): string;
- }
- 
--/**
-- * Allows manipulation and formatting of text strings and determination and location of substrings within strings.
-- */
--declare var String: StringConstructor;
+ declare var URIError: URIErrorConstructor;
 -
- interface Boolean {
-   /** Returns the primitive value of the specified object. */
-   valueOf(): boolean;
- }
-@@ -1187,43 +1242,81 @@
+ interface JSON {
+   /**
+    * Converts a JavaScript Object Notation (JSON) string into an object.
+    * @param text A valid JSON string.
+@@ -1187,43 +1197,80 @@
     * If a member contains nested objects, the nested objects are transformed before the parent object is.
     */
    parse(
@@ -527,7 +455,7 @@ Index: es5.d.ts
   * An intrinsic object that provides functions to convert JavaScript values to and from the JavaScript Object Notation (JSON) format.
   */
  declare var JSON: JSON;
- 
+-
 -/////////////////////////////
 -/// ECMAScript Array API (specially handled by compiler)
 -/////////////////////////////
@@ -536,7 +464,7 @@ Index: es5.d.ts
    /**
     * Gets the length of the array. This is a number one higher than the highest element defined in an array.
     */
-@@ -1276,11 +1369,16 @@
+@@ -1276,11 +1323,16 @@
     * which is coercible to the Boolean value false, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -556,7 +484,7 @@ Index: es5.d.ts
    /**
     * Determines whether all the members of an array satisfy the specified test.
     * @param predicate A function that accepts up to three arguments. The every method calls
-@@ -1288,11 +1386,16 @@
+@@ -1288,11 +1340,16 @@
     * which is coercible to the Boolean value false, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -576,7 +504,7 @@ Index: es5.d.ts
    /**
     * Determines whether the specified callback function returns true for any element of an array.
     * @param predicate A function that accepts up to three arguments. The some method calls
-@@ -1300,47 +1403,67 @@
+@@ -1300,47 +1357,67 @@
     * which is coercible to the Boolean value true, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -659,7 +587,17 @@ Index: es5.d.ts
    /**
     * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
     * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
-@@ -1500,17 +1623,17 @@
+@@ -1422,9 +1499,8 @@
+   readonly [n: number]: T;
+   join(separator?: string): string;
+   slice(start?: number, end?: number): T[];
+ }
+-
+ interface Array<T> {
+   /**
+    * Gets or sets the length of the array. This is a number one higher than the highest index in the array.
+    */
+@@ -1500,17 +1576,17 @@
     * @param start The zero-based location in the array from which to start removing elements.
     * @param deleteCount The number of elements to remove.
     * @returns An array containing the elements that were deleted.
@@ -679,7 +617,7 @@ Index: es5.d.ts
     * Inserts new elements at the start of an array, and returns the new length of the array.
     * @param items Elements to insert at the start of the array.
     */
-@@ -1534,11 +1657,11 @@
+@@ -1534,11 +1610,11 @@
     * which is coercible to the Boolean value false, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -694,7 +632,7 @@ Index: es5.d.ts
    /**
     * Determines whether all the members of an array satisfy the specified test.
     * @param predicate A function that accepts up to three arguments. The every method calls
-@@ -1546,11 +1669,11 @@
+@@ -1546,11 +1622,11 @@
     * which is coercible to the Boolean value false, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -709,7 +647,7 @@ Index: es5.d.ts
    /**
     * Determines whether the specified callback function returns true for any element of an array.
     * @param predicate A function that accepts up to three arguments. The some method calls
-@@ -1558,47 +1681,47 @@
+@@ -1558,47 +1634,47 @@
     * which is coercible to the Boolean value true, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -772,13 +710,12 @@ Index: es5.d.ts
    /**
     * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
     * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
-@@ -1674,21 +1797,19 @@
+@@ -1673,18 +1749,15 @@
+   ): U;
  
    [n: number]: T;
  }
- 
-+declare var Array: ArrayConstructor;
-+
+-
  interface ArrayConstructor {
 -  new (arrayLength?: number): any[];
    new <T>(arrayLength: number): T[];
@@ -792,13 +729,9 @@ Index: es5.d.ts
 +  readonly prototype: unknown[];
  }
  
--declare var Array: ArrayConstructor;
--
- interface TypedPropertyDescriptor<T> {
-   enumerable?: boolean;
-   configurable?: boolean;
-   writable?: boolean;
-@@ -1716,9 +1837,15 @@
+ declare var Array: ArrayConstructor;
+ 
+@@ -1716,9 +1789,15 @@
  ) => void;
  
  declare type PromiseConstructorLike = new <T>(
@@ -815,28 +748,38 @@ Index: es5.d.ts
    ) => void
  ) => PromiseLike<T>;
  
-@@ -5435,22 +5562,8 @@
+@@ -5434,9 +5513,8 @@
+       options?: DateTimeFormatOptions
      ): string[];
    };
  }
- 
--interface String {
--  /**
--   * Determines whether two strings are equivalent in the current or specified locale.
--   * @param that String to compare to target string
--   * @param locales A locale string or array of locale strings that contain one or more language or locale tags. If you include more than one locale string, list them in descending order of priority so that the first entry is the preferred locale. If you omit this parameter, the default locale of the JavaScript runtime is used. This parameter must conform to BCP 47 standards; see the Intl.Collator object for details.
--   * @param options An object that contains one or more properties that specify comparison options. see the Intl.Collator object for details.
--   */
--  localeCompare(
--    that: string,
--    locales?: string | string[],
--    options?: Intl.CollatorOptions
--  ): number;
--}
 -
- interface Number {
+ interface String {
    /**
-    * Converts a number to a string by using the current or specified locale.
-    * @param locales A locale string or array of locale strings that contain one or more language or locale tags. If you include more than one locale string, list them in descending order of priority so that the first entry is the preferred locale. If you omit this parameter, the default locale of the JavaScript runtime is used.
+    * Determines whether two strings are equivalent in the current or specified locale.
+    * @param that String to compare to target string
+@@ -5491,4 +5569,22 @@
+     locales?: string | string[],
+     options?: Intl.DateTimeFormatOptions
+   ): string;
+ }
++// --------------------
++type First<T> = T extends [any] ? T[0] : unknown;
++
++type UnionToIntersection<T> = (
++  T extends any ? (arg: T) => void : never
++) extends (arg: infer F) => void
++  ? F
++  : unknown;
++
++type JSONValue =
++  | null
++  | string
++  | number
++  | boolean
++  | {
++      [K in string]?: JSONValue;
++    }
++  | JSONValue[];
 
 ```
