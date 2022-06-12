@@ -6376,3 +6376,23 @@ interface Date {
     options?: Intl.DateTimeFormatOptions
   ): string;
 }
+// --------------------
+/// <reference no-default-lib="true"/>
+
+type First<T> = T extends [any] ? T[0] : unknown;
+
+type UnionToIntersection<T> = (
+  T extends any ? (arg: T) => void : never
+) extends (arg: infer F) => void
+  ? F
+  : unknown;
+
+type JSONValue =
+  | null
+  | string
+  | number
+  | boolean
+  | {
+      [K in string]?: JSONValue;
+    }
+  | JSONValue[];
