@@ -1,6 +1,5 @@
 import path from "path";
 import ts from "typescript";
-import { replacement } from "../replacement";
 import { upsert } from "../util/upsert";
 import { projectDir } from "./projectDir";
 
@@ -29,33 +28,30 @@ export function generate(
     }[]
   >();
   {
-    const replSet = replacement.get(libFile);
-    if (replSet) {
-      const betterLibFile = path.join(betterLibDir, `lib.${libFile}`);
-      const betterProgram = ts.createProgram([betterLibFile], {});
-      const betterFile = betterProgram.getSourceFile(betterLibFile);
-      if (betterFile) {
-        for (const statement of betterFile.statements) {
-          const name = getStatementDeclName(statement) ?? "";
-          upsert(replacementTargets, name, (statements = []) => [
-            ...statements,
-            {
-              statement,
-              sourceFile: betterFile,
-            },
-          ]);
-        }
-        // copy other statements
-        result +=
-          replacementTargets
-            .get("")
-            ?.map(({ statement, sourceFile }) =>
-              statement.getFullText(sourceFile)
-            )
-            .join("") ?? "";
-        if (result) {
-          result += "// --------------------\n";
-        }
+    const betterLibFile = path.join(betterLibDir, `lib.${libFile}`);
+    const betterProgram = ts.createProgram([betterLibFile], {});
+    const betterFile = betterProgram.getSourceFile(betterLibFile);
+    if (betterFile) {
+      for (const statement of betterFile.statements) {
+        const name = getStatementDeclName(statement) ?? "";
+        upsert(replacementTargets, name, (statements = []) => [
+          ...statements,
+          {
+            statement,
+            sourceFile: betterFile,
+          },
+        ]);
+      }
+      // copy other statements
+      result +=
+        replacementTargets
+          .get("")
+          ?.map(({ statement, sourceFile }) =>
+            statement.getFullText(sourceFile)
+          )
+          .join("") ?? "";
+      if (result) {
+        result += "// --------------------\n";
       }
     }
   }
