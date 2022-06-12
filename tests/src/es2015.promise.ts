@@ -41,7 +41,7 @@ new Promise((resolve) => {
 {
   const p1 = Promise.resolve(123);
   expectType<Promise<number>>(p1);
-  const p2 = Promise.resolve<Promise<number>>(p1);
+  const p2 = Promise.resolve<number>(p1);
   expectType<Promise<number>>(p2);
 }
 

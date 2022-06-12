@@ -14,6 +14,7 @@ interface WeakMapConstructor {
   new <K extends object, V>(
     entries?: readonly (readonly [K, V])[] | null
   ): WeakMap<K, V>;
+  readonly prototype: WeakMap<object, unknown>;
 }
 
 interface ReadonlyMap<K, V> {
