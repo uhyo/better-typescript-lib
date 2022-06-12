@@ -201,8 +201,7 @@ interface Math {
    * @param x A numeric expression.
    */
   cbrt(x: number): number;
-} /// <reference no-default-lib="true"/>
-
+}
 interface NumberConstructor {
   /**
    * The value of Number.EPSILON is the difference between 1 and the smallest value greater than 1
@@ -269,14 +268,13 @@ interface NumberConstructor {
   parseInt(string: string, radix?: number): number;
 }
 //
-//
-// interface NumberConstructor {
 //     /**
 //      * The value of Number.EPSILON is the difference between 1 and the smallest value greater than 1
 //      * that is representable as a Number value, which is approximately:
 //      * 2.2204460492503130808472633361816 x 10‍−‍16.
 //      */
 //     readonly EPSILON: number;
+//
 //
 //     /**
 //      * Returns true if passed value is finite.
@@ -286,11 +284,13 @@ interface NumberConstructor {
 //      */
 //     isFinite(number: unknown): boolean;
 //
+//
 //     /**
 //      * Returns true if the value passed is an integer, false otherwise.
 //      * @param number A numeric value.
 //      */
 //     isInteger(number: unknown): boolean;
+//
 //
 //     /**
 //      * Returns a Boolean value that indicates whether a value is the reserved value NaN (not a
@@ -300,11 +300,13 @@ interface NumberConstructor {
 //      */
 //     isNaN(number: unknown): boolean;
 //
+//
 //     /**
 //      * Returns true if the value passed is a safe integer.
 //      * @param number A numeric value.
 //      */
 //     isSafeInteger(number: unknown): boolean;
+//
 //
 //     /**
 //      * The value of the largest integer n such that n and n + 1 are both exactly representable as
@@ -313,6 +315,7 @@ interface NumberConstructor {
 //      */
 //     readonly MAX_SAFE_INTEGER: number;
 //
+//
 //     /**
 //      * The value of the smallest integer n such that n and n − 1 are both exactly representable as
 //      * a Number value.
@@ -320,11 +323,13 @@ interface NumberConstructor {
 //      */
 //     readonly MIN_SAFE_INTEGER: number;
 //
+//
 //     /**
 //      * Converts a string to a floating-point number.
 //      * @param string A string that contains a floating-point number.
 //      */
 //     parseFloat(string: string): number;
+//
 //
 //     /**
 //      * Converts A string to an integer.
@@ -334,8 +339,6 @@ interface NumberConstructor {
 //      * All other strings are considered decimal.
 //      */
 //     parseInt(string: string, radix?: number): number;
-// }
-
 interface ObjectConstructor {
   /**
    * Copy the values of all of the enumerable own properties from one or more source objects to a
@@ -382,8 +385,6 @@ interface ObjectConstructor {
   setPrototypeOf<T extends object>(o: T, proto: null): T;
 }
 //
-//
-// interface ObjectConstructor {
 //     /**
 //      * Copy the values of all of the enumerable own properties from one or more source objects to a
 //      * target object. Returns the target object.
@@ -391,6 +392,7 @@ interface ObjectConstructor {
 //      * @param source The source object from which to copy properties.
 //      */
 //     assign<T, U>(target: T, source: U): T & U;
+//
 //
 //     /**
 //      * Copy the values of all of the enumerable own properties from one or more source objects to a
@@ -400,6 +402,7 @@ interface ObjectConstructor {
 //      * @param source2 The second source object from which to copy properties.
 //      */
 //     assign<T, U, V>(target: T, source1: U, source2: V): T & U & V;
+//
 //
 //     /**
 //      * Copy the values of all of the enumerable own properties from one or more source objects to a
@@ -411,6 +414,7 @@ interface ObjectConstructor {
 //      */
 //     assign<T, U, V, W>(target: T, source1: U, source2: V, source3: W): T & U & V & W;
 //
+//
 //     /**
 //      * Copy the values of all of the enumerable own properties from one or more source objects to a
 //      * target object. Returns the target object.
@@ -419,17 +423,20 @@ interface ObjectConstructor {
 //      */
 //     assign(target: object, ...sources: any[]): any;
 //
+//
 //     /**
 //      * Returns an array of all symbol properties found directly on object o.
 //      * @param o Object to retrieve the symbols from.
 //      */
 //     getOwnPropertySymbols(o: any): symbol[];
 //
+//
 //     /**
 //      * Returns the names of the enumerable string properties and methods of an object.
 //      * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
 //      */
 //     keys(o: {}): string[];
+//
 //
 //     /**
 //      * Returns true if the values are the same value, false otherwise.
@@ -438,13 +445,13 @@ interface ObjectConstructor {
 //      */
 //     is(value1: any, value2: any): boolean;
 //
+//
 //     /**
 //      * Sets the prototype of a specified object o to object proto or null. Returns the object o.
 //      * @param o The object to change its prototype.
 //      * @param proto The value of the new prototype or null.
 //      */
 //     setPrototypeOf(o: any, proto: object | null): any;
-// }
 
 interface ReadonlyArray<T> {
   /**
@@ -517,7 +524,6 @@ interface RegExpConstructor {
   new (pattern: RegExp | string, flags?: string): RegExp;
   (pattern: RegExp | string, flags?: string): RegExp;
 }
-
 interface String {
   /**
    * Returns a nonnegative integer Number less than 1114112 (0x110000) that is the code point
@@ -652,8 +658,6 @@ interface String {
   sup(): string;
 }
 //
-//
-// interface String {
 //     /**
 //      * Returns a nonnegative integer Number less than 1114112 (0x110000) that is the code point
 //      * value of the UTF-16 encoded code point starting at the string element at position pos in
@@ -662,6 +666,7 @@ interface String {
 //      * If a valid UTF-16 surrogate pair does not begin at pos, the result is the code unit at pos.
 //      */
 //     codePointAt(pos: number): number | undefined;
+//
 //
 //     /**
 //      * Returns true if searchString appears as a substring of the result of converting this
@@ -672,12 +677,14 @@ interface String {
 //      */
 //     includes(searchString: string, position?: number): boolean;
 //
+//
 //     /**
 //      * Returns true if the sequence of elements of searchString converted to a String is the
 //      * same as the corresponding elements of this object (converted to a String) starting at
 //      * endPosition – length(this). Otherwise returns false.
 //      */
 //     endsWith(searchString: string, endPosition?: number): boolean;
+//
 //
 //     /**
 //      * Returns the String value result of normalizing the string into the normalization form
@@ -687,6 +694,7 @@ interface String {
 //      */
 //     normalize(form: "NFC" | "NFD" | "NFKC" | "NFKD"): string;
 //
+//
 //     /**
 //      * Returns the String value result of normalizing the string into the normalization form
 //      * named by form as specified in Unicode Standard Annex #15, Unicode Normalization Forms.
@@ -695,12 +703,14 @@ interface String {
 //      */
 //     normalize(form?: string): string;
 //
+//
 //     /**
 //      * Returns a String value that is made from count copies appended together. If count is 0,
 //      * the empty string is returned.
 //      * @param count number of copies to append
 //      */
 //     repeat(count: number): string;
+//
 //
 //     /**
 //      * Returns true if the sequence of elements of searchString converted to a String is the
@@ -709,6 +719,7 @@ interface String {
 //      */
 //     startsWith(searchString: string, position?: number): boolean;
 //
+//
 //     /**
 //      * Returns an `<a>` HTML anchor element and sets the name attribute to the text value
 //      * @deprecated A legacy feature for browser compatibility
@@ -716,11 +727,13 @@ interface String {
 //      */
 //     anchor(name: string): string;
 //
+//
 //     /**
 //      * Returns a `<big>` HTML element
 //      * @deprecated A legacy feature for browser compatibility
 //      */
 //     big(): string;
+//
 //
 //     /**
 //      * Returns a `<blink>` HTML element
@@ -728,11 +741,13 @@ interface String {
 //      */
 //     blink(): string;
 //
+//
 //     /**
 //      * Returns a `<b>` HTML element
 //      * @deprecated A legacy feature for browser compatibility
 //      */
 //     bold(): string;
+//
 //
 //     /**
 //      * Returns a `<tt>` HTML element
@@ -740,11 +755,13 @@ interface String {
 //      */
 //     fixed(): string;
 //
+//
 //     /**
 //      * Returns a `<font>` HTML element and sets the color attribute value
 //      * @deprecated A legacy feature for browser compatibility
 //      */
 //     fontcolor(color: string): string;
+//
 //
 //     /**
 //      * Returns a `<font>` HTML element and sets the size attribute value
@@ -752,11 +769,13 @@ interface String {
 //      */
 //     fontsize(size: number): string;
 //
+//
 //     /**
 //      * Returns a `<font>` HTML element and sets the size attribute value
 //      * @deprecated A legacy feature for browser compatibility
 //      */
 //     fontsize(size: string): string;
+//
 //
 //     /**
 //      * Returns an `<i>` HTML element
@@ -764,11 +783,13 @@ interface String {
 //      */
 //     italics(): string;
 //
+//
 //     /**
 //      * Returns an `<a>` HTML element and sets the href attribute value
 //      * @deprecated A legacy feature for browser compatibility
 //      */
 //     link(url: string): string;
+//
 //
 //     /**
 //      * Returns a `<small>` HTML element
@@ -776,11 +797,13 @@ interface String {
 //      */
 //     small(): string;
 //
+//
 //     /**
 //      * Returns a `<strike>` HTML element
 //      * @deprecated A legacy feature for browser compatibility
 //      */
 //     strike(): string;
+//
 //
 //     /**
 //      * Returns a `<sub>` HTML element
@@ -788,12 +811,12 @@ interface String {
 //      */
 //     sub(): string;
 //
+//
 //     /**
 //      * Returns a `<sup>` HTML element
 //      * @deprecated A legacy feature for browser compatibility
 //      */
 //     sup(): string;
-// }
 
 interface StringConstructor {
   /**

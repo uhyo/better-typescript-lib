@@ -3,8 +3,6 @@
 interface AggregateError extends Error {
   errors: unknown[];
 }
-
-declare var AggregateError: AggregateErrorConstructor;
 // interface AggregateError extends Error {
 //     errors: any[]
 // }
@@ -14,6 +12,8 @@ interface AggregateErrorConstructor {
   (errors: Iterable<any>, message?: string): AggregateError;
   readonly prototype: AggregateError;
 }
+
+declare var AggregateError: AggregateErrorConstructor;
 //
 //
 // declare var AggregateError: AggregateErrorConstructor;

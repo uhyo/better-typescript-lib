@@ -1,5 +1,3 @@
-/// <reference no-default-lib="true"/>
-
 interface PromiseConstructor {
   /**
    * A reference to the prototype.
@@ -79,11 +77,12 @@ interface PromiseConstructor {
    */
   resolve(): Promise<void>;
 }
-// interface PromiseConstructor {
+//
 //     /**
 //      * A reference to the prototype.
 //      */
 //     readonly prototype: Promise<any>;
+//
 //
 //     /**
 //      * Creates a new Promise.
@@ -93,6 +92,7 @@ interface PromiseConstructor {
 //      */
 //     new <T>(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
 //
+//
 //     /**
 //      * Creates a Promise that is resolved with an array of results when all of the provided Promises
 //      * resolve, or rejected when any Promise is rejected.
@@ -100,6 +100,7 @@ interface PromiseConstructor {
 //      * @returns A new Promise.
 //      */
 //     all<T extends readonly unknown[] | []>(values: T): Promise<{ -readonly [P in keyof T]: Awaited<T[P]> }>;
+//
 //
 //     // see: lib.es2015.iterable.d.ts
 //     // all<T>(values: Iterable<T | PromiseLike<T>>): Promise<T[]>;
@@ -112,6 +113,7 @@ interface PromiseConstructor {
 //      */
 //     race<T extends readonly unknown[] | []>(values: T): Promise<Awaited<T[number]>>;
 //
+//
 //     // see: lib.es2015.iterable.d.ts
 //     // race<T>(values: Iterable<T>): Promise<T extends PromiseLike<infer U> ? U : T>;
 //
@@ -122,11 +124,13 @@ interface PromiseConstructor {
 //      */
 //     reject<T = never>(reason?: any): Promise<T>;
 //
+//
 //     /**
 //      * Creates a new resolved promise.
 //      * @returns A resolved promise.
 //      */
 //     resolve(): Promise<void>;
+//
 //
 //     /**
 //      * Creates a new resolved promise for the provided value.
@@ -134,6 +138,5 @@ interface PromiseConstructor {
 //      * @returns A promise whose internal state matches the provided promise.
 //      */
 //     resolve<T>(value: T | PromiseLike<T>): Promise<T>;
-// }
 
 declare var Promise: PromiseConstructor;

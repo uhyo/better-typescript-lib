@@ -166,7 +166,6 @@ interface Promise<T> {
 interface PromiseConstructor {
   readonly [Symbol.species]: PromiseConstructor;
 }
-
 interface RegExp {
   /**
    * Matches a string with this regular expression, and returns an array containing the results of
@@ -223,14 +222,13 @@ interface RegExp {
   [Symbol.split](string: string, limit?: number): string[];
 }
 //
-//
-// interface RegExp {
 //     /**
 //      * Matches a string with this regular expression, and returns an array containing the results of
 //      * that search.
 //      * @param string A string to search within.
 //      */
 //     [Symbol.match](string: string): RegExpMatchArray | null;
+//
 //
 //     /**
 //      * Replaces text in a string, using this regular expression.
@@ -241,6 +239,7 @@ interface RegExp {
 //      */
 //     [Symbol.replace](string: string, replaceValue: string): string;
 //
+//
 //     /**
 //      * Replaces text in a string, using this regular expression.
 //      * @param string A String object or string literal whose contents matching against
@@ -249,6 +248,7 @@ interface RegExp {
 //      */
 //     [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string;
 //
+//
 //     /**
 //      * Finds the position beginning first substring match in a regular expression search
 //      * using this regular expression.
@@ -256,6 +256,7 @@ interface RegExp {
 //      * @param string The string to search within.
 //      */
 //     [Symbol.search](string: string): number;
+//
 //
 //     /**
 //      * Returns an array of substrings that were delimited by strings in the original input that
@@ -270,12 +271,10 @@ interface RegExp {
 //      * than 'limit' elements.
 //      */
 //     [Symbol.split](string: string, limit?: number): string[];
-// }
 
 interface RegExpConstructor {
   readonly [Symbol.species]: RegExpConstructor;
 }
-
 interface String {
   /**
    * Matches a string or an object that supports being matched against, and returns an array
@@ -330,14 +329,13 @@ interface String {
   ): string[];
 }
 //
-//
-// interface String {
 //     /**
 //      * Matches a string or an object that supports being matched against, and returns an array
 //      * containing the results of that search, or null if no matches are found.
 //      * @param matcher An object that supports being matched against.
 //      */
 //     match(matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null;
+//
 //
 //     /**
 //      * Replaces first match with string or all matches with RegExp.
@@ -346,6 +344,7 @@ interface String {
 //      */
 //     replace(searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string;
 //
+//
 //     /**
 //      * Replaces text in a string, using an object that supports replacement within a string.
 //      * @param searchValue A object can search for and replace matches within a string.
@@ -353,11 +352,13 @@ interface String {
 //      */
 //     replace(searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string;
 //
+//
 //     /**
 //      * Finds the first substring match in a regular expression search.
 //      * @param searcher An object which supports searching within a string.
 //      */
 //     search(searcher: { [Symbol.search](string: string): number; }): number;
+//
 //
 //     /**
 //      * Split a string into substrings using the specified separator and return them as an array.
@@ -365,7 +366,6 @@ interface String {
 //      * @param limit A value used to limit the number of elements returned in the array.
 //      */
 //     split(splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[];
-// }
 
 interface ArrayBuffer {
   readonly [Symbol.toStringTag]: string;

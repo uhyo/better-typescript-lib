@@ -109,17 +109,13 @@ interface ReadonlyArray<T> {
    */
   values(): IterableIterator<T>;
 }
-
 interface IArguments {
   /** Iterator */
   [Symbol.iterator](): IterableIterator<unknown>;
 }
 //
-//
-// interface IArguments {
 //     /** Iterator */
 //     [Symbol.iterator](): IterableIterator<any>;
-// }
 
 interface Map<K, V> {
   /** Returns an iterable of entries in the map. */
@@ -160,16 +156,13 @@ interface ReadonlyMap<K, V> {
    */
   values(): IterableIterator<V>;
 }
-
 interface MapConstructor {
   new <K, V>(iterable?: Iterable<readonly [K, V]> | null): Map<K, V>;
 }
 //
-//
-// interface MapConstructor {
 //     new(): Map<any, any>;
+//
 //     new <K, V>(iterable?: Iterable<readonly [K, V]> | null): Map<K, V>;
-// }
 
 interface WeakMap<K extends object, V> {}
 
@@ -226,7 +219,6 @@ interface WeakSetConstructor {
 }
 
 interface Promise<T> {}
-
 interface PromiseConstructor {
   /**
    * Creates a Promise that is resolved with an array of results when all of the provided Promises
@@ -245,8 +237,6 @@ interface PromiseConstructor {
   race<T>(values: Iterable<T>): Promise<Awaited<T>>;
 }
 //
-//
-// interface PromiseConstructor {
 //     /**
 //      * Creates a Promise that is resolved with an array of results when all of the provided Promises
 //      * resolve, or rejected when any Promise is rejected.
@@ -255,6 +245,7 @@ interface PromiseConstructor {
 //      */
 //     all<T>(values: Iterable<T | PromiseLike<T>>): Promise<Awaited<T>[]>;
 //
+//
 //     /**
 //      * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
 //      * or rejected.
@@ -262,7 +253,6 @@ interface PromiseConstructor {
 //      * @returns A new Promise.
 //      */
 //     race<T>(values: Iterable<T | PromiseLike<T>>): Promise<Awaited<T>>;
-// }
 
 interface String {
   /** Iterator */

@@ -1,22 +1,3 @@
-/// <reference no-default-lib="true"/>
-
-type First<T> = T extends [any] ? T[0] : unknown;
-
-type UnionToIntersection<T> = (
-  T extends any ? (arg: T) => void : never
-) extends (arg: infer F) => void
-  ? F
-  : unknown;
-
-type JSONValue =
-  | null
-  | string
-  | number
-  | boolean
-  | {
-      [K in string]?: JSONValue;
-    }
-  | JSONValue[];
 /////////////////////////////
 /// ECMAScript APIs
 /////////////////////////////
@@ -126,7 +107,6 @@ interface PropertyDescriptor {
 interface PropertyDescriptorMap {
   [key: PropertyKey]: PropertyDescriptor;
 }
-
 interface Object {
   /** The initial value of Object.prototype.constructor is the standard built-in Object constructor. */
   constructor: Function;
@@ -168,25 +148,22 @@ interface Object {
    */
   propertyIsEnumerable(v: PropertyKey): boolean;
 }
-
-/**
- * Provides functionality common to all JavaScript objects.
- */
-declare var Object: ObjectConstructor;
 //
-//
-// interface Object {
 //     /** The initial value of Object.prototype.constructor is the standard built-in Object constructor. */
 //     constructor: Function;
+//
 //
 //     /** Returns a string representation of an object. */
 //     toString(): string;
 //
+//
 //     /** Returns a date converted to a string using the current locale. */
 //     toLocaleString(): string;
 //
+//
 //     /** Returns the primitive value of the specified object. */
 //     valueOf(): Object;
+//
 //
 //     /**
 //      * Determines whether an object has a property with the specified name.
@@ -194,19 +171,19 @@ declare var Object: ObjectConstructor;
 //      */
 //     hasOwnProperty(v: PropertyKey): boolean;
 //
+//
 //     /**
 //      * Determines whether an object exists in another object's prototype chain.
 //      * @param v Another object whose prototype chain is to be checked.
 //      */
 //     isPrototypeOf(v: Object): boolean;
 //
+//
 //     /**
 //      * Determines whether a specified property is enumerable.
 //      * @param v A property name.
 //      */
 //     propertyIsEnumerable(v: PropertyKey): boolean;
-// }
-
 interface ObjectConstructor {
   new (value?: any): Object;
   (): {};
@@ -386,20 +363,23 @@ interface ObjectConstructor {
   keys(o: object): string[];
 }
 //
-//
-// interface ObjectConstructor {
 //     new(value?: any): Object;
+//
 //     (): any;
+//
 //     (value: any): any;
+//
 //
 //     /** A reference to the prototype for a class of objects. */
 //     readonly prototype: Object;
+//
 //
 //     /**
 //      * Returns the prototype of an object.
 //      * @param o The object that references the prototype.
 //      */
 //     getPrototypeOf(o: any): any;
+//
 //
 //     /**
 //      * Gets the own property descriptor of the specified object.
@@ -409,6 +389,7 @@ interface ObjectConstructor {
 //      */
 //     getOwnPropertyDescriptor(o: any, p: PropertyKey): PropertyDescriptor | undefined;
 //
+//
 //     /**
 //      * Returns the names of the own properties of an object. The own properties of an object are those that are defined directly
 //      * on that object, and are not inherited from the object's prototype. The properties of an object include both fields (objects) and functions.
@@ -416,11 +397,13 @@ interface ObjectConstructor {
 //      */
 //     getOwnPropertyNames(o: any): string[];
 //
+//
 //     /**
 //      * Creates an object that has the specified prototype or that has null prototype.
 //      * @param o Object to use as a prototype. May be null.
 //      */
 //     create(o: object | null): any;
+//
 //
 //     /**
 //      * Creates an object that has the specified prototype, and that optionally contains specified properties.
@@ -428,6 +411,7 @@ interface ObjectConstructor {
 //      * @param properties JavaScript object that contains one or more property descriptors.
 //      */
 //     create(o: object | null, properties: PropertyDescriptorMap & ThisType<any>): any;
+//
 //
 //     /**
 //      * Adds a property to an object, or modifies attributes of an existing property.
@@ -437,6 +421,7 @@ interface ObjectConstructor {
 //      */
 //     defineProperty<T>(o: T, p: PropertyKey, attributes: PropertyDescriptor & ThisType<any>): T;
 //
+//
 //     /**
 //      * Adds one or more properties to an object, and/or modifies attributes of existing properties.
 //      * @param o Object on which to add or modify the properties. This can be a native JavaScript object or a DOM object.
@@ -444,11 +429,13 @@ interface ObjectConstructor {
 //      */
 //     defineProperties<T>(o: T, properties: PropertyDescriptorMap & ThisType<any>): T;
 //
+//
 //     /**
 //      * Prevents the modification of attributes of existing properties, and prevents the addition of new properties.
 //      * @param o Object on which to lock the attributes.
 //      */
 //     seal<T>(o: T): T;
+//
 //
 //     /**
 //      * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
@@ -456,11 +443,13 @@ interface ObjectConstructor {
 //      */
 //     freeze<T>(a: T[]): readonly T[];
 //
+//
 //     /**
 //      * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
 //      * @param f Object on which to lock the attributes.
 //      */
 //     freeze<T extends Function>(f: T): T;
+//
 //
 //     /**
 //      * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
@@ -468,11 +457,13 @@ interface ObjectConstructor {
 //      */
 //     freeze<T>(o: T): Readonly<T>;
 //
+//
 //     /**
 //      * Prevents the addition of new properties to an object.
 //      * @param o Object to make non-extensible.
 //      */
 //     preventExtensions<T>(o: T): T;
+//
 //
 //     /**
 //      * Returns true if existing property attributes cannot be modified in an object and new properties cannot be added to the object.
@@ -480,11 +471,13 @@ interface ObjectConstructor {
 //      */
 //     isSealed(o: any): boolean;
 //
+//
 //     /**
 //      * Returns true if existing property attributes and values cannot be modified in an object, and new properties cannot be added to the object.
 //      * @param o Object to test.
 //      */
 //     isFrozen(o: any): boolean;
+//
 //
 //     /**
 //      * Returns a value that indicates whether new properties can be added to an object.
@@ -492,13 +485,17 @@ interface ObjectConstructor {
 //      */
 //     isExtensible(o: any): boolean;
 //
+//
 //     /**
 //      * Returns the names of the enumerable string properties and methods of an object.
 //      * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
 //      */
 //     keys(o: object): string[];
-// }
 
+/**
+ * Provides functionality common to all JavaScript objects.
+ */
+declare var Object: ObjectConstructor;
 //
 //
 // /**
@@ -716,20 +713,17 @@ interface NewableFunction extends Function {
 //     bind<A0, A1, A2, A3, A extends any[], R>(this: new (arg0: A0, arg1: A1, arg2: A2, arg3: A3, ...args: A) => R, thisArg: any, arg0: A0, arg1: A1, arg2: A2, arg3: A3): new (...args: A) => R;
 //     bind<AX, R>(this: new (...args: AX[]) => R, thisArg: any, ...args: AX[]): new (...args: AX[]) => R;
 // }
-
 interface IArguments {
   [index: number]: unknown;
   length: number;
   callee: Function;
 }
 //
-//
-// interface IArguments {
 //     [index: number]: any;
+//
 //     length: number;
+//
 //     callee: Function;
-// }
-
 interface String {
   /** Returns a string representation of a string. */
   toString(): string;
@@ -771,6 +765,22 @@ interface String {
    * @param that String to compare to target string
    */
   localeCompare(that: string): number;
+
+  /////////////////////////////
+  /// ECMAScript Internationalization API
+  /////////////////////////////
+
+  /**
+   * Determines whether two strings are equivalent in the current or specified locale.
+   * @param that String to compare to target string
+   * @param locales A locale string or array of locale strings that contain one or more language or locale tags. If you include more than one locale string, list them in descending order of priority so that the first entry is the preferred locale. If you omit this parameter, the default locale of the JavaScript runtime is used. This parameter must conform to BCP 47 standards; see the Intl.Collator object for details.
+   * @param options An object that contains one or more properties that specify comparison options. see the Intl.Collator object for details.
+   */
+  localeCompare(
+    that: string,
+    locales?: string | string[],
+    options?: Intl.CollatorOptions
+  ): number;
 
   /**
    * Matches a string with a regular expression, and returns an array containing the results of that search.
@@ -860,28 +870,11 @@ interface String {
   valueOf(): string;
 
   readonly [index: number]: string;
-
-  /////////////////////////////
-  /// ECMAScript Internationalization API
-  /////////////////////////////
-
-  /**
-   * Determines whether two strings are equivalent in the current or specified locale.
-   * @param that String to compare to target string
-   * @param locales A locale string or array of locale strings that contain one or more language or locale tags. If you include more than one locale string, list them in descending order of priority so that the first entry is the preferred locale. If you omit this parameter, the default locale of the JavaScript runtime is used. This parameter must conform to BCP 47 standards; see the Intl.Collator object for details.
-   * @param options An object that contains one or more properties that specify comparison options. see the Intl.Collator object for details.
-   */
-  localeCompare(
-    that: string,
-    locales?: string | string[],
-    options?: Intl.CollatorOptions
-  ): number;
 }
 //
-//
-// interface String {
 //     /** Returns a string representation of a string. */
 //     toString(): string;
+//
 //
 //     /**
 //      * Returns the character at the specified index.
@@ -889,17 +882,20 @@ interface String {
 //      */
 //     charAt(pos: number): string;
 //
+//
 //     /**
 //      * Returns the Unicode value of the character at the specified location.
 //      * @param index The zero-based index of the desired character. If there is no character at the specified index, NaN is returned.
 //      */
 //     charCodeAt(index: number): number;
 //
+//
 //     /**
 //      * Returns a string that contains the concatenation of two or more strings.
 //      * @param strings The strings to append to the end of the string.
 //      */
 //     concat(...strings: string[]): string;
+//
 //
 //     /**
 //      * Returns the position of the first occurrence of a substring.
@@ -908,6 +904,7 @@ interface String {
 //      */
 //     indexOf(searchString: string, position?: number): number;
 //
+//
 //     /**
 //      * Returns the last occurrence of a substring in the string.
 //      * @param searchString The substring to search for.
@@ -915,17 +912,20 @@ interface String {
 //      */
 //     lastIndexOf(searchString: string, position?: number): number;
 //
+//
 //     /**
 //      * Determines whether two strings are equivalent in the current locale.
 //      * @param that String to compare to target string
 //      */
 //     localeCompare(that: string): number;
 //
+//
 //     /**
 //      * Matches a string with a regular expression, and returns an array containing the results of that search.
 //      * @param regexp A variable name or string literal containing the regular expression pattern and flags.
 //      */
 //     match(regexp: string | RegExp): RegExpMatchArray | null;
+//
 //
 //     /**
 //      * Replaces text in a string, using a regular expression or search string.
@@ -934,6 +934,7 @@ interface String {
 //      */
 //     replace(searchValue: string | RegExp, replaceValue: string): string;
 //
+//
 //     /**
 //      * Replaces text in a string, using a regular expression or search string.
 //      * @param searchValue A string to search for.
@@ -941,11 +942,13 @@ interface String {
 //      */
 //     replace(searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string;
 //
+//
 //     /**
 //      * Finds the first substring match in a regular expression search.
 //      * @param regexp The regular expression pattern and applicable flags.
 //      */
 //     search(regexp: string | RegExp): number;
+//
 //
 //     /**
 //      * Returns a section of a string.
@@ -955,12 +958,14 @@ interface String {
 //      */
 //     slice(start?: number, end?: number): string;
 //
+//
 //     /**
 //      * Split a string into substrings using the specified separator and return them as an array.
 //      * @param separator A string that identifies character or characters to use in separating the string. If omitted, a single-element array containing the entire string is returned.
 //      * @param limit A value used to limit the number of elements returned in the array.
 //      */
 //     split(separator: string | RegExp, limit?: number): string[];
+//
 //
 //     /**
 //      * Returns the substring at the specified location within a String object.
@@ -970,23 +975,30 @@ interface String {
 //      */
 //     substring(start: number, end?: number): string;
 //
+//
 //     /** Converts all the alphabetic characters in a string to lowercase. */
 //     toLowerCase(): string;
+//
 //
 //     /** Converts all alphabetic characters to lowercase, taking into account the host environment's current locale. */
 //     toLocaleLowerCase(locales?: string | string[]): string;
 //
+//
 //     /** Converts all the alphabetic characters in a string to uppercase. */
 //     toUpperCase(): string;
+//
 //
 //     /** Returns a string where all alphabetic characters have been converted to uppercase, taking into account the host environment's current locale. */
 //     toLocaleUpperCase(locales?: string | string[]): string;
 //
+//
 //     /** Removes the leading and trailing white space and line terminator characters from a string. */
 //     trim(): string;
 //
+//
 //     /** Returns the length of a String object. */
 //     readonly length: number;
+//
 //
 //     // IE extensions
 //     /**
@@ -997,11 +1009,12 @@ interface String {
 //      */
 //     substr(from: number, length?: number): string;
 //
+//
 //     /** Returns the primitive value of the specified object. */
 //     valueOf(): string;
 //
+//
 //     readonly [index: number]: string;
-// }
 
 interface StringConstructor {
   new (value?: any): String;
@@ -1009,12 +1022,11 @@ interface StringConstructor {
   readonly prototype: String;
   fromCharCode(...codes: number[]): string;
 }
-//
-//
-// /**
-//  * Allows manipulation and formatting of text strings and determination and location of substrings within strings.
-//  */
-// declare var String: StringConstructor;
+
+/**
+ * Allows manipulation and formatting of text strings and determination and location of substrings within strings.
+ */
+declare var String: StringConstructor;
 
 interface Boolean {
   /** Returns the primitive value of the specified object. */
@@ -1593,7 +1605,6 @@ interface URIErrorConstructor extends ErrorConstructor {
 }
 
 declare var URIError: URIErrorConstructor;
-
 interface JSON {
   /**
    * Converts a JavaScript Object Notation (JSON) string into an object.
@@ -1670,14 +1681,7 @@ interface JSON {
     space?: string | number | null
   ): string | undefined;
 }
-
-/**
- * An intrinsic object that provides functions to convert JavaScript values to and from the JavaScript Object Notation (JSON) format.
- */
-declare var JSON: JSON;
 //
-//
-// interface JSON {
 //     /**
 //      * Converts a JavaScript Object Notation (JSON) string into an object.
 //      * @param text A valid JSON string.
@@ -1685,6 +1689,7 @@ declare var JSON: JSON;
 //      * If a member contains nested objects, the nested objects are transformed before the parent object is.
 //      */
 //     parse(text: string, reviver?: (this: any, key: string, value: any) => any): any;
+//
 //     /**
 //      * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
 //      * @param value A JavaScript value, usually an object or array, to be converted.
@@ -1692,6 +1697,7 @@ declare var JSON: JSON;
 //      * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
 //      */
 //     stringify(value: any, replacer?: (this: any, key: string, value: any) => any, space?: string | number): string;
+//
 //     /**
 //      * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
 //      * @param value A JavaScript value, usually an object or array, to be converted.
@@ -1699,8 +1705,11 @@ declare var JSON: JSON;
 //      * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
 //      */
 //     stringify(value: any, replacer?: (number | string)[] | null, space?: string | number): string;
-// }
 
+/**
+ * An intrinsic object that provides functions to convert JavaScript values to and from the JavaScript Object Notation (JSON) format.
+ */
+declare var JSON: JSON;
 //
 //
 // /**
@@ -2322,8 +2331,6 @@ interface Array<T> {
 
   [n: number]: T;
 }
-
-declare var Array: ArrayConstructor;
 //
 //
 // interface Array<T> {
@@ -2509,7 +2516,6 @@ declare var Array: ArrayConstructor;
 //
 //     [n: number]: T;
 // }
-
 interface ArrayConstructor {
   new <T>(arrayLength: number): T[];
   new <T>(...items: T[]): T[];
@@ -2519,18 +2525,23 @@ interface ArrayConstructor {
   readonly prototype: unknown[];
 }
 //
-//
-// interface ArrayConstructor {
 //     new(arrayLength?: number): any[];
+//
 //     new <T>(arrayLength: number): T[];
+//
 //     new <T>(...items: T[]): T[];
+//
 //     (arrayLength?: number): any[];
+//
 //     <T>(arrayLength: number): T[];
+//
 //     <T>(...items: T[]): T[];
+//
 //     isArray(arg: any): arg is any[];
+//
 //     readonly prototype: any[];
-// }
 
+declare var Array: ArrayConstructor;
 //
 //
 // declare var Array: ArrayConstructor;
@@ -6291,9 +6302,30 @@ declare namespace Intl {
     ): string[];
   };
 }
+interface String {
+  /**
+   * Determines whether two strings are equivalent in the current locale.
+   * @param that String to compare to target string
+   */
+  localeCompare(that: string): number;
+
+  /////////////////////////////
+  /// ECMAScript Internationalization API
+  /////////////////////////////
+
+  /**
+   * Determines whether two strings are equivalent in the current or specified locale.
+   * @param that String to compare to target string
+   * @param locales A locale string or array of locale strings that contain one or more language or locale tags. If you include more than one locale string, list them in descending order of priority so that the first entry is the preferred locale. If you omit this parameter, the default locale of the JavaScript runtime is used. This parameter must conform to BCP 47 standards; see the Intl.Collator object for details.
+   * @param options An object that contains one or more properties that specify comparison options. see the Intl.Collator object for details.
+   */
+  localeCompare(
+    that: string,
+    locales?: string | string[],
+    options?: Intl.CollatorOptions
+  ): number;
+}
 //
-//
-// interface String {
 //     /**
 //      * Determines whether two strings are equivalent in the current or specified locale.
 //      * @param that String to compare to target string
@@ -6301,7 +6333,6 @@ declare namespace Intl {
 //      * @param options An object that contains one or more properties that specify comparison options. see the Intl.Collator object for details.
 //      */
 //     localeCompare(that: string, locales?: string | string[], options?: Intl.CollatorOptions): number;
-// }
 
 interface Number {
   /**

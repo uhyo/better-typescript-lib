@@ -12,8 +12,6 @@ interface Map<K, V> {
   set(key: K, value: V): this;
   readonly size: number;
 }
-
-declare var Map: MapConstructor;
 // interface Map<K, V> {
 //     clear(): void;
 //     delete(key: K): boolean;
@@ -23,19 +21,18 @@ declare var Map: MapConstructor;
 //     set(key: K, value: V): this;
 //     readonly size: number;
 // }
-
 interface MapConstructor {
   new <K, V>(entries?: readonly (readonly [K, V])[] | null): Map<K, V>;
   readonly prototype: Map<unknown, unknown>;
 }
 //
-//
-// interface MapConstructor {
 //     new(): Map<any, any>;
+//
 //     new<K, V>(entries?: readonly (readonly [K, V])[] | null): Map<K, V>;
+//
 //     readonly prototype: Map<any, any>;
-// }
 
+declare var Map: MapConstructor;
 //
 // declare var Map: MapConstructor;
 
@@ -63,7 +60,6 @@ interface WeakMap<K extends object, V> {
   has(key: K): boolean;
   set(key: K, value: V): this;
 }
-declare var WeakMap: WeakMapConstructor;
 //
 //
 // interface WeakMap<K extends object, V> {
@@ -72,7 +68,6 @@ declare var WeakMap: WeakMapConstructor;
 //     has(key: K): boolean;
 //     set(key: K, value: V): this;
 // }
-
 interface WeakMapConstructor {
   new <K extends object, V>(
     entries?: readonly (readonly [K, V])[] | null
@@ -80,12 +75,11 @@ interface WeakMapConstructor {
   readonly prototype: WeakMap<object, unknown>;
 }
 //
-//
-// interface WeakMapConstructor {
 //     new <K extends object = object, V = any>(entries?: readonly [K, V][] | null): WeakMap<K, V>;
+//
 //     readonly prototype: WeakMap<object, any>;
-// }
 
+declare var WeakMap: WeakMapConstructor;
 //
 // declare var WeakMap: WeakMapConstructor;
 
@@ -100,7 +94,6 @@ interface Set<T> {
   has(value: T): boolean;
   readonly size: number;
 }
-declare var Set: SetConstructor;
 //
 //
 // interface Set<T> {
@@ -111,18 +104,16 @@ declare var Set: SetConstructor;
 //     has(value: T): boolean;
 //     readonly size: number;
 // }
-
 interface SetConstructor {
   new <T>(values?: readonly T[] | null): Set<T>;
   readonly prototype: Set<unknown>;
 }
 //
-//
-// interface SetConstructor {
 //     new <T = any>(values?: readonly T[] | null): Set<T>;
+//
 //     readonly prototype: Set<any>;
-// }
 
+declare var Set: SetConstructor;
 //
 // declare var Set: SetConstructor;
 
