@@ -229,11 +229,6 @@ interface BigIntConstructor {
 }
 
 declare var BigInt: BigIntConstructor;
-
-/**
- * A typed array of 64-bit signed integer values. The contents are initialized to 0. If the
- * requested number of bytes could not be allocated, an exception is raised.
- */
 interface BigInt64Array {
   /** The size in bytes of each element in the array. */
   readonly BYTES_PER_ELEMENT: number;
@@ -260,7 +255,6 @@ interface BigInt64Array {
 
   /** Yields index, value pairs for every entry in the array. */
   entries(): IterableIterator<[number, bigint]>;
-
   /**
    * Determines whether all the members of an array satisfy the specified test.
    * @param predicate A function that accepts up to three arguments. The every method calls
@@ -269,9 +263,14 @@ interface BigInt64Array {
    * @param thisArg An object to which the this keyword can refer in the predicate function.
    * If thisArg is omitted, undefined is used as the this value.
    */
-  every(
-    predicate: (value: bigint, index: number, array: BigInt64Array) => boolean,
-    thisArg?: any
+  every<This = undefined>(
+    predicate: (
+      this: This,
+      value: bigint,
+      index: number,
+      array: this
+    ) => boolean,
+    thisArg?: This
   ): boolean;
 
   /**
@@ -283,7 +282,6 @@ interface BigInt64Array {
    * length+end.
    */
   fill(value: bigint, start?: number, end?: number): this;
-
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
    * @param predicate A function that accepts up to three arguments. The filter method calls
@@ -291,11 +289,15 @@ interface BigInt64Array {
    * @param thisArg An object to which the this keyword can refer in the predicate function.
    * If thisArg is omitted, undefined is used as the this value.
    */
-  filter(
-    predicate: (value: bigint, index: number, array: BigInt64Array) => any,
-    thisArg?: any
+  filter<This = undefined>(
+    predicate: (
+      this: This,
+      value: bigint,
+      index: number,
+      array: this
+    ) => boolean,
+    thisArg?: This
   ): BigInt64Array;
-
   /**
    * Returns the value of the first element in the array where predicate is true, and undefined
    * otherwise.
@@ -305,11 +307,15 @@ interface BigInt64Array {
    * @param thisArg If provided, it will be used as the this value for each invocation of
    * predicate. If it is not provided, undefined is used instead.
    */
-  find(
-    predicate: (value: bigint, index: number, array: BigInt64Array) => boolean,
-    thisArg?: any
+  find<This = undefined>(
+    predicate: (
+      this: This,
+      value: bigint,
+      index: number,
+      array: this
+    ) => boolean,
+    thisArg?: This
   ): bigint | undefined;
-
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
    * otherwise.
@@ -319,11 +325,15 @@ interface BigInt64Array {
    * @param thisArg If provided, it will be used as the this value for each invocation of
    * predicate. If it is not provided, undefined is used instead.
    */
-  findIndex(
-    predicate: (value: bigint, index: number, array: BigInt64Array) => boolean,
-    thisArg?: any
+  findIndex<This = undefined>(
+    predicate: (
+      this: This,
+      value: bigint,
+      index: number,
+      array: this
+    ) => boolean,
+    thisArg?: This
   ): number;
-
   /**
    * Performs the specified action for each element in an array.
    * @param callbackfn A function that accepts up to three arguments. forEach calls the
@@ -331,9 +341,9 @@ interface BigInt64Array {
    * @param thisArg An object to which the this keyword can refer in the callbackfn function.
    * If thisArg is omitted, undefined is used as the this value.
    */
-  forEach(
-    callbackfn: (value: bigint, index: number, array: BigInt64Array) => void,
-    thisArg?: any
+  forEach<This = undefined>(
+    callbackfn: (this: This, value: bigint, index: number, array: this) => void,
+    thisArg?: This
   ): void;
 
   /**
@@ -371,7 +381,6 @@ interface BigInt64Array {
 
   /** The length of the array. */
   readonly length: number;
-
   /**
    * Calls a defined callback function on each element of an array, and returns an array that
    * contains the results.
@@ -380,30 +389,30 @@ interface BigInt64Array {
    * @param thisArg An object to which the this keyword can refer in the callbackfn function.
    * If thisArg is omitted, undefined is used as the this value.
    */
-  map(
-    callbackfn: (value: bigint, index: number, array: BigInt64Array) => bigint,
-    thisArg?: any
+  map<This = undefined>(
+    callbackfn: (
+      this: This,
+      value: bigint,
+      index: number,
+      array: this
+    ) => bigint,
+    thisArg?: This
   ): BigInt64Array;
-
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
    * the callback function is the accumulated result, and is provided as an argument in the next
    * call to the callback function.
    * @param callbackfn A function that accepts up to four arguments. The reduce method calls the
    * callbackfn function one time for each element in the array.
-   * @param initialValue If initialValue is specified, it is used as the initial value to start
-   * the accumulation. The first call to the callbackfn function provides this value as an argument
-   * instead of an array value.
    */
-  reduce(
+  reduce<U = bigint>(
     callbackfn: (
-      previousValue: bigint,
+      previousValue: bigint | U,
       currentValue: bigint,
       currentIndex: number,
-      array: BigInt64Array
-    ) => bigint
-  ): bigint;
-
+      array: this
+    ) => U
+  ): bigint | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
    * the callback function is the accumulated result, and is provided as an argument in the next
@@ -414,35 +423,30 @@ interface BigInt64Array {
    * the accumulation. The first call to the callbackfn function provides this value as an argument
    * instead of an array value.
    */
-  reduce<U>(
+  reduce<U = bigint>(
     callbackfn: (
       previousValue: U,
       currentValue: bigint,
       currentIndex: number,
-      array: BigInt64Array
+      array: this
     ) => U,
     initialValue: U
   ): U;
-
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
    * The return value of the callback function is the accumulated result, and is provided as an
    * argument in the next call to the callback function.
    * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls
    * the callbackfn function one time for each element in the array.
-   * @param initialValue If initialValue is specified, it is used as the initial value to start
-   * the accumulation. The first call to the callbackfn function provides this value as an
-   * argument instead of an array value.
    */
-  reduceRight(
+  reduceRight<U = bigint>(
     callbackfn: (
-      previousValue: bigint,
+      previousValue: bigint | U,
       currentValue: bigint,
       currentIndex: number,
-      array: BigInt64Array
-    ) => bigint
-  ): bigint;
-
+      array: this
+    ) => U
+  ): bigint | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
    * The return value of the callback function is the accumulated result, and is provided as an
@@ -453,12 +457,12 @@ interface BigInt64Array {
    * the accumulation. The first call to the callbackfn function provides this value as an argument
    * instead of an array value.
    */
-  reduceRight<U>(
+  reduceRight<U = bigint>(
     callbackfn: (
       previousValue: U,
       currentValue: bigint,
       currentIndex: number,
-      array: BigInt64Array
+      array: this
     ) => U,
     initialValue: U
   ): U;
@@ -479,7 +483,6 @@ interface BigInt64Array {
    * @param end The end of the specified portion of the array.
    */
   slice(start?: number, end?: number): BigInt64Array;
-
   /**
    * Determines whether the specified callback function returns true for any element of an array.
    * @param predicate A function that accepts up to three arguments. The some method calls the
@@ -488,9 +491,14 @@ interface BigInt64Array {
    * @param thisArg An object to which the this keyword can refer in the predicate function.
    * If thisArg is omitted, undefined is used as the this value.
    */
-  some(
-    predicate: (value: bigint, index: number, array: BigInt64Array) => boolean,
-    thisArg?: any
+  some<This = undefined>(
+    predicate: (
+      this: This,
+      value: bigint,
+      index: number,
+      array: this
+    ) => boolean,
+    thisArg?: This
   ): boolean;
 
   /**
@@ -525,6 +533,113 @@ interface BigInt64Array {
 
   [index: number]: bigint;
 }
+//     /**
+//      * Determines whether all the members of an array satisfy the specified test.
+//      * @param predicate A function that accepts up to three arguments. The every method calls
+//      * the predicate function for each element in the array until the predicate returns false,
+//      * or until the end of the array.
+//      * @param thisArg An object to which the this keyword can refer in the predicate function.
+//      * If thisArg is omitted, undefined is used as the this value.
+//      */
+//     every(predicate: (value: bigint, index: number, array: BigInt64Array) => boolean, thisArg?: any): boolean;
+//     /**
+//      * Returns the elements of an array that meet the condition specified in a callback function.
+//      * @param predicate A function that accepts up to three arguments. The filter method calls
+//      * the predicate function one time for each element in the array.
+//      * @param thisArg An object to which the this keyword can refer in the predicate function.
+//      * If thisArg is omitted, undefined is used as the this value.
+//      */
+//     filter(predicate: (value: bigint, index: number, array: BigInt64Array) => any, thisArg?: any): BigInt64Array;
+//     /**
+//      * Returns the value of the first element in the array where predicate is true, and undefined
+//      * otherwise.
+//      * @param predicate find calls predicate once for each element of the array, in ascending
+//      * order, until it finds one where predicate returns true. If such an element is found, find
+//      * immediately returns that element value. Otherwise, find returns undefined.
+//      * @param thisArg If provided, it will be used as the this value for each invocation of
+//      * predicate. If it is not provided, undefined is used instead.
+//      */
+//     find(predicate: (value: bigint, index: number, array: BigInt64Array) => boolean, thisArg?: any): bigint | undefined;
+//     /**
+//      * Returns the index of the first element in the array where predicate is true, and -1
+//      * otherwise.
+//      * @param predicate find calls predicate once for each element of the array, in ascending
+//      * order, until it finds one where predicate returns true. If such an element is found,
+//      * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
+//      * @param thisArg If provided, it will be used as the this value for each invocation of
+//      * predicate. If it is not provided, undefined is used instead.
+//      */
+//     findIndex(predicate: (value: bigint, index: number, array: BigInt64Array) => boolean, thisArg?: any): number;
+//     /**
+//      * Performs the specified action for each element in an array.
+//      * @param callbackfn A function that accepts up to three arguments. forEach calls the
+//      * callbackfn function one time for each element in the array.
+//      * @param thisArg An object to which the this keyword can refer in the callbackfn function.
+//      * If thisArg is omitted, undefined is used as the this value.
+//      */
+//     forEach(callbackfn: (value: bigint, index: number, array: BigInt64Array) => void, thisArg?: any): void;
+//     /**
+//      * Calls a defined callback function on each element of an array, and returns an array that
+//      * contains the results.
+//      * @param callbackfn A function that accepts up to three arguments. The map method calls the
+//      * callbackfn function one time for each element in the array.
+//      * @param thisArg An object to which the this keyword can refer in the callbackfn function.
+//      * If thisArg is omitted, undefined is used as the this value.
+//      */
+//     map(callbackfn: (value: bigint, index: number, array: BigInt64Array) => bigint, thisArg?: any): BigInt64Array;
+//     /**
+//      * Calls the specified callback function for all the elements in an array. The return value of
+//      * the callback function is the accumulated result, and is provided as an argument in the next
+//      * call to the callback function.
+//      * @param callbackfn A function that accepts up to four arguments. The reduce method calls the
+//      * callbackfn function one time for each element in the array.
+//      * @param initialValue If initialValue is specified, it is used as the initial value to start
+//      * the accumulation. The first call to the callbackfn function provides this value as an argument
+//      * instead of an array value.
+//      */
+//     reduce(callbackfn: (previousValue: bigint, currentValue: bigint, currentIndex: number, array: BigInt64Array) => bigint): bigint;
+//     /**
+//      * Calls the specified callback function for all the elements in an array. The return value of
+//      * the callback function is the accumulated result, and is provided as an argument in the next
+//      * call to the callback function.
+//      * @param callbackfn A function that accepts up to four arguments. The reduce method calls the
+//      * callbackfn function one time for each element in the array.
+//      * @param initialValue If initialValue is specified, it is used as the initial value to start
+//      * the accumulation. The first call to the callbackfn function provides this value as an argument
+//      * instead of an array value.
+//      */
+//     reduce<U>(callbackfn: (previousValue: U, currentValue: bigint, currentIndex: number, array: BigInt64Array) => U, initialValue: U): U;
+//     /**
+//      * Calls the specified callback function for all the elements in an array, in descending order.
+//      * The return value of the callback function is the accumulated result, and is provided as an
+//      * argument in the next call to the callback function.
+//      * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls
+//      * the callbackfn function one time for each element in the array.
+//      * @param initialValue If initialValue is specified, it is used as the initial value to start
+//      * the accumulation. The first call to the callbackfn function provides this value as an
+//      * argument instead of an array value.
+//      */
+//     reduceRight(callbackfn: (previousValue: bigint, currentValue: bigint, currentIndex: number, array: BigInt64Array) => bigint): bigint;
+//     /**
+//      * Calls the specified callback function for all the elements in an array, in descending order.
+//      * The return value of the callback function is the accumulated result, and is provided as an
+//      * argument in the next call to the callback function.
+//      * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls
+//      * the callbackfn function one time for each element in the array.
+//      * @param initialValue If initialValue is specified, it is used as the initial value to start
+//      * the accumulation. The first call to the callbackfn function provides this value as an argument
+//      * instead of an array value.
+//      */
+//     reduceRight<U>(callbackfn: (previousValue: U, currentValue: bigint, currentIndex: number, array: BigInt64Array) => U, initialValue: U): U;
+//     /**
+//      * Determines whether the specified callback function returns true for any element of an array.
+//      * @param predicate A function that accepts up to three arguments. The some method calls the
+//      * predicate function for each element in the array until the predicate returns true, or until
+//      * the end of the array.
+//      * @param thisArg An object to which the this keyword can refer in the predicate function.
+//      * If thisArg is omitted, undefined is used as the this value.
+//      */
+//     some(predicate: (value: bigint, index: number, array: BigInt64Array) => boolean, thisArg?: any): boolean;
 
 interface BigInt64ArrayConstructor {
   readonly prototype: BigInt64Array;
@@ -544,27 +659,33 @@ interface BigInt64ArrayConstructor {
    * @param items A set of elements to include in the new array object.
    */
   of(...items: bigint[]): BigInt64Array;
-
+  /**
+   * Creates an array from an array-like or iterable object.
+   * @param arrayLike An array-like or iterable object to convert to an array.
+   */
+  from(arrayLike: Iterable<bigint> | ArrayLike<bigint>): BigInt64Array;
   /**
    * Creates an array from an array-like or iterable object.
    * @param arrayLike An array-like or iterable object to convert to an array.
    * @param mapfn A mapping function to call on every element of the array.
    * @param thisArg Value of 'this' used to invoke the mapfn.
    */
-  from(arrayLike: ArrayLike<bigint>): BigInt64Array;
-  from<U>(
-    arrayLike: ArrayLike<U>,
-    mapfn: (v: U, k: number) => bigint,
-    thisArg?: any
+  from<T, This = undefined>(
+    arrayLike: Iterable<T> | ArrayLike<T>,
+    mapfn: (this: This, v: T, k: number) => bigint,
+    thisArg?: This
   ): BigInt64Array;
 }
+//     /**
+//      * Creates an array from an array-like or iterable object.
+//      * @param arrayLike An array-like or iterable object to convert to an array.
+//      * @param mapfn A mapping function to call on every element of the array.
+//      * @param thisArg Value of 'this' used to invoke the mapfn.
+//      */
+//     from(arrayLike: ArrayLike<bigint>): BigInt64Array;
+//     from<U>(arrayLike: ArrayLike<U>, mapfn: (v: U, k: number) => bigint, thisArg?: any): BigInt64Array;
 
 declare var BigInt64Array: BigInt64ArrayConstructor;
-
-/**
- * A typed array of 64-bit unsigned integer values. The contents are initialized to 0. If the
- * requested number of bytes could not be allocated, an exception is raised.
- */
 interface BigUint64Array {
   /** The size in bytes of each element in the array. */
   readonly BYTES_PER_ELEMENT: number;
@@ -591,7 +712,6 @@ interface BigUint64Array {
 
   /** Yields index, value pairs for every entry in the array. */
   entries(): IterableIterator<[number, bigint]>;
-
   /**
    * Determines whether all the members of an array satisfy the specified test.
    * @param predicate A function that accepts up to three arguments. The every method calls
@@ -600,9 +720,14 @@ interface BigUint64Array {
    * @param thisArg An object to which the this keyword can refer in the predicate function.
    * If thisArg is omitted, undefined is used as the this value.
    */
-  every(
-    predicate: (value: bigint, index: number, array: BigUint64Array) => boolean,
-    thisArg?: any
+  every<This = undefined>(
+    predicate: (
+      this: This,
+      value: bigint,
+      index: number,
+      array: this
+    ) => boolean,
+    thisArg?: This
   ): boolean;
 
   /**
@@ -614,7 +739,6 @@ interface BigUint64Array {
    * length+end.
    */
   fill(value: bigint, start?: number, end?: number): this;
-
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
    * @param predicate A function that accepts up to three arguments. The filter method calls
@@ -622,11 +746,15 @@ interface BigUint64Array {
    * @param thisArg An object to which the this keyword can refer in the predicate function.
    * If thisArg is omitted, undefined is used as the this value.
    */
-  filter(
-    predicate: (value: bigint, index: number, array: BigUint64Array) => any,
-    thisArg?: any
+  filter<This = undefined>(
+    predicate: (
+      this: This,
+      value: bigint,
+      index: number,
+      array: this
+    ) => boolean,
+    thisArg?: This
   ): BigUint64Array;
-
   /**
    * Returns the value of the first element in the array where predicate is true, and undefined
    * otherwise.
@@ -636,11 +764,15 @@ interface BigUint64Array {
    * @param thisArg If provided, it will be used as the this value for each invocation of
    * predicate. If it is not provided, undefined is used instead.
    */
-  find(
-    predicate: (value: bigint, index: number, array: BigUint64Array) => boolean,
-    thisArg?: any
+  find<This = undefined>(
+    predicate: (
+      this: This,
+      value: bigint,
+      index: number,
+      array: this
+    ) => boolean,
+    thisArg?: This
   ): bigint | undefined;
-
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
    * otherwise.
@@ -650,11 +782,15 @@ interface BigUint64Array {
    * @param thisArg If provided, it will be used as the this value for each invocation of
    * predicate. If it is not provided, undefined is used instead.
    */
-  findIndex(
-    predicate: (value: bigint, index: number, array: BigUint64Array) => boolean,
-    thisArg?: any
+  findIndex<This = undefined>(
+    predicate: (
+      this: This,
+      value: bigint,
+      index: number,
+      array: this
+    ) => boolean,
+    thisArg?: This
   ): number;
-
   /**
    * Performs the specified action for each element in an array.
    * @param callbackfn A function that accepts up to three arguments. forEach calls the
@@ -662,9 +798,9 @@ interface BigUint64Array {
    * @param thisArg An object to which the this keyword can refer in the callbackfn function.
    * If thisArg is omitted, undefined is used as the this value.
    */
-  forEach(
-    callbackfn: (value: bigint, index: number, array: BigUint64Array) => void,
-    thisArg?: any
+  forEach<This = undefined>(
+    callbackfn: (this: This, value: bigint, index: number, array: this) => void,
+    thisArg?: This
   ): void;
 
   /**
@@ -702,7 +838,6 @@ interface BigUint64Array {
 
   /** The length of the array. */
   readonly length: number;
-
   /**
    * Calls a defined callback function on each element of an array, and returns an array that
    * contains the results.
@@ -711,30 +846,30 @@ interface BigUint64Array {
    * @param thisArg An object to which the this keyword can refer in the callbackfn function.
    * If thisArg is omitted, undefined is used as the this value.
    */
-  map(
-    callbackfn: (value: bigint, index: number, array: BigUint64Array) => bigint,
-    thisArg?: any
+  map<This = undefined>(
+    callbackfn: (
+      this: This,
+      value: bigint,
+      index: number,
+      array: this
+    ) => bigint,
+    thisArg?: This
   ): BigUint64Array;
-
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
    * the callback function is the accumulated result, and is provided as an argument in the next
    * call to the callback function.
    * @param callbackfn A function that accepts up to four arguments. The reduce method calls the
    * callbackfn function one time for each element in the array.
-   * @param initialValue If initialValue is specified, it is used as the initial value to start
-   * the accumulation. The first call to the callbackfn function provides this value as an argument
-   * instead of an array value.
    */
-  reduce(
+  reduce<U = bigint>(
     callbackfn: (
-      previousValue: bigint,
+      previousValue: bigint | U,
       currentValue: bigint,
       currentIndex: number,
-      array: BigUint64Array
-    ) => bigint
-  ): bigint;
-
+      array: this
+    ) => U
+  ): bigint | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
    * the callback function is the accumulated result, and is provided as an argument in the next
@@ -745,35 +880,30 @@ interface BigUint64Array {
    * the accumulation. The first call to the callbackfn function provides this value as an argument
    * instead of an array value.
    */
-  reduce<U>(
+  reduce<U = bigint>(
     callbackfn: (
       previousValue: U,
       currentValue: bigint,
       currentIndex: number,
-      array: BigUint64Array
+      array: this
     ) => U,
     initialValue: U
   ): U;
-
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
    * The return value of the callback function is the accumulated result, and is provided as an
    * argument in the next call to the callback function.
    * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls
    * the callbackfn function one time for each element in the array.
-   * @param initialValue If initialValue is specified, it is used as the initial value to start
-   * the accumulation. The first call to the callbackfn function provides this value as an
-   * argument instead of an array value.
    */
-  reduceRight(
+  reduceRight<U = bigint>(
     callbackfn: (
-      previousValue: bigint,
+      previousValue: bigint | U,
       currentValue: bigint,
       currentIndex: number,
-      array: BigUint64Array
-    ) => bigint
-  ): bigint;
-
+      array: this
+    ) => U
+  ): bigint | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
    * The return value of the callback function is the accumulated result, and is provided as an
@@ -784,12 +914,12 @@ interface BigUint64Array {
    * the accumulation. The first call to the callbackfn function provides this value as an argument
    * instead of an array value.
    */
-  reduceRight<U>(
+  reduceRight<U = bigint>(
     callbackfn: (
       previousValue: U,
       currentValue: bigint,
       currentIndex: number,
-      array: BigUint64Array
+      array: this
     ) => U,
     initialValue: U
   ): U;
@@ -810,7 +940,6 @@ interface BigUint64Array {
    * @param end The end of the specified portion of the array.
    */
   slice(start?: number, end?: number): BigUint64Array;
-
   /**
    * Determines whether the specified callback function returns true for any element of an array.
    * @param predicate A function that accepts up to three arguments. The some method calls the
@@ -819,9 +948,14 @@ interface BigUint64Array {
    * @param thisArg An object to which the this keyword can refer in the predicate function.
    * If thisArg is omitted, undefined is used as the this value.
    */
-  some(
-    predicate: (value: bigint, index: number, array: BigUint64Array) => boolean,
-    thisArg?: any
+  some<This = undefined>(
+    predicate: (
+      this: This,
+      value: bigint,
+      index: number,
+      array: this
+    ) => boolean,
+    thisArg?: This
   ): boolean;
 
   /**
@@ -856,6 +990,113 @@ interface BigUint64Array {
 
   [index: number]: bigint;
 }
+//     /**
+//      * Determines whether all the members of an array satisfy the specified test.
+//      * @param predicate A function that accepts up to three arguments. The every method calls
+//      * the predicate function for each element in the array until the predicate returns false,
+//      * or until the end of the array.
+//      * @param thisArg An object to which the this keyword can refer in the predicate function.
+//      * If thisArg is omitted, undefined is used as the this value.
+//      */
+//     every(predicate: (value: bigint, index: number, array: BigUint64Array) => boolean, thisArg?: any): boolean;
+//     /**
+//      * Returns the elements of an array that meet the condition specified in a callback function.
+//      * @param predicate A function that accepts up to three arguments. The filter method calls
+//      * the predicate function one time for each element in the array.
+//      * @param thisArg An object to which the this keyword can refer in the predicate function.
+//      * If thisArg is omitted, undefined is used as the this value.
+//      */
+//     filter(predicate: (value: bigint, index: number, array: BigUint64Array) => any, thisArg?: any): BigUint64Array;
+//     /**
+//      * Returns the value of the first element in the array where predicate is true, and undefined
+//      * otherwise.
+//      * @param predicate find calls predicate once for each element of the array, in ascending
+//      * order, until it finds one where predicate returns true. If such an element is found, find
+//      * immediately returns that element value. Otherwise, find returns undefined.
+//      * @param thisArg If provided, it will be used as the this value for each invocation of
+//      * predicate. If it is not provided, undefined is used instead.
+//      */
+//     find(predicate: (value: bigint, index: number, array: BigUint64Array) => boolean, thisArg?: any): bigint | undefined;
+//     /**
+//      * Returns the index of the first element in the array where predicate is true, and -1
+//      * otherwise.
+//      * @param predicate find calls predicate once for each element of the array, in ascending
+//      * order, until it finds one where predicate returns true. If such an element is found,
+//      * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
+//      * @param thisArg If provided, it will be used as the this value for each invocation of
+//      * predicate. If it is not provided, undefined is used instead.
+//      */
+//     findIndex(predicate: (value: bigint, index: number, array: BigUint64Array) => boolean, thisArg?: any): number;
+//     /**
+//      * Performs the specified action for each element in an array.
+//      * @param callbackfn A function that accepts up to three arguments. forEach calls the
+//      * callbackfn function one time for each element in the array.
+//      * @param thisArg An object to which the this keyword can refer in the callbackfn function.
+//      * If thisArg is omitted, undefined is used as the this value.
+//      */
+//     forEach(callbackfn: (value: bigint, index: number, array: BigUint64Array) => void, thisArg?: any): void;
+//     /**
+//      * Calls a defined callback function on each element of an array, and returns an array that
+//      * contains the results.
+//      * @param callbackfn A function that accepts up to three arguments. The map method calls the
+//      * callbackfn function one time for each element in the array.
+//      * @param thisArg An object to which the this keyword can refer in the callbackfn function.
+//      * If thisArg is omitted, undefined is used as the this value.
+//      */
+//     map(callbackfn: (value: bigint, index: number, array: BigUint64Array) => bigint, thisArg?: any): BigUint64Array;
+//     /**
+//      * Calls the specified callback function for all the elements in an array. The return value of
+//      * the callback function is the accumulated result, and is provided as an argument in the next
+//      * call to the callback function.
+//      * @param callbackfn A function that accepts up to four arguments. The reduce method calls the
+//      * callbackfn function one time for each element in the array.
+//      * @param initialValue If initialValue is specified, it is used as the initial value to start
+//      * the accumulation. The first call to the callbackfn function provides this value as an argument
+//      * instead of an array value.
+//      */
+//     reduce(callbackfn: (previousValue: bigint, currentValue: bigint, currentIndex: number, array: BigUint64Array) => bigint): bigint;
+//     /**
+//      * Calls the specified callback function for all the elements in an array. The return value of
+//      * the callback function is the accumulated result, and is provided as an argument in the next
+//      * call to the callback function.
+//      * @param callbackfn A function that accepts up to four arguments. The reduce method calls the
+//      * callbackfn function one time for each element in the array.
+//      * @param initialValue If initialValue is specified, it is used as the initial value to start
+//      * the accumulation. The first call to the callbackfn function provides this value as an argument
+//      * instead of an array value.
+//      */
+//     reduce<U>(callbackfn: (previousValue: U, currentValue: bigint, currentIndex: number, array: BigUint64Array) => U, initialValue: U): U;
+//     /**
+//      * Calls the specified callback function for all the elements in an array, in descending order.
+//      * The return value of the callback function is the accumulated result, and is provided as an
+//      * argument in the next call to the callback function.
+//      * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls
+//      * the callbackfn function one time for each element in the array.
+//      * @param initialValue If initialValue is specified, it is used as the initial value to start
+//      * the accumulation. The first call to the callbackfn function provides this value as an
+//      * argument instead of an array value.
+//      */
+//     reduceRight(callbackfn: (previousValue: bigint, currentValue: bigint, currentIndex: number, array: BigUint64Array) => bigint): bigint;
+//     /**
+//      * Calls the specified callback function for all the elements in an array, in descending order.
+//      * The return value of the callback function is the accumulated result, and is provided as an
+//      * argument in the next call to the callback function.
+//      * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls
+//      * the callbackfn function one time for each element in the array.
+//      * @param initialValue If initialValue is specified, it is used as the initial value to start
+//      * the accumulation. The first call to the callbackfn function provides this value as an argument
+//      * instead of an array value.
+//      */
+//     reduceRight<U>(callbackfn: (previousValue: U, currentValue: bigint, currentIndex: number, array: BigUint64Array) => U, initialValue: U): U;
+//     /**
+//      * Determines whether the specified callback function returns true for any element of an array.
+//      * @param predicate A function that accepts up to three arguments. The some method calls the
+//      * predicate function for each element in the array until the predicate returns true, or until
+//      * the end of the array.
+//      * @param thisArg An object to which the this keyword can refer in the predicate function.
+//      * If thisArg is omitted, undefined is used as the this value.
+//      */
+//     some(predicate: (value: bigint, index: number, array: BigUint64Array) => boolean, thisArg?: any): boolean;
 
 interface BigUint64ArrayConstructor {
   readonly prototype: BigUint64Array;
@@ -875,20 +1116,31 @@ interface BigUint64ArrayConstructor {
    * @param items A set of elements to include in the new array object.
    */
   of(...items: bigint[]): BigUint64Array;
-
+  /**
+   * Creates an array from an array-like or iterable object.
+   * @param arrayLike An array-like or iterable object to convert to an array.
+   */
+  from(arrayLike: Iterable<bigint> | ArrayLike<bigint>): BigUint64Array;
   /**
    * Creates an array from an array-like or iterable object.
    * @param arrayLike An array-like or iterable object to convert to an array.
    * @param mapfn A mapping function to call on every element of the array.
    * @param thisArg Value of 'this' used to invoke the mapfn.
    */
-  from(arrayLike: ArrayLike<bigint>): BigUint64Array;
-  from<U>(
-    arrayLike: ArrayLike<U>,
-    mapfn: (v: U, k: number) => bigint,
-    thisArg?: any
+  from<T, This = undefined>(
+    arrayLike: Iterable<T> | ArrayLike<T>,
+    mapfn: (this: This, v: T, k: number) => bigint,
+    thisArg?: This
   ): BigUint64Array;
 }
+//     /**
+//      * Creates an array from an array-like or iterable object.
+//      * @param arrayLike An array-like or iterable object to convert to an array.
+//      * @param mapfn A mapping function to call on every element of the array.
+//      * @param thisArg Value of 'this' used to invoke the mapfn.
+//      */
+//     from(arrayLike: ArrayLike<bigint>): BigUint64Array;
+//     from<U>(arrayLike: ArrayLike<U>, mapfn: (v: U, k: number) => bigint, thisArg?: any): BigUint64Array;
 
 declare var BigUint64Array: BigUint64ArrayConstructor;
 

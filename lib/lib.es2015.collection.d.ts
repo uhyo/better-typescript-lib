@@ -1,6 +1,6 @@
 interface Map<K, V> {
   forEach<This = undefined>(
-    callbackfn: (this: This, value: V, key: K, map: Map<K, V>) => void,
+    callbackfn: (this: This, value: V, key: K, map: this) => void,
     thisArg?: This
   ): void;
 }
@@ -19,14 +19,14 @@ interface WeakMapConstructor {
 
 interface ReadonlyMap<K, V> {
   forEach<This = undefined>(
-    callbackfn: (this: This, value: V, key: K, map: ReadonlyMap<K, V>) => void,
+    callbackfn: (this: This, value: V, key: K, map: this) => void,
     thisArg?: This
   ): void;
 }
 
 interface Set<T> {
   forEach<This = undefined>(
-    callbackfn: (this: This, value: T, value2: T, set: Set<T>) => void,
+    callbackfn: (this: This, value: T, value2: T, set: this) => void,
     thisArg?: This
   ): void;
 }
@@ -38,7 +38,7 @@ interface SetConstructor {
 
 interface ReadonlySet<T> {
   forEach<This = undefined>(
-    callbackfn: (this: This, value: T, value2: T, set: ReadonlySet<T>) => void,
+    callbackfn: (this: This, value: T, value2: T, set: this) => void,
     thisArg?: This
   ): void;
 }

@@ -6,9 +6,16 @@ expectType<unknown>(eval("foo"));
 expectType<{}>(Object());
 expectType<{ foo: number }>(Object({ foo: 123 }));
 expectType<{}>(Object(123));
-// $ExpctType unknown
+// Object.getPrototypeOf
 expectType<unknown>(Object.getPrototypeOf([]));
+expectType<never>(Object.getPrototypeOf(null));
+// Object.getOwnPropertyDescriptor
+expectType<PropertyDescriptor | undefined>(
+  Object.getOwnPropertyDescriptor([], "foo")
+);
+expectType<never>(Object.getOwnPropertyDescriptor(null, "foo"));
 // Object.getOwnPropertyNames
+expectType<string[]>(Object.getOwnPropertyNames([]));
 expectType<never>(Object.getOwnPropertyNames(null));
 // Object.create
 expectType<{}>(Object.create(null));
@@ -177,30 +184,78 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
 {
   // https://github.com/uhyo/better-typescript-lib/issues/7
   const a1: readonly number[] = [1, 2, 3];
-  expectType<number[]>(a1.filter((a1) => a1 > 2));
+  expectType<number[]>(a1.filter((x) => x > 2));
   expectType<1[]>(a1.filter((x): x is 1 => x === 1));
   if (a1.every((x): x is 2 => x === 2)) {
     expectType<readonly 2[]>(a1);
   }
+  expectType<string | number>(
+    a1.reduce((x) => {
+      expectType<string | number>(x);
+      return "foo";
+    })
+  );
+  expectType<string>(
+    a1.reduce((x) => {
+      expectType<string>(x);
+      return "foo";
+    }, "foo")
+  );
+  expectType<typeof a1["reduce"]>(a1.reduceRight);
 
   expectError(a1.filter((x) => x));
   expectError(a1.every((x) => x));
   expectError(a1.some((x) => x));
+
+  const a2: readonly [number, number, number] = [1, 2, 3];
+  if (
+    a2.every((x, i, a3): x is 2 => {
+      expectType<typeof a2>(a3);
+      return x === 2;
+    })
+  ) {
+    expectType<readonly [2, 2, 2]>(a2);
+  }
+  expectType<[string, string, string]>(a2.map(() => "foo"));
 }
 
 // Array
 {
   // https://github.com/uhyo/better-typescript-lib/issues/7
   const a1: number[] = [1, 2, 3];
-  expectType<number[]>(a1.filter((a1) => a1 > 2));
+  expectType<number[]>(a1.filter((x) => x > 2));
   expectType<1[]>(a1.filter((x): x is 1 => x === 1));
   if (a1.every((x): x is 2 => x === 2)) {
     expectType<2[]>(a1);
   }
+  expectType<string | number>(
+    a1.reduce((x) => {
+      expectType<string | number>(x);
+      return "foo";
+    })
+  );
+  expectType<string>(
+    a1.reduce((x) => {
+      expectType<string>(x);
+      return "foo";
+    }, "foo")
+  );
+  expectType<typeof a1["reduce"]>(a1.reduceRight);
 
   expectError(a1.filter((x) => x));
   expectError(a1.every((x) => x));
   expectError(a1.some((x) => x));
+
+  const a2: [number, number, number] = [1, 2, 3];
+  if (
+    a2.every((x, i, a3): x is 2 => {
+      expectType<typeof a2>(a3);
+      return x === 2;
+    })
+  ) {
+    expectType<[2, 2, 2]>(a2);
+  }
+  expectType<[string, string, string]>(a2.map(() => "foo"));
 }
 
 // ArrayConstructor
@@ -229,6 +284,28 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   }
   if (Array.isArray(a8)) {
     expectType<unknown>(a8[0]);
+  }
+}
+
+// TypedNumberArray
+{
+  for (const TypedNumberArray of [
+    Int8Array,
+    Uint8Array,
+    Uint8ClampedArray,
+    Int16Array,
+    Uint16Array,
+    Int32Array,
+    Uint32Array,
+    Float32Array,
+    Float64Array,
+  ]) {
+    const a1 = new TypedNumberArray();
+    expectError(a1.filter((x) => x));
+    expectError(a1.every((x) => x));
+    expectError(a1.some((x) => x));
+    expectError(a1.find((x) => x));
+    expectError(a1.findIndex((x) => x));
   }
 }
 

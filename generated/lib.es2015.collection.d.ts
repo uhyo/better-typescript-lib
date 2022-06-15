@@ -2,7 +2,7 @@ interface Map<K, V> {
   clear(): void;
   delete(key: K): boolean;
   forEach<This = undefined>(
-    callbackfn: (this: This, value: V, key: K, map: Map<K, V>) => void,
+    callbackfn: (this: This, value: V, key: K, map: this) => void,
     thisArg?: This
   ): void;
   get(key: K): V | undefined;
@@ -23,7 +23,7 @@ interface MapConstructor {
 declare var Map: MapConstructor;
 interface ReadonlyMap<K, V> {
   forEach<This = undefined>(
-    callbackfn: (this: This, value: V, key: K, map: ReadonlyMap<K, V>) => void,
+    callbackfn: (this: This, value: V, key: K, map: this) => void,
     thisArg?: This
   ): void;
   get(key: K): V | undefined;
@@ -53,7 +53,7 @@ interface Set<T> {
   clear(): void;
   delete(value: T): boolean;
   forEach<This = undefined>(
-    callbackfn: (this: This, value: T, value2: T, set: Set<T>) => void,
+    callbackfn: (this: This, value: T, value2: T, set: this) => void,
     thisArg?: This
   ): void;
   has(value: T): boolean;
@@ -71,7 +71,7 @@ interface SetConstructor {
 declare var Set: SetConstructor;
 interface ReadonlySet<T> {
   forEach<This = undefined>(
-    callbackfn: (this: This, value: T, value2: T, set: ReadonlySet<T>) => void,
+    callbackfn: (this: This, value: T, value2: T, set: this) => void,
     thisArg?: This
   ): void;
   has(value: T): boolean;

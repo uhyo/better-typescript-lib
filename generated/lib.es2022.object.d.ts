@@ -14,7 +14,9 @@ interface ObjectConstructor {
     : symbol extends Key
     ? {}
     : Key extends PropertyKey
-    ? { [key in Key]: unknown }
+    ? {
+        [key in Key]: unknown;
+      }
     : {};
 }
 //     /**

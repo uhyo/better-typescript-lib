@@ -1,4 +1,20 @@
-import { expectType } from "tsd";
+import { expectError, expectType } from "tsd";
+
+// ReadonlyArray
+{
+  // https://github.com/uhyo/better-typescript-lib/issues/7
+  const a1: readonly number[] = [1, 2, 3];
+  expectError(a1.find((x) => x));
+  expectError(a1.findIndex((x) => x));
+}
+
+// Array
+{
+  // https://github.com/uhyo/better-typescript-lib/issues/7
+  const a1: number[] = [1, 2, 3];
+  expectError(a1.find((x) => x));
+  expectError(a1.findIndex((x) => x));
+}
 
 // NumberConstructor
 {
@@ -17,8 +33,10 @@ import { expectType } from "tsd";
     expectType<number>(n);
   }
 }
+
 // ObjectConstructor
 {
+  expectType<never>(Object.assign(null));
   const obj1 = Object.assign({ foo: 123 });
   expectType<{ foo: number }>(obj1);
   const obj2 = Object.assign({ foo: 123 }, { bar: "wow" });
