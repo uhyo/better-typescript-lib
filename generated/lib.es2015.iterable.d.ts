@@ -64,6 +64,7 @@ interface Array<T> {
    */
   values(): IterableIterator<T>;
 }
+
 interface ArrayConstructor {
   /**
    * Creates an array from an array-like or iterable object.
@@ -115,6 +116,7 @@ interface ReadonlyArray<T> {
    */
   values(): IterableIterator<T>;
 }
+
 interface IArguments {
   /** Iterator */
   [Symbol.iterator](): IterableIterator<unknown>;
@@ -161,6 +163,7 @@ interface ReadonlyMap<K, V> {
    */
   values(): IterableIterator<V>;
 }
+
 interface MapConstructor {
   new <K, V>(iterable?: Iterable<readonly [K, V]> | null): Map<K, V>;
 }
@@ -222,6 +225,7 @@ interface WeakSetConstructor {
 }
 
 interface Promise<T> {}
+
 interface PromiseConstructor {
   /**
    * Creates a Promise that is resolved with an array of results when all of the provided Promises
@@ -274,6 +278,7 @@ interface Int8Array {
    */
   values(): IterableIterator<number>;
 }
+
 interface Int8ArrayConstructor {
   new (elements: Iterable<number>): Int8Array;
   /**
@@ -316,6 +321,7 @@ interface Uint8Array {
    */
   values(): IterableIterator<number>;
 }
+
 interface Uint8ArrayConstructor {
   new (elements: Iterable<number>): Uint8Array;
   /**
@@ -360,6 +366,7 @@ interface Uint8ClampedArray {
    */
   values(): IterableIterator<number>;
 }
+
 interface Uint8ClampedArrayConstructor {
   new (elements: Iterable<number>): Uint8ClampedArray;
   /**
@@ -404,6 +411,7 @@ interface Int16Array {
    */
   values(): IterableIterator<number>;
 }
+
 interface Int16ArrayConstructor {
   new (elements: Iterable<number>): Int16Array;
   /**
@@ -446,6 +454,7 @@ interface Uint16Array {
    */
   values(): IterableIterator<number>;
 }
+
 interface Uint16ArrayConstructor {
   new (elements: Iterable<number>): Uint16Array;
   /**
@@ -488,6 +497,7 @@ interface Int32Array {
    */
   values(): IterableIterator<number>;
 }
+
 interface Int32ArrayConstructor {
   new (elements: Iterable<number>): Int32Array;
   /**
@@ -530,6 +540,7 @@ interface Uint32Array {
    */
   values(): IterableIterator<number>;
 }
+
 interface Uint32ArrayConstructor {
   new (elements: Iterable<number>): Uint32Array;
   /**
@@ -572,6 +583,7 @@ interface Float32Array {
    */
   values(): IterableIterator<number>;
 }
+
 interface Float32ArrayConstructor {
   new (elements: Iterable<number>): Float32Array;
   /**
@@ -614,6 +626,7 @@ interface Float64Array {
    */
   values(): IterableIterator<number>;
 }
+
 interface Float64ArrayConstructor {
   new (elements: Iterable<number>): Float64Array;
   /**

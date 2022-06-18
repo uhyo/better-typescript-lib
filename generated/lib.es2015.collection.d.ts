@@ -21,6 +21,7 @@ interface MapConstructor {
 //     readonly prototype: Map<any, any>;
 
 declare var Map: MapConstructor;
+
 interface ReadonlyMap<K, V> {
   forEach<This = undefined>(
     callbackfn: (this: This, value: V, key: K, map: this) => void,
@@ -38,6 +39,7 @@ interface WeakMap<K extends object, V> {
   has(key: K): boolean;
   set(key: K, value: V): this;
 }
+
 interface WeakMapConstructor {
   new <K extends object, V>(
     entries?: readonly (readonly [K, V])[] | null
@@ -48,6 +50,7 @@ interface WeakMapConstructor {
 //     readonly prototype: WeakMap<object, any>;
 
 declare var WeakMap: WeakMapConstructor;
+
 interface Set<T> {
   add(value: T): this;
   clear(): void;
@@ -69,6 +72,7 @@ interface SetConstructor {
 //     readonly prototype: Set<any>;
 
 declare var Set: SetConstructor;
+
 interface ReadonlySet<T> {
   forEach<This = undefined>(
     callbackfn: (this: This, value: T, value2: T, set: this) => void,

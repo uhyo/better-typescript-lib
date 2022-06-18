@@ -105,6 +105,7 @@ interface PropertyDescriptor {
 interface PropertyDescriptorMap {
   [key: PropertyKey]: PropertyDescriptor;
 }
+
 interface Object {
   /** The initial value of Object.prototype.constructor is the standard built-in Object constructor. */
   constructor: Function;
@@ -462,6 +463,7 @@ type OmitThisParameter<T> = unknown extends ThisParameterType<T>
   : T extends (...args: infer A) => infer R
   ? (...args: A) => R
   : T;
+
 interface CallableFunction extends Function {
   /**
    * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
@@ -1297,6 +1299,7 @@ interface URIErrorConstructor extends ErrorConstructor {
 }
 
 declare var URIError: URIErrorConstructor;
+
 interface JSON {
   /**
    * Converts a JavaScript Object Notation (JSON) string into an object.
@@ -1399,6 +1402,11 @@ interface JSON {
  * An intrinsic object that provides functions to convert JavaScript values to and from the JavaScript Object Notation (JSON) format.
  */
 declare var JSON: JSON;
+
+/////////////////////////////
+/// ECMAScript Array API (specially handled by compiler)
+/////////////////////////////
+
 interface ReadonlyArray<T> {
   /**
    * Gets the length of the array. This is a number one higher than the highest element defined in an array.
@@ -1660,6 +1668,7 @@ interface ConcatArray<T> {
   join(separator?: string): string;
   slice(start?: number, end?: number): T[];
 }
+
 interface Array<T> {
   /**
    * Gets or sets the length of the array. This is a number one higher than the highest index in the array.
@@ -2398,6 +2407,11 @@ interface DataViewConstructor {
   ): DataView;
 }
 declare var DataView: DataViewConstructor;
+
+/**
+ * A typed array of 8-bit integer values. The contents are initialized to 0. If the requested
+ * number of bytes could not be allocated an exception is raised.
+ */
 interface Int8Array {
   /**
    * The size in bytes of each element in the array.
@@ -2854,6 +2868,11 @@ interface Int8ArrayConstructor {
 //     from<T>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => number, thisArg?: any): Int8Array;
 
 declare var Int8Array: Int8ArrayConstructor;
+
+/**
+ * A typed array of 8-bit unsigned integer values. The contents are initialized to 0. If the
+ * requested number of bytes could not be allocated an exception is raised.
+ */
 interface Uint8Array {
   /**
    * The size in bytes of each element in the array.
@@ -3310,6 +3329,11 @@ interface Uint8ArrayConstructor {
 //     from<T>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => number, thisArg?: any): Uint8Array;
 
 declare var Uint8Array: Uint8ArrayConstructor;
+
+/**
+ * A typed array of 8-bit unsigned integer (clamped) values. The contents are initialized to 0.
+ * If the requested number of bytes could not be allocated an exception is raised.
+ */
 interface Uint8ClampedArray {
   /**
    * The size in bytes of each element in the array.
@@ -3766,6 +3790,11 @@ interface Uint8ClampedArrayConstructor {
 //     from<T>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => number, thisArg?: any): Uint8ClampedArray;
 
 declare var Uint8ClampedArray: Uint8ClampedArrayConstructor;
+
+/**
+ * A typed array of 16-bit signed integer values. The contents are initialized to 0. If the
+ * requested number of bytes could not be allocated an exception is raised.
+ */
 interface Int16Array {
   /**
    * The size in bytes of each element in the array.
@@ -4221,6 +4250,11 @@ interface Int16ArrayConstructor {
 //     from<T>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => number, thisArg?: any): Int16Array;
 
 declare var Int16Array: Int16ArrayConstructor;
+
+/**
+ * A typed array of 16-bit unsigned integer values. The contents are initialized to 0. If the
+ * requested number of bytes could not be allocated an exception is raised.
+ */
 interface Uint16Array {
   /**
    * The size in bytes of each element in the array.
@@ -4677,6 +4711,10 @@ interface Uint16ArrayConstructor {
 //     from<T>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => number, thisArg?: any): Uint16Array;
 
 declare var Uint16Array: Uint16ArrayConstructor;
+/**
+ * A typed array of 32-bit signed integer values. The contents are initialized to 0. If the
+ * requested number of bytes could not be allocated an exception is raised.
+ */
 interface Int32Array {
   /**
    * The size in bytes of each element in the array.
@@ -5133,6 +5171,11 @@ interface Int32ArrayConstructor {
 //     from<T>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => number, thisArg?: any): Int32Array;
 
 declare var Int32Array: Int32ArrayConstructor;
+
+/**
+ * A typed array of 32-bit unsigned integer values. The contents are initialized to 0. If the
+ * requested number of bytes could not be allocated an exception is raised.
+ */
 interface Uint32Array {
   /**
    * The size in bytes of each element in the array.
@@ -5588,6 +5631,11 @@ interface Uint32ArrayConstructor {
 //     from<T>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => number, thisArg?: any): Uint32Array;
 
 declare var Uint32Array: Uint32ArrayConstructor;
+
+/**
+ * A typed array of 32-bit float values. The contents are initialized to 0. If the requested number
+ * of bytes could not be allocated an exception is raised.
+ */
 interface Float32Array {
   /**
    * The size in bytes of each element in the array.
@@ -6044,6 +6092,11 @@ interface Float32ArrayConstructor {
 //     from<T>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => number, thisArg?: any): Float32Array;
 
 declare var Float32Array: Float32ArrayConstructor;
+
+/**
+ * A typed array of 64-bit float values. The contents are initialized to 0. If the requested
+ * number of bytes could not be allocated an exception is raised.
+ */
 interface Float64Array {
   /**
    * The size in bytes of each element in the array.
@@ -6623,6 +6676,7 @@ declare namespace Intl {
     ): string[];
   };
 }
+
 interface String {
   /**
    * Determines whether two strings are equivalent in the current or specified locale.

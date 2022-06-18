@@ -1,3 +1,5 @@
+/// <reference lib="es2015.iterable" />
+
 interface ObjectConstructor {
   /**
    * Returns an object created by key-value entries for properties and methods

@@ -28,11 +28,7 @@ export function generate(
   const replacementTargets = scanBetterFile(printer, libFile);
 
   if (replacementTargets.size === 0) {
-    for (const statement of originalFile.statements) {
-      result += statement.getFullText(originalFile);
-    }
-    result += originalFile.text.slice(originalFile.endOfFileToken.pos);
-    return result;
+    return originalFile.text;
   }
 
   const consumedReplacements = new Set<string>();
@@ -133,7 +129,7 @@ export function generate(
         },
       ];
     });
-    result += printInterface(printer, statement, memberList);
+    result += printInterface(printer, statement, memberList, originalFile);
 
     if (emitOriginalAsComment) {
       result += "\n";
@@ -327,10 +323,12 @@ function isPartialReplacement(
 function printInterface(
   printer: ts.Printer,
   originalNode: ts.InterfaceDeclaration,
-  members: readonly { text: string }[]
+  members: readonly { text: string }[],
+  originalSourceFile: ts.SourceFile
 ): string {
-  const originalSourceFile = originalNode.getSourceFile();
-  let result = "";
+  let result = originalNode
+    .getFullText(originalSourceFile)
+    .slice(0, originalNode.getLeadingTriviaWidth(originalSourceFile));
   for (const dec of originalNode.decorators ?? []) {
     result += printer.printNode(
       ts.EmitHint.Unspecified,

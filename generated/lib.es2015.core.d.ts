@@ -245,6 +245,7 @@ interface Math {
    */
   cbrt(x: number): number;
 }
+
 interface NumberConstructor {
   /**
    * The value of Number.EPSILON is the difference between 1 and the smallest value greater than 1
@@ -530,6 +531,7 @@ interface RegExpConstructor {
   new (pattern: RegExp | string, flags?: string): RegExp;
   (pattern: RegExp | string, flags?: string): RegExp;
 }
+
 interface String {
   /**
    * Returns a nonnegative integer Number less than 1114112 (0x110000) that is the code point

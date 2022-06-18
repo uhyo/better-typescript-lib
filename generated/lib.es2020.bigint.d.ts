@@ -229,6 +229,11 @@ interface BigIntConstructor {
 }
 
 declare var BigInt: BigIntConstructor;
+
+/**
+ * A typed array of 64-bit signed integer values. The contents are initialized to 0. If the
+ * requested number of bytes could not be allocated, an exception is raised.
+ */
 interface BigInt64Array {
   /** The size in bytes of each element in the array. */
   readonly BYTES_PER_ELEMENT: number;
@@ -686,6 +691,11 @@ interface BigInt64ArrayConstructor {
 //     from<U>(arrayLike: ArrayLike<U>, mapfn: (v: U, k: number) => bigint, thisArg?: any): BigInt64Array;
 
 declare var BigInt64Array: BigInt64ArrayConstructor;
+
+/**
+ * A typed array of 64-bit unsigned integer values. The contents are initialized to 0. If the
+ * requested number of bytes could not be allocated, an exception is raised.
+ */
 interface BigUint64Array {
   /** The size in bytes of each element in the array. */
   readonly BYTES_PER_ELEMENT: number;
