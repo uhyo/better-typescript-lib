@@ -8,6 +8,10 @@ function createGenericRecord<K extends string, V>(
 }
 
 {
+  expectType<never>(Object.values(null));
+  expectType<never>(Object.entries(null));
+  expectType<never>(Object.getOwnPropertyDescriptors(null));
+
   const obj1: { [k: string]: number } = { foo: 123 };
   const values1 = Object.values(obj1);
   const entries1 = Object.entries(obj1);

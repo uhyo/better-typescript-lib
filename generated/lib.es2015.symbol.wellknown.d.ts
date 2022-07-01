@@ -70,12 +70,15 @@ interface Symbol {
 
   readonly [Symbol.toStringTag]: string;
 }
+
 interface Array<T> {
   /**
    * Returns an object whose properties have the value 'true'
    * when they will be absent when used in a 'with' statement.
    */
-  readonly [Symbol.unscopables]: { [key: PropertyKey]: boolean };
+  readonly [Symbol.unscopables]: {
+    [key: PropertyKey]: boolean;
+  };
 }
 //     /**
 //      * Returns an object whose properties have the value 'true'
@@ -161,6 +164,7 @@ interface Promise<T> {
 interface PromiseConstructor {
   readonly [Symbol.species]: PromiseConstructor;
 }
+
 interface RegExp {
   /**
    * Matches a string with this regular expression, and returns an array containing the results of
@@ -234,6 +238,7 @@ interface RegExp {
 interface RegExpConstructor {
   readonly [Symbol.species]: RegExpConstructor;
 }
+
 interface String {
   /**
    * Matches a string or an object that supports being matched against, and returns an array

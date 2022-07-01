@@ -1,3 +1,67 @@
+interface Array<T> {
+  /**
+   * Returns the value of the first element in the array where predicate is true, and undefined
+   * otherwise.
+   * @param predicate find calls predicate once for each element of the array, in ascending
+   * order, until it finds one where predicate returns true. If such an element is found, find
+   * immediately returns that element value. Otherwise, find returns undefined.
+   * @param thisArg If provided, it will be used as the this value for each invocation of
+   * predicate. If it is not provided, undefined is used instead.
+   */
+  find<S extends T, This = undefined>(
+    predicate: (this: This, value: T, index: number, obj: this) => value is S,
+    thisArg?: This
+  ): S | undefined;
+
+  /**
+   * Returns the value of the first element in the array where predicate is true, and undefined
+   * otherwise.
+   * @param predicate find calls predicate once for each element of the array, in ascending
+   * order, until it finds one where predicate returns true. If such an element is found, find
+   * immediately returns that element value. Otherwise, find returns undefined.
+   * @param thisArg If provided, it will be used as the this value for each invocation of
+   * predicate. If it is not provided, undefined is used instead.
+   */
+  find<This = undefined>(
+    predicate: (this: This, value: T, index: number, obj: this) => boolean,
+    thisArg?: This
+  ): T | undefined;
+
+  /**
+   * Returns the index of the first element in the array where predicate is true, and -1
+   * otherwise.
+   * @param predicate find calls predicate once for each element of the array, in ascending
+   * order, until it finds one where predicate returns true. If such an element is found,
+   * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
+   * @param thisArg If provided, it will be used as the this value for each invocation of
+   * predicate. If it is not provided, undefined is used instead.
+   */
+  findIndex<This = undefined>(
+    predicate: (this: This, value: T, index: number, obj: this) => boolean,
+    thisArg?: This
+  ): number;
+}
+
+interface ArrayConstructor {
+  /**
+   * Creates an array from an array-like or iterable object.
+   * @param source An array-like or iterable object to convert to an array.
+   */
+  from<T>(source: ArrayLike<T>): T[];
+
+  /**
+   * Creates an array from an array-like or iterable object.
+   * @param source An array-like or iterable object to convert to an array.
+   * @param mapfn A mapping function to call on every element of the array.
+   * @param thisArg Value of 'this' used to invoke the mapfn.
+   */
+  from<T, U, This = undefined>(
+    source: ArrayLike<T>,
+    mapfn: (this: This, v: T, k: number) => U,
+    thisArg?: This
+  ): U[];
+}
+
 interface NumberConstructor {
   /**
    * Returns true if passed value is finite.
@@ -38,7 +102,10 @@ interface ObjectConstructor {
   assign<T, Ts extends readonly any[]>(
     target: T,
     ...sources: Ts
-  ): First<UnionToIntersection<[T] | { [K in keyof Ts]: [Ts[K]] }[number]>>;
+  ): CheckNonNullable<
+    T,
+    First<UnionToIntersection<[T] | { [K in keyof Ts]: [Ts[K]] }[number]>>
+  >;
 
   /**
    * Returns true if the values are the same value, false otherwise.
@@ -60,6 +127,50 @@ interface ObjectConstructor {
    * @param proto The value of the new prototype or null.
    */
   setPrototypeOf<T extends object>(o: T, proto: null): T;
+}
+
+interface ReadonlyArray<T> {
+  /**
+   * Returns the value of the first element in the array where predicate is true, and undefined
+   * otherwise.
+   * @param predicate find calls predicate once for each element of the array, in ascending
+   * order, until it finds one where predicate returns true. If such an element is found, find
+   * immediately returns that element value. Otherwise, find returns undefined.
+   * @param thisArg If provided, it will be used as the this value for each invocation of
+   * predicate. If it is not provided, undefined is used instead.
+   */
+  find<S extends T, This = undefined>(
+    predicate: (this: This, value: T, index: number, obj: this) => value is S,
+    thisArg?: This
+  ): S | undefined;
+
+  /**
+   * Returns the value of the first element in the array where predicate is true, and undefined
+   * otherwise.
+   * @param predicate find calls predicate once for each element of the array, in ascending
+   * order, until it finds one where predicate returns true. If such an element is found, find
+   * immediately returns that element value. Otherwise, find returns undefined.
+   * @param thisArg If provided, it will be used as the this value for each invocation of
+   * predicate. If it is not provided, undefined is used instead.
+   */
+  find<This = undefined>(
+    predicate: (this: This, value: T, index: number, obj: this) => boolean,
+    thisArg?: This
+  ): T | undefined;
+
+  /**
+   * Returns the index of the first element in the array where predicate is true, and -1
+   * otherwise.
+   * @param predicate find calls predicate once for each element of the array, in ascending
+   * order, until it finds one where predicate returns true. If such an element is found,
+   * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
+   * @param thisArg If provided, it will be used as the this value for each invocation of
+   * predicate. If it is not provided, undefined is used instead.
+   */
+  findIndex<This = undefined>(
+    predicate: (this: This, value: T, index: number, obj: this) => boolean,
+    thisArg?: This
+  ): number;
 }
 
 interface String {
