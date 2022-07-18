@@ -36,7 +36,7 @@ import { expectError, expectType } from "tsd";
 
 // ObjectConstructor
 {
-  expectType<never>(Object.assign(null));
+  expectError(Object.assign(null));
   const obj1 = Object.assign({ foo: 123 });
   expectType<{ foo: number }>(obj1);
   const obj2 = Object.assign({ foo: 123 }, { bar: "wow" });
@@ -48,6 +48,8 @@ import { expectError, expectType } from "tsd";
     { baz: true }
   );
   expectType<({ foo: number } | { bar: string }) & { baz: boolean }>(obj4);
+  expectType<symbol[]>(Object.getOwnPropertySymbols([]));
+  expectError(Object.getOwnPropertySymbols(null));
   const obj5 = Object.setPrototypeOf({ foo: 123 }, { bar: "wow" });
   expectType<{ foo: number } & { bar: string }>(obj5);
 }

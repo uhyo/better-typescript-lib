@@ -343,25 +343,15 @@ interface ObjectConstructor {
    * @param sources One or more source objects from which to copy properties
    */
   assign<T, Ts extends readonly any[]>(
-    target: T,
+    target: CheckNonNullable<T>,
     ...sources: Ts
-  ): CheckNonNullable<
-    T,
-    First<
-      UnionToIntersection<
-        | [T]
-        | {
-            [K in keyof Ts]: [Ts[K]];
-          }[number]
-      >
-    >
-  >;
+  ): Intersect<[T, ...Ts]>;
 
   /**
    * Returns an array of all symbol properties found directly on object o.
    * @param o Object to retrieve the symbols from.
    */
-  getOwnPropertySymbols(o: any): symbol[];
+  getOwnPropertySymbols<T>(o: CheckNonNullable<T>): symbol[];
 
   /**
    * Returns the names of the enumerable string properties and methods of an object.
@@ -421,6 +411,11 @@ interface ObjectConstructor {
 //      * @param sources One or more source objects from which to copy properties
 //      */
 //     assign(target: object, ...sources: any[]): any;
+//     /**
+//      * Returns an array of all symbol properties found directly on object o.
+//      * @param o Object to retrieve the symbols from.
+//      */
+//     getOwnPropertySymbols(o: any): symbol[];
 //     /**
 //      * Returns true if the values are the same value, false otherwise.
 //      * @param value1 The first value.

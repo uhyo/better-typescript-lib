@@ -62,7 +62,7 @@ Index: es5.d.ts
     * @param o The object that references the prototype.
     */
 -  getPrototypeOf(o: any): any;
-+  getPrototypeOf<T>(o: T): CheckNonNullable<T, unknown>;
++  getPrototypeOf<T>(o: CheckNonNullable<T>): unknown;
  
    /**
     * Gets the own property descriptor of the specified object.
@@ -73,10 +73,9 @@ Index: es5.d.ts
 -  getOwnPropertyDescriptor(
 -    o: any,
 +  getOwnPropertyDescriptor<T>(
-+    o: T,
++    o: CheckNonNullable<T>,
      p: PropertyKey
--  ): PropertyDescriptor | undefined;
-+  ): CheckNonNullable<T, PropertyDescriptor | undefined>;
+   ): PropertyDescriptor | undefined;
  
    /**
     * Returns the names of the own properties of an object. The own properties of an object are those that are defined directly
@@ -84,7 +83,7 @@ Index: es5.d.ts
     * @param o Object that contains the own properties.
     */
 -  getOwnPropertyNames(o: any): string[];
-+  getOwnPropertyNames<T>(o: T): CheckNonNullable<T, string[]>;
++  getOwnPropertyNames<T>(o: CheckNonNullable<T>): string[];
  
    /**
     * Creates an object that has the specified prototype or that has null prototype.
@@ -211,12 +210,18 @@ Index: es5.d.ts
    /**
     * Prevents the modification of attributes of existing properties, and prevents the addition of new properties.
     * @param o Object on which to lock the attributes.
-@@ -350,47 +431,19 @@
+@@ -350,47 +431,26 @@
      this: (this: T, ...args: A) => R,
      thisArg: T,
      ...args: A
    ): R;
--
++  /**
++   * For a given function, creates a bound function that has the same body as the original function.
++   * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
++   * @param thisArg The object to be used as the this object.
++   */
++  bind<T>(this: T, thisArg: ThisParameterType<T>): OmitThisParameter<T>;
+ 
    /**
     * For a given function, creates a bound function that has the same body as the original function.
     * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
@@ -263,12 +268,18 @@ Index: es5.d.ts
  
  interface NewableFunction extends Function {
    /**
-@@ -414,51 +467,23 @@
+@@ -414,51 +474,30 @@
      this: new (...args: A) => T,
      thisArg: T,
      ...args: A
    ): void;
--
++  /**
++   * For a given function, creates a bound function that has the same body as the original function.
++   * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
++   * @param thisArg The object to be used as the this object.
++   */
++  bind<T>(this: T, thisArg: any): T;
+ 
    /**
     * For a given function, creates a bound function that has the same body as the original function.
     * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
@@ -320,7 +331,7 @@ Index: es5.d.ts
    callee: Function;
  }
  
-@@ -508,24 +533,28 @@
+@@ -508,24 +547,28 @@
     * Matches a string with a regular expression, and returns an array containing the results of that search.
     * @param regexp A variable name or string literal containing the regular expression pattern and flags.
     */
@@ -353,7 +364,7 @@ Index: es5.d.ts
  
    /**
     * Finds the first substring match in a regular expression search.
-@@ -1187,32 +1216,74 @@
+@@ -1187,32 +1230,74 @@
     * If a member contains nested objects, the nested objects are transformed before the parent object is.
     */
    parse(
@@ -437,7 +448,7 @@ Index: es5.d.ts
  
  /**
   * An intrinsic object that provides functions to convert JavaScript values to and from the JavaScript Object Notation (JSON) format.
-@@ -1276,23 +1347,25 @@
+@@ -1276,23 +1361,25 @@
     * which is coercible to the Boolean value false, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -470,7 +481,7 @@ Index: es5.d.ts
    /**
     * Determines whether the specified callback function returns true for any element of an array.
     * @param predicate A function that accepts up to three arguments. The some method calls
-@@ -1300,117 +1373,99 @@
+@@ -1300,117 +1387,99 @@
     * which is coercible to the Boolean value true, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -620,7 +631,7 @@ Index: es5.d.ts
      initialValue: U
    ): U;
  
-@@ -1534,23 +1589,25 @@
+@@ -1534,23 +1603,25 @@
     * which is coercible to the Boolean value false, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -653,7 +664,7 @@ Index: es5.d.ts
    /**
     * Determines whether the specified callback function returns true for any element of an array.
     * @param predicate A function that accepts up to three arguments. The some method calls
-@@ -1558,133 +1615,113 @@
+@@ -1558,133 +1629,113 @@
     * which is coercible to the Boolean value true, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
     * If thisArg is omitted, undefined is used as the this value.
@@ -821,7 +832,7 @@ Index: es5.d.ts
  
  declare var Array: ArrayConstructor;
  
-@@ -1716,9 +1753,15 @@
+@@ -1716,9 +1767,15 @@
  ) => void;
  
  declare type PromiseConstructorLike = new <T>(
@@ -838,7 +849,7 @@ Index: es5.d.ts
    ) => void
  ) => PromiseLike<T>;
  
-@@ -2123,20 +2166,24 @@
+@@ -2123,20 +2180,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -867,7 +878,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -2146,21 +2193,24 @@
+@@ -2146,21 +2207,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -897,7 +908,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2168,13 +2218,12 @@
+@@ -2168,13 +2232,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -914,7 +925,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2182,23 +2231,22 @@
+@@ -2182,23 +2245,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -944,7 +955,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -2226,50 +2274,40 @@
+@@ -2226,50 +2288,40 @@
    /**
     * The length of the array.
     */
@@ -1008,7 +1019,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -2278,46 +2316,32 @@
+@@ -2278,46 +2330,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1062,7 +1073,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -2326,14 +2350,14 @@
+@@ -2326,14 +2364,14 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1079,7 +1090,7 @@ Index: es5.d.ts
      initialValue: U
    ): U;
  
-@@ -2354,20 +2378,24 @@
+@@ -2354,20 +2392,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -1108,7 +1119,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -2422,25 +2450,23 @@
+@@ -2422,25 +2464,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -1141,7 +1152,7 @@ Index: es5.d.ts
  }
  declare var Int8Array: Int8ArrayConstructor;
  
-@@ -2478,20 +2504,24 @@
+@@ -2478,20 +2518,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -1170,7 +1181,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -2501,21 +2531,24 @@
+@@ -2501,21 +2545,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -1200,7 +1211,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2523,13 +2556,12 @@
+@@ -2523,13 +2570,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -1217,7 +1228,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2537,23 +2569,22 @@
+@@ -2537,23 +2583,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -1247,7 +1258,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -2581,50 +2612,40 @@
+@@ -2581,50 +2626,40 @@
    /**
     * The length of the array.
     */
@@ -1311,7 +1322,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -2633,46 +2654,32 @@
+@@ -2633,46 +2668,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1365,7 +1376,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -2681,14 +2688,14 @@
+@@ -2681,14 +2702,14 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1382,7 +1393,7 @@ Index: es5.d.ts
      initialValue: U
    ): U;
  
-@@ -2709,20 +2716,24 @@
+@@ -2709,20 +2730,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -1411,7 +1422,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -2778,25 +2789,23 @@
+@@ -2778,25 +2803,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -1444,7 +1455,7 @@ Index: es5.d.ts
  }
  declare var Uint8Array: Uint8ArrayConstructor;
  
-@@ -2834,24 +2843,24 @@
+@@ -2834,24 +2857,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -1474,7 +1485,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -2861,21 +2870,24 @@
+@@ -2861,21 +2884,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -1504,7 +1515,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2883,17 +2895,12 @@
+@@ -2883,17 +2909,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -1525,7 +1536,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2901,31 +2908,22 @@
+@@ -2901,31 +2922,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -1563,7 +1574,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -2953,54 +2951,40 @@
+@@ -2953,54 +2965,40 @@
    /**
     * The length of the array.
     */
@@ -1627,7 +1638,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -3009,46 +2993,32 @@
+@@ -3009,46 +3007,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1681,7 +1692,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -3057,14 +3027,14 @@
+@@ -3057,14 +3041,14 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1698,7 +1709,7 @@ Index: es5.d.ts
      initialValue: U
    ): U;
  
-@@ -3085,24 +3055,24 @@
+@@ -3085,24 +3069,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -1728,7 +1739,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -3158,25 +3128,23 @@
+@@ -3158,25 +3142,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -1761,7 +1772,7 @@ Index: es5.d.ts
  }
  declare var Uint8ClampedArray: Uint8ClampedArrayConstructor;
  
-@@ -3214,20 +3182,24 @@
+@@ -3214,20 +3196,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -1790,7 +1801,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -3237,21 +3209,24 @@
+@@ -3237,21 +3223,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -1820,7 +1831,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3259,13 +3234,12 @@
+@@ -3259,13 +3248,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -1837,7 +1848,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3273,23 +3247,22 @@
+@@ -3273,23 +3261,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -1867,7 +1878,7 @@ Index: es5.d.ts
    /**
     * Returns the index of the first occurrence of a value in an array.
     * @param searchElement The value to locate in the array.
-@@ -3316,50 +3289,40 @@
+@@ -3316,50 +3303,40 @@
    /**
     * The length of the array.
     */
@@ -1931,7 +1942,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -3368,46 +3331,32 @@
+@@ -3368,46 +3345,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1985,7 +1996,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -3416,14 +3365,14 @@
+@@ -3416,14 +3379,14 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2002,7 +2013,7 @@ Index: es5.d.ts
      initialValue: U
    ): U;
  
-@@ -3444,20 +3393,24 @@
+@@ -3444,20 +3407,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -2031,7 +2042,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -3513,25 +3466,23 @@
+@@ -3513,25 +3480,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -2064,7 +2075,7 @@ Index: es5.d.ts
  }
  declare var Int16Array: Int16ArrayConstructor;
  
-@@ -3569,20 +3520,24 @@
+@@ -3569,20 +3534,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -2093,7 +2104,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -3592,21 +3547,24 @@
+@@ -3592,21 +3561,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -2123,7 +2134,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3614,13 +3572,12 @@
+@@ -3614,13 +3586,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -2140,7 +2151,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3628,23 +3585,22 @@
+@@ -3628,23 +3599,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -2170,7 +2181,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -3672,50 +3628,40 @@
+@@ -3672,50 +3642,40 @@
    /**
     * The length of the array.
     */
@@ -2234,7 +2245,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -3724,46 +3670,32 @@
+@@ -3724,46 +3684,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2288,7 +2299,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -3772,14 +3704,14 @@
+@@ -3772,14 +3718,14 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2305,7 +2316,7 @@ Index: es5.d.ts
      initialValue: U
    ): U;
  
-@@ -3800,20 +3732,24 @@
+@@ -3800,20 +3746,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -2334,7 +2345,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -3869,25 +3805,23 @@
+@@ -3869,25 +3819,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -2367,7 +2378,7 @@ Index: es5.d.ts
  }
  declare var Uint16Array: Uint16ArrayConstructor;
  /**
-@@ -3924,20 +3858,24 @@
+@@ -3924,20 +3872,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -2396,7 +2407,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -3947,21 +3885,24 @@
+@@ -3947,21 +3899,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -2426,7 +2437,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3969,13 +3910,12 @@
+@@ -3969,13 +3924,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -2443,7 +2454,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3983,23 +3923,22 @@
+@@ -3983,23 +3937,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -2473,7 +2484,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -4027,50 +3966,40 @@
+@@ -4027,50 +3980,40 @@
    /**
     * The length of the array.
     */
@@ -2537,7 +2548,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -4079,46 +4008,32 @@
+@@ -4079,46 +4022,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2591,7 +2602,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -4127,14 +4042,14 @@
+@@ -4127,14 +4056,14 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2608,7 +2619,7 @@ Index: es5.d.ts
      initialValue: U
    ): U;
  
-@@ -4155,20 +4070,24 @@
+@@ -4155,20 +4084,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -2637,7 +2648,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -4224,25 +4143,23 @@
+@@ -4224,25 +4157,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -2670,7 +2681,7 @@ Index: es5.d.ts
  }
  declare var Int32Array: Int32ArrayConstructor;
  
-@@ -4280,20 +4197,24 @@
+@@ -4280,20 +4211,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -2699,7 +2710,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -4303,21 +4224,24 @@
+@@ -4303,21 +4238,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -2729,7 +2740,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -4325,13 +4249,12 @@
+@@ -4325,13 +4263,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -2746,7 +2757,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -4339,23 +4262,22 @@
+@@ -4339,23 +4276,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -2776,7 +2787,7 @@ Index: es5.d.ts
    /**
     * Returns the index of the first occurrence of a value in an array.
     * @param searchElement The value to locate in the array.
-@@ -4382,50 +4304,40 @@
+@@ -4382,50 +4318,40 @@
    /**
     * The length of the array.
     */
@@ -2840,7 +2851,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -4434,46 +4346,32 @@
+@@ -4434,46 +4360,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2894,7 +2905,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -4482,14 +4380,14 @@
+@@ -4482,14 +4394,14 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2911,7 +2922,7 @@ Index: es5.d.ts
      initialValue: U
    ): U;
  
-@@ -4510,20 +4408,24 @@
+@@ -4510,20 +4422,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -2940,7 +2951,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -4579,25 +4481,23 @@
+@@ -4579,25 +4495,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -2973,7 +2984,7 @@ Index: es5.d.ts
  }
  declare var Uint32Array: Uint32ArrayConstructor;
  
-@@ -4635,20 +4535,24 @@
+@@ -4635,20 +4549,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -3002,7 +3013,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -4658,21 +4562,24 @@
+@@ -4658,21 +4576,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -3032,7 +3043,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -4680,13 +4587,12 @@
+@@ -4680,13 +4601,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -3049,7 +3060,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -4694,23 +4600,22 @@
+@@ -4694,23 +4614,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -3079,7 +3090,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -4738,50 +4643,40 @@
+@@ -4738,50 +4657,40 @@
    /**
     * The length of the array.
     */
@@ -3143,7 +3154,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -4790,46 +4685,32 @@
+@@ -4790,46 +4699,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -3197,7 +3208,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -4838,14 +4719,14 @@
+@@ -4838,14 +4733,14 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -3214,7 +3225,7 @@ Index: es5.d.ts
      initialValue: U
    ): U;
  
-@@ -4866,20 +4747,24 @@
+@@ -4866,20 +4761,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -3243,7 +3254,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -4935,25 +4820,23 @@
+@@ -4935,25 +4834,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -3276,7 +3287,7 @@ Index: es5.d.ts
  }
  declare var Float32Array: Float32ArrayConstructor;
  
-@@ -4991,20 +4874,24 @@
+@@ -4991,20 +4888,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -3305,7 +3316,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -5014,21 +4901,24 @@
+@@ -5014,21 +4915,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -3335,7 +3346,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -5036,13 +4926,12 @@
+@@ -5036,13 +4940,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -3352,7 +3363,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -5050,23 +4939,22 @@
+@@ -5050,23 +4953,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -3382,7 +3393,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -5094,50 +4982,40 @@
+@@ -5094,50 +4996,40 @@
    /**
     * The length of the array.
     */
@@ -3446,7 +3457,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -5146,46 +5024,32 @@
+@@ -5146,46 +5038,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -3500,7 +3511,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -5194,14 +5058,14 @@
+@@ -5194,14 +5072,14 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -3517,7 +3528,7 @@ Index: es5.d.ts
      initialValue: U
    ): U;
  
-@@ -5222,20 +5086,24 @@
+@@ -5222,20 +5100,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -3546,7 +3557,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -5282,25 +5150,23 @@
+@@ -5282,25 +5164,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -3579,21 +3590,28 @@ Index: es5.d.ts
  }
  declare var Float64Array: Float64ArrayConstructor;
  
-@@ -5491,4 +5357,24 @@
+@@ -5491,4 +5371,31 @@
      locales?: string | string[],
      options?: Intl.DateTimeFormatOptions
    ): string;
  }
 +// --------------------
-+type First<T> = T extends [any] ? T[0] : unknown;
++type Cast<T, U> = T extends U ? T : U;
 +
-+type UnionToIntersection<T> = (
-+  T extends any ? (arg: T) => void : never
-+) extends (arg: infer F) => void
-+  ? F
-+  : unknown;
++/**
++ * Make all properties in T writable
++ */
++type Writable<T> = {
++  -readonly [P in keyof T]: T[P];
++};
 +
-+type CheckNonNullable<T, U> = [T] extends [NonNullable<T>] ? U : never;
++type Intersect<T extends readonly any[]> = ((
++  ...args: { [K in keyof T]: Cast<Writable<T[K]>, {}> }
++) => void) extends (...args: { [K in keyof T]: infer S }) => void
++  ? S
++  : never;
++
++type CheckNonNullable<T> = [T] extends [null | undefined] ? never : T;
 +
 +type JSONValue =
 +  | null

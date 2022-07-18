@@ -100,12 +100,15 @@ interface ObjectConstructor {
    * @param sources One or more source objects from which to copy properties
    */
   assign<T, Ts extends readonly any[]>(
-    target: T,
+    target: CheckNonNullable<T>,
     ...sources: Ts
-  ): CheckNonNullable<
-    T,
-    First<UnionToIntersection<[T] | { [K in keyof Ts]: [Ts[K]] }[number]>>
-  >;
+  ): Intersect<[T, ...Ts]>;
+
+  /**
+   * Returns an array of all symbol properties found directly on object o.
+   * @param o Object to retrieve the symbols from.
+   */
+  getOwnPropertySymbols<T>(o: CheckNonNullable<T>): symbol[];
 
   /**
    * Returns true if the values are the same value, false otherwise.
