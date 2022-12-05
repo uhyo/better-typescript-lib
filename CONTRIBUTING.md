@@ -34,3 +34,13 @@ Currently, build artifacts needs to be committed. Follow the following steps to 
 2. `npm run build:lib`
 3. `npm run build:diff`
 4. Commit the build artifacts
+
+### How to Run Tests
+
+Follow below steps to run tests locally.
+
+1. `npm run build:tsc`
+2. `npm run build:lib`
+3. `npm run build:package`
+4. `npm run install` in tests directory
+5. `npm test` in tests directory
