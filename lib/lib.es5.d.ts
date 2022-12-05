@@ -26,9 +26,10 @@ interface Object {
    * Determines whether an object has a property with the specified name.
    * @param v A property name.
    */
-  hasOwnProperty<Key extends PropertyKey>(
+  hasOwnProperty<Obj, Key extends PropertyKey>(
+    this: Obj,
     v: Key
-  ): this is string extends Key
+  ): this is Obj & (string extends Key
     ? {}
     : number extends Key
     ? {}
@@ -36,7 +37,7 @@ interface Object {
     ? {}
     : Key extends PropertyKey
     ? { [key in Key]: unknown }
-    : {};
+    : {});
 }
 
 interface ObjectConstructor {

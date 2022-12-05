@@ -43,7 +43,7 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   const obj: object = {};
   if (obj.hasOwnProperty("foo")) {
     expectType<unknown>(obj.foo);
-    expectType<{ foo: unknown }>(obj);
+    expectType<object & { foo: unknown }>(obj);
   }
   const obj2 = { foo: 123 };
   if (obj2.hasOwnProperty("bar")) {
@@ -66,6 +66,20 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   const key2: string = "123";
   if (emptyObj.hasOwnProperty(key2)) {
     expectType<{}>(emptyObj);
+  }
+}
+
+// https://github.com/uhyo/better-typescript-lib/issues/13
+{
+  const protoObj = { protoProp: 'protoProp' };
+
+  const obj: Record<string, string> = Object.create(protoObj);
+  obj.ownProp = 'ownProp';
+
+  for (const key in obj) {
+    if (!obj.hasOwnProperty(key)) continue;
+    expectType<Record<string, string>>(obj);
+    obj[key];
   }
 }
 
@@ -309,4 +323,5 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   }
 }
 
-export {};
+export { };
+

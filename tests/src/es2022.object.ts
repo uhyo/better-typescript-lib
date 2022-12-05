@@ -6,7 +6,7 @@ import { expectError, expectType } from "tsd";
   const obj: object = {};
   if (Object.hasOwn(obj, "foo")) {
     expectType<unknown>(obj.foo);
-    expectType<{ foo: unknown }>(obj);
+    expectType<object & { foo: unknown }>(obj);
   }
   const obj2 = { foo: 123 };
   if (Object.hasOwn(obj2, "bar")) {
@@ -29,5 +29,19 @@ import { expectError, expectType } from "tsd";
   const key2: string = "123";
   if (Object.hasOwn(emptyObj, key2)) {
     expectType<{}>(emptyObj);
+  }
+}
+
+// https://github.com/uhyo/better-typescript-lib/issues/13
+{
+  const protoObj = { protoProp: 'protoProp' };
+
+  const obj: Record<string, string> = Object.create(protoObj);
+  obj.ownProp = 'ownProp';
+
+  for (const key in obj) {
+    if (!Object.hasOwn(obj, key)) continue;
+    expectType<Record<string, string>>(obj);
+    obj[key];
   }
 }

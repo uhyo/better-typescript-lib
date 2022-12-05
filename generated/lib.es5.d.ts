@@ -122,19 +122,21 @@ interface Object {
    * Determines whether an object has a property with the specified name.
    * @param v A property name.
    */
-  hasOwnProperty<Key extends PropertyKey>(
+  hasOwnProperty<Obj, Key extends PropertyKey>(
+    this: Obj,
     v: Key
-  ): this is string extends Key
-    ? {}
-    : number extends Key
-    ? {}
-    : symbol extends Key
-    ? {}
-    : Key extends PropertyKey
-    ? {
-        [key in Key]: unknown;
-      }
-    : {};
+  ): this is Obj &
+    (string extends Key
+      ? {}
+      : number extends Key
+      ? {}
+      : symbol extends Key
+      ? {}
+      : Key extends PropertyKey
+      ? {
+          [key in Key]: unknown;
+        }
+      : {});
 
   /**
    * Determines whether an object exists in another object's prototype chain.

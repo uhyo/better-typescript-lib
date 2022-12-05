@@ -4,16 +4,17 @@ interface ObjectConstructor {
    * @param o An object.
    * @param v A property name.
    */
-  hasOwn<Key extends PropertyKey>(
-    o: object,
+  hasOwn<Obj extends object, Key extends PropertyKey>(
+    o: Obj,
     v: Key
-  ): o is string extends Key
-    ? {}
-    : number extends Key
-    ? {}
-    : symbol extends Key
-    ? {}
-    : Key extends PropertyKey
-    ? { [key in Key]: unknown }
-    : {};
+  ): o is Obj &
+    (string extends Key
+      ? {}
+      : number extends Key
+      ? {}
+      : symbol extends Key
+      ? {}
+      : Key extends PropertyKey
+      ? { [key in Key]: unknown }
+      : {});
 }
