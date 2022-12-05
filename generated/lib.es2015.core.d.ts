@@ -253,19 +253,20 @@ interface NumberConstructor {
    * 2.2204460492503130808472633361816 x 10‍−‍16.
    */
   readonly EPSILON: number;
+
   /**
    * Returns true if passed value is finite.
    * Unlike the global isFinite, Number.isFinite doesn't forcibly convert the parameter to a
    * number. Only finite values of the type number, result in true.
    * @param number A numeric value.
    */
-  isFinite(number: unknown): number is number;
+  isFinite(number: unknown): boolean;
 
   /**
    * Returns true if the value passed is an integer, false otherwise.
    * @param number A numeric value.
    */
-  isInteger(number: unknown): number is number;
+  isInteger(number: unknown): boolean;
 
   /**
    * Returns a Boolean value that indicates whether a value is the reserved value NaN (not a
@@ -273,13 +274,13 @@ interface NumberConstructor {
    * to a number. Only values of the type number, that are also NaN, result in true.
    * @param number A numeric value.
    */
-  isNaN(number: unknown): number is number;
+  isNaN(number: unknown): boolean;
 
   /**
    * Returns true if the value passed is a safe integer.
    * @param number A numeric value.
    */
-  isSafeInteger(number: unknown): number is number;
+  isSafeInteger(number: unknown): boolean;
 
   /**
    * The value of the largest integer n such that n and n + 1 are both exactly representable as
@@ -310,30 +311,6 @@ interface NumberConstructor {
    */
   parseInt(string: string, radix?: number): number;
 }
-//     /**
-//      * Returns true if passed value is finite.
-//      * Unlike the global isFinite, Number.isFinite doesn't forcibly convert the parameter to a
-//      * number. Only finite values of the type number, result in true.
-//      * @param number A numeric value.
-//      */
-//     isFinite(number: unknown): boolean;
-//     /**
-//      * Returns true if the value passed is an integer, false otherwise.
-//      * @param number A numeric value.
-//      */
-//     isInteger(number: unknown): boolean;
-//     /**
-//      * Returns a Boolean value that indicates whether a value is the reserved value NaN (not a
-//      * number). Unlike the global isNaN(), Number.isNaN() doesn't forcefully convert the parameter
-//      * to a number. Only values of the type number, that are also NaN, result in true.
-//      * @param number A numeric value.
-//      */
-//     isNaN(number: unknown): boolean;
-//     /**
-//      * Returns true if the value passed is a safe integer.
-//      * @param number A numeric value.
-//      */
-//     isSafeInteger(number: unknown): boolean;
 
 interface ObjectConstructor {
   /**

@@ -16,24 +16,6 @@ import { expectError, expectType } from "tsd";
   expectError(a1.findIndex((x) => x));
 }
 
-// NumberConstructor
-{
-  const n: unknown = "123";
-
-  if (Number.isFinite(n)) {
-    expectType<number>(n);
-  }
-  if (Number.isInteger(n)) {
-    expectType<number>(n);
-  }
-  if (Number.isNaN(n)) {
-    expectType<number>(n);
-  }
-  if (Number.isSafeInteger(n)) {
-    expectType<number>(n);
-  }
-}
-
 // ObjectConstructor
 {
   expectError(Object.assign(null));
