@@ -1,4 +1,4 @@
-import { expectType } from "tsd";
+import { expectError, expectType } from "tsd";
 
 function createGenericRecord<K extends string, V>(
   keys: K[],
@@ -8,9 +8,9 @@ function createGenericRecord<K extends string, V>(
 }
 
 {
-  expectType<never>(Object.values(null));
-  expectType<never>(Object.entries(null));
-  expectType<never>(Object.getOwnPropertyDescriptors(null));
+  expectError(Object.values(null));
+  expectError(Object.entries(null));
+  expectError(Object.getOwnPropertyDescriptors(null));
 
   const obj1: { [k: string]: number } = { foo: 123 };
   const values1 = Object.values(obj1);
@@ -42,11 +42,11 @@ function createGenericRecord<K extends string, V>(
   expectType<(number | { [k: string]: number })[]>(values5);
   expectType<[string, number | { [k: string]: number }][]>(entries5);
 }
-function test<T>(obj: T) {
+function test<T>(obj: CheckNonNullable<T>) {
   const values = Object.values(obj);
   expectType<unknown>(values[0]);
 
   const entries = Object.entries(obj);
   expectType<string>(entries[0][0]);
-  const v: unknown = entries[0][1];
+  expectType<unknown>(entries[0][1]);
 }

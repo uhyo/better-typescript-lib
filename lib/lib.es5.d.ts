@@ -1,12 +1,19 @@
-type First<T> = T extends [any] ? T[0] : unknown;
+type Cast<T, U> = T extends U ? T : U;
 
-type UnionToIntersection<T> = (
-  T extends any ? (arg: T) => void : never
-) extends (arg: infer F) => void
-  ? F
-  : unknown;
+/**
+ * Make all properties in T writable
+ */
+type Writable<T> = {
+  -readonly [P in keyof T]: T[P];
+};
 
-type CheckNonNullable<T, U> = [T] extends [NonNullable<T>] ? U : never;
+type Intersect<T extends readonly any[]> = ((
+  ...args: { [K in keyof T]: Cast<Writable<T[K]>, {}> }
+) => void) extends (...args: { [K in keyof T]: infer S }) => void
+  ? S
+  : never;
+
+type CheckNonNullable<T> = [T] extends [null | undefined] ? never : T;
 
 /**
  * Evaluates JavaScript code and executes it.
@@ -41,7 +48,7 @@ interface ObjectConstructor {
    * Returns the prototype of an object.
    * @param o The object that references the prototype.
    */
-  getPrototypeOf<T>(o: T): CheckNonNullable<T, unknown>;
+  getPrototypeOf<T>(o: CheckNonNullable<T>): unknown;
 
   /**
    * Gets the own property descriptor of the specified object.
@@ -50,16 +57,16 @@ interface ObjectConstructor {
    * @param p Name of the property.
    */
   getOwnPropertyDescriptor<T>(
-    o: T,
+    o: CheckNonNullable<T>,
     p: PropertyKey
-  ): CheckNonNullable<T, PropertyDescriptor | undefined>;
+  ): PropertyDescriptor | undefined;
 
   /**
    * Returns the names of the own properties of an object. The own properties of an object are those that are defined directly
    * on that object, and are not inherited from the object's prototype. The properties of an object include both fields (objects) and functions.
    * @param o Object that contains the own properties.
    */
-  getOwnPropertyNames<T>(o: T): CheckNonNullable<T, string[]>;
+  getOwnPropertyNames<T>(o: CheckNonNullable<T>): string[];
 
   /**
    * Creates an object that has the specified prototype or that has null prototype.
@@ -159,6 +166,13 @@ interface CallableFunction extends Function {
    * For a given function, creates a bound function that has the same body as the original function.
    * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
    * @param thisArg The object to be used as the this object.
+   */
+  bind<T>(this: T, thisArg: ThisParameterType<T>): OmitThisParameter<T>;
+
+  /**
+   * For a given function, creates a bound function that has the same body as the original function.
+   * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
+   * @param thisArg The object to be used as the this object.
    * @param args Arguments to bind to the parameters of the function.
    */
   bind<T, A extends readonly any[], B extends readonly any[], R>(
@@ -169,6 +183,13 @@ interface CallableFunction extends Function {
 }
 
 interface NewableFunction extends Function {
+  /**
+   * For a given function, creates a bound function that has the same body as the original function.
+   * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
+   * @param thisArg The object to be used as the this object.
+   */
+  bind<T>(this: T, thisArg: any): T;
+
   /**
    * For a given function, creates a bound function that has the same body as the original function.
    * The this object of the bound function is associated with the specified object, and has the specified initial parameters.

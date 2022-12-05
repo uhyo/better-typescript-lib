@@ -8,15 +8,15 @@ expectType<{ foo: number }>(Object({ foo: 123 }));
 expectType<{}>(Object(123));
 // Object.getPrototypeOf
 expectType<unknown>(Object.getPrototypeOf([]));
-expectType<never>(Object.getPrototypeOf(null));
+expectError(Object.getPrototypeOf(null));
 // Object.getOwnPropertyDescriptor
 expectType<PropertyDescriptor | undefined>(
   Object.getOwnPropertyDescriptor([], "foo")
 );
-expectType<never>(Object.getOwnPropertyDescriptor(null, "foo"));
+expectError(Object.getOwnPropertyDescriptor(null, "foo"));
 // Object.getOwnPropertyNames
 expectType<string[]>(Object.getOwnPropertyNames([]));
-expectType<never>(Object.getOwnPropertyNames(null));
+expectError(Object.getOwnPropertyNames(null));
 // Object.create
 expectType<{}>(Object.create(null));
 expectType<{ foo: number }>(Object.create({ foo: 123 }));
@@ -123,7 +123,7 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   class Foo {
     constructor(private a: number, private b: number) {}
   }
-  expectType<new (a: number, b: number) => Foo>(Foo.bind(null));
+  expectType<typeof Foo>(Foo.bind(null));
   expectType<new (b: number) => Foo>(Foo.bind(null, 123));
   expectType<new () => Foo>(Foo.bind(null, 123, 456));
   expectError(Foo.bind(null, 123, 456, 789));
