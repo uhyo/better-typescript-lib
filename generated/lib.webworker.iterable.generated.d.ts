@@ -6,6 +6,20 @@ interface Cache {
   addAll(requests: Iterable<RequestInfo>): Promise<void>;
 }
 
+interface CanvasPath {
+  roundRect(
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    radii?: number | DOMPointInit | Iterable<number | DOMPointInit>
+  ): void;
+}
+
+interface CanvasPathDrawingStyles {
+  setLineDash(segments: Iterable<number>): void;
+}
+
 interface DOMStringList {
   [Symbol.iterator](): IterableIterator<string>;
 }
@@ -40,7 +54,8 @@ interface IDBDatabase {
   /** Returns a new transaction with the given mode ("readonly" or "readwrite") and scope which can be a single object store name or an array of names. */
   transaction(
     storeNames: string | Iterable<string>,
-    mode?: IDBTransactionMode
+    mode?: IDBTransactionMode,
+    options?: IDBTransactionOptions
   ): IDBTransaction;
 }
 
@@ -91,12 +106,12 @@ interface SubtleCrypto {
   generateKey(
     algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
     extractable: boolean,
-    keyUsages: KeyUsage[]
+    keyUsages: ReadonlyArray<KeyUsage>
   ): Promise<CryptoKeyPair>;
   generateKey(
     algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params,
     extractable: boolean,
-    keyUsages: KeyUsage[]
+    keyUsages: ReadonlyArray<KeyUsage>
   ): Promise<CryptoKey>;
   generateKey(
     algorithm: AlgorithmIdentifier,
@@ -113,7 +128,7 @@ interface SubtleCrypto {
       | HmacImportParams
       | AesKeyAlgorithm,
     extractable: boolean,
-    keyUsages: KeyUsage[]
+    keyUsages: ReadonlyArray<KeyUsage>
   ): Promise<CryptoKey>;
   importKey(
     format: Exclude<KeyFormat, "jwk">,
@@ -183,7 +198,7 @@ interface WEBGL_multi_draw {
   ): void;
   multiDrawElementsInstancedWEBGL(
     mode: GLenum,
-    countsList: Int32Array | Iterable<GLint>,
+    countsList: Int32Array | Iterable<GLsizei>,
     countsOffset: GLuint,
     type: GLenum,
     offsetsList: Int32Array | Iterable<GLsizei>,
@@ -194,7 +209,7 @@ interface WEBGL_multi_draw {
   ): void;
   multiDrawElementsWEBGL(
     mode: GLenum,
-    countsList: Int32Array | Iterable<GLint>,
+    countsList: Int32Array | Iterable<GLsizei>,
     countsOffset: GLuint,
     type: GLenum,
     offsetsList: Int32Array | Iterable<GLsizei>,
