@@ -1,7 +1,12 @@
 import { expectType } from "tsd";
 
-expectType<unknown>(Reflect.apply(() => {}, {}, []));
-expectType<object>(Reflect.construct(function () {}, []));
+class A{}
+
+expectType<void>(Reflect.apply(() => {}, {}, []));
+// @ts-expect-error
+expectType<number>(Reflect.apply((foo: number) => 3, {}, []));
+expectType<number>(Reflect.apply((foo: number) => 3, {}, [123]));
+expectType<A>(Reflect.construct(A, []));
 {
   const obj1 = {
     foo: 123,

@@ -5,7 +5,7 @@ new Proxy(
   {},
   {
     setPrototypeOf(t, v) {
-      expectType<unknown>(v);
+      expectType<object | null>(v);
       return true;
     },
     get(t, p, receiver) {
