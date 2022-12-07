@@ -773,17 +773,17 @@ interface TypedNumberArray {
 interface TypedNumberArrayConstructor {
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    */
-  from(source: ArrayLike<number>): TypedNumberArray;
+  from(arrayLike: ArrayLike<number>): TypedNumberArray;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    * @param mapfn A mapping function to call on every element of the array.
    * @param thisArg Value of 'this' used to invoke the mapfn.
    */
   from<T, This = undefined>(
-    source: ArrayLike<T>,
+    arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
     thisArg?: This
   ): TypedNumberArray;

@@ -35,9 +35,9 @@ interface RegExp {
 
 interface String {
   /**
-   * Replaces first match with string or all matches with RegExp.
-   * @param searchValue A object can search for and replace matches within a string.
-   * @param replaceValue A string containing the text to replace for match.
+   * Passes a string and {@linkcode replaceValue} to the `[Symbol.replace]` method on {@linkcode searchValue}. This method is expected to implement its own replacement algorithm.
+   * @param searchValue An object that supports searching for and replacing matches within a string.
+   * @param replaceValue The replacement text.
    */
   replace(
     searchValue: {

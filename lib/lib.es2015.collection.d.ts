@@ -1,4 +1,7 @@
 interface Map<K, V> {
+  /**
+   * Executes a provided function once per each key/value pair in the Map, in insertion order.
+   */
   forEach<This = undefined>(
     callbackfn: (this: This, value: V, key: K, map: this) => void,
     thisArg?: This
@@ -25,6 +28,9 @@ interface ReadonlyMap<K, V> {
 }
 
 interface Set<T> {
+  /**
+   * Executes a provided function once per each value in the Set object, in insertion order.
+   */
   forEach<This = undefined>(
     callbackfn: (this: This, value: T, value2: T, set: this) => void,
     thisArg?: This
