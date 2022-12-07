@@ -34,6 +34,7 @@ Starting from TypeScript 4.5, the TypeScript compiler detects existence of `@typ
 
 | better-typescript-lib | TypeScript      |
 | --------------------- | --------------- |
+| 2.2.0                 | TS 4.9 or later |
 | 2.1.0                 | TS 4.6 or later |
 | 2.0.0                 | TS 4.5 or later |
 

@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.2.0
+
+- Upgraded TypeScript to `4.9.3`.
+- Several Improvements (https://github.com/uhyo/better-typescript-lib/pull/10)
+- Improved typing of TypedArrays. (https://github.com/uhyo/better-typescript-lib/pull/12)
+- Improved `Function#bind` and several `Object` method typings. (https://github.com/uhyo/better-typescript-lib/pull/16)
+- Improved `Object#hasOwnProperty` and `Object.hasOwn` typings. (https://github.com/uhyo/better-typescript-lib/issues/13)
+- Removed type guards from `Number` static methods because they affected soundness. (https://github.com/uhyo/better-typescript-lib/issues/14)
+
+
 ## v2.1.0
 
 - Upgraded TypeScript to `4.6.4`.
