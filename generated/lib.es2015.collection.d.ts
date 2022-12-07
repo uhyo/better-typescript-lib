@@ -4,6 +4,9 @@ interface Map<K, V> {
    * @returns true if an element in the Map existed and has been removed, or false if the element does not exist.
    */
   delete(key: K): boolean;
+  /**
+   * Executes a provided function once per each key/value pair in the Map, in insertion order.
+   */
   forEach<This = undefined>(
     callbackfn: (this: This, value: V, key: K, map: this) => void,
     thisArg?: This
@@ -96,6 +99,9 @@ interface Set<T> {
    * @returns Returns true if an element in the Set existed and has been removed, or false if the element does not exist.
    */
   delete(value: T): boolean;
+  /**
+   * Executes a provided function once per each value in the Set object, in insertion order.
+   */
   forEach<This = undefined>(
     callbackfn: (this: This, value: T, value2: T, set: this) => void,
     thisArg?: This

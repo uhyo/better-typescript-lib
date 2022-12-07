@@ -2891,17 +2891,17 @@ interface Int8ArrayConstructor {
   of(...items: number[]): Int8Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    */
-  from(source: ArrayLike<number>): Int8Array;
+  from(arrayLike: ArrayLike<number>): Int8Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    * @param mapfn A mapping function to call on every element of the array.
    * @param thisArg Value of 'this' used to invoke the mapfn.
    */
   from<T, This = undefined>(
-    source: ArrayLike<T>,
+    arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
     thisArg?: This
   ): Int8Array;
@@ -3352,17 +3352,17 @@ interface Uint8ArrayConstructor {
   of(...items: number[]): Uint8Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    */
-  from(source: ArrayLike<number>): Uint8Array;
+  from(arrayLike: ArrayLike<number>): Uint8Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    * @param mapfn A mapping function to call on every element of the array.
    * @param thisArg Value of 'this' used to invoke the mapfn.
    */
   from<T, This = undefined>(
-    source: ArrayLike<T>,
+    arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
     thisArg?: This
   ): Uint8Array;
@@ -3813,17 +3813,17 @@ interface Uint8ClampedArrayConstructor {
   of(...items: number[]): Uint8ClampedArray;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    */
-  from(source: ArrayLike<number>): Uint8ClampedArray;
+  from(arrayLike: ArrayLike<number>): Uint8ClampedArray;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    * @param mapfn A mapping function to call on every element of the array.
    * @param thisArg Value of 'this' used to invoke the mapfn.
    */
   from<T, This = undefined>(
-    source: ArrayLike<T>,
+    arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
     thisArg?: This
   ): Uint8ClampedArray;
@@ -4273,17 +4273,17 @@ interface Int16ArrayConstructor {
   of(...items: number[]): Int16Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    */
-  from(source: ArrayLike<number>): Int16Array;
+  from(arrayLike: ArrayLike<number>): Int16Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    * @param mapfn A mapping function to call on every element of the array.
    * @param thisArg Value of 'this' used to invoke the mapfn.
    */
   from<T, This = undefined>(
-    source: ArrayLike<T>,
+    arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
     thisArg?: This
   ): Int16Array;
@@ -4734,17 +4734,17 @@ interface Uint16ArrayConstructor {
   of(...items: number[]): Uint16Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    */
-  from(source: ArrayLike<number>): Uint16Array;
+  from(arrayLike: ArrayLike<number>): Uint16Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    * @param mapfn A mapping function to call on every element of the array.
    * @param thisArg Value of 'this' used to invoke the mapfn.
    */
   from<T, This = undefined>(
-    source: ArrayLike<T>,
+    arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
     thisArg?: This
   ): Uint16Array;
@@ -5194,17 +5194,17 @@ interface Int32ArrayConstructor {
   of(...items: number[]): Int32Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    */
-  from(source: ArrayLike<number>): Int32Array;
+  from(arrayLike: ArrayLike<number>): Int32Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    * @param mapfn A mapping function to call on every element of the array.
    * @param thisArg Value of 'this' used to invoke the mapfn.
    */
   from<T, This = undefined>(
-    source: ArrayLike<T>,
+    arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
     thisArg?: This
   ): Int32Array;
@@ -5654,17 +5654,17 @@ interface Uint32ArrayConstructor {
   of(...items: number[]): Uint32Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    */
-  from(source: ArrayLike<number>): Uint32Array;
+  from(arrayLike: ArrayLike<number>): Uint32Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    * @param mapfn A mapping function to call on every element of the array.
    * @param thisArg Value of 'this' used to invoke the mapfn.
    */
   from<T, This = undefined>(
-    source: ArrayLike<T>,
+    arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
     thisArg?: This
   ): Uint32Array;
@@ -6115,17 +6115,17 @@ interface Float32ArrayConstructor {
   of(...items: number[]): Float32Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    */
-  from(source: ArrayLike<number>): Float32Array;
+  from(arrayLike: ArrayLike<number>): Float32Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    * @param mapfn A mapping function to call on every element of the array.
    * @param thisArg Value of 'this' used to invoke the mapfn.
    */
   from<T, This = undefined>(
-    source: ArrayLike<T>,
+    arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
     thisArg?: This
   ): Float32Array;
@@ -6567,17 +6567,17 @@ interface Float64ArrayConstructor {
   of(...items: number[]): Float64Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    */
-  from(source: ArrayLike<number>): Float64Array;
+  from(arrayLike: ArrayLike<number>): Float64Array;
   /**
    * Creates an array from an array-like or iterable object.
-   * @param source An array-like or iterable object to convert to an array.
+   * @param arrayLike An array-like or iterable object to convert to an array.
    * @param mapfn A mapping function to call on every element of the array.
    * @param thisArg Value of 'this' used to invoke the mapfn.
    */
   from<T, This = undefined>(
-    source: ArrayLike<T>,
+    arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
     thisArg?: This
   ): Float64Array;
