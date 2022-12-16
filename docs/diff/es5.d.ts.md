@@ -64,7 +64,7 @@ Index: es5.d.ts
     * @param o The object that references the prototype.
     */
 -  getPrototypeOf(o: any): any;
-+  getPrototypeOf<T>(o: CheckNonNullable<T>): unknown;
++  getPrototypeOf(o: {}): unknown;
  
    /**
     * Gets the own property descriptor of the specified object.
@@ -72,10 +72,9 @@ Index: es5.d.ts
     * @param o Object that contains the property.
     * @param p Name of the property.
     */
--  getOwnPropertyDescriptor(
+   getOwnPropertyDescriptor(
 -    o: any,
-+  getOwnPropertyDescriptor<T>(
-+    o: CheckNonNullable<T>,
++    o: {},
      p: PropertyKey
    ): PropertyDescriptor | undefined;
  
@@ -85,7 +84,7 @@ Index: es5.d.ts
     * @param o Object that contains the own properties.
     */
 -  getOwnPropertyNames(o: any): string[];
-+  getOwnPropertyNames<T>(o: CheckNonNullable<T>): string[];
++  getOwnPropertyNames(o: {}): string[];
  
    /**
     * Creates an object that has the specified prototype or that has null prototype.
@@ -3557,7 +3556,7 @@ Index: es5.d.ts
  }
  declare var Float64Array: Float64ArrayConstructor;
  
-@@ -5536,4 +5418,31 @@
+@@ -5536,4 +5418,29 @@
      locales?: string | string[],
      options?: Intl.DateTimeFormatOptions
    ): string;
@@ -3577,8 +3576,6 @@ Index: es5.d.ts
 +) => void) extends (...args: { [K in keyof T]: infer S }) => void
 +  ? S
 +  : never;
-+
-+type CheckNonNullable<T> = [T] extends [null | undefined] ? never : T;
 +
 +type JSONValue =
 +  | null

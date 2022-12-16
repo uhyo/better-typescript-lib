@@ -42,7 +42,7 @@ function createGenericRecord<K extends string, V>(
   expectType<(number | { [k: string]: number })[]>(values5);
   expectType<[string, number | { [k: string]: number }][]>(entries5);
 }
-function test<T>(obj: CheckNonNullable<T>) {
+function test(obj: Record<string, unknown>) {
   const values = Object.values(obj);
   expectType<unknown>(values[0]);
 

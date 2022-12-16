@@ -69,8 +69,8 @@ interface ObjectConstructor {
    * @param target The target object to copy to.
    * @param sources One or more source objects from which to copy properties
    */
-  assign<T, Ts extends readonly any[]>(
-    target: CheckNonNullable<T>,
+  assign<T extends {}, Ts extends readonly any[]>(
+    target: T,
     ...sources: Ts
   ): Intersect<[T, ...Ts]>;
 
@@ -78,7 +78,7 @@ interface ObjectConstructor {
    * Returns an array of all symbol properties found directly on object o.
    * @param o Object to retrieve the symbols from.
    */
-  getOwnPropertySymbols<T>(o: CheckNonNullable<T>): symbol[];
+  getOwnPropertySymbols(o: {}): symbol[];
 
   /**
    * Returns true if the values are the same value, false otherwise.

@@ -13,8 +13,6 @@ type Intersect<T extends readonly any[]> = ((
   ? S
   : never;
 
-type CheckNonNullable<T> = [T] extends [null | undefined] ? never : T;
-
 /**
  * Evaluates JavaScript code and executes it.
  * @param x A String value that contains valid JavaScript code.
@@ -49,7 +47,7 @@ interface ObjectConstructor {
    * Returns the prototype of an object.
    * @param o The object that references the prototype.
    */
-  getPrototypeOf<T>(o: CheckNonNullable<T>): unknown;
+  getPrototypeOf(o: {}): unknown;
 
   /**
    * Gets the own property descriptor of the specified object.
@@ -57,8 +55,8 @@ interface ObjectConstructor {
    * @param o Object that contains the property.
    * @param p Name of the property.
    */
-  getOwnPropertyDescriptor<T>(
-    o: CheckNonNullable<T>,
+  getOwnPropertyDescriptor(
+    o: {},
     p: PropertyKey
   ): PropertyDescriptor | undefined;
 
@@ -67,7 +65,7 @@ interface ObjectConstructor {
    * on that object, and are not inherited from the object's prototype. The properties of an object include both fields (objects) and functions.
    * @param o Object that contains the own properties.
    */
-  getOwnPropertyNames<T>(o: CheckNonNullable<T>): string[];
+  getOwnPropertyNames(o: {}): string[];
 
   /**
    * Creates an object that has the specified prototype or that has null prototype.
