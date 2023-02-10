@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 interface Int8ArrayConstructor {
   new (): Int8Array;
 }

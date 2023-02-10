@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 interface Array<T> {
   /**
    * Returns the item located at the specified index.

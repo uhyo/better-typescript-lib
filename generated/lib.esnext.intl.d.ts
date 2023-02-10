@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 declare namespace Intl {
   interface NumberRangeFormatPart extends NumberFormatPart {
     source: "startRange" | "endRange" | "shared";

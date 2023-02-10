@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 interface RegExpMatchArray {
   groups?: {
     [key: string]: string;

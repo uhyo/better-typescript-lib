@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 declare namespace Intl {
   // http://cldr.unicode.org/index/cldr-spec/plural-rules#TOC-Determining-Plural-Categories
   type LDMLPluralRule = "zero" | "one" | "two" | "few" | "many" | "other";

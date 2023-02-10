@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 interface ObjectConstructor {
   /**
    * Returns an array of values of the enumerable properties of an object

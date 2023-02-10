@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 interface ProxyHandler<T extends object> {
   /**
    * A trap method for a function call.

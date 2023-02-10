@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 interface String {
   /**
    * Returns a new String consisting of the single UTF-16 code unit located at the specified index.

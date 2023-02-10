@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 interface Atomics {
   /**
    * Adds a value to the value at the given position in the array, returning the original value.

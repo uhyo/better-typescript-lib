@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 /// <reference lib="es2021" />
 /// <reference lib="dom" />
 /// <reference lib="webworker.importscripts" />

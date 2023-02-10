@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 interface PromiseConstructor {
   /**
    * A reference to the prototype.

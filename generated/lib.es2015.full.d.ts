@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 /// <reference lib="es2015" />
 /// <reference lib="dom" />
 /// <reference lib="dom.iterable" />

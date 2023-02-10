@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 declare namespace Intl {
   /**
    * An object with some or all properties of the `Intl.Segmenter` constructor `options` parameter.

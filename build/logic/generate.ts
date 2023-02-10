@@ -23,12 +23,14 @@ export function generate(
 
   const printer = ts.createPrinter();
 
-  let result = "";
+  // This is used as a good indicator of being a default lib file
+  let result = `/// <reference no-default-lib="true"/>
+`;
 
   const replacementTargets = scanBetterFile(printer, libFile);
 
   if (replacementTargets.size === 0) {
-    return originalFile.text;
+    return result + originalFile.text;
   }
 
   const consumedReplacements = new Set<string>();

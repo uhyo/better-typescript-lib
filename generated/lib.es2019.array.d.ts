@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 type FlatArray<Arr, Depth extends number> = {
   done: Arr;
   recur: Arr extends ReadonlyArray<infer InnerArr>

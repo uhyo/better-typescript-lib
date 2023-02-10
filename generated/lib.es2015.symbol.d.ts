@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 interface SymbolConstructor {
   /**
    * A reference to the prototype.

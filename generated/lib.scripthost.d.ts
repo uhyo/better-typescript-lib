@@ -1,3 +1,5 @@
+/// <reference no-default-lib="true"/>
+
 /////////////////////////////
 /// Windows Script Host APIS
 /////////////////////////////

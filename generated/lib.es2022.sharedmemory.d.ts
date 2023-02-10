@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 interface Atomics {
   /**
    * A non-blocking, asynchronous version of wait which is usable on the main thread.

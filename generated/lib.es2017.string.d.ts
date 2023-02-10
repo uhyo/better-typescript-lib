@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 interface String {
   /**
    * Pads the current string with a given string (possibly repeated) so that the resulting string reaches a given length.

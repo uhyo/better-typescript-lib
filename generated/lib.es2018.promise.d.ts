@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 /**
  * Represents the completion of an asynchronous operation
  */

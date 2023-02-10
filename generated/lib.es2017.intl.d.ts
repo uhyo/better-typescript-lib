@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 declare namespace Intl {
   interface DateTimeFormatPartTypesRegistry {
     day: any;

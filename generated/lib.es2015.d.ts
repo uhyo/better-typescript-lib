@@ -1,3 +1,4 @@
+/// <reference no-default-lib="true"/>
 /// <reference lib="es5" />
 /// <reference lib="es2015.core" />
 /// <reference lib="es2015.collection" />
