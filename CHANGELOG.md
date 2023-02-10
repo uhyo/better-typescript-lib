@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.2.1
+
+- Removed `CheckNonNullable` as it is no longer needed (https://github.com/uhyo/better-typescript-lib/pull/19)
+- Added `/// <reference no-default-lib="true"/>` to library files 
+
+
 ## v2.2.0
 
 - Upgraded TypeScript to `4.9.3`.
