@@ -13,7 +13,7 @@ interface ObjectConstructor {
    * Returns an array of values of the enumerable properties of an object
    * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
    */
-  values<T>(o: CheckNonNullable<T>): unknown[];
+  values(o: {}): unknown[];
 
   /**
    * Returns an array of key/values of the enumerable properties of an object
@@ -29,13 +29,15 @@ interface ObjectConstructor {
    * Returns an array of key/values of the enumerable properties of an object
    * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
    */
-  entries<T>(o: CheckNonNullable<T>): [string, unknown][];
+  entries(o: {}): [string, unknown][];
 
   /**
    * Returns an object containing all own property descriptors of an object
    * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
    */
-  getOwnPropertyDescriptors<T>(o: CheckNonNullable<T>): {
+  getOwnPropertyDescriptors<T extends {}>(
+    o: T
+  ): {
     [P in keyof T]: TypedPropertyDescriptor<T[P]>;
   } & {
     [x: PropertyKey]: PropertyDescriptor;
