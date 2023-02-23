@@ -30,6 +30,18 @@ npm i -D better-typescript-lib
 
 Starting from TypeScript 4.5, the TypeScript compiler detects existence of `@typescript/xxx` packages (e.g. `@typescript/es2015`) and uses them instead of the built-in definitions. By installing `better-typescript-lib`, these package names are mapped to corresponding `@better-typescript-lib/xxx` packages.
 
+### with pnpm
+
+With pnpm, you must append the following line to the `.npmrc` file:
+
+```properties
+public-hoist-pattern[]=@typescript/*
+```
+
+With pnpm the `@better-typescript-lib/xxx` packages are not installed to `node_modules/@typescript/xxx` without [`public-hoist-pattern`](https://pnpm.io/npmrc#public-hoist-pattern).
+
+This is because, unlike npm and yarn, by default pnpm does not allow your source code to access dependencies that have not been added to your project as dependencies.
+
 ## Supported TypeScript Versions
 
 | better-typescript-lib | TypeScript      |
