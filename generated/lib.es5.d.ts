@@ -1357,76 +1357,62 @@ interface JSON {
   /**
    * Converts a JavaScript Object Notation (JSON) string into an object.
    * @param text A valid JSON string.
+   */
+  parse(text: string): JSONValue;
+  /**
+   * Converts a JavaScript Object Notation (JSON) string into an object.
+   * @param text A valid JSON string.
    * @param reviver A function that transforms the results. This function is called for each member of the object.
    * If a member contains nested objects, the nested objects are transformed before the parent object is.
    */
-  parse(
+  parse<A = unknown>(
     text: string,
-    reviver?: (this: JSONValue, key: string, value: JSONValue) => any
-  ): JSONValue;
-  /**
-   * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
-   * @param value A JavaScript value, usually an object or array, to be converted.
-   * @param replacer A function that transforms the results.
-   * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
-   */
-  stringify<T>(
-    value: T,
-    replacer?: (this: unknown, key: string, value: unknown) => any,
-    space?: string | number | null
-  ): T extends unknown
-    ? T extends
-        | undefined
-        | ((...args: any) => any)
-        | (new (...args: any) => any)
-        | symbol
-      ? undefined
-      : object extends T
-      ? string | undefined
-      : string
-    : never;
-  /**
-   * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
-   * @param value A JavaScript value, usually an object or array, to be converted.
-   * @param replacer A function that transforms the results.
-   * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
-   */
-  stringify(
-    value: unknown,
-    replacer?: (this: unknown, key: string, value: unknown) => any,
-    space?: string | number | null
-  ): string | undefined;
+    reviver: <K extends string>(
+      this: JSONHolder<K, A>,
+      key: K,
+      value: JSONValueF<A>
+    ) => A
+  ): A;
   /**
    * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
    * @param value A JavaScript value, usually an object or array, to be converted.
    * @param replacer An array of strings and numbers that acts as an approved list for selecting the object properties that will be stringified.
    * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
    */
-  stringify<T>(
-    value: T,
-    replacer?: (number | string)[] | null,
-    space?: string | number | null
-  ): T extends unknown
-    ? T extends
-        | undefined
-        | ((...args: any) => any)
-        | (new (...args: any) => any)
-        | symbol
-      ? undefined
-      : object extends T
-      ? string | undefined
-      : string
-    : never;
+  stringify<A>(
+    value: A,
+    replacer?: (string | number)[] | null | undefined,
+    space?: string | number | null | undefined
+  ): StringifyResult<ToJSON<A>>;
   /**
    * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
    * @param value A JavaScript value, usually an object or array, to be converted.
-   * @param replacer An array of strings and numbers that acts as an approved list for selecting the object properties that will be stringified.
+   * @param replacer A function that transforms the results.
    * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
    */
-  stringify(
-    value: unknown,
-    replacer?: (number | string)[] | null,
-    space?: string | number | null
+  stringify<A>(
+    value: A,
+    replacer: (
+      this: JSONComposite<A>,
+      key: string,
+      value: ToJSON<A>
+    ) => JSONValueF<A>,
+    space?: string | number | null | undefined
+  ): string;
+  /**
+   * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
+   * @param value A JavaScript value, usually an object or array, to be converted.
+   * @param replacer A function that transforms the results.
+   * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
+   */
+  stringify<A>(
+    value: A,
+    replacer: (
+      this: JSONComposite<A>,
+      key: string,
+      value: ToJSON<A>
+    ) => JSONValueF<A> | undefined,
+    space?: string | number | null | undefined
   ): string | undefined;
 }
 //     /**
@@ -6811,12 +6797,16 @@ type Intersect<T extends readonly any[]> = ((
   ? S
   : never;
 
-type JSONValue =
-  | null
-  | string
-  | number
-  | boolean
-  | {
-      [K in string]?: JSONValue;
-    }
-  | JSONValue[];
+type JSONPrimitive = string | number | boolean | null;
+type JSONComposite<A> = Record<string, A> | A[];
+type JSONValueF<A> = JSONPrimitive | JSONComposite<A>;
+type JSONValue = JSONPrimitive | JSONObject | JSONValue[];
+type JSONObject = { [key: string]: JSONValue };
+type JSONHolder<K extends string, A> = Record<K, JSONValueF<A>>;
+type ToJSON<A> = A extends { toJSON(...args: any): infer T } ? T : A;
+type SomeExtends<A, B> = A extends B ? undefined : never;
+type SomeFunction = (...args: any) => any;
+type SomeConstructor = new (...args: any) => any;
+type UndefinedDomain = symbol | SomeFunction | SomeConstructor | undefined;
+type StringifyResultT<A> = A extends UndefinedDomain ? undefined : string;
+type StringifyResult<A> = StringifyResultT<A> | SomeExtends<UndefinedDomain, A>;
