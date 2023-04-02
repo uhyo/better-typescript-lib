@@ -1,5 +1,26 @@
 import { expectError, expectType } from "tsd";
 
+// Type Guards
+type TypeGuard<A> = (value: unknown) => value is A;
+const isNumber: TypeGuard<number> = (value): value is number =>
+  typeof value === "number";
+const isString: TypeGuard<string> = (value): value is string =>
+  typeof value === "string";
+const isPair =
+  <A, B>(isFirst: TypeGuard<A>, isSecond: TypeGuard<B>): TypeGuard<[A, B]> =>
+  (value): value is [A, B] =>
+    Array.isArray(value) &&
+    value.length === 2 &&
+    isFirst(value[0]) &&
+    isSecond(value[1]);
+const isArray =
+  <A>(isItem: TypeGuard<A>): TypeGuard<A[]> =>
+  (value): value is A[] =>
+    Array.isArray(value) && value.every((item) => isItem(item));
+const isEntries = <A, B>(isKey: TypeGuard<A>, isValue: TypeGuard<B>) =>
+  isArray(isPair(isKey, isValue));
+const isNumberStringEntries = isEntries(isNumber, isString);
+
 // eval
 expectType<unknown>(eval("foo"));
 // Object
@@ -71,10 +92,10 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
 
 // https://github.com/uhyo/better-typescript-lib/issues/13
 {
-  const protoObj = { protoProp: 'protoProp' };
+  const protoObj = { protoProp: "protoProp" };
 
   const obj: Record<string, string> = Object.create(protoObj);
-  obj.ownProp = 'ownProp';
+  obj.ownProp = "ownProp";
 
   for (const key in obj) {
     if (!obj.hasOwnProperty(key)) continue;
@@ -160,7 +181,58 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
 
 // JSON
 {
+  // JSON.parse
   expectType<JSONValue>(JSON.parse("{}"));
+  expectType<unknown>(
+    JSON.parse('{"p": 5}', (key, value) =>
+      typeof value === "number" ? value * 2 : value
+    )
+  );
+  expectType<JSONValue>(
+    JSON.parse('{"p": 5}', (key, value) =>
+      typeof value === "number" ? value * 2 : value
+    )
+  );
+  expectError(
+    JSON.parse('[[1,"one"],[2,"two"],[3,"three"]]', (key, value) =>
+      key === "" ? new Map(value) : value
+    )
+  );
+  expectType<unknown>(
+    JSON.parse('[[1,"one"],[2,"two"],[3,"three"]]', (key, value) =>
+      key === "" && isNumberStringEntries(value) ? new Map(value) : value
+    )
+  );
+  type JSONValueWithMap1 = JSONValue | Map<number, string>;
+  expectError(
+    JSON.parse<JSONValueWithMap1>(
+      '[[1,"one"],[2,"two"],[3,"three"]]',
+      (key, value) =>
+        key === "" && isNumberStringEntries(value) ? new Map(value) : value
+    )
+  );
+  type JSONValueWithMap2 = JSONValueF<JSONValue | Map<number, string>>;
+  expectError(
+    JSON.parse<JSONValueWithMap2>(
+      '[[1,"one"],[2,"two"],[3,"three"]]',
+      (key, value) =>
+        key === "" && isNumberStringEntries(value) ? new Map(value) : value
+    )
+  );
+  type JSONValueWithMap3 =
+    | JSONPrimitive
+    | Map<number, string>
+    | { [key: string]: JSONValueWithMap3 }
+    | JSONValueWithMap3[];
+  expectType<JSONValueWithMap3>(
+    JSON.parse<JSONValueWithMap3>(
+      '[[1,"one"],[2,"two"],[3,"three"]]',
+      (key, value) =>
+        key === "" && isNumberStringEntries(value) ? new Map(value) : value
+    )
+  );
+
+  // JSON.stringify
   const arr = [1, 2, "foo"];
   expectType<string>(JSON.stringify(arr));
   const obj = { foo: { bar: 1 } };
@@ -169,6 +241,8 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   expectType<string>(JSON.stringify(readonlyArr));
   const readonlyObj = { foo: { bar: 1 } } as const;
   expectType<string>(JSON.stringify(readonlyObj));
+  const value = null as string | Record<string, unknown> | any[] | null;
+  expectType<string>(JSON.stringify(value));
 
   // https://github.com/uhyo/better-typescript-lib/issues/5
   interface Param {
@@ -184,14 +258,45 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   expectType<undefined>(JSON.stringify(undefined));
   expectType<undefined>(JSON.stringify(() => {}));
   expectType<undefined>(JSON.stringify(class A {}));
+  const aVoid: void = undefined;
+  expectType<string | undefined>(JSON.stringify(aVoid));
   const unknown: unknown = 123;
   expectType<string | undefined>(JSON.stringify(unknown));
+  const any: any = 123;
+  expectType<string | undefined>(JSON.stringify(any));
+  const undefOrNum = Math.random() < 0.5 ? undefined : 123;
+  expectType<string | undefined>(JSON.stringify(undefOrNum));
   const funcOrNum = Math.random() < 0.5 ? () => {} : 123;
   expectType<string | undefined>(JSON.stringify(funcOrNum));
   const empty = {};
   expectType<string | undefined>(JSON.stringify(empty));
   const o: object = () => {};
   expectType<string | undefined>(JSON.stringify(o));
+  const nullish = null as Record<string, unknown> | any[] | null | undefined;
+  expectType<string | undefined>(JSON.stringify(nullish));
+
+  // JSON.stringify with replacer function
+  const importantDates = new Map<string, Date>();
+  expectError(
+    JSON.stringify(importantDates, (key, value) => Object.fromEntries(value))
+  );
+  expectError(
+    JSON.stringify<Map<string, Date>>(importantDates, (key, value) =>
+      Object.fromEntries(value)
+    )
+  );
+  type Value = Date | Map<string, Date>;
+  expectType<string>(
+    JSON.stringify<Value>(importantDates, (key, value) =>
+      typeof value === "string" ? value : Object.fromEntries(value)
+    )
+  );
+  expectType<string | undefined>(
+    JSON.stringify<Value>(importantDates, (key, value) => {
+      if (typeof value !== "string") return Object.fromEntries(value);
+      return new Date(value) < new Date("1900-01-01") ? undefined : value;
+    })
+  );
 }
 
 // ReadonlyArray
@@ -323,5 +428,4 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   }
 }
 
-export { };
-
+export {};
