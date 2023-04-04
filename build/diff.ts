@@ -5,7 +5,7 @@ import { mkdir, readFile, rm, writeFile } from "fs/promises";
 import path from "path";
 import prettier from "prettier";
 import { generate } from "./logic/generate";
-import { getLibFiles } from "./logic/getLibFiles";
+import { getLibFiles, tsLibDir } from "./logic/getLibFiles";
 import { projectDir } from "./logic/projectDir";
 
 const docsDir = path.join(projectDir, "docs");
@@ -20,17 +20,17 @@ async function main() {
     recursive: true,
   });
 
-  const { tsLibDir, libFiles } = await getLibFiles();
+  const libFiles = await getLibFiles();
   const hasDiffFiles: string[] = [];
-  for (const libFile of libFiles) {
-    const betterLib = generate(tsLibDir, libFile, false);
+  for (const [targetFile, sourceFile] of libFiles.entries()) {
+    const betterLib = generate(tsLibDir, targetFile, sourceFile, false);
     if (betterLib === undefined) {
       continue;
     }
 
-    const diffFile = path.join(docsDiffDir, libFile + ".md");
+    const diffFile = path.join(docsDiffDir, sourceFile + ".md");
 
-    const originalLib = await readFile(path.join(tsLibDir, libFile), "utf8");
+    const originalLib = await readFile(path.join(tsLibDir, sourceFile), "utf8");
     const formattedOriginalLib = prettier.format(originalLib, {
       parser: "typescript",
     });
@@ -42,12 +42,12 @@ async function main() {
     }
 
     const diffPatch = createPatch(
-      libFile,
+      sourceFile,
       formattedOriginalLib,
       formattedBetterLib
     );
 
-    const md = `# ${libFile} Diffs
+    const md = `# ${sourceFile} Diffs
 
 \`\`\`diff
 ${diffPatch}
@@ -55,8 +55,8 @@ ${diffPatch}
 `;
 
     await writeFile(diffFile, md);
-    console.log(libFile);
-    hasDiffFiles.push(libFile);
+    console.log(sourceFile);
+    hasDiffFiles.push(sourceFile);
   }
   const diffDoc = `
 # Diffs

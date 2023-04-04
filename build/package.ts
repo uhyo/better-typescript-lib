@@ -1,9 +1,10 @@
 import { mkdir, readdir, readFile, rm, symlink, writeFile } from "fs/promises";
 import path from "path";
+import { name as rootPackageName, version } from "../package.json";
+import { projectDir } from "./logic/projectDir";
 
 const scope = "better-typescript-lib";
 
-const projectDir = process.env.PROJECT || process.cwd();
 const libDir = path.join(projectDir, "generated");
 const templateDir = path.join(projectDir, "package-template");
 const packageDir = path.join(projectDir, "dist-package");
@@ -18,13 +19,6 @@ async function main() {
     recursive: true,
   });
 
-  // Read version from root package.json
-  const rootPackageJson = JSON.parse(
-    await readFile(path.join(projectDir, "package.json"), "utf-8")
-  );
-  const rootPackageName: string = rootPackageJson.name;
-  const version: string = rootPackageJson.version;
-
   const packageTemplateFiles = await readdir(templateDir);
 
   const libFiles = (await readdir(libDir)).filter((libFile) =>
@@ -33,6 +27,7 @@ async function main() {
 
   const packageNames = new Set<string>();
   for (const libFile of libFiles) {
+    if (libFile === "lib.d.ts") continue;
     console.log(`Processing ${libFile}`);
     const libFilePath = path.join(libDir, libFile);
     const { packageName, packagePath } =
