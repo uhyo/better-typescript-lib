@@ -28,8 +28,8 @@
     "@typescript/lib-es2021": "file:../dist-package/es2021",
     "@typescript/lib-es2022": "file:../dist-package/es2022",
     "@typescript/lib-es5": "file:../dist-package/es5",
+    "@typescript/lib-es6": "file:../dist-package/es6",
     "@typescript/lib-esnext": "file:../dist-package/esnext",
-    "@typescript/lib-header": "file:../dist-package/header",
     "@typescript/lib-scripthost": "file:../dist-package/scripthost",
     "@typescript/lib-webworker": "file:../dist-package/webworker"
   }
