@@ -1,6 +1,6 @@
 import path from "path";
 import ts from "typescript";
-import { alias } from "../alias";
+import { alias } from "../util/alias";
 import { upsert } from "../util/upsert";
 import { projectDir } from "./projectDir";
 
@@ -11,10 +11,11 @@ const betterLibDir = path.join(projectDir, "lib");
  */
 export function generate(
   tsLibDir: string,
-  libFile: string,
+  targetFile: string,
+  sourceFile: string,
   emitOriginalAsComment: boolean
 ): string | undefined {
-  const tsLibFile = path.join(tsLibDir, libFile);
+  const tsLibFile = path.join(tsLibDir, sourceFile);
   const originalProgram = ts.createProgram([tsLibFile], {});
   const originalFile = originalProgram.getSourceFile(tsLibFile);
   if (!originalFile) {
@@ -27,7 +28,7 @@ export function generate(
   let result = `/// <reference no-default-lib="true"/>
 `;
 
-  const replacementTargets = scanBetterFile(printer, libFile);
+  const replacementTargets = scanBetterFile(printer, targetFile);
 
   if (replacementTargets.size === 0) {
     return result + originalFile.text;
@@ -189,11 +190,11 @@ type ReplacementTarget = (
  */
 function scanBetterFile(
   printer: ts.Printer,
-  libFile: string
+  targetFile: string
 ): Map<string, ReplacementTarget[]> {
   const replacementTargets = new Map<string, ReplacementTarget[]>();
   {
-    const betterLibFile = path.join(betterLibDir, `lib.${libFile}`);
+    const betterLibFile = path.join(betterLibDir, targetFile);
     const betterProgram = ts.createProgram([betterLibFile], {});
     const betterFile = betterProgram.getSourceFile(betterLibFile);
     if (betterFile) {
