@@ -6,8 +6,9 @@ interface PromiseFulfilledResult<T> {
 
 interface PromiseRejectedResult {
   status: "rejected";
-  reason: any;
+  reason: unknown;
 }
+//     reason: any;
 
 type PromiseSettledResult<T> =
   | PromiseFulfilledResult<T>
@@ -22,7 +23,9 @@ interface PromiseConstructor {
    */
   allSettled<T extends readonly unknown[] | []>(
     values: T
-  ): Promise<{ -readonly [P in keyof T]: PromiseSettledResult<Awaited<T[P]>> }>;
+  ): Promise<{
+    -readonly [P in keyof T]: PromiseSettledResult<Awaited<T[P]>>;
+  }>;
 
   /**
    * Creates a Promise that is resolved with an array of results when all
@@ -31,6 +34,20 @@ interface PromiseConstructor {
    * @returns A new Promise.
    */
   allSettled<T>(
-    values: Iterable<T | PromiseLike<T>>
+    values: Iterable<T>
   ): Promise<PromiseSettledResult<Awaited<T>>[]>;
 }
+//     /**
+//      * Creates a Promise that is resolved with an array of results when all
+//      * of the provided Promises resolve or reject.
+//      * @param values An array of Promises.
+//      * @returns A new Promise.
+//      */
+//     allSettled<T extends readonly unknown[] | []>(values: T): Promise<{ -readonly [P in keyof T]: PromiseSettledResult<Awaited<T[P]>> }>;
+//     /**
+//      * Creates a Promise that is resolved with an array of results when all
+//      * of the provided Promises resolve or reject.
+//      * @param values An array of Promises.
+//      * @returns A new Promise.
+//      */
+//     allSettled<T>(values: Iterable<T | PromiseLike<T>>): Promise<PromiseSettledResult<Awaited<T>>[]>;
