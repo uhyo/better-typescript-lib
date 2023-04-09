@@ -1,11 +1,3 @@
-interface Array<T> {
-  /**
-   * Returns an object whose properties have the value 'true'
-   * when they will be absent when used in a 'with' statement.
-   */
-  readonly [Symbol.unscopables]: { [key: PropertyKey]: boolean };
-}
-
 interface RegExp {
   /**
    * Replaces text in a string, using this regular expression.

@@ -6,3 +6,4 @@
 /// <reference lib="es2022.object" />
 /// <reference lib="es2022.sharedmemory" />
 /// <reference lib="es2022.string" />
+/// <reference lib="es2022.regexp" />

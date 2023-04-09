@@ -6,6 +6,11 @@ import { projectDir } from "./projectDir";
 
 const betterLibDir = path.join(projectDir, "lib");
 
+type GenerateOptions = {
+  emitOriginalAsComment?: boolean;
+  emitNoDefaultLib?: boolean;
+};
+
 /**
  * Generate one better lib file.
  */
@@ -13,7 +18,7 @@ export function generate(
   tsLibDir: string,
   targetFile: string,
   sourceFile: string,
-  emitOriginalAsComment: boolean
+  { emitOriginalAsComment = false, emitNoDefaultLib = false }: GenerateOptions
 ): string | undefined {
   const tsLibFile = path.join(tsLibDir, sourceFile);
   const originalProgram = ts.createProgram([tsLibFile], {});
@@ -24,9 +29,11 @@ export function generate(
 
   const printer = ts.createPrinter();
 
-  // This is used as a good indicator of being a default lib file
-  let result = `/// <reference no-default-lib="true"/>
-`;
+  let result = emitNoDefaultLib
+    ? // This is used as a good indicator of being a default lib file
+      `/// <reference no-default-lib="true"/>
+`
+    : "";
 
   const replacementTargets = scanBetterFile(printer, targetFile);
 
@@ -332,10 +339,10 @@ function printInterface(
   let result = originalNode
     .getFullText(originalSourceFile)
     .slice(0, originalNode.getLeadingTriviaWidth(originalSourceFile));
-  for (const dec of originalNode.decorators ?? []) {
+  for (const mod of originalNode.modifiers ?? []) {
     result += printer.printNode(
       ts.EmitHint.Unspecified,
-      dec,
+      mod,
       originalSourceFile
     );
   }
@@ -414,7 +421,7 @@ function replaceAliases(
         }
         return ts.visitEachChild(node, visitor, context);
       };
-      return ts.visitNode(sourceStatement, visitor);
+      return ts.visitNode(sourceStatement, visitor, ts.isStatement);
     },
   ]).transformed[0];
 }

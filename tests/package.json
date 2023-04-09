@@ -14,8 +14,8 @@
   },
   "devDependencies": {
     "@types/node": "^16.9.6",
-    "tsd": "^0.25.0",
-    "typescript": "^4.9.4"
+    "tsd": "^0.28.1",
+    "typescript": "^5.0.4"
   },
   "dependencies": {
     "@typescript/lib-dom": "file:../dist-package/dom",
@@ -31,6 +31,8 @@
     "@typescript/lib-es6": "file:../dist-package/es6",
     "@typescript/lib-esnext": "file:../dist-package/esnext",
     "@typescript/lib-scripthost": "file:../dist-package/scripthost",
-    "@typescript/lib-webworker": "file:../dist-package/webworker"
+    "@typescript/lib-webworker": "file:../dist-package/webworker",
+    "@typescript/lib-decorators": "file:../dist-package/decorators",
+    "@typescript/lib-es2023": "file:../dist-package/es2023"
   }
 }

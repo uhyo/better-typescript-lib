@@ -23,7 +23,10 @@ async function main() {
   const libFiles = await getLibFiles();
   const hasDiffFiles: string[] = [];
   for (const [targetFile, sourceFile] of libFiles.entries()) {
-    const betterLib = generate(tsLibDir, targetFile, sourceFile, false);
+    const betterLib = generate(tsLibDir, targetFile, sourceFile, {
+      emitOriginalAsComment: false,
+      emitNoDefaultLib: false,
+    });
     if (betterLib === undefined) {
       continue;
     }
