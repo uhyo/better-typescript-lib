@@ -21,7 +21,10 @@ async function main() {
 
   // modify each lib file
   for (const [targetFile, sourceFile] of libFiles.entries()) {
-    let result = generate(tsLibDir, targetFile, sourceFile, true);
+    let result = generate(tsLibDir, targetFile, sourceFile, {
+      emitOriginalAsComment: true,
+      emitNoDefaultLib: true,
+    });
     if (result === undefined) {
       continue;
     }
