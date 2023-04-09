@@ -5,7 +5,7 @@ Index: dom.generated.d.ts
 ===================================================================
 --- dom.generated.d.ts
 +++ dom.generated.d.ts
-@@ -2800,9 +2800,9 @@
+@@ -2821,9 +2821,9 @@
    readonly bodyUsed: boolean;
    arrayBuffer(): Promise<ArrayBuffer>;
    blob(): Promise<Blob>;
