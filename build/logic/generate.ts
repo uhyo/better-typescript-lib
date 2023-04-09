@@ -339,10 +339,10 @@ function printInterface(
   let result = originalNode
     .getFullText(originalSourceFile)
     .slice(0, originalNode.getLeadingTriviaWidth(originalSourceFile));
-  for (const dec of originalNode.decorators ?? []) {
+  for (const mod of originalNode.modifiers ?? []) {
     result += printer.printNode(
       ts.EmitHint.Unspecified,
-      dec,
+      mod,
       originalSourceFile
     );
   }
@@ -421,7 +421,7 @@ function replaceAliases(
         }
         return ts.visitEachChild(node, visitor, context);
       };
-      return ts.visitNode(sourceStatement, visitor);
+      return ts.visitNode(sourceStatement, visitor, ts.isStatement);
     },
   ]).transformed[0];
 }
