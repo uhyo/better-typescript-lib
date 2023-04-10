@@ -1,5 +1,14 @@
 # Changelog
 
+## v2.3.0
+
+This version newly includes improvements for DOM types (`fetch`). Thank you @aaditmshah!
+
+- Upgraded TypeScript to `5.0.4`.
+- Add strong types for `JSON.parse` and `JSON.stringify` (https://github.com/uhyo/better-typescript-lib/issues/25)
+- Add strong type definition for `fetch().json()` (https://github.com/uhyo/better-typescript-lib/issues/26)
+- Add better type definitions for promises (https://github.com/uhyo/better-typescript-lib/issues/28)
+
 ## v2.2.1
 
 - Removed `CheckNonNullable` as it is no longer needed (https://github.com/uhyo/better-typescript-lib/pull/19)
