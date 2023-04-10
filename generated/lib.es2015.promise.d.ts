@@ -13,20 +13,8 @@ interface PromiseConstructor {
   new <T>(
     executor: (
       resolve: undefined extends T
-        ? {
-            (value?: T | PromiseLike<T>): void;
-          }
-        : {
-            (value: T | PromiseLike<T>): void;
-          },
-      // TODO: Revisit after https://github.com/microsoft/TypeScript/issues/42156 solves
-      //  {
-      //   (value: T | PromiseLike<T>): void;
-      // } & (undefined extends T
-      //   ? {
-      //       (value?: T | PromiseLike<T>): void;
-      //     }
-      //   : {}),
+        ? (value?: T | PromiseLike<T>) => void
+        : (value: T | PromiseLike<T>) => void,
       reject: (reason?: any) => void
     ) => void
   ): Promise<T>;

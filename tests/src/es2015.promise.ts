@@ -7,6 +7,10 @@ new Promise<number>((resolve) => {
   // @ts-expect-error
   resolve();
 });
+new Promise<number | undefined>((resolve) => {
+  resolve(123);
+  resolve();
+});
 new Promise((resolve) => {
   resolve();
   resolve(123);

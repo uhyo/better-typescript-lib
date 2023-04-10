@@ -829,23 +829,106 @@ Index: es5.d.ts
  
  declare var Array: ArrayConstructor;
  
-@@ -1737,9 +1776,15 @@
+@@ -1737,9 +1776,11 @@
  }
  
  declare type PromiseConstructorLike = new <T>(
    executor: (
 -    resolve: (value: T | PromiseLike<T>) => void,
 +    resolve: undefined extends T
-+      ? {
-+          (value?: T | PromiseLike<T>): void;
-+        }
-+      : {
-+          (value: T | PromiseLike<T>): void;
-+        },
++      ? (value?: T | PromiseLike<T>) => void
++      : (value: T | PromiseLike<T>) => void,
      reject: (reason?: any) => void
    ) => void
  ) => PromiseLike<T>;
  
+@@ -1749,52 +1790,56 @@
+    * @param onfulfilled The callback to execute when the Promise is resolved.
+    * @param onrejected The callback to execute when the Promise is rejected.
+    * @returns A Promise for the completion of which ever callback is executed.
+    */
+-  then<TResult1 = T, TResult2 = never>(
+-    onfulfilled?:
+-      | ((value: T) => TResult1 | PromiseLike<TResult1>)
+-      | undefined
+-      | null,
+-    onrejected?:
+-      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+-      | undefined
+-      | null
+-  ): PromiseLike<TResult1 | TResult2>;
++  then(
++    onfulfilled?: null | undefined,
++    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined
++  ): PromiseLike<T>;
++
++  /**
++   * Attaches callbacks for the resolution and/or rejection of the Promise.
++   * @param onfulfilled The callback to execute when the Promise is resolved.
++   * @param onrejected The callback to execute when the Promise is rejected.
++   * @returns A Promise for the completion of which ever callback is executed.
++   */
++  then<U>(
++    onfulfilled: (value: T) => U | PromiseLike<U>,
++    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined
++  ): PromiseLike<U>;
+ }
+ 
+-/**
+- * Represents the completion of an asynchronous operation
+- */
+-interface Promise<T> {
++interface Promise<T> extends PromiseLike<T> {
+   /**
+    * Attaches callbacks for the resolution and/or rejection of the Promise.
+    * @param onfulfilled The callback to execute when the Promise is resolved.
+    * @param onrejected The callback to execute when the Promise is rejected.
+    * @returns A Promise for the completion of which ever callback is executed.
+    */
+-  then<TResult1 = T, TResult2 = never>(
+-    onfulfilled?:
+-      | ((value: T) => TResult1 | PromiseLike<TResult1>)
+-      | undefined
+-      | null,
+-    onrejected?:
+-      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+-      | undefined
+-      | null
+-  ): Promise<TResult1 | TResult2>;
++  then(
++    onfulfilled?: null | undefined,
++    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined
++  ): Promise<T>;
+ 
+   /**
++   * Attaches callbacks for the resolution and/or rejection of the Promise.
++   * @param onfulfilled The callback to execute when the Promise is resolved.
++   * @param onrejected The callback to execute when the Promise is rejected.
++   * @returns A Promise for the completion of which ever callback is executed.
++   */
++  then<U>(
++    onfulfilled: (value: T) => U | PromiseLike<U>,
++    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined
++  ): Promise<U>;
++
++  /**
+    * Attaches a callback for only the rejection of the Promise.
+    * @param onrejected The callback to execute when the Promise is rejected.
+    * @returns A Promise for the completion of the callback.
+    */
+-  catch<TResult = never>(
+-    onrejected?:
+-      | ((reason: any) => TResult | PromiseLike<TResult>)
+-      | undefined
+-      | null
+-  ): Promise<T | TResult>;
++  catch(
++    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined
++  ): Promise<T>;
+ }
+ 
+ /**
+  * Recursively unwraps the "awaited type" of a type. Non-promise "thenables" should resolve to `never`. This emulates the behavior of `await`.
 @@ -2144,20 +2189,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.

@@ -21,6 +21,68 @@ const isEntries = <A, B>(isKey: TypeGuard<A>, isValue: TypeGuard<B>) =>
   isArray(isPair(isKey, isValue));
 const isNumberStringEntries = isEntries(isNumber, isString);
 
+// PromiseConstructorLike
+const testPromiseConstructorLike = (MyPromise: PromiseConstructorLike) => {
+  new MyPromise<number>((resolve) => {
+    resolve(123);
+    // @ts-expect-error
+    resolve();
+  });
+  new MyPromise<number | undefined>((resolve) => {
+    resolve(123);
+    resolve();
+  });
+  new MyPromise((resolve) => {
+    resolve();
+    resolve(123);
+  });
+};
+// Promise
+const testPromise = (promise: Promise<string>) => {
+  expectType<Promise<string>>(promise.then());
+  expectType<Promise<string>>(promise.catch());
+  expectType<Promise<string>>(promise.then(null));
+  expectType<Promise<string>>(promise.then(undefined));
+  expectType<Promise<string>>(promise.catch(null));
+  expectType<Promise<string>>(promise.catch(undefined));
+  expectType<Promise<string>>(promise.then(null, null));
+  expectType<Promise<string>>(promise.then(null, undefined));
+  expectType<Promise<string>>(promise.then(undefined, null));
+  expectType<Promise<string>>(promise.then(undefined, undefined));
+  expectType<Promise<string>>(promise.then(null, (err) => `${err}`));
+  expectType<Promise<string>>(promise.then(undefined, (err) => `${err}`));
+  expectType<Promise<string>>(promise.catch((err) => `${err}`));
+  expectType<Promise<number>>(promise.then((str) => str.length));
+  expectType<Promise<number>>(promise.then((str) => str.length, null));
+  expectType<Promise<number>>(promise.then((str) => str.length, undefined));
+  expectType<Promise<number>>(
+    promise.then((str) => Promise.resolve(str.length))
+  );
+  expectType<Promise<number>>(
+    promise.then(
+      (str) => str.length,
+      (err) => `${err}`.length
+    )
+  );
+  expectType<Promise<number>>(
+    promise.then(
+      (str) => str.length,
+      (err) => Promise.resolve(`${err}`.length)
+    )
+  );
+  // @ts-expect-error
+  promise.then<number>((str: string) => str);
+  promise.then<number>(
+    (str: string) => str.length,
+    // @ts-expect-error
+    () => "NaN"
+  );
+  // @ts-expect-error
+  promise.then(null, (err) => `${err}`.length);
+  // @ts-expect-error
+  promise.catch(null, (err) => `${err}`.length);
+};
+
 // eval
 expectType<unknown>(eval("foo"));
 // Object
