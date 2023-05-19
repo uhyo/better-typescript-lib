@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.3.1
+
+- Fix type errors when including `dom.iterable` lib to the project (https://github.com/uhyo/better-typescript-lib/issues/30)
+
 ## v2.3.0
 
 This version newly includes improvements for DOM types (`fetch`). Thank you @aaditmshah!
