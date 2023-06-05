@@ -1,4 +1,5 @@
 interface Body {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/json) */
   json(): Promise<JSONValue>;
 }
 

@@ -1,7 +1,7 @@
 {
   "name": "better-typescript-lib",
   "private": true,
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "Better TypeScript standard library",
   "main": "index.js",
   "devDependencies": {
@@ -13,7 +13,7 @@
     "json5": "^2.2.3",
     "prettier": "^2.6.2",
     "tsd": "^0.25.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.3"
   },
   "scripts": {
     "build:tsc": "tsc",

@@ -5,10 +5,10 @@ Index: dom.generated.d.ts
 ===================================================================
 --- dom.generated.d.ts
 +++ dom.generated.d.ts
-@@ -2515,11 +2515,16 @@
-   new (): AudioParam;
+@@ -2910,11 +2910,16 @@
  };
  
+ /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioParamMap) */
  interface AudioParamMap {
 -  forEach(
 -    callbackfn: (value: AudioParam, key: string, parent: AudioParamMap) => void,
@@ -25,21 +25,21 @@ Index: dom.generated.d.ts
  }
  
  declare var AudioParamMap: {
-@@ -2821,9 +2826,9 @@
-   readonly bodyUsed: boolean;
-   arrayBuffer(): Promise<ArrayBuffer>;
+@@ -3331,9 +3336,9 @@
    blob(): Promise<Blob>;
+   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/formData) */
    formData(): Promise<FormData>;
+   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/json) */
 -  json(): Promise<any>;
 +  json(): Promise<JSONValue>;
+   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/text) */
    text(): Promise<string>;
  }
  
- interface BroadcastChannelEventMap {
-@@ -5948,11 +5953,11 @@
-   readonly BUBBLING_PHASE: 3;
+@@ -8785,11 +8790,11 @@
  };
  
+ /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/EventCounts) */
  interface EventCounts {
 -  forEach(
 -    callbackfn: (value: number, key: string, parent: EventCounts) => void,
@@ -51,10 +51,10 @@ Index: dom.generated.d.ts
  }
  
  declare var EventCounts: {
-@@ -6328,11 +6333,16 @@
-   readonly ready: Promise<FontFaceSet>;
-   readonly status: FontFaceSetLoadStatus;
+@@ -9331,11 +9336,16 @@
+   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FontFaceSet/check) */
    check(font: string, text?: string): boolean;
+   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FontFaceSet/load) */
    load(font: string, text?: string): Promise<FontFace[]>;
 -  forEach(
 -    callbackfn: (value: FontFace, key: FontFace, parent: FontFaceSet) => void,
@@ -71,10 +71,10 @@ Index: dom.generated.d.ts
    addEventListener<K extends keyof FontFaceSetEventMap>(
      type: K,
      listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any,
-@@ -11689,11 +11699,16 @@
- };
- 
- /** Available only in secure contexts. */
+@@ -16961,11 +16971,16 @@
+  *
+  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIInputMap)
+  */
  interface MIDIInputMap {
 -  forEach(
 -    callbackfn: (value: MIDIInput, key: string, parent: MIDIInputMap) => void,
@@ -91,10 +91,10 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIInputMap: {
-@@ -11742,11 +11757,16 @@
- };
- 
- /** Available only in secure contexts. */
+@@ -17028,11 +17043,16 @@
+  *
+  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIOutputMap)
+  */
  interface MIDIOutputMap {
 -  forEach(
 -    callbackfn: (value: MIDIOutput, key: string, parent: MIDIOutputMap) => void,
@@ -111,10 +111,10 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIOutputMap: {
-@@ -14680,11 +14700,11 @@
-   new (descriptionInitDict: RTCSessionDescriptionInit): RTCSessionDescription;
+@@ -21304,11 +21324,11 @@
  };
  
+ /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCStatsReport) */
  interface RTCStatsReport {
 -  forEach(
 -    callbackfn: (value: any, key: string, parent: RTCStatsReport) => void,

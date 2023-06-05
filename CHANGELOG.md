@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.4.0
+
+- Upgraded TypeScript to `5.1.3`.
+
 ## v2.3.1
 
 - Fix type errors when including `dom.iterable` lib to the project (https://github.com/uhyo/better-typescript-lib/issues/30)
