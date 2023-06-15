@@ -40,11 +40,8 @@ const testPromiseConstructorLike = (MyPromise: PromiseConstructorLike) => {
 // Promise
 const testPromise = (promise: Promise<string>) => {
   expectType<Promise<string>>(promise.then());
-  expectType<Promise<string>>(promise.catch());
   expectType<Promise<string>>(promise.then(null));
   expectType<Promise<string>>(promise.then(undefined));
-  expectType<Promise<string>>(promise.catch(null));
-  expectType<Promise<string>>(promise.catch(undefined));
   expectType<Promise<string>>(promise.then(null, null));
   expectType<Promise<string>>(promise.then(null, undefined));
   expectType<Promise<string>>(promise.then(undefined, null));
@@ -70,6 +67,24 @@ const testPromise = (promise: Promise<string>) => {
       (err) => Promise.resolve(`${err}`.length)
     )
   );
+  expectType<Promise<number | string>>(
+    promise.then(
+      (str) => str.length,
+      (err) => `${err}`
+    )
+  );
+  expectType<Promise<number | string>>(
+    promise.then(
+      (str) => str.length,
+      (err) => Promise.resolve(`${err}`)
+    )
+  );
+  expectType<Promise<number | string>>(
+    promise.then((str) => str.length).catch((err) => `${err}`)
+  );
+  expectType<Promise<number | string>>(
+    promise.then((str) => str.length).catch((err) => Promise.resolve(`${err}`))
+  );
   // @ts-expect-error
   promise.then<number>((str: string) => str);
   promise.then<number>(
@@ -81,6 +96,12 @@ const testPromise = (promise: Promise<string>) => {
   promise.then(null, (err) => `${err}`.length);
   // @ts-expect-error
   promise.catch(null, (err) => `${err}`.length);
+  // @ts-expect-error
+  promise.catch();
+  // @ts-expect-error
+  promise.catch(null);
+  // @ts-expect-error
+  promise.catch(undefined);
 };
 
 // eval
@@ -490,4 +511,5 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   }
 }
 
-export {};
+export { };
+

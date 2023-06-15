@@ -2121,19 +2121,17 @@ interface Promise<T> extends PromiseLike<T> {
    * @param onrejected The callback to execute when the Promise is rejected.
    * @returns A Promise for the completion of which ever callback is executed.
    */
-  then<U>(
+  then<U, R = never>(
     onfulfilled: (value: T) => U | PromiseLike<U>,
-    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined
-  ): Promise<U>;
+    onrejected?: ((reason: unknown) => R | PromiseLike<R>) | null | undefined
+  ): Promise<U | R>;
 
   /**
    * Attaches a callback for only the rejection of the Promise.
    * @param onrejected The callback to execute when the Promise is rejected.
    * @returns A Promise for the completion of the callback.
    */
-  catch(
-    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined
-  ): Promise<T>;
+  catch<U>(onrejected: (reason: unknown) => U | PromiseLike<U>): Promise<T | U>;
 }
 // /**
 //  * Represents the completion of an asynchronous operation
