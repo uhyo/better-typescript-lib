@@ -23,3 +23,4 @@ The following files are improved in better-typescript-lib:
 - [es2021.string.d.ts](./diff/es2021.string.d.ts.md)
 - [es2021.promise.d.ts](./diff/es2021.promise.d.ts.md)
 - [es2022.object.d.ts](./diff/es2022.object.d.ts.md)
+- [esnext.disposable.d.ts](./diff/esnext.disposable.d.ts.md)

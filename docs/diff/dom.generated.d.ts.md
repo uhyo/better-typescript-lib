@@ -5,7 +5,7 @@ Index: dom.generated.d.ts
 ===================================================================
 --- dom.generated.d.ts
 +++ dom.generated.d.ts
-@@ -2910,11 +2910,16 @@
+@@ -2941,11 +2941,16 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioParamMap) */
@@ -25,7 +25,7 @@ Index: dom.generated.d.ts
  }
  
  declare var AudioParamMap: {
-@@ -3331,9 +3336,9 @@
+@@ -3362,9 +3367,9 @@
    blob(): Promise<Blob>;
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/formData) */
    formData(): Promise<FormData>;
@@ -36,7 +36,7 @@ Index: dom.generated.d.ts
    text(): Promise<string>;
  }
  
-@@ -8785,11 +8790,11 @@
+@@ -8826,11 +8831,11 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/EventCounts) */
@@ -51,7 +51,7 @@ Index: dom.generated.d.ts
  }
  
  declare var EventCounts: {
-@@ -9331,11 +9336,16 @@
+@@ -9372,11 +9377,16 @@
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FontFaceSet/check) */
    check(font: string, text?: string): boolean;
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FontFaceSet/load) */
@@ -71,7 +71,7 @@ Index: dom.generated.d.ts
    addEventListener<K extends keyof FontFaceSetEventMap>(
      type: K,
      listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any,
-@@ -16961,11 +16971,16 @@
+@@ -17018,11 +17028,16 @@
   *
   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIInputMap)
   */
@@ -91,7 +91,7 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIInputMap: {
-@@ -17028,11 +17043,16 @@
+@@ -17085,11 +17100,16 @@
   *
   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIOutputMap)
   */
@@ -111,7 +111,7 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIOutputMap: {
-@@ -21304,11 +21324,11 @@
+@@ -21370,11 +21390,11 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCStatsReport) */

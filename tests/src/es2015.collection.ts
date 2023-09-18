@@ -36,10 +36,10 @@ import { expectType } from "tsd";
   expectType<WeakMap<object, number>>(map);
 
   const map2 = new WeakMap();
-  expectType<WeakMap<object, unknown>>(map2);
+  expectType<WeakMap<object | symbol, unknown>>(map2);
   expectType<unknown>(map2.get({}));
 
-  expectType<WeakMap<object, unknown>>(WeakMap.prototype);
+  expectType<WeakMap<object | symbol, unknown>>(WeakMap.prototype);
 }
 // Set
 {
