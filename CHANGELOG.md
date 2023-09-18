@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.5.0
+
+- Upgraded TypeScript to `5.2.2`.
+
 ## v2.4.0
 
 - Upgraded TypeScript to `5.1.3`.
