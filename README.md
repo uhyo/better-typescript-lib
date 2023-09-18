@@ -18,7 +18,7 @@ This package also includes other improved, stricter type definitions.
 
 ## Installation
 
-You only need to install `better-typescript-lib`. Additional configuration is not needed; your TypeScript project automatically use `better-typescript-lib` definitions.
+You only need to install `better-typescript-lib`. For npm and yarn, additional configuration is not needed; your TypeScript project automatically use `better-typescript-lib` definitions. For pnpm, see below.
 
 ```sh
 npm i -D better-typescript-lib
@@ -28,9 +28,9 @@ npm i -D better-typescript-lib
 
 ### How it works
 
-Starting from TypeScript 4.5, the TypeScript compiler detects existence of `@typescript/xxx` packages (e.g. `@typescript/es2015`) and uses them instead of the built-in definitions. By installing `better-typescript-lib`, these package names are mapped to corresponding `@better-typescript-lib/xxx` packages.
+Starting from TypeScript 4.5, the TypeScript compiler detects existence of `@typescript/lib-xxx` packages (e.g. `@typescript/lib-es2015`) and uses them instead of the built-in definitions. By installing `better-typescript-lib`, these package names are mapped to corresponding `@better-typescript-lib/xxx` packages.
 
-### with pnpm
+### With pnpm
 
 With pnpm, you must append the following line to the `.npmrc` file:
 
@@ -46,6 +46,7 @@ This is because, unlike npm and yarn, by default pnpm does not allow your source
 
 | better-typescript-lib | TypeScript      |
 | --------------------- | --------------- |
+| 2.5.0                 | TS 5.2 or later |
 | 2.4.0                 | TS 5.1 or later |
 | 2.3.0                 | TS 5.0 or later |
 | 2.2.0                 | TS 4.9 or later |
