@@ -359,7 +359,7 @@ interface ObjectConstructor {
    */
   keys(o: object): string[];
 }
-//     new(value?: any): Object;
+//     new (value?: any): Object;
 //     (): any;
 //     (value: any): any;
 //     /**
@@ -852,13 +852,21 @@ interface ImportMeta {}
  * augmented via interface merging.
  */
 interface ImportCallOptions {
-  assert?: ImportAssertions;
+  /** @deprecated*/ assert?: ImportAssertions;
+  with?: ImportAttributes;
 }
 
 /**
  * The type for the `assert` property of the optional second argument to `import()`.
  */
 interface ImportAssertions {
+  [key: string]: string;
+}
+
+/**
+ * The type for the `with` property of the optional second argument to `import()`.
+ */
+interface ImportAttributes {
   [key: string]: string;
 }
 
@@ -2048,7 +2056,7 @@ interface ArrayConstructor {
   isArray(arg: any): arg is unknown[];
   readonly prototype: unknown[];
 }
-//     new(arrayLength?: number): any[];
+//     new (arrayLength?: number): any[];
 //     new <T>(arrayLength: number): T[];
 //     new <T>(...items: T[]): T[];
 //     (arrayLength?: number): any[];

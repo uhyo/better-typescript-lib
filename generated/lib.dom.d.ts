@@ -1422,6 +1422,7 @@ interface RTCInboundRtpStreamStats extends RTCReceivedRtpStreamStats {
   keyFramesDecoded?: number;
   kind: string;
   lastPacketReceivedTimestamp?: DOMHighResTimeStamp;
+  mid?: string;
   nackCount?: number;
   packetsDiscarded?: number;
   pliCount?: number;
@@ -1436,6 +1437,7 @@ interface RTCInboundRtpStreamStats extends RTCReceivedRtpStreamStats {
   totalSamplesDuration?: number;
   totalSamplesReceived?: number;
   totalSquaredInterFrameDelay?: number;
+  trackIdentifier: string;
 }
 
 interface RTCLocalSessionDescriptionInit {
@@ -26534,7 +26536,16 @@ interface SubtleCrypto {
     format: Exclude<KeyFormat, "jwk">,
     key: CryptoKey
   ): Promise<ArrayBuffer>;
+  exportKey(
+    format: KeyFormat,
+    key: CryptoKey
+  ): Promise<ArrayBuffer | JsonWebKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/generateKey) */
+  generateKey(
+    algorithm: "Ed25519",
+    extractable: boolean,
+    keyUsages: ReadonlyArray<"sign" | "verify">
+  ): Promise<CryptoKeyPair>;
   generateKey(
     algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
     extractable: boolean,

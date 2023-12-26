@@ -39,7 +39,7 @@ interface MapConstructor {
   new <K, V>(entries?: readonly (readonly [K, V])[] | null): Map<K, V>;
   readonly prototype: Map<unknown, unknown>;
 }
-//     new(): Map<any, any>;
+//     new (): Map<any, any>;
 //     new <K, V>(entries?: readonly (readonly [K, V])[] | null): Map<K, V>;
 //     readonly prototype: Map<any, any>;
 
