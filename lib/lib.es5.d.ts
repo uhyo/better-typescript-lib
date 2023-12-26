@@ -362,7 +362,7 @@ interface ReadonlyArray<T> {
   map<U, This = undefined>(
     callbackfn: (this: This, value: T, index: number, array: this) => U,
     thisArg?: This
-  ): { -readonly [K in keyof this]: U };
+  ): Cast<{ -readonly [K in keyof this]: U }, U[]>;
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
    * @param predicate A function that accepts up to three arguments. The filter method calls the predicate function one time for each element in the array.
@@ -489,7 +489,7 @@ interface Array<T> {
   map<U, This = undefined>(
     callbackfn: (this: This, value: T, index: number, array: this) => U,
     thisArg?: This
-  ): { [K in keyof this]: U };
+  ): Cast<{ [K in keyof this]: U }, U[]>;
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
    * @param predicate A function that accepts up to three arguments. The filter method calls the predicate function one time for each element in the array.
