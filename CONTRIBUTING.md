@@ -44,3 +44,14 @@ Follow below steps to run tests locally.
 3. `npm run build:package`
 4. `npm run install` in tests directory
 5. `npm test` in tests directory
+
+## Upgrading TypeScript version
+
+Below is the procedure to upgrade TypeScript version.
+
+1. Update `typescript` dependency in `package.json` and `tests/package.json`
+2. Update the git submodule in `TypeScript` directory (use the git tag of target version)
+3. Build this library (see 'Commiting Build Artifacts' section)
+4. Review the diff in `generated/lib.*.d.ts` files. This represents the diff of TypeScript library between the previous version and the target version. If any change is undesirable (e.g. contains a new `any`), implement a fix in `lib/` directory (maybe as a separate task).
+5. Run tests with the new version, of course.
+6. Done!

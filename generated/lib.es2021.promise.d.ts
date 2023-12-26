@@ -2,7 +2,7 @@
 interface AggregateError extends Error {
   errors: unknown[];
 }
-//     errors: any[]
+//     errors: any[];
 
 interface AggregateErrorConstructor {
   new (errors: Iterable<any>, message?: string): AggregateError;
@@ -43,4 +43,4 @@ interface PromiseConstructor {
 //      * @param values An array or iterable of Promises.
 //      * @returns A new Promise.
 //      */
-//     any<T>(values: Iterable<T | PromiseLike<T>>): Promise<Awaited<T>>
+//     any<T>(values: Iterable<T | PromiseLike<T>>): Promise<Awaited<T>>;
