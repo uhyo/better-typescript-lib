@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.6.0
+
+- Upgraded TypeScript to `5.3.3`.
+- Fix poor type definition of `Array.prototype.map` for classes that extend `Array` (https://github.com/uhyo/better-typescript-lib/issues/35)
+
 ## v2.5.0
 
 - Upgraded TypeScript to `5.2.2`.
@@ -24,8 +29,7 @@ This version newly includes improvements for DOM types (`fetch`). Thank you @aad
 ## v2.2.1
 
 - Removed `CheckNonNullable` as it is no longer needed (https://github.com/uhyo/better-typescript-lib/pull/19)
-- Added `/// <reference no-default-lib="true"/>` to library files 
-
+- Added `/// <reference no-default-lib="true"/>` to library files
 
 ## v2.2.0
 
@@ -35,7 +39,6 @@ This version newly includes improvements for DOM types (`fetch`). Thank you @aad
 - Improved `Function#bind` and several `Object` method typings. (https://github.com/uhyo/better-typescript-lib/pull/16)
 - Improved `Object#hasOwnProperty` and `Object.hasOwn` typings. (https://github.com/uhyo/better-typescript-lib/issues/13)
 - Removed type guards from `Number` static methods because they affected soundness. (https://github.com/uhyo/better-typescript-lib/issues/14)
-
 
 ## v2.1.0
 
