@@ -439,7 +439,7 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   expectType<[string, string, string]>(a2.map(() => "foo"));
 
   // https://github.com/uhyo/better-typescript-lib/issues/35
-  function template(strings: TemplateStringsArray, ...keys: string[]): string {
+  function template(strings: TemplateStringsArray, ...keys: string[]): void {
     const mapped = strings.map((v) => v);
     expectType<number>(mapped.length);
   }
@@ -456,6 +456,18 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
     const arrX = new ArrX([2, 3, 4]);
     const mapped = arrX.map((v) => String(v));
     expectType<number>(mapped.length);
+  }
+  {
+    const arr = [1, 2, 3];
+    function magic<T>(check: (value: T) => void): T {
+      return {} as T;
+    }
+    // Check that inference of U from contextual type works
+    const mapped: string[] = arr.map((v) =>
+      magic((value) => {
+        expectType<string>(value);
+      })
+    );
   }
 }
 
