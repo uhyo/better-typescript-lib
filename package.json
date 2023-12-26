@@ -12,8 +12,7 @@
     "diff": "^5.0.0",
     "json5": "^2.2.3",
     "prettier": "^2.6.2",
-    "tsd": "^0.29.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   },
   "scripts": {
     "build:tsc": "tsc",
@@ -24,12 +23,5 @@
   },
   "keywords": [],
   "author": "uhyo <uhyo@uhy.ooo>",
-  "license": "Apache-2.0",
-  "tsd": {
-    "directory": "tests",
-    "compilerOptions": {
-      "lib": [],
-      "types": []
-    }
-  }
+  "license": "Apache-2.0"
 }
