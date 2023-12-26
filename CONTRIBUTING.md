@@ -50,8 +50,9 @@ Follow below steps to run tests locally.
 Below is the procedure to upgrade TypeScript version.
 
 1. Update `typescript` dependency in `package.json` and `tests/package.json`
-2. Update the git submodule in `TypeScript` directory (use the git tag of target version)
-3. Build this library (see 'Commiting Build Artifacts' section)
-4. Review the diff in `generated/lib.*.d.ts` files. This represents the diff of TypeScript library between the previous version and the target version. If any change is undesirable (e.g. contains a new `any`), implement a fix in `lib/` directory (maybe as a separate task).
-5. Run tests with the new version, of course.
-6. Done!
+2. Update `tsd` dependency in `tests/package.json` to a version that supports the target TypeScript version
+3. Update the git submodule in `TypeScript` directory (use the git tag of target version)
+4. Build this library (see 'Commiting Build Artifacts' section)
+5. Review the diff in `generated/lib.*.d.ts` files. This represents the diff of TypeScript library between the previous version and the target version. If any change is undesirable (e.g. contains a new `any`), implement a fix in `lib/` directory (maybe as a separate task).
+6. Run tests with the new version, of course.
+7. Done!
