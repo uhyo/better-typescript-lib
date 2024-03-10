@@ -28,7 +28,7 @@ async function main() {
     if (result === undefined) {
       continue;
     }
-    result = prettier.format(result, {
+    result = await prettier.format(result, {
       parser: "typescript",
     });
 

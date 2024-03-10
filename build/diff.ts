@@ -34,10 +34,10 @@ async function main() {
     const diffFile = path.join(docsDiffDir, sourceFile + ".md");
 
     const originalLib = await readFile(path.join(tsLibDir, sourceFile), "utf8");
-    const formattedOriginalLib = prettier.format(originalLib, {
+    const formattedOriginalLib = await prettier.format(originalLib, {
       parser: "typescript",
     });
-    const formattedBetterLib = prettier.format(betterLib, {
+    const formattedBetterLib = await prettier.format(betterLib, {
       parser: "typescript",
     });
     if (formattedOriginalLib === formattedBetterLib) {
@@ -47,7 +47,7 @@ async function main() {
     const diffPatch = createPatch(
       sourceFile,
       formattedOriginalLib,
-      formattedBetterLib
+      formattedBetterLib,
     );
 
     const md = `# ${sourceFile} Diffs
