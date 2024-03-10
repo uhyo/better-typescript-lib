@@ -57,6 +57,11 @@ const test = async (url: string) => {
     // @ts-expect-error property does not exist
     structuredClone(f)[0].weirdo;
 
+    const f2: Weirdo[] = [new Weirdo()];
+    expectType<Int16Array[]>(structuredClone(f2));
+    // @ts-expect-error property does not exist
+    structuredClone(f2)[0].weirdo;
+
     const g = { a: new Weirdo() };
     const g2 = structuredClone(g);
     expectType<{ a: Int16Array }>(g2);

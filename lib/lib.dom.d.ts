@@ -127,7 +127,7 @@ declare namespace BetterTypeScriptLibInternals {
             : T extends ReadonlyArray<any>
                 ? number extends T["length"]
                     ? Array<StructuredCloneOutput<T[number]>>
-                    : T extends [infer X, ...infer XS]
+                    : T extends readonly [infer X, ...infer XS]
                         ? [StructuredCloneOutput<X>, ...StructuredCloneOutput<XS>]
                         : Writeable<T>
                 : T extends Map<infer K, infer V>
