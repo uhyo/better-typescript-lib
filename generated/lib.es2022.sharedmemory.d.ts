@@ -12,7 +12,7 @@ interface Atomics {
     typedArray: Int32Array,
     index: number,
     value: number,
-    timeout?: number
+    timeout?: number,
   ):
     | { async: false; value: "not-equal" | "timed-out" }
     | { async: true; value: Promise<"ok" | "timed-out"> };
@@ -29,7 +29,7 @@ interface Atomics {
     typedArray: BigInt64Array,
     index: number,
     value: bigint,
-    timeout?: number
+    timeout?: number,
   ):
     | { async: false; value: "not-equal" | "timed-out" }
     | { async: true; value: Promise<"ok" | "timed-out"> };

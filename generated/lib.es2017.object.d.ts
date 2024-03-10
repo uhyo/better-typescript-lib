@@ -37,7 +37,7 @@ interface ObjectConstructor {
    * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
    */
   getOwnPropertyDescriptors<T extends {}>(
-    o: T
+    o: T,
   ): {
     [P in keyof T]: TypedPropertyDescriptor<T[P]>;
   } & {

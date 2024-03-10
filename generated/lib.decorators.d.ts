@@ -29,7 +29,7 @@ type DecoratorMetadata = typeof globalThis extends {
 interface ClassDecoratorContext<
   Class extends abstract new (...args: any) => any = abstract new (
     ...args: any
-  ) => any
+  ) => any,
 > {
   /** The kind of element that was decorated. */
   readonly kind: "class";
@@ -70,7 +70,7 @@ interface ClassMethodDecoratorContext<
   Value extends (this: This, ...args: any) => any = (
     this: This,
     ...args: any
-  ) => any
+  ) => any,
 > {
   /** The kind of class element that was decorated. */
   readonly kind: "method";

@@ -202,7 +202,7 @@ interface BigInt {
   /** Returns a string representation appropriate to the host environment's current locale. */
   toLocaleString(
     locales?: Intl.LocalesArgument,
-    options?: BigIntToLocaleStringOptions
+    options?: BigIntToLocaleStringOptions,
   ): string;
 
   /** Returns the primitive value of the specified object. */
@@ -276,9 +276,9 @@ interface BigInt64Array {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -302,9 +302,9 @@ interface BigInt64Array {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): BigInt64Array;
   /**
    * Returns the value of the first element in the array where predicate is true, and undefined
@@ -320,9 +320,9 @@ interface BigInt64Array {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): bigint | undefined;
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
@@ -338,9 +338,9 @@ interface BigInt64Array {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number;
   /**
    * Performs the specified action for each element in an array.
@@ -351,7 +351,7 @@ interface BigInt64Array {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: bigint, index: number, array: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
 
   /**
@@ -402,9 +402,9 @@ interface BigInt64Array {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => bigint,
-    thisArg?: This
+    thisArg?: This,
   ): BigInt64Array;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -418,8 +418,8 @@ interface BigInt64Array {
       previousValue: bigint | U,
       currentValue: bigint,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): bigint | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -436,9 +436,9 @@ interface BigInt64Array {
       previousValue: U,
       currentValue: bigint,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -452,8 +452,8 @@ interface BigInt64Array {
       previousValue: bigint | U,
       currentValue: bigint,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): bigint | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -470,9 +470,9 @@ interface BigInt64Array {
       previousValue: U,
       currentValue: bigint,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
 
   /** Reverses the elements in the array. */
@@ -504,9 +504,9 @@ interface BigInt64Array {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -656,7 +656,7 @@ interface BigInt64ArrayConstructor {
   new (
     buffer: ArrayBufferLike,
     byteOffset?: number,
-    length?: number
+    length?: number,
   ): BigInt64Array;
 
   /** The size in bytes of each element in the array. */
@@ -681,7 +681,7 @@ interface BigInt64ArrayConstructor {
   from<T, This = undefined>(
     arrayLike: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => bigint,
-    thisArg?: This
+    thisArg?: This,
   ): BigInt64Array;
 }
 //     /**
@@ -738,9 +738,9 @@ interface BigUint64Array {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -764,9 +764,9 @@ interface BigUint64Array {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): BigUint64Array;
   /**
    * Returns the value of the first element in the array where predicate is true, and undefined
@@ -782,9 +782,9 @@ interface BigUint64Array {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): bigint | undefined;
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
@@ -800,9 +800,9 @@ interface BigUint64Array {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number;
   /**
    * Performs the specified action for each element in an array.
@@ -813,7 +813,7 @@ interface BigUint64Array {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: bigint, index: number, array: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
 
   /**
@@ -864,9 +864,9 @@ interface BigUint64Array {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => bigint,
-    thisArg?: This
+    thisArg?: This,
   ): BigUint64Array;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -880,8 +880,8 @@ interface BigUint64Array {
       previousValue: bigint | U,
       currentValue: bigint,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): bigint | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -898,9 +898,9 @@ interface BigUint64Array {
       previousValue: U,
       currentValue: bigint,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -914,8 +914,8 @@ interface BigUint64Array {
       previousValue: bigint | U,
       currentValue: bigint,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): bigint | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -932,9 +932,9 @@ interface BigUint64Array {
       previousValue: U,
       currentValue: bigint,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
 
   /** Reverses the elements in the array. */
@@ -966,9 +966,9 @@ interface BigUint64Array {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -1118,7 +1118,7 @@ interface BigUint64ArrayConstructor {
   new (
     buffer: ArrayBufferLike,
     byteOffset?: number,
-    length?: number
+    length?: number,
   ): BigUint64Array;
 
   /** The size in bytes of each element in the array. */
@@ -1143,7 +1143,7 @@ interface BigUint64ArrayConstructor {
   from<T, This = undefined>(
     arrayLike: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => bigint,
-    thisArg?: This
+    thisArg?: This,
   ): BigUint64Array;
 }
 //     /**

@@ -33,13 +33,13 @@ declare namespace Intl {
   const PluralRules: {
     new (
       locales?: string | string[],
-      options?: PluralRulesOptions
+      options?: PluralRulesOptions,
     ): PluralRules;
     (locales?: string | string[], options?: PluralRulesOptions): PluralRules;
 
     supportedLocalesOf(
       locales: string | string[],
-      options?: { localeMatcher?: "lookup" | "best fit" }
+      options?: { localeMatcher?: "lookup" | "best fit" },
     ): string[];
   };
 

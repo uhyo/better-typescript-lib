@@ -19,7 +19,7 @@ interface String {
       // TODO: could be improved, but blocked by issue:
       // https://github.com/microsoft/TypeScript/issues/45972
       ...rest: (string | number)[]
-    ) => string
+    ) => string,
   ): string;
 
   /**
@@ -31,7 +31,7 @@ interface String {
     searchValue: {
       [Symbol.replace](string: string, replaceValue: string): string;
     },
-    replaceValue: string
+    replaceValue: string,
   ): string;
 
   /**
@@ -43,10 +43,10 @@ interface String {
     searchValue: {
       [Symbol.replace](
         string: string,
-        replacer: (substring: string, ...rest: (string | number)[]) => string
+        replacer: (substring: string, ...rest: (string | number)[]) => string,
       ): string;
     },
-    replacer: (substring: string, ...rest: (string | number)[]) => string
+    replacer: (substring: string, ...rest: (string | number)[]) => string,
   ): string;
 }
 //     /**

@@ -9,6 +9,6 @@ interface Number {
    */
   toLocaleString(
     locales?: Intl.LocalesArgument,
-    options?: Intl.NumberFormatOptions
+    options?: Intl.NumberFormatOptions,
   ): string;
 }

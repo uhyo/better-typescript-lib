@@ -26,7 +26,7 @@ type FlatArray<Arr, Depth extends number> = {
           17,
           18,
           19,
-          20
+          20,
         ][Depth]
       >
     : Arr;
@@ -48,9 +48,9 @@ interface ReadonlyArray<T> {
       this: This,
       value: T,
       index: number,
-      array: T[]
+      array: T[],
     ) => U | ReadonlyArray<U>,
-    thisArg?: This
+    thisArg?: This,
   ): U[];
 
   /**
@@ -78,9 +78,9 @@ interface Array<T> {
       this: This,
       value: T,
       index: number,
-      array: T[]
+      array: T[],
     ) => U | ReadonlyArray<U>,
-    thisArg?: This
+    thisArg?: This,
   ): U[];
 
   /**

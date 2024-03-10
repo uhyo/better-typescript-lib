@@ -17,6 +17,6 @@ interface DateConstructor {
     hours?: number,
     minutes?: number,
     seconds?: number,
-    ms?: number
+    ms?: number,
   ): number;
 }

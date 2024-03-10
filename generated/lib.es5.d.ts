@@ -70,7 +70,7 @@ declare function encodeURI(uri: string): string;
  * @param uriComponent A value representing an unencoded URI component.
  */
 declare function encodeURIComponent(
-  uriComponent: string | number | boolean
+  uriComponent: string | number | boolean,
 ): string;
 
 /**
@@ -128,19 +128,19 @@ interface Object {
    */
   hasOwnProperty<Obj, Key extends PropertyKey>(
     this: Obj,
-    v: Key
+    v: Key,
   ): this is Obj &
     (string extends Key
       ? {}
       : number extends Key
-      ? {}
-      : symbol extends Key
-      ? {}
-      : Key extends PropertyKey
-      ? {
-          [key in Key]: unknown;
-        }
-      : {});
+        ? {}
+        : symbol extends Key
+          ? {}
+          : Key extends PropertyKey
+            ? {
+                [key in Key]: unknown;
+              }
+            : {});
 
   /**
    * Determines whether an object exists in another object's prototype chain.
@@ -182,7 +182,7 @@ interface ObjectConstructor {
    */
   getOwnPropertyDescriptor(
     o: {},
-    p: PropertyKey
+    p: PropertyKey,
   ): PropertyDescriptor | undefined;
 
   /**
@@ -211,19 +211,19 @@ interface ObjectConstructor {
    */
   create<O extends object, P extends Record<PropertyKey, PropertyDescriptor>>(
     o: O,
-    properties: P & ThisType<any>
+    properties: P & ThisType<any>,
   ): {
     [K in keyof (O & P)]: P[K] extends {
       value: infer V;
     }
       ? V
       : P[K] extends {
-          get: () => infer V;
-        }
-      ? V
-      : K extends keyof O
-      ? O[K]
-      : unknown;
+            get: () => infer V;
+          }
+        ? V
+        : K extends keyof O
+          ? O[K]
+          : unknown;
   };
 
   /**
@@ -233,17 +233,17 @@ interface ObjectConstructor {
    */
   create<P extends Record<string, PropertyDescriptor>>(
     o: null,
-    properties: P & ThisType<any>
+    properties: P & ThisType<any>,
   ): {
     [K in keyof P]: P[K] extends {
       value: infer V;
     }
       ? V
       : P[K] extends {
-          get: () => infer V;
-        }
-      ? V
-      : unknown;
+            get: () => infer V;
+          }
+        ? V
+        : unknown;
   };
 
   /**
@@ -255,11 +255,11 @@ interface ObjectConstructor {
   defineProperty<
     O extends object,
     P extends PropertyKey,
-    D extends PropertyDescriptor
+    D extends PropertyDescriptor,
   >(
     o: O,
     p: P,
-    attributes: D & ThisType<any>
+    attributes: D & ThisType<any>,
   ): O &
     (P extends PropertyKey // required to make P distributive
       ? {
@@ -268,10 +268,10 @@ interface ObjectConstructor {
           }
             ? V
             : D extends {
-                get: () => infer V;
-              }
-            ? V
-            : unknown;
+                  get: () => infer V;
+                }
+              ? V
+              : unknown;
         }
       : unknown);
 
@@ -282,22 +282,22 @@ interface ObjectConstructor {
    */
   defineProperties<
     O extends object,
-    P extends Record<PropertyKey, PropertyDescriptor>
+    P extends Record<PropertyKey, PropertyDescriptor>,
   >(
     o: O,
-    properties: P & ThisType<any>
+    properties: P & ThisType<any>,
   ): {
     [K in keyof (O & P)]: P[K] extends {
       value: infer V;
     }
       ? V
       : P[K] extends {
-          get: () => infer V;
-        }
-      ? V
-      : K extends keyof O
-      ? O[K]
-      : unknown;
+            get: () => infer V;
+          }
+        ? V
+        : K extends keyof O
+          ? O[K]
+          : unknown;
   };
 
   /**
@@ -318,9 +318,9 @@ interface ObjectConstructor {
    */
   freeze<
     T extends { [idx: string]: U | null | undefined | object },
-    U extends string | bigint | number | boolean | symbol
+    U extends string | bigint | number | boolean | symbol,
   >(
-    o: T
+    o: T,
   ): Readonly<T>;
 
   /**
@@ -469,11 +469,12 @@ type ThisParameterType<T> = T extends (this: infer U, ...args: never) => any
 /**
  * Removes the 'this' parameter from a function type.
  */
-type OmitThisParameter<T> = unknown extends ThisParameterType<T>
-  ? T
-  : T extends (...args: infer A) => infer R
-  ? (...args: A) => R
-  : T;
+type OmitThisParameter<T> =
+  unknown extends ThisParameterType<T>
+    ? T
+    : T extends (...args: infer A) => infer R
+      ? (...args: A) => R
+      : T;
 
 interface CallableFunction extends Function {
   /**
@@ -490,7 +491,7 @@ interface CallableFunction extends Function {
   apply<T, A extends any[], R>(
     this: (this: T, ...args: A) => R,
     thisArg: T,
-    args: A
+    args: A,
   ): R;
 
   /**
@@ -550,7 +551,7 @@ interface NewableFunction extends Function {
   apply<T, A extends any[]>(
     this: new (...args: A) => T,
     thisArg: T,
-    args: A
+    args: A,
   ): void;
 
   /**
@@ -669,7 +670,7 @@ interface String {
       // TODO: could be improved, but blocked by issue:
       // https://github.com/microsoft/TypeScript/issues/45972
       ...rest: (string | number)[]
-    ) => string
+    ) => string,
   ): string;
 
   /**
@@ -1155,7 +1156,7 @@ interface DateConstructor {
     hours?: number,
     minutes?: number,
     seconds?: number,
-    ms?: number
+    ms?: number,
   ): Date;
   (): string;
   readonly prototype: Date;
@@ -1181,7 +1182,7 @@ interface DateConstructor {
     hours?: number,
     minutes?: number,
     seconds?: number,
-    ms?: number
+    ms?: number,
   ): number;
   /** Returns the number of milliseconds elapsed since midnight, January 1, 1970 Universal Coordinated Time (UTC). */
   now(): number;
@@ -1392,8 +1393,8 @@ interface JSON {
     reviver: <K extends string>(
       this: JSONHolder<K, A>,
       key: K,
-      value: JSONValueF<A>
-    ) => A
+      value: JSONValueF<A>,
+    ) => A,
   ): A;
   /**
    * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
@@ -1404,7 +1405,7 @@ interface JSON {
   stringify<A>(
     value: A,
     replacer?: (string | number)[] | null | undefined,
-    space?: string | number | null | undefined
+    space?: string | number | null | undefined,
   ): StringifyResult<ToJSON<A>>;
   /**
    * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
@@ -1417,9 +1418,9 @@ interface JSON {
     replacer: (
       this: JSONComposite<A>,
       key: string,
-      value: ToJSON<A>
+      value: ToJSON<A>,
     ) => JSONValueF<A>,
-    space?: string | number | null | undefined
+    space?: string | number | null | undefined,
   ): string;
   /**
    * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
@@ -1432,9 +1433,9 @@ interface JSON {
     replacer: (
       this: JSONComposite<A>,
       key: string,
-      value: ToJSON<A>
+      value: ToJSON<A>,
     ) => JSONValueF<A> | undefined,
-    space?: string | number | null | undefined
+    space?: string | number | null | undefined,
   ): string | undefined;
 }
 //     /**
@@ -1524,7 +1525,7 @@ interface ReadonlyArray<T> {
    */
   every<S extends T, This = undefined>(
     predicate: (this: This, value: T, index: number, array: this) => value is S,
-    thisArg?: This
+    thisArg?: This,
   ): this is {
     [K in keyof this]: S;
   };
@@ -1538,7 +1539,7 @@ interface ReadonlyArray<T> {
    */
   every<This = undefined>(
     predicate: (this: This, value: T, index: number, array: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
   /**
    * Determines whether the specified callback function returns true for any element of an array.
@@ -1550,7 +1551,7 @@ interface ReadonlyArray<T> {
    */
   some<This = undefined>(
     predicate: (this: This, value: T, index: number, array: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
   /**
    * Performs the specified action for each element in an array.
@@ -1559,7 +1560,7 @@ interface ReadonlyArray<T> {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: T, index: number, array: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
   /**
    * Calls a defined callback function on each element of an array, and returns an array that contains the results.
@@ -1568,7 +1569,7 @@ interface ReadonlyArray<T> {
    */
   map<U, This = undefined>(
     callbackfn: (this: This, value: T, index: number, array: this) => U,
-    thisArg?: This
+    thisArg?: This,
   ): Cast<
     {
       -readonly [K in keyof this]: U;
@@ -1582,7 +1583,7 @@ interface ReadonlyArray<T> {
    */
   filter<S extends T, This = undefined>(
     predicate: (this: This, value: T, index: number, array: this) => value is S,
-    thisArg?: This
+    thisArg?: This,
   ): S[];
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
@@ -1591,7 +1592,7 @@ interface ReadonlyArray<T> {
    */
   filter<This = undefined>(
     predicate: (this: This, value: T, index: number, array: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): T[];
   /**
    * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -1602,8 +1603,8 @@ interface ReadonlyArray<T> {
       previousValue: T | U,
       currentValue: T,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): T | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -1615,9 +1616,9 @@ interface ReadonlyArray<T> {
       previousValue: U,
       currentValue: T,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -1628,8 +1629,8 @@ interface ReadonlyArray<T> {
       previousValue: T | U,
       currentValue: T,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): T | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -1641,9 +1642,9 @@ interface ReadonlyArray<T> {
       previousValue: U,
       currentValue: T,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
 
   readonly [n: number]: T;
@@ -1846,7 +1847,7 @@ interface Array<T> {
    */
   every<S extends T, This = undefined>(
     predicate: (this: This, value: T, index: number, array: this) => value is S,
-    thisArg?: This
+    thisArg?: This,
   ): this is {
     [K in keyof this]: S;
   };
@@ -1860,7 +1861,7 @@ interface Array<T> {
    */
   every<This = undefined>(
     predicate: (this: This, value: T, index: number, array: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
   /**
    * Determines whether the specified callback function returns true for any element of an array.
@@ -1872,7 +1873,7 @@ interface Array<T> {
    */
   some<This = undefined>(
     predicate: (this: This, value: T, index: number, array: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
   /**
    * Performs the specified action for each element in an array.
@@ -1881,7 +1882,7 @@ interface Array<T> {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: T, index: number, array: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
   /**
    * Calls a defined callback function on each element of an array, and returns an array that contains the results.
@@ -1890,7 +1891,7 @@ interface Array<T> {
    */
   map<U, This = undefined>(
     callbackfn: (this: This, value: T, index: number, array: this) => U,
-    thisArg?: This
+    thisArg?: This,
   ): Cast<
     {
       [K in keyof this]: U;
@@ -1904,7 +1905,7 @@ interface Array<T> {
    */
   filter<S extends T, This = undefined>(
     predicate: (this: This, value: T, index: number, array: this) => value is S,
-    thisArg?: This
+    thisArg?: This,
   ): S[];
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
@@ -1913,7 +1914,7 @@ interface Array<T> {
    */
   filter<This = undefined>(
     predicate: (this: This, value: T, index: number, array: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): T[];
   /**
    * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -1924,8 +1925,8 @@ interface Array<T> {
       previousValue: T | U,
       currentValue: T,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): T | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -1937,9 +1938,9 @@ interface Array<T> {
       previousValue: U,
       currentValue: T,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -1950,8 +1951,8 @@ interface Array<T> {
       previousValue: T | U,
       currentValue: T,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): T | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -1963,9 +1964,9 @@ interface Array<T> {
       previousValue: U,
       currentValue: T,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
 
   [n: number]: T;
@@ -2081,8 +2082,8 @@ declare type PromiseConstructorLike = new <T>(
     resolve: undefined extends T
       ? (value?: T | PromiseLike<T>) => void
       : (value: T | PromiseLike<T>) => void,
-    reject: (reason?: any) => void
-  ) => void
+    reject: (reason?: any) => void,
+  ) => void,
 ) => PromiseLike<T>;
 // declare type PromiseConstructorLike = new <T>(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void) => PromiseLike<T>;
 
@@ -2095,7 +2096,7 @@ interface PromiseLike<T> {
    */
   then(
     onfulfilled?: null | undefined,
-    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined
+    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined,
   ): PromiseLike<T>;
 
   /**
@@ -2106,7 +2107,7 @@ interface PromiseLike<T> {
    */
   then<U>(
     onfulfilled: (value: T) => U | PromiseLike<U>,
-    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined
+    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
   ): PromiseLike<U>;
 }
 //     /**
@@ -2126,7 +2127,7 @@ interface Promise<T> extends PromiseLike<T> {
    */
   then(
     onfulfilled?: null | undefined,
-    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined
+    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined,
   ): Promise<T>;
 
   /**
@@ -2137,7 +2138,7 @@ interface Promise<T> extends PromiseLike<T> {
    */
   then<U>(
     onfulfilled: (value: T) => U | PromiseLike<U>,
-    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined
+    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
   ): Promise<U>;
 
   /**
@@ -2146,7 +2147,7 @@ interface Promise<T> extends PromiseLike<T> {
    * @returns A Promise for the completion of the callback.
    */
   catch(
-    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined
+    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined,
   ): Promise<T>;
 }
 // /**
@@ -2174,10 +2175,10 @@ interface Promise<T> extends PromiseLike<T> {
 type Awaited<T> = T extends null | undefined
   ? T // special case for `null | undefined` when not in `--strictNullChecks` mode
   : T extends object & { then(onfulfilled: infer F, ...args: infer _): any } // `await` only unwraps object types with a callable `then`. Non-object types are not unwrapped
-  ? F extends (value: infer V, ...args: infer _) => any // if the argument to `then` is callable, extracts the first argument
-    ? Awaited<V> // recursively unwrap the value
-    : never // the argument to `then` was not callable
-  : T; // non-object or non-thenable
+    ? F extends (value: infer V, ...args: infer _) => any // if the argument to `then` is callable, extracts the first argument
+      ? Awaited<V> // recursively unwrap the value
+      : never // the argument to `then` was not callable
+    : T; // non-object or non-thenable
 
 interface ArrayLike<T> {
   readonly length: number;
@@ -2486,7 +2487,7 @@ interface DataViewConstructor {
   new (
     buffer: ArrayBufferLike & { BYTES_PER_ELEMENT?: never },
     byteOffset?: number,
-    byteLength?: number
+    byteLength?: number,
   ): DataView;
 }
 declare var DataView: DataViewConstructor;
@@ -2539,9 +2540,9 @@ interface Int8Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -2565,9 +2566,9 @@ interface Int8Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): Int8Array;
   /**
    * Returns the value of the first element in the array where predicate is true, and undefined
@@ -2580,7 +2581,7 @@ interface Int8Array {
    */
   find<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number | undefined;
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
@@ -2593,7 +2594,7 @@ interface Int8Array {
    */
   findIndex<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number;
   /**
    * Performs the specified action for each element in an array.
@@ -2604,7 +2605,7 @@ interface Int8Array {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: number, index: number, array: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
 
   /**
@@ -2647,9 +2648,9 @@ interface Int8Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Int8Array;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -2663,8 +2664,8 @@ interface Int8Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -2681,9 +2682,9 @@ interface Int8Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -2697,8 +2698,8 @@ interface Int8Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -2715,9 +2716,9 @@ interface Int8Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
 
   /**
@@ -2751,9 +2752,9 @@ interface Int8Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -2907,7 +2908,7 @@ interface Int8ArrayConstructor {
   new (
     buffer: ArrayBufferLike,
     byteOffset?: number,
-    length?: number
+    length?: number,
   ): Int8Array;
 
   /**
@@ -2934,7 +2935,7 @@ interface Int8ArrayConstructor {
   from<T, This = undefined>(
     arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Int8Array;
 }
 //     /**
@@ -3000,9 +3001,9 @@ interface Uint8Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -3026,9 +3027,9 @@ interface Uint8Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): Uint8Array;
   /**
    * Returns the value of the first element in the array where predicate is true, and undefined
@@ -3041,7 +3042,7 @@ interface Uint8Array {
    */
   find<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number | undefined;
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
@@ -3054,7 +3055,7 @@ interface Uint8Array {
    */
   findIndex<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number;
   /**
    * Performs the specified action for each element in an array.
@@ -3065,7 +3066,7 @@ interface Uint8Array {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: number, index: number, array: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
 
   /**
@@ -3108,9 +3109,9 @@ interface Uint8Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Uint8Array;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -3124,8 +3125,8 @@ interface Uint8Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -3142,9 +3143,9 @@ interface Uint8Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -3158,8 +3159,8 @@ interface Uint8Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -3176,9 +3177,9 @@ interface Uint8Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
 
   /**
@@ -3212,9 +3213,9 @@ interface Uint8Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -3368,7 +3369,7 @@ interface Uint8ArrayConstructor {
   new (
     buffer: ArrayBufferLike,
     byteOffset?: number,
-    length?: number
+    length?: number,
   ): Uint8Array;
 
   /**
@@ -3395,7 +3396,7 @@ interface Uint8ArrayConstructor {
   from<T, This = undefined>(
     arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Uint8Array;
 }
 //     /**
@@ -3461,9 +3462,9 @@ interface Uint8ClampedArray {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -3487,9 +3488,9 @@ interface Uint8ClampedArray {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): Uint8ClampedArray;
   /**
    * Returns the value of the first element in the array where predicate is true, and undefined
@@ -3502,7 +3503,7 @@ interface Uint8ClampedArray {
    */
   find<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number | undefined;
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
@@ -3515,7 +3516,7 @@ interface Uint8ClampedArray {
    */
   findIndex<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number;
   /**
    * Performs the specified action for each element in an array.
@@ -3526,7 +3527,7 @@ interface Uint8ClampedArray {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: number, index: number, array: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
 
   /**
@@ -3569,9 +3570,9 @@ interface Uint8ClampedArray {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Uint8ClampedArray;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -3585,8 +3586,8 @@ interface Uint8ClampedArray {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -3603,9 +3604,9 @@ interface Uint8ClampedArray {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -3619,8 +3620,8 @@ interface Uint8ClampedArray {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -3637,9 +3638,9 @@ interface Uint8ClampedArray {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
 
   /**
@@ -3673,9 +3674,9 @@ interface Uint8ClampedArray {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -3829,7 +3830,7 @@ interface Uint8ClampedArrayConstructor {
   new (
     buffer: ArrayBufferLike,
     byteOffset?: number,
-    length?: number
+    length?: number,
   ): Uint8ClampedArray;
 
   /**
@@ -3856,7 +3857,7 @@ interface Uint8ClampedArrayConstructor {
   from<T, This = undefined>(
     arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Uint8ClampedArray;
 }
 //     /**
@@ -3922,9 +3923,9 @@ interface Int16Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -3948,9 +3949,9 @@ interface Int16Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): Int16Array;
   /**
    * Returns the value of the first element in the array where predicate is true, and undefined
@@ -3963,7 +3964,7 @@ interface Int16Array {
    */
   find<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number | undefined;
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
@@ -3976,7 +3977,7 @@ interface Int16Array {
    */
   findIndex<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number;
   /**
    * Performs the specified action for each element in an array.
@@ -3987,7 +3988,7 @@ interface Int16Array {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: number, index: number, array: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
   /**
    * Returns the index of the first occurrence of a value in an array.
@@ -4029,9 +4030,9 @@ interface Int16Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Int16Array;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -4045,8 +4046,8 @@ interface Int16Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -4063,9 +4064,9 @@ interface Int16Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -4079,8 +4080,8 @@ interface Int16Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -4097,9 +4098,9 @@ interface Int16Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
 
   /**
@@ -4133,9 +4134,9 @@ interface Int16Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -4289,7 +4290,7 @@ interface Int16ArrayConstructor {
   new (
     buffer: ArrayBufferLike,
     byteOffset?: number,
-    length?: number
+    length?: number,
   ): Int16Array;
 
   /**
@@ -4316,7 +4317,7 @@ interface Int16ArrayConstructor {
   from<T, This = undefined>(
     arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Int16Array;
 }
 //     /**
@@ -4382,9 +4383,9 @@ interface Uint16Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -4408,9 +4409,9 @@ interface Uint16Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): Uint16Array;
   /**
    * Returns the value of the first element in the array where predicate is true, and undefined
@@ -4423,7 +4424,7 @@ interface Uint16Array {
    */
   find<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number | undefined;
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
@@ -4436,7 +4437,7 @@ interface Uint16Array {
    */
   findIndex<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number;
   /**
    * Performs the specified action for each element in an array.
@@ -4447,7 +4448,7 @@ interface Uint16Array {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: number, index: number, array: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
 
   /**
@@ -4490,9 +4491,9 @@ interface Uint16Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Uint16Array;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -4506,8 +4507,8 @@ interface Uint16Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -4524,9 +4525,9 @@ interface Uint16Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -4540,8 +4541,8 @@ interface Uint16Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -4558,9 +4559,9 @@ interface Uint16Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
 
   /**
@@ -4594,9 +4595,9 @@ interface Uint16Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -4750,7 +4751,7 @@ interface Uint16ArrayConstructor {
   new (
     buffer: ArrayBufferLike,
     byteOffset?: number,
-    length?: number
+    length?: number,
   ): Uint16Array;
 
   /**
@@ -4777,7 +4778,7 @@ interface Uint16ArrayConstructor {
   from<T, This = undefined>(
     arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Uint16Array;
 }
 //     /**
@@ -4842,9 +4843,9 @@ interface Int32Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -4868,9 +4869,9 @@ interface Int32Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): Int32Array;
   /**
    * Returns the value of the first element in the array where predicate is true, and undefined
@@ -4883,7 +4884,7 @@ interface Int32Array {
    */
   find<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number | undefined;
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
@@ -4896,7 +4897,7 @@ interface Int32Array {
    */
   findIndex<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number;
   /**
    * Performs the specified action for each element in an array.
@@ -4907,7 +4908,7 @@ interface Int32Array {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: number, index: number, array: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
 
   /**
@@ -4950,9 +4951,9 @@ interface Int32Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Int32Array;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -4966,8 +4967,8 @@ interface Int32Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -4984,9 +4985,9 @@ interface Int32Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -5000,8 +5001,8 @@ interface Int32Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -5018,9 +5019,9 @@ interface Int32Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
 
   /**
@@ -5054,9 +5055,9 @@ interface Int32Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -5210,7 +5211,7 @@ interface Int32ArrayConstructor {
   new (
     buffer: ArrayBufferLike,
     byteOffset?: number,
-    length?: number
+    length?: number,
   ): Int32Array;
 
   /**
@@ -5237,7 +5238,7 @@ interface Int32ArrayConstructor {
   from<T, This = undefined>(
     arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Int32Array;
 }
 //     /**
@@ -5303,9 +5304,9 @@ interface Uint32Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -5329,9 +5330,9 @@ interface Uint32Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): Uint32Array;
   /**
    * Returns the value of the first element in the array where predicate is true, and undefined
@@ -5344,7 +5345,7 @@ interface Uint32Array {
    */
   find<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number | undefined;
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
@@ -5357,7 +5358,7 @@ interface Uint32Array {
    */
   findIndex<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number;
   /**
    * Performs the specified action for each element in an array.
@@ -5368,7 +5369,7 @@ interface Uint32Array {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: number, index: number, array: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
   /**
    * Returns the index of the first occurrence of a value in an array.
@@ -5410,9 +5411,9 @@ interface Uint32Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Uint32Array;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -5426,8 +5427,8 @@ interface Uint32Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -5444,9 +5445,9 @@ interface Uint32Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -5460,8 +5461,8 @@ interface Uint32Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -5478,9 +5479,9 @@ interface Uint32Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
 
   /**
@@ -5514,9 +5515,9 @@ interface Uint32Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -5670,7 +5671,7 @@ interface Uint32ArrayConstructor {
   new (
     buffer: ArrayBufferLike,
     byteOffset?: number,
-    length?: number
+    length?: number,
   ): Uint32Array;
 
   /**
@@ -5697,7 +5698,7 @@ interface Uint32ArrayConstructor {
   from<T, This = undefined>(
     arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Uint32Array;
 }
 //     /**
@@ -5763,9 +5764,9 @@ interface Float32Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -5789,9 +5790,9 @@ interface Float32Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): Float32Array;
   /**
    * Returns the value of the first element in the array where predicate is true, and undefined
@@ -5804,7 +5805,7 @@ interface Float32Array {
    */
   find<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number | undefined;
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
@@ -5817,7 +5818,7 @@ interface Float32Array {
    */
   findIndex<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number;
   /**
    * Performs the specified action for each element in an array.
@@ -5828,7 +5829,7 @@ interface Float32Array {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: number, index: number, array: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
 
   /**
@@ -5871,9 +5872,9 @@ interface Float32Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Float32Array;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -5887,8 +5888,8 @@ interface Float32Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -5905,9 +5906,9 @@ interface Float32Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -5921,8 +5922,8 @@ interface Float32Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -5939,9 +5940,9 @@ interface Float32Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
 
   /**
@@ -5975,9 +5976,9 @@ interface Float32Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -6131,7 +6132,7 @@ interface Float32ArrayConstructor {
   new (
     buffer: ArrayBufferLike,
     byteOffset?: number,
-    length?: number
+    length?: number,
   ): Float32Array;
 
   /**
@@ -6158,7 +6159,7 @@ interface Float32ArrayConstructor {
   from<T, This = undefined>(
     arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Float32Array;
 }
 //     /**
@@ -6224,9 +6225,9 @@ interface Float64Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -6250,9 +6251,9 @@ interface Float64Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): Float64Array;
   /**
    * Returns the value of the first element in the array where predicate is true, and undefined
@@ -6265,7 +6266,7 @@ interface Float64Array {
    */
   find<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number | undefined;
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
@@ -6278,7 +6279,7 @@ interface Float64Array {
    */
   findIndex<This = undefined>(
     predicate: (this: This, value: number, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number;
   /**
    * Performs the specified action for each element in an array.
@@ -6289,7 +6290,7 @@ interface Float64Array {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: number, index: number, array: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
 
   /**
@@ -6332,9 +6333,9 @@ interface Float64Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Float64Array;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -6348,8 +6349,8 @@ interface Float64Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -6366,9 +6367,9 @@ interface Float64Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -6382,8 +6383,8 @@ interface Float64Array {
       previousValue: number | U,
       currentValue: number,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): number | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -6400,9 +6401,9 @@ interface Float64Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
 
   /**
@@ -6436,9 +6437,9 @@ interface Float64Array {
       this: This,
       value: number,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 
   /**
@@ -6592,7 +6593,7 @@ interface Float64ArrayConstructor {
   new (
     buffer: ArrayBufferLike,
     byteOffset?: number,
-    length?: number
+    length?: number,
   ): Float64Array;
 
   /**
@@ -6619,7 +6620,7 @@ interface Float64ArrayConstructor {
   from<T, This = undefined>(
     arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Float64Array;
 }
 //     /**
@@ -6689,7 +6690,7 @@ declare namespace Intl {
     (locales?: string | string[], options?: CollatorOptions): Collator;
     supportedLocalesOf(
       locales: string | string[],
-      options?: CollatorOptions
+      options?: CollatorOptions,
     ): string[];
   };
 
@@ -6726,12 +6727,12 @@ declare namespace Intl {
   var NumberFormat: {
     new (
       locales?: string | string[],
-      options?: NumberFormatOptions
+      options?: NumberFormatOptions,
     ): NumberFormat;
     (locales?: string | string[], options?: NumberFormatOptions): NumberFormat;
     supportedLocalesOf(
       locales: string | string[],
-      options?: NumberFormatOptions
+      options?: NumberFormatOptions,
     ): string[];
     readonly prototype: NumberFormat;
   };
@@ -6783,15 +6784,15 @@ declare namespace Intl {
   var DateTimeFormat: {
     new (
       locales?: string | string[],
-      options?: DateTimeFormatOptions
+      options?: DateTimeFormatOptions,
     ): DateTimeFormat;
     (
       locales?: string | string[],
-      options?: DateTimeFormatOptions
+      options?: DateTimeFormatOptions,
     ): DateTimeFormat;
     supportedLocalesOf(
       locales: string | string[],
-      options?: DateTimeFormatOptions
+      options?: DateTimeFormatOptions,
     ): string[];
     readonly prototype: DateTimeFormat;
   };
@@ -6807,7 +6808,7 @@ interface String {
   localeCompare(
     that: string,
     locales?: string | string[],
-    options?: Intl.CollatorOptions
+    options?: Intl.CollatorOptions,
   ): number;
 }
 
@@ -6819,7 +6820,7 @@ interface Number {
    */
   toLocaleString(
     locales?: string | string[],
-    options?: Intl.NumberFormatOptions
+    options?: Intl.NumberFormatOptions,
   ): string;
 }
 
@@ -6831,7 +6832,7 @@ interface Date {
    */
   toLocaleString(
     locales?: string | string[],
-    options?: Intl.DateTimeFormatOptions
+    options?: Intl.DateTimeFormatOptions,
   ): string;
   /**
    * Converts a date to a string by using the current or specified locale.
@@ -6840,7 +6841,7 @@ interface Date {
    */
   toLocaleDateString(
     locales?: string | string[],
-    options?: Intl.DateTimeFormatOptions
+    options?: Intl.DateTimeFormatOptions,
   ): string;
 
   /**
@@ -6850,7 +6851,7 @@ interface Date {
    */
   toLocaleTimeString(
     locales?: string | string[],
-    options?: Intl.DateTimeFormatOptions
+    options?: Intl.DateTimeFormatOptions,
   ): string;
 }
 // --------------------

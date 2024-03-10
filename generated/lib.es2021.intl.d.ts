@@ -19,11 +19,11 @@ declare namespace Intl {
   interface DateTimeFormat {
     formatRange(
       startDate: Date | number | bigint,
-      endDate: Date | number | bigint
+      endDate: Date | number | bigint,
     ): string;
     formatRangeToParts(
       startDate: Date | number | bigint,
-      endDate: Date | number | bigint
+      endDate: Date | number | bigint,
     ): DateTimeRangeFormatPart[];
   }
 
@@ -103,7 +103,7 @@ declare namespace Intl {
      * [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/ListFormat/formatToParts).
      */
     formatToParts(
-      list: Iterable<string>
+      list: Iterable<string>,
     ): { type: "element" | "literal"; value: string }[];
 
     /**
@@ -136,7 +136,7 @@ declare namespace Intl {
      */
     new (
       locales?: BCP47LanguageTag | BCP47LanguageTag[],
-      options?: ListFormatOptions
+      options?: ListFormatOptions,
     ): ListFormat;
 
     /**
@@ -157,7 +157,7 @@ declare namespace Intl {
      */
     supportedLocalesOf(
       locales: BCP47LanguageTag | BCP47LanguageTag[],
-      options?: Pick<ListFormatOptions, "localeMatcher">
+      options?: Pick<ListFormatOptions, "localeMatcher">,
     ): BCP47LanguageTag[];
   };
 }

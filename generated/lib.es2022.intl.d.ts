@@ -74,7 +74,7 @@ declare namespace Intl {
      */
     new (
       locales?: BCP47LanguageTag | BCP47LanguageTag[],
-      options?: SegmenterOptions
+      options?: SegmenterOptions,
     ): Segmenter;
 
     /**
@@ -91,7 +91,7 @@ declare namespace Intl {
      */
     supportedLocalesOf(
       locales: BCP47LanguageTag | BCP47LanguageTag[],
-      options?: Pick<SegmenterOptions, "localeMatcher">
+      options?: Pick<SegmenterOptions, "localeMatcher">,
     ): BCP47LanguageTag[];
   };
 
@@ -109,6 +109,6 @@ declare namespace Intl {
       | "currency"
       | "numberingSystem"
       | "timeZone"
-      | "unit"
+      | "unit",
   ): string[];
 }

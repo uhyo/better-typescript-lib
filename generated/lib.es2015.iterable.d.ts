@@ -82,7 +82,7 @@ interface ArrayConstructor {
   from<T, U, This = undefined>(
     iterable: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => U,
-    thisArg?: This
+    thisArg?: This,
   ): U[];
 }
 //     /**
@@ -174,10 +174,9 @@ interface MapConstructor {
 interface WeakMap<K extends WeakKey, V> {}
 
 interface WeakMapConstructor {
-  new <K extends WeakKey, V>(iterable: Iterable<readonly [K, V]>): WeakMap<
-    K,
-    V
-  >;
+  new <K extends WeakKey, V>(
+    iterable: Iterable<readonly [K, V]>,
+  ): WeakMap<K, V>;
 }
 
 interface Set<T> {
@@ -299,7 +298,7 @@ interface Int8ArrayConstructor {
   from<T, This = undefined>(
     iterable: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Int8Array;
 }
 //     /**
@@ -342,7 +341,7 @@ interface Uint8ArrayConstructor {
   from<T, This = undefined>(
     iterable: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Uint8Array;
 }
 //     /**
@@ -387,7 +386,7 @@ interface Uint8ClampedArrayConstructor {
   from<T, This = undefined>(
     iterable: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Uint8ClampedArray;
 }
 //     /**
@@ -432,7 +431,7 @@ interface Int16ArrayConstructor {
   from<T, This = undefined>(
     iterable: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Int16Array;
 }
 //     /**
@@ -475,7 +474,7 @@ interface Uint16ArrayConstructor {
   from<T, This = undefined>(
     iterable: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Uint16Array;
 }
 //     /**
@@ -518,7 +517,7 @@ interface Int32ArrayConstructor {
   from<T, This = undefined>(
     iterable: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Int32Array;
 }
 //     /**
@@ -561,7 +560,7 @@ interface Uint32ArrayConstructor {
   from<T, This = undefined>(
     iterable: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Uint32Array;
 }
 //     /**
@@ -604,7 +603,7 @@ interface Float32ArrayConstructor {
   from<T, This = undefined>(
     iterable: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Float32Array;
 }
 //     /**
@@ -647,7 +646,7 @@ interface Float64ArrayConstructor {
   from<T, This = undefined>(
     iterable: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): Float64Array;
 }
 //     /**

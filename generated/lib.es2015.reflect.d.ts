@@ -10,7 +10,7 @@ declare namespace Reflect {
   function apply<T, A extends readonly any[], R>(
     target: (this: T, ...args: A) => R,
     thisArgument: T,
-    argumentsList: Readonly<A>
+    argumentsList: Readonly<A>,
   ): R;
   /**
    * Constructs the target with the elements of specified array as the arguments
@@ -22,7 +22,7 @@ declare namespace Reflect {
   function construct<A extends readonly any[], R>(
     target: new (...args: A) => R,
     argumentsList: Readonly<A>,
-    newTarget?: new (...args: any) => any
+    newTarget?: new (...args: any) => any,
   ): R;
   /**
    * Adds a property to an object, or modifies attributes of an existing property.
@@ -34,7 +34,7 @@ declare namespace Reflect {
   function defineProperty(
     target: object,
     propertyKey: PropertyKey,
-    attributes: PropertyDescriptor & ThisType<any>
+    attributes: PropertyDescriptor & ThisType<any>,
   ): boolean;
   /**
    * Removes a property from an object, equivalent to `delete target[propertyKey]`,
@@ -53,7 +53,7 @@ declare namespace Reflect {
   function get<T, P extends PropertyKey>(
     target: T,
     propertyKey: P,
-    receiver?: unknown
+    receiver?: unknown,
   ): P extends keyof T ? T[P] : unknown;
   /**
    * Gets the own property descriptor of the specified object.
@@ -63,7 +63,7 @@ declare namespace Reflect {
    */
   function getOwnPropertyDescriptor<T extends object, P extends PropertyKey>(
     target: T,
-    propertyKey: P
+    propertyKey: P,
   ): TypedPropertyDescriptor<P extends keyof T ? T[P] : any> | undefined;
   /**
    * Returns the prototype of an object.
@@ -104,13 +104,13 @@ declare namespace Reflect {
     target: T,
     propertyKey: P,
     value: P extends keyof T ? T[P] : any,
-    receiver?: any
+    receiver?: any,
   ): boolean;
   function set(
     target: object,
     propertyKey: PropertyKey,
     value: any,
-    receiver?: any
+    receiver?: any,
   ): boolean;
   /**
    * Sets the prototype of a specified object o to object proto or null.

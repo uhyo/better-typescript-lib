@@ -11,7 +11,7 @@ interface Array<T> {
    */
   find<S extends T, This = undefined>(
     predicate: (this: This, value: T, index: number, obj: this) => value is S,
-    thisArg?: This
+    thisArg?: This,
   ): S | undefined;
 
   /**
@@ -25,7 +25,7 @@ interface Array<T> {
    */
   find<This = undefined>(
     predicate: (this: This, value: T, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): T | undefined;
 
   /**
@@ -39,7 +39,7 @@ interface Array<T> {
    */
   findIndex<This = undefined>(
     predicate: (this: This, value: T, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number;
 
   /**
@@ -101,7 +101,7 @@ interface ArrayConstructor {
   from<T, U, This = undefined>(
     source: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => U,
-    thisArg?: This
+    thisArg?: This,
   ): U[];
 
   /**
@@ -419,7 +419,7 @@ interface ReadonlyArray<T> {
    */
   find<S extends T, This = undefined>(
     predicate: (this: This, value: T, index: number, obj: this) => value is S,
-    thisArg?: This
+    thisArg?: This,
   ): S | undefined;
 
   /**
@@ -433,7 +433,7 @@ interface ReadonlyArray<T> {
    */
   find<This = undefined>(
     predicate: (this: This, value: T, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): T | undefined;
 
   /**
@@ -447,7 +447,7 @@ interface ReadonlyArray<T> {
    */
   findIndex<This = undefined>(
     predicate: (this: This, value: T, index: number, obj: this) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number;
 }
 //     /**

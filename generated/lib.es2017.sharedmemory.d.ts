@@ -41,7 +41,7 @@ interface Atomics {
       | Int32Array
       | Uint32Array,
     index: number,
-    value: number
+    value: number,
   ): number;
 
   /**
@@ -58,7 +58,7 @@ interface Atomics {
       | Int32Array
       | Uint32Array,
     index: number,
-    value: number
+    value: number,
   ): number;
 
   /**
@@ -76,7 +76,7 @@ interface Atomics {
       | Uint32Array,
     index: number,
     expectedValue: number,
-    replacementValue: number
+    replacementValue: number,
   ): number;
 
   /**
@@ -93,7 +93,7 @@ interface Atomics {
       | Int32Array
       | Uint32Array,
     index: number,
-    value: number
+    value: number,
   ): number;
 
   /**
@@ -115,7 +115,7 @@ interface Atomics {
       | Uint16Array
       | Int32Array
       | Uint32Array,
-    index: number
+    index: number,
   ): number;
 
   /**
@@ -132,7 +132,7 @@ interface Atomics {
       | Int32Array
       | Uint32Array,
     index: number,
-    value: number
+    value: number,
   ): number;
 
   /**
@@ -148,7 +148,7 @@ interface Atomics {
       | Int32Array
       | Uint32Array,
     index: number,
-    value: number
+    value: number,
   ): number;
 
   /**
@@ -165,7 +165,7 @@ interface Atomics {
       | Int32Array
       | Uint32Array,
     index: number,
-    value: number
+    value: number,
   ): number;
 
   /**
@@ -178,7 +178,7 @@ interface Atomics {
     typedArray: Int32Array,
     index: number,
     value: number,
-    timeout?: number
+    timeout?: number,
   ): "ok" | "not-equal" | "timed-out";
 
   /**
@@ -204,7 +204,7 @@ interface Atomics {
       | Int32Array
       | Uint32Array,
     index: number,
-    value: number
+    value: number,
   ): number;
 
   readonly [Symbol.toStringTag]: "Atomics";

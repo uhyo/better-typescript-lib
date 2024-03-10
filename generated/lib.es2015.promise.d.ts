@@ -15,8 +15,8 @@ interface PromiseConstructor {
       resolve: undefined extends T
         ? (value?: T | PromiseLike<T>) => void
         : (value: T | PromiseLike<T>) => void,
-      reject: (reason?: any) => void
-    ) => void
+      reject: (reason?: any) => void,
+    ) => void,
   ): Promise<T>;
 
   /**
@@ -26,7 +26,7 @@ interface PromiseConstructor {
    * @returns A new Promise.
    */
   all<T extends readonly unknown[] | []>(
-    values: T
+    values: T,
   ): Promise<{ -readonly [P in keyof T]: Awaited<T[P]> }>;
 
   // see: lib.es2015.iterable.d.ts
@@ -39,7 +39,7 @@ interface PromiseConstructor {
    * @returns A new Promise.
    */
   race<T extends readonly unknown[] | []>(
-    values: T
+    values: T,
   ): Promise<Awaited<T[number]>>;
 
   // see: lib.es2015.iterable.d.ts

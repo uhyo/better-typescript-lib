@@ -12,15 +12,15 @@ Index: dom.generated.d.ts
  interface AudioParamMap {
 -  forEach(
 -    callbackfn: (value: AudioParam, key: string, parent: AudioParamMap) => void,
--    thisArg?: any
+-    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (
 +      this: This,
 +      value: AudioParam,
 +      key: string,
-+      parent: this
++      parent: this,
 +    ) => void,
-+    thisArg?: This
++    thisArg?: This,
    ): void;
  }
  
@@ -43,10 +43,10 @@ Index: dom.generated.d.ts
  interface EventCounts {
 -  forEach(
 -    callbackfn: (value: number, key: string, parent: EventCounts) => void,
--    thisArg?: any
+-    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (this: This, value: number, key: string, parent: this) => void,
-+    thisArg?: This
++    thisArg?: This,
    ): void;
  }
  
@@ -58,15 +58,15 @@ Index: dom.generated.d.ts
    load(font: string, text?: string): Promise<FontFace[]>;
 -  forEach(
 -    callbackfn: (value: FontFace, key: FontFace, parent: FontFaceSet) => void,
--    thisArg?: any
+-    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (
 +      this: This,
 +      value: FontFace,
 +      key: FontFace,
-+      parent: this
++      parent: this,
 +    ) => void,
-+    thisArg?: This
++    thisArg?: This,
    ): void;
    addEventListener<K extends keyof FontFaceSetEventMap>(
      type: K,
@@ -78,15 +78,15 @@ Index: dom.generated.d.ts
  interface MIDIInputMap {
 -  forEach(
 -    callbackfn: (value: MIDIInput, key: string, parent: MIDIInputMap) => void,
--    thisArg?: any
+-    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (
 +      this: This,
 +      value: MIDIInput,
 +      key: string,
-+      parent: this
++      parent: this,
 +    ) => void,
-+    thisArg?: This
++    thisArg?: This,
    ): void;
  }
  
@@ -98,15 +98,15 @@ Index: dom.generated.d.ts
  interface MIDIOutputMap {
 -  forEach(
 -    callbackfn: (value: MIDIOutput, key: string, parent: MIDIOutputMap) => void,
--    thisArg?: any
+-    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (
 +      this: This,
 +      value: MIDIOutput,
 +      key: string,
-+      parent: this
++      parent: this,
 +    ) => void,
-+    thisArg?: This
++    thisArg?: This,
    ): void;
  }
  
@@ -118,10 +118,10 @@ Index: dom.generated.d.ts
  interface RTCStatsReport {
 -  forEach(
 -    callbackfn: (value: any, key: string, parent: RTCStatsReport) => void,
--    thisArg?: any
+-    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (this: This, value: unknown, key: string, parent: this) => void,
-+    thisArg?: This
++    thisArg?: This,
    ): void;
  }
  

@@ -713,7 +713,7 @@ interface UnderlyingByteSource {
 interface UnderlyingDefaultSource<R = any> {
   cancel?: UnderlyingSourceCancelCallback;
   pull?: (
-    controller: ReadableStreamDefaultController<R>
+    controller: ReadableStreamDefaultController<R>,
   ) => void | PromiseLike<void>;
   start?: (controller: ReadableStreamDefaultController<R>) => any;
   type?: undefined;
@@ -899,7 +899,7 @@ interface ANGLE_instanced_arrays {
     mode: GLenum,
     first: GLint,
     count: GLsizei,
-    primcount: GLsizei
+    primcount: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ANGLE_instanced_arrays/drawElementsInstancedANGLE) */
   drawElementsInstancedANGLE(
@@ -907,7 +907,7 @@ interface ANGLE_instanced_arrays {
     count: GLsizei,
     type: GLenum,
     offset: GLintptr,
-    primcount: GLsizei
+    primcount: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ANGLE_instanced_arrays/vertexAttribDivisorANGLE) */
   vertexAttribDivisorANGLE(index: GLuint, divisor: GLuint): void;
@@ -964,22 +964,22 @@ interface AbortSignal extends EventTarget {
   addEventListener<K extends keyof AbortSignalEventMap>(
     type: K,
     listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof AbortSignalEventMap>(
     type: K,
     listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -1002,22 +1002,22 @@ interface AbstractWorker {
   addEventListener<K extends keyof AbstractWorkerEventMap>(
     type: K,
     listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof AbstractWorkerEventMap>(
     type: K,
     listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -1100,22 +1100,22 @@ interface BroadcastChannel extends EventTarget {
   addEventListener<K extends keyof BroadcastChannelEventMap>(
     type: K,
     listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof BroadcastChannelEventMap>(
     type: K,
     listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -1171,7 +1171,7 @@ declare var CSSMathClamp: {
   new (
     lower: CSSNumberish,
     value: CSSNumberish,
-    upper: CSSNumberish
+    upper: CSSNumberish,
   ): CSSMathClamp;
 };
 
@@ -1262,7 +1262,7 @@ declare var CSSMatrixComponent: {
   prototype: CSSMatrixComponent;
   new (
     matrix: DOMMatrixReadOnly,
-    options?: CSSMatrixComponentOptions
+    options?: CSSMatrixComponentOptions,
   ): CSSMatrixComponent;
 };
 
@@ -1274,9 +1274,9 @@ interface CSSNumericArray {
     callbackfn: (
       value: CSSNumericValue,
       key: number,
-      parent: CSSNumericArray
+      parent: CSSNumericArray,
     ) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
   [index: number]: CSSNumericValue;
 }
@@ -1345,7 +1345,7 @@ declare var CSSRotate: {
     x: CSSNumberish,
     y: CSSNumberish,
     z: CSSNumberish,
-    angle: CSSNumericValue
+    angle: CSSNumericValue,
   ): CSSRotate;
 };
 
@@ -1435,9 +1435,9 @@ interface CSSTransformValue extends CSSStyleValue {
     callbackfn: (
       value: CSSTransformComponent,
       key: number,
-      parent: CSSTransformValue
+      parent: CSSTransformValue,
     ) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
   [index: number]: CSSTransformComponent;
 }
@@ -1462,7 +1462,7 @@ declare var CSSTranslate: {
   new (
     x: CSSNumericValue,
     y: CSSNumericValue,
-    z?: CSSNumericValue
+    z?: CSSNumericValue,
   ): CSSTranslate;
 };
 
@@ -1487,9 +1487,9 @@ interface CSSUnparsedValue extends CSSStyleValue {
     callbackfn: (
       value: CSSUnparsedSegment,
       key: number,
-      parent: CSSUnparsedValue
+      parent: CSSUnparsedValue,
     ) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
   [index: number]: CSSUnparsedSegment;
 }
@@ -1511,7 +1511,7 @@ declare var CSSVariableReferenceValue: {
   prototype: CSSVariableReferenceValue;
   new (
     variable: string,
-    fallback?: CSSUnparsedValue | null
+    fallback?: CSSUnparsedValue | null,
   ): CSSVariableReferenceValue;
 };
 
@@ -1529,22 +1529,22 @@ interface Cache {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Cache/delete) */
   delete(
     request: RequestInfo | URL,
-    options?: CacheQueryOptions
+    options?: CacheQueryOptions,
   ): Promise<boolean>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Cache/keys) */
   keys(
     request?: RequestInfo | URL,
-    options?: CacheQueryOptions
+    options?: CacheQueryOptions,
   ): Promise<ReadonlyArray<Request>>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Cache/match) */
   match(
     request: RequestInfo | URL,
-    options?: CacheQueryOptions
+    options?: CacheQueryOptions,
   ): Promise<Response | undefined>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Cache/matchAll) */
   matchAll(
     request?: RequestInfo | URL,
-    options?: CacheQueryOptions
+    options?: CacheQueryOptions,
   ): Promise<ReadonlyArray<Response>>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Cache/put) */
   put(request: RequestInfo | URL, response: Response): Promise<void>;
@@ -1571,7 +1571,7 @@ interface CacheStorage {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CacheStorage/match) */
   match(
     request: RequestInfo | URL,
-    options?: MultiCacheQueryOptions
+    options?: MultiCacheQueryOptions,
   ): Promise<Response | undefined>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CacheStorage/open) */
   open(cacheName: string): Promise<Cache>;
@@ -1597,7 +1597,7 @@ interface CanvasDrawImage {
     dx: number,
     dy: number,
     dw: number,
-    dh: number
+    dh: number,
   ): void;
   drawImage(
     image: CanvasImageSource,
@@ -1608,7 +1608,7 @@ interface CanvasDrawImage {
     dx: number,
     dy: number,
     dw: number,
-    dh: number
+    dh: number,
   ): void;
 }
 
@@ -1627,7 +1627,7 @@ interface CanvasDrawPath {
     path: Path2D,
     x: number,
     y: number,
-    fillRule?: CanvasFillRule
+    fillRule?: CanvasFillRule,
   ): boolean;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/isPointInStroke) */
   isPointInStroke(x: number, y: number): boolean;
@@ -1649,12 +1649,12 @@ interface CanvasFillStrokeStyles {
     x0: number,
     y0: number,
     x1: number,
-    y1: number
+    y1: number,
   ): CanvasGradient;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/createPattern) */
   createPattern(
     image: CanvasImageSource,
-    repetition: string | null
+    repetition: string | null,
   ): CanvasPattern | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/createRadialGradient) */
   createRadialGradient(
@@ -1663,7 +1663,7 @@ interface CanvasFillStrokeStyles {
     r0: number,
     x1: number,
     y1: number,
-    r1: number
+    r1: number,
   ): CanvasGradient;
 }
 
@@ -1698,7 +1698,7 @@ interface CanvasImageData {
   createImageData(
     sw: number,
     sh: number,
-    settings?: ImageDataSettings
+    settings?: ImageDataSettings,
   ): ImageData;
   createImageData(imagedata: ImageData): ImageData;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/getImageData) */
@@ -1707,7 +1707,7 @@ interface CanvasImageData {
     sy: number,
     sw: number,
     sh: number,
-    settings?: ImageDataSettings
+    settings?: ImageDataSettings,
   ): ImageData;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/putImageData) */
   putImageData(imagedata: ImageData, dx: number, dy: number): void;
@@ -1718,7 +1718,7 @@ interface CanvasImageData {
     dirtyX: number,
     dirtyY: number,
     dirtyWidth: number,
-    dirtyHeight: number
+    dirtyHeight: number,
   ): void;
 }
 
@@ -1737,7 +1737,7 @@ interface CanvasPath {
     radius: number,
     startAngle: number,
     endAngle: number,
-    counterclockwise?: boolean
+    counterclockwise?: boolean,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/arcTo) */
   arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
@@ -1748,7 +1748,7 @@ interface CanvasPath {
     cp2x: number,
     cp2y: number,
     x: number,
-    y: number
+    y: number,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/closePath) */
   closePath(): void;
@@ -1761,7 +1761,7 @@ interface CanvasPath {
     rotation: number,
     startAngle: number,
     endAngle: number,
-    counterclockwise?: boolean
+    counterclockwise?: boolean,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/lineTo) */
   lineTo(x: number, y: number): void;
@@ -1777,7 +1777,7 @@ interface CanvasPath {
     y: number,
     w: number,
     h: number,
-    radii?: number | DOMPointInit | (number | DOMPointInit)[]
+    radii?: number | DOMPointInit | (number | DOMPointInit)[],
   ): void;
 }
 
@@ -1884,7 +1884,7 @@ interface CanvasTransform {
     c: number,
     d: number,
     e: number,
-    f: number
+    f: number,
   ): void;
   setTransform(transform?: DOMMatrix2DInit): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/transform) */
@@ -1894,7 +1894,7 @@ interface CanvasTransform {
     c: number,
     d: number,
     e: number,
-    f: number
+    f: number,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/translate) */
   translate(x: number, y: number): void;
@@ -1936,7 +1936,7 @@ interface Clients {
   get(id: string): Promise<Client | undefined>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Clients/matchAll) */
   matchAll<T extends ClientQueryOptions>(
-    options?: T
+    options?: T,
   ): Promise<ReadonlyArray<T["type"] extends "window" ? WindowClient : Client>>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Clients/openWindow) */
   openWindow(url: string | URL): Promise<WindowClient | null>;
@@ -2069,7 +2069,7 @@ interface CustomEvent<T = any> extends Event {
     type: string,
     bubbles?: boolean,
     cancelable?: boolean,
-    detail?: T
+    detail?: T,
   ): void;
 }
 
@@ -2182,7 +2182,7 @@ interface DOMMatrix extends DOMMatrixReadOnly {
     x?: number,
     y?: number,
     z?: number,
-    angle?: number
+    angle?: number,
   ): DOMMatrix;
   rotateFromVectorSelf(x?: number, y?: number): DOMMatrix;
   rotateSelf(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
@@ -2191,7 +2191,7 @@ interface DOMMatrix extends DOMMatrixReadOnly {
     scale?: number,
     originX?: number,
     originY?: number,
-    originZ?: number
+    originZ?: number,
   ): DOMMatrix;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/scaleSelf) */
   scaleSelf(
@@ -2200,7 +2200,7 @@ interface DOMMatrix extends DOMMatrixReadOnly {
     scaleZ?: number,
     originX?: number,
     originY?: number,
-    originZ?: number
+    originZ?: number,
   ): DOMMatrix;
   skewXSelf(sx?: number): DOMMatrix;
   skewYSelf(sy?: number): DOMMatrix;
@@ -2280,7 +2280,7 @@ interface DOMMatrixReadOnly {
     x?: number,
     y?: number,
     z?: number,
-    angle?: number
+    angle?: number,
   ): DOMMatrix;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/rotateFromVector) */
   rotateFromVector(x?: number, y?: number): DOMMatrix;
@@ -2291,14 +2291,14 @@ interface DOMMatrixReadOnly {
     scaleZ?: number,
     originX?: number,
     originY?: number,
-    originZ?: number
+    originZ?: number,
   ): DOMMatrix;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/scale3d) */
   scale3d(
     scale?: number,
     originX?: number,
     originY?: number,
-    originZ?: number
+    originZ?: number,
   ): DOMMatrix;
   /**
    * @deprecated
@@ -2392,7 +2392,7 @@ declare var DOMQuad: {
     p1?: DOMPointInit,
     p2?: DOMPointInit,
     p3?: DOMPointInit,
-    p4?: DOMPointInit
+    p4?: DOMPointInit,
   ): DOMQuad;
   fromQuad(other?: DOMQuadInit): DOMQuad;
   fromRect(other?: DOMRectInit): DOMQuad;
@@ -2439,7 +2439,7 @@ declare var DOMRectReadOnly: {
     x?: number,
     y?: number,
     width?: number,
-    height?: number
+    height?: number,
   ): DOMRectReadOnly;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRectReadOnly/fromRect_static) */
   fromRect(other?: DOMRectInit): DOMRectReadOnly;
@@ -2529,27 +2529,27 @@ interface DedicatedWorkerGlobalScope
     type: K,
     listener: (
       this: DedicatedWorkerGlobalScope,
-      ev: DedicatedWorkerGlobalScopeEventMap[K]
+      ev: DedicatedWorkerGlobalScopeEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof DedicatedWorkerGlobalScopeEventMap>(
     type: K,
     listener: (
       this: DedicatedWorkerGlobalScope,
-      ev: DedicatedWorkerGlobalScopeEventMap[K]
+      ev: DedicatedWorkerGlobalScopeEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -2857,32 +2857,32 @@ interface EventSource extends EventTarget {
   addEventListener<K extends keyof EventSourceEventMap>(
     type: K,
     listener: (this: EventSource, ev: EventSourceEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: (this: EventSource, event: MessageEvent) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof EventSourceEventMap>(
     type: K,
     listener: (this: EventSource, ev: EventSourceEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: (this: EventSource, event: MessageEvent) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -2920,7 +2920,7 @@ interface EventTarget {
   addEventListener(
     type: string,
     callback: EventListenerOrEventListenerObject | null,
-    options?: AddEventListenerOptions | boolean
+    options?: AddEventListenerOptions | boolean,
   ): void;
   /**
    * Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
@@ -2936,7 +2936,7 @@ interface EventTarget {
   removeEventListener(
     type: string,
     callback: EventListenerOrEventListenerObject | null,
-    options?: EventListenerOptions | boolean
+    options?: EventListenerOptions | boolean,
   ): void;
 }
 
@@ -2982,7 +2982,7 @@ declare var ExtendableMessageEvent: {
   prototype: ExtendableMessageEvent;
   new (
     type: string,
-    eventInitDict?: ExtendableMessageEventInit
+    eventInitDict?: ExtendableMessageEventInit,
   ): ExtendableMessageEvent;
 };
 
@@ -3102,22 +3102,22 @@ interface FileReader extends EventTarget {
   addEventListener<K extends keyof FileReaderEventMap>(
     type: K,
     listener: (this: FileReader, ev: FileReaderEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof FileReaderEventMap>(
     type: K,
     listener: (this: FileReader, ev: FileReaderEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -3164,12 +3164,12 @@ interface FileSystemDirectoryHandle extends FileSystemHandle {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemDirectoryHandle/getDirectoryHandle) */
   getDirectoryHandle(
     name: string,
-    options?: FileSystemGetDirectoryOptions
+    options?: FileSystemGetDirectoryOptions,
   ): Promise<FileSystemDirectoryHandle>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemDirectoryHandle/getFileHandle) */
   getFileHandle(
     name: string,
-    options?: FileSystemGetFileOptions
+    options?: FileSystemGetFileOptions,
   ): Promise<FileSystemFileHandle>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemDirectoryHandle/removeEntry) */
   removeEntry(name: string, options?: FileSystemRemoveOptions): Promise<void>;
@@ -3193,7 +3193,7 @@ interface FileSystemFileHandle extends FileSystemHandle {
   createSyncAccessHandle(): Promise<FileSystemSyncAccessHandle>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemFileHandle/createWritable) */
   createWritable(
-    options?: FileSystemCreateWritableOptions
+    options?: FileSystemCreateWritableOptions,
   ): Promise<FileSystemWritableFileStream>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemFileHandle/getFile) */
   getFile(): Promise<File>;
@@ -3238,14 +3238,14 @@ interface FileSystemSyncAccessHandle {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemSyncAccessHandle/read) */
   read(
     buffer: AllowSharedBufferSource,
-    options?: FileSystemReadWriteOptions
+    options?: FileSystemReadWriteOptions,
   ): number;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemSyncAccessHandle/truncate) */
   truncate(newSize: number): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemSyncAccessHandle/write) */
   write(
     buffer: AllowSharedBufferSource,
-    options?: FileSystemReadWriteOptions
+    options?: FileSystemReadWriteOptions,
   ): number;
 }
 
@@ -3310,7 +3310,7 @@ declare var FontFace: {
   new (
     family: string,
     source: string | BinaryData,
-    descriptors?: FontFaceDescriptors
+    descriptors?: FontFaceDescriptors,
   ): FontFace;
 };
 
@@ -3338,27 +3338,27 @@ interface FontFaceSet extends EventTarget {
   load(font: string, text?: string): Promise<FontFace[]>;
   forEach(
     callbackfn: (value: FontFace, key: FontFace, parent: FontFaceSet) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
   addEventListener<K extends keyof FontFaceSetEventMap>(
     type: K,
     listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof FontFaceSetEventMap>(
     type: K,
     listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -3377,7 +3377,7 @@ declare var FontFaceSetLoadEvent: {
   prototype: FontFaceSetLoadEvent;
   new (
     type: string,
-    eventInitDict?: FontFaceSetLoadEventInit
+    eventInitDict?: FontFaceSetLoadEventInit,
   ): FontFaceSetLoadEvent;
 };
 
@@ -3412,9 +3412,9 @@ interface FormData {
     callbackfn: (
       value: FormDataEntryValue,
       key: string,
-      parent: FormData
+      parent: FormData,
     ) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
 }
 
@@ -3450,7 +3450,7 @@ interface Headers {
   set(name: string, value: string): void;
   forEach(
     callbackfn: (value: string, key: string, parent: Headers) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
 }
 
@@ -3607,7 +3607,7 @@ interface IDBDatabase extends EventTarget {
    */
   createObjectStore(
     name: string,
-    options?: IDBObjectStoreParameters
+    options?: IDBObjectStoreParameters,
   ): IDBObjectStore;
   /**
    * Deletes the object store with the given name.
@@ -3625,27 +3625,27 @@ interface IDBDatabase extends EventTarget {
   transaction(
     storeNames: string | string[],
     mode?: IDBTransactionMode,
-    options?: IDBTransactionOptions
+    options?: IDBTransactionOptions,
   ): IDBTransaction;
   addEventListener<K extends keyof IDBDatabaseEventMap>(
     type: K,
     listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof IDBDatabaseEventMap>(
     type: K,
     listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -3738,7 +3738,7 @@ interface IDBIndex {
    */
   getAll(
     query?: IDBValidKey | IDBKeyRange | null,
-    count?: number
+    count?: number,
   ): IDBRequest<any[]>;
   /**
    * Retrieves the keys of records matching the given key or key range in query (up to count if given).
@@ -3749,7 +3749,7 @@ interface IDBIndex {
    */
   getAllKeys(
     query?: IDBValidKey | IDBKeyRange | null,
-    count?: number
+    count?: number,
   ): IDBRequest<IDBValidKey[]>;
   /**
    * Retrieves the key of the first record matching the given key or key range in query.
@@ -3768,7 +3768,7 @@ interface IDBIndex {
    */
   openCursor(
     query?: IDBValidKey | IDBKeyRange | null,
-    direction?: IDBCursorDirection
+    direction?: IDBCursorDirection,
   ): IDBRequest<IDBCursorWithValue | null>;
   /**
    * Opens a cursor with key only flag set over the records matching query, ordered by direction. If query is null, all records in index are matched.
@@ -3779,7 +3779,7 @@ interface IDBIndex {
    */
   openKeyCursor(
     query?: IDBValidKey | IDBKeyRange | null,
-    direction?: IDBCursorDirection
+    direction?: IDBCursorDirection,
   ): IDBRequest<IDBCursor | null>;
 }
 
@@ -3838,7 +3838,7 @@ declare var IDBKeyRange: {
     lower: any,
     upper: any,
     lowerOpen?: boolean,
-    upperOpen?: boolean
+    upperOpen?: boolean,
   ): IDBKeyRange;
   /**
    * Returns a new IDBKeyRange starting at key with no upper bound. If open is true, key is not included in the range.
@@ -3934,7 +3934,7 @@ interface IDBObjectStore {
   createIndex(
     name: string,
     keyPath: string | string[],
-    options?: IDBIndexParameters
+    options?: IDBIndexParameters,
   ): IDBIndex;
   /**
    * Deletes records in store with the given key or in the given key range in query.
@@ -3969,7 +3969,7 @@ interface IDBObjectStore {
    */
   getAll(
     query?: IDBValidKey | IDBKeyRange | null,
-    count?: number
+    count?: number,
   ): IDBRequest<any[]>;
   /**
    * Retrieves the keys of records matching the given key or key range in query (up to count if given).
@@ -3980,7 +3980,7 @@ interface IDBObjectStore {
    */
   getAllKeys(
     query?: IDBValidKey | IDBKeyRange | null,
-    count?: number
+    count?: number,
   ): IDBRequest<IDBValidKey[]>;
   /**
    * Retrieves the key of the first record matching the given key or key range in query.
@@ -4001,7 +4001,7 @@ interface IDBObjectStore {
    */
   openCursor(
     query?: IDBValidKey | IDBKeyRange | null,
-    direction?: IDBCursorDirection
+    direction?: IDBCursorDirection,
   ): IDBRequest<IDBCursorWithValue | null>;
   /**
    * Opens a cursor with key only flag set over the records matching query, ordered by direction. If query is null, all records in store are matched.
@@ -4012,7 +4012,7 @@ interface IDBObjectStore {
    */
   openKeyCursor(
     query?: IDBValidKey | IDBKeyRange | null,
-    direction?: IDBCursorDirection
+    direction?: IDBCursorDirection,
   ): IDBRequest<IDBCursor | null>;
   /**
    * Adds or updates a record in store with the given value and key.
@@ -4055,22 +4055,22 @@ interface IDBOpenDBRequest extends IDBRequest<IDBDatabase> {
   addEventListener<K extends keyof IDBOpenDBRequestEventMap>(
     type: K,
     listener: (this: IDBOpenDBRequest, ev: IDBOpenDBRequestEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof IDBOpenDBRequestEventMap>(
     type: K,
     listener: (this: IDBOpenDBRequest, ev: IDBOpenDBRequestEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -4127,22 +4127,22 @@ interface IDBRequest<T = any> extends EventTarget {
   addEventListener<K extends keyof IDBRequestEventMap>(
     type: K,
     listener: (this: IDBRequest<T>, ev: IDBRequestEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof IDBRequestEventMap>(
     type: K,
     listener: (this: IDBRequest<T>, ev: IDBRequestEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -4208,22 +4208,22 @@ interface IDBTransaction extends EventTarget {
   addEventListener<K extends keyof IDBTransactionEventMap>(
     type: K,
     listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof IDBTransactionEventMap>(
     type: K,
     listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -4248,7 +4248,7 @@ declare var IDBVersionChangeEvent: {
   prototype: IDBVersionChangeEvent;
   new (
     type: string,
-    eventInitDict?: IDBVersionChangeEventInit
+    eventInitDict?: IDBVersionChangeEventInit,
   ): IDBVersionChangeEvent;
 };
 
@@ -4329,7 +4329,7 @@ declare var ImageData: {
     data: Uint8ClampedArray,
     sw: number,
     sh?: number,
-    settings?: ImageDataSettings
+    settings?: ImageDataSettings,
   ): ImageData;
 };
 
@@ -4368,7 +4368,7 @@ interface LockManager {
   request(
     name: string,
     options: LockOptions,
-    callback: LockGrantedCallback
+    callback: LockGrantedCallback,
   ): Promise<any>;
 }
 
@@ -4381,11 +4381,11 @@ declare var LockManager: {
 interface MediaCapabilities {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaCapabilities/decodingInfo) */
   decodingInfo(
-    configuration: MediaDecodingConfiguration
+    configuration: MediaDecodingConfiguration,
   ): Promise<MediaCapabilitiesDecodingInfo>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaCapabilities/encodingInfo) */
   encodingInfo(
-    configuration: MediaEncodingConfiguration
+    configuration: MediaEncodingConfiguration,
   ): Promise<MediaCapabilitiesEncodingInfo>;
 }
 
@@ -4468,7 +4468,7 @@ interface MessageEvent<T = any> extends Event {
     origin?: string,
     lastEventId?: string,
     source?: MessageEventSource | null,
-    ports?: MessagePort[]
+    ports?: MessagePort[],
   ): void;
 }
 
@@ -4516,22 +4516,22 @@ interface MessagePort extends EventTarget {
   addEventListener<K extends keyof MessagePortEventMap>(
     type: K,
     listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MessagePortEventMap>(
     type: K,
     listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -4675,22 +4675,22 @@ interface Notification extends EventTarget {
   addEventListener<K extends keyof NotificationEventMap>(
     type: K,
     listener: (this: Notification, ev: NotificationEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof NotificationEventMap>(
     type: K,
     listener: (this: Notification, ev: NotificationEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -4724,7 +4724,7 @@ interface OES_draw_buffers_indexed {
   blendEquationSeparateiOES(
     buf: GLuint,
     modeRGB: GLenum,
-    modeAlpha: GLenum
+    modeAlpha: GLenum,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/OES_draw_buffers_indexed/blendEquationiOES) */
   blendEquationiOES(buf: GLuint, mode: GLenum): void;
@@ -4734,7 +4734,7 @@ interface OES_draw_buffers_indexed {
     srcRGB: GLenum,
     dstRGB: GLenum,
     srcAlpha: GLenum,
-    dstAlpha: GLenum
+    dstAlpha: GLenum,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/OES_draw_buffers_indexed/blendFunciOES) */
   blendFunciOES(buf: GLuint, src: GLenum, dst: GLenum): void;
@@ -4744,7 +4744,7 @@ interface OES_draw_buffers_indexed {
     r: GLboolean,
     g: GLboolean,
     b: GLboolean,
-    a: GLboolean
+    a: GLboolean,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/OES_draw_buffers_indexed/disableiOES) */
   disableiOES(target: GLenum, index: GLuint): void;
@@ -4823,7 +4823,7 @@ interface OVR_multiview2 {
     texture: WebGLTexture | null,
     level: GLint,
     baseViewIndex: GLint,
-    numViews: GLsizei
+    numViews: GLsizei,
   ): void;
   readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR: 0x9630;
   readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR: 0x9632;
@@ -4875,17 +4875,17 @@ interface OffscreenCanvas extends EventTarget {
    */
   getContext(
     contextId: "2d",
-    options?: any
+    options?: any,
   ): OffscreenCanvasRenderingContext2D | null;
   getContext(
     contextId: "bitmaprenderer",
-    options?: any
+    options?: any,
   ): ImageBitmapRenderingContext | null;
   getContext(contextId: "webgl", options?: any): WebGLRenderingContext | null;
   getContext(contextId: "webgl2", options?: any): WebGL2RenderingContext | null;
   getContext(
     contextId: OffscreenRenderingContextId,
-    options?: any
+    options?: any,
   ): OffscreenRenderingContext | null;
   /**
    * Returns a newly created ImageBitmap object with the image in the OffscreenCanvas object. The image in the OffscreenCanvas object is replaced with a new blank image.
@@ -4896,22 +4896,22 @@ interface OffscreenCanvas extends EventTarget {
   addEventListener<K extends keyof OffscreenCanvasEventMap>(
     type: K,
     listener: (this: OffscreenCanvas, ev: OffscreenCanvasEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof OffscreenCanvasEventMap>(
     type: K,
     listener: (this: OffscreenCanvas, ev: OffscreenCanvasEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -4998,7 +4998,7 @@ interface Performance extends EventTarget {
   measure(
     measureName: string,
     startOrMeasureOptions?: string | PerformanceMeasureOptions,
-    endMark?: string
+    endMark?: string,
   ): PerformanceMeasure;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Performance/now) */
   now(): DOMHighResTimeStamp;
@@ -5009,22 +5009,22 @@ interface Performance extends EventTarget {
   addEventListener<K extends keyof PerformanceEventMap>(
     type: K,
     listener: (this: Performance, ev: PerformanceEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof PerformanceEventMap>(
     type: K,
     listener: (this: Performance, ev: PerformanceEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -5201,22 +5201,22 @@ interface PermissionStatus extends EventTarget {
   addEventListener<K extends keyof PermissionStatusEventMap>(
     type: K,
     listener: (this: PermissionStatus, ev: PermissionStatusEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof PermissionStatusEventMap>(
     type: K,
     listener: (this: PermissionStatus, ev: PermissionStatusEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -5268,7 +5268,7 @@ declare var PromiseRejectionEvent: {
   prototype: PromiseRejectionEvent;
   new (
     type: string,
-    eventInitDict: PromiseRejectionEventInit
+    eventInitDict: PromiseRejectionEventInit,
   ): PromiseRejectionEvent;
 };
 
@@ -5299,7 +5299,7 @@ interface PushManager {
   getSubscription(): Promise<PushSubscription | null>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PushManager/permissionState) */
   permissionState(
-    options?: PushSubscriptionOptionsInit
+    options?: PushSubscriptionOptionsInit,
   ): Promise<PermissionState>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PushManager/subscribe) */
   subscribe(options?: PushSubscriptionOptionsInit): Promise<PushSubscription>;
@@ -5436,12 +5436,12 @@ interface ReadableStream<R = any> {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStream/pipeThrough) */
   pipeThrough<T>(
     transform: ReadableWritablePair<T, R>,
-    options?: StreamPipeOptions
+    options?: StreamPipeOptions,
   ): ReadableStream<T>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStream/pipeTo) */
   pipeTo(
     destination: WritableStream<R>,
-    options?: StreamPipeOptions
+    options?: StreamPipeOptions,
   ): Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStream/tee) */
   tee(): [ReadableStream<R>, ReadableStream<R>];
@@ -5451,15 +5451,15 @@ declare var ReadableStream: {
   prototype: ReadableStream;
   new (
     underlyingSource: UnderlyingByteSource,
-    strategy?: { highWaterMark?: number }
+    strategy?: { highWaterMark?: number },
   ): ReadableStream<Uint8Array>;
   new <R = any>(
     underlyingSource: UnderlyingDefaultSource<R>,
-    strategy?: QueuingStrategy<R>
+    strategy?: QueuingStrategy<R>,
   ): ReadableStream<R>;
   new <R = any>(
     underlyingSource?: UnderlyingSource<R>,
-    strategy?: QueuingStrategy<R>
+    strategy?: QueuingStrategy<R>,
   ): ReadableStream<R>;
 };
 
@@ -5467,7 +5467,7 @@ declare var ReadableStream: {
 interface ReadableStreamBYOBReader extends ReadableStreamGenericReader {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/read) */
   read<T extends ArrayBufferView>(
-    view: T
+    view: T,
   ): Promise<ReadableStreamReadResult<T>>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/releaseLock) */
   releaseLock(): void;
@@ -5571,7 +5571,7 @@ declare var ReportingObserver: {
   prototype: ReportingObserver;
   new (
     callback: ReportingObserverCallback,
-    options?: ReportingObserverOptions
+    options?: ReportingObserverOptions,
   ): ReportingObserver;
 };
 
@@ -5739,7 +5739,7 @@ declare var SecurityPolicyViolationEvent: {
   prototype: SecurityPolicyViolationEvent;
   new (
     type: string,
-    eventInitDict?: SecurityPolicyViolationEventInit
+    eventInitDict?: SecurityPolicyViolationEventInit,
   ): SecurityPolicyViolationEvent;
 };
 
@@ -5766,22 +5766,22 @@ interface ServiceWorker extends EventTarget, AbstractWorker {
   addEventListener<K extends keyof ServiceWorkerEventMap>(
     type: K,
     listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof ServiceWorkerEventMap>(
     type: K,
     listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -5816,14 +5816,14 @@ interface ServiceWorkerContainer extends EventTarget {
   readonly ready: Promise<ServiceWorkerRegistration>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerContainer/getRegistration) */
   getRegistration(
-    clientURL?: string | URL
+    clientURL?: string | URL,
   ): Promise<ServiceWorkerRegistration | undefined>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerContainer/getRegistrations) */
   getRegistrations(): Promise<ReadonlyArray<ServiceWorkerRegistration>>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerContainer/register) */
   register(
     scriptURL: string | URL,
-    options?: RegistrationOptions
+    options?: RegistrationOptions,
   ): Promise<ServiceWorkerRegistration>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerContainer/startMessages) */
   startMessages(): void;
@@ -5831,27 +5831,27 @@ interface ServiceWorkerContainer extends EventTarget {
     type: K,
     listener: (
       this: ServiceWorkerContainer,
-      ev: ServiceWorkerContainerEventMap[K]
+      ev: ServiceWorkerContainerEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof ServiceWorkerContainerEventMap>(
     type: K,
     listener: (
       this: ServiceWorkerContainer,
-      ev: ServiceWorkerContainerEventMap[K]
+      ev: ServiceWorkerContainerEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -5921,27 +5921,27 @@ interface ServiceWorkerGlobalScope extends WorkerGlobalScope {
     type: K,
     listener: (
       this: ServiceWorkerGlobalScope,
-      ev: ServiceWorkerGlobalScopeEventMap[K]
+      ev: ServiceWorkerGlobalScopeEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof ServiceWorkerGlobalScopeEventMap>(
     type: K,
     listener: (
       this: ServiceWorkerGlobalScope,
-      ev: ServiceWorkerGlobalScopeEventMap[K]
+      ev: ServiceWorkerGlobalScopeEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -5989,27 +5989,27 @@ interface ServiceWorkerRegistration extends EventTarget {
     type: K,
     listener: (
       this: ServiceWorkerRegistration,
-      ev: ServiceWorkerRegistrationEventMap[K]
+      ev: ServiceWorkerRegistrationEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof ServiceWorkerRegistrationEventMap>(
     type: K,
     listener: (
       this: ServiceWorkerRegistration,
-      ev: ServiceWorkerRegistrationEventMap[K]
+      ev: ServiceWorkerRegistrationEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -6042,27 +6042,27 @@ interface SharedWorkerGlobalScope extends WorkerGlobalScope {
     type: K,
     listener: (
       this: SharedWorkerGlobalScope,
-      ev: SharedWorkerGlobalScopeEventMap[K]
+      ev: SharedWorkerGlobalScopeEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SharedWorkerGlobalScopeEventMap>(
     type: K,
     listener: (
       this: SharedWorkerGlobalScope,
-      ev: SharedWorkerGlobalScopeEventMap[K]
+      ev: SharedWorkerGlobalScopeEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -6104,9 +6104,9 @@ interface StylePropertyMapReadOnly {
     callbackfn: (
       value: CSSStyleValue[],
       key: string,
-      parent: StylePropertyMapReadOnly
+      parent: StylePropertyMapReadOnly,
     ) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
 }
 
@@ -6131,7 +6131,7 @@ interface SubtleCrypto {
       | AesCbcParams
       | AesGcmParams,
     key: CryptoKey,
-    data: BufferSource
+    data: BufferSource,
   ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/deriveBits) */
   deriveBits(
@@ -6141,7 +6141,7 @@ interface SubtleCrypto {
       | HkdfParams
       | Pbkdf2Params,
     baseKey: CryptoKey,
-    length: number
+    length: number,
   ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/deriveKey) */
   deriveKey(
@@ -6158,12 +6158,12 @@ interface SubtleCrypto {
       | HkdfParams
       | Pbkdf2Params,
     extractable: boolean,
-    keyUsages: KeyUsage[]
+    keyUsages: KeyUsage[],
   ): Promise<CryptoKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/digest) */
   digest(
     algorithm: AlgorithmIdentifier,
-    data: BufferSource
+    data: BufferSource,
   ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/encrypt) */
   encrypt(
@@ -6174,38 +6174,38 @@ interface SubtleCrypto {
       | AesCbcParams
       | AesGcmParams,
     key: CryptoKey,
-    data: BufferSource
+    data: BufferSource,
   ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/exportKey) */
   exportKey(format: "jwk", key: CryptoKey): Promise<JsonWebKey>;
   exportKey(
     format: Exclude<KeyFormat, "jwk">,
-    key: CryptoKey
+    key: CryptoKey,
   ): Promise<ArrayBuffer>;
   exportKey(
     format: KeyFormat,
-    key: CryptoKey
+    key: CryptoKey,
   ): Promise<ArrayBuffer | JsonWebKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/generateKey) */
   generateKey(
     algorithm: "Ed25519",
     extractable: boolean,
-    keyUsages: ReadonlyArray<"sign" | "verify">
+    keyUsages: ReadonlyArray<"sign" | "verify">,
   ): Promise<CryptoKeyPair>;
   generateKey(
     algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
     extractable: boolean,
-    keyUsages: ReadonlyArray<KeyUsage>
+    keyUsages: ReadonlyArray<KeyUsage>,
   ): Promise<CryptoKeyPair>;
   generateKey(
     algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params,
     extractable: boolean,
-    keyUsages: ReadonlyArray<KeyUsage>
+    keyUsages: ReadonlyArray<KeyUsage>,
   ): Promise<CryptoKey>;
   generateKey(
     algorithm: AlgorithmIdentifier,
     extractable: boolean,
-    keyUsages: KeyUsage[]
+    keyUsages: KeyUsage[],
   ): Promise<CryptoKeyPair | CryptoKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/importKey) */
   importKey(
@@ -6218,7 +6218,7 @@ interface SubtleCrypto {
       | HmacImportParams
       | AesKeyAlgorithm,
     extractable: boolean,
-    keyUsages: ReadonlyArray<KeyUsage>
+    keyUsages: ReadonlyArray<KeyUsage>,
   ): Promise<CryptoKey>;
   importKey(
     format: Exclude<KeyFormat, "jwk">,
@@ -6230,13 +6230,13 @@ interface SubtleCrypto {
       | HmacImportParams
       | AesKeyAlgorithm,
     extractable: boolean,
-    keyUsages: KeyUsage[]
+    keyUsages: KeyUsage[],
   ): Promise<CryptoKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/sign) */
   sign(
     algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams,
     key: CryptoKey,
-    data: BufferSource
+    data: BufferSource,
   ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/unwrapKey) */
   unwrapKey(
@@ -6256,14 +6256,14 @@ interface SubtleCrypto {
       | HmacImportParams
       | AesKeyAlgorithm,
     extractable: boolean,
-    keyUsages: KeyUsage[]
+    keyUsages: KeyUsage[],
   ): Promise<CryptoKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/verify) */
   verify(
     algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams,
     key: CryptoKey,
     signature: BufferSource,
-    data: BufferSource
+    data: BufferSource,
   ): Promise<boolean>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/wrapKey) */
   wrapKey(
@@ -6275,7 +6275,7 @@ interface SubtleCrypto {
       | RsaOaepParams
       | AesCtrParams
       | AesCbcParams
-      | AesGcmParams
+      | AesGcmParams,
   ): Promise<ArrayBuffer>;
 }
 
@@ -6364,7 +6364,7 @@ interface TextEncoder extends TextEncoderCommon {
    */
   encodeInto(
     source: string,
-    destination: Uint8Array
+    destination: Uint8Array,
   ): TextEncoderEncodeIntoResult;
 }
 
@@ -6461,7 +6461,7 @@ declare var TransformStream: {
   new <I = any, O = any>(
     transformer?: Transformer<I, O>,
     writableStrategy?: QueuingStrategy<I>,
-    readableStrategy?: QueuingStrategy<O>
+    readableStrategy?: QueuingStrategy<O>,
   ): TransformStream<I, O>;
 };
 
@@ -6574,14 +6574,14 @@ interface URLSearchParams {
   toString(): string;
   forEach(
     callbackfn: (value: string, key: string, parent: URLSearchParams) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
 }
 
 declare var URLSearchParams: {
   prototype: URLSearchParams;
   new (
-    init?: string[][] | Record<string, string> | string | URLSearchParams
+    init?: string[][] | Record<string, string> | string | URLSearchParams,
   ): URLSearchParams;
 };
 
@@ -6632,22 +6632,22 @@ interface VideoDecoder extends EventTarget {
   addEventListener<K extends keyof VideoDecoderEventMap>(
     type: K,
     listener: (this: VideoDecoder, ev: VideoDecoderEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof VideoDecoderEventMap>(
     type: K,
     listener: (this: VideoDecoder, ev: VideoDecoderEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -6684,22 +6684,22 @@ interface VideoEncoder extends EventTarget {
   addEventListener<K extends keyof VideoEncoderEventMap>(
     type: K,
     listener: (this: VideoEncoder, ev: VideoEncoderEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof VideoEncoderEventMap>(
     type: K,
     listener: (this: VideoEncoder, ev: VideoEncoderEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -6739,7 +6739,7 @@ interface VideoFrame {
   close(): void;
   copyTo(
     destination: BufferSource,
-    options?: VideoFrameCopyToOptions
+    options?: VideoFrameCopyToOptions,
   ): Promise<PlaneLayout[]>;
 }
 
@@ -6921,7 +6921,7 @@ interface WEBGL_multi_draw {
     countsOffset: GLuint,
     instanceCountsList: Int32Array | GLsizei[],
     instanceCountsOffset: GLuint,
-    drawcount: GLsizei
+    drawcount: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WEBGL_multi_draw/multiDrawArraysWEBGL) */
   multiDrawArraysWEBGL(
@@ -6930,7 +6930,7 @@ interface WEBGL_multi_draw {
     firstsOffset: GLuint,
     countsList: Int32Array | GLsizei[],
     countsOffset: GLuint,
-    drawcount: GLsizei
+    drawcount: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WEBGL_multi_draw/multiDrawElementsInstancedWEBGL) */
   multiDrawElementsInstancedWEBGL(
@@ -6942,7 +6942,7 @@ interface WEBGL_multi_draw {
     offsetsOffset: GLuint,
     instanceCountsList: Int32Array | GLsizei[],
     instanceCountsOffset: GLuint,
-    drawcount: GLsizei
+    drawcount: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WEBGL_multi_draw/multiDrawElementsWEBGL) */
   multiDrawElementsWEBGL(
@@ -6952,7 +6952,7 @@ interface WEBGL_multi_draw {
     type: GLenum,
     offsetsList: Int32Array | GLsizei[],
     offsetsOffset: GLuint,
-    drawcount: GLsizei
+    drawcount: GLsizei,
   ): void;
 }
 
@@ -7535,7 +7535,7 @@ interface WebGL2RenderingContextBase {
   bindBufferBase(
     target: GLenum,
     index: GLuint,
-    buffer: WebGLBuffer | null
+    buffer: WebGLBuffer | null,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/bindBufferRange) */
   bindBufferRange(
@@ -7543,14 +7543,14 @@ interface WebGL2RenderingContextBase {
     index: GLuint,
     buffer: WebGLBuffer | null,
     offset: GLintptr,
-    size: GLsizeiptr
+    size: GLsizeiptr,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/bindSampler) */
   bindSampler(unit: GLuint, sampler: WebGLSampler | null): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/bindTransformFeedback) */
   bindTransformFeedback(
     target: GLenum,
-    tf: WebGLTransformFeedback | null
+    tf: WebGLTransformFeedback | null,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/bindVertexArray) */
   bindVertexArray(array: WebGLVertexArrayObject | null): void;
@@ -7565,35 +7565,35 @@ interface WebGL2RenderingContextBase {
     dstX1: GLint,
     dstY1: GLint,
     mask: GLbitfield,
-    filter: GLenum
+    filter: GLenum,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clearBuffer) */
   clearBufferfi(
     buffer: GLenum,
     drawbuffer: GLint,
     depth: GLfloat,
-    stencil: GLint
+    stencil: GLint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clearBuffer) */
   clearBufferfv(
     buffer: GLenum,
     drawbuffer: GLint,
     values: Float32List,
-    srcOffset?: GLuint
+    srcOffset?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clearBuffer) */
   clearBufferiv(
     buffer: GLenum,
     drawbuffer: GLint,
     values: Int32List,
-    srcOffset?: GLuint
+    srcOffset?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clearBuffer) */
   clearBufferuiv(
     buffer: GLenum,
     drawbuffer: GLint,
     values: Uint32List,
-    srcOffset?: GLuint
+    srcOffset?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clientWaitSync) */
   clientWaitSync(sync: WebGLSync, flags: GLbitfield, timeout: GLuint64): GLenum;
@@ -7607,7 +7607,7 @@ interface WebGL2RenderingContextBase {
     depth: GLsizei,
     border: GLint,
     imageSize: GLsizei,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   compressedTexImage3D(
     target: GLenum,
@@ -7619,7 +7619,7 @@ interface WebGL2RenderingContextBase {
     border: GLint,
     srcData: ArrayBufferView,
     srcOffset?: GLuint,
-    srcLengthOverride?: GLuint
+    srcLengthOverride?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/compressedTexSubImage3D) */
   compressedTexSubImage3D(
@@ -7633,7 +7633,7 @@ interface WebGL2RenderingContextBase {
     depth: GLsizei,
     format: GLenum,
     imageSize: GLsizei,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   compressedTexSubImage3D(
     target: GLenum,
@@ -7647,7 +7647,7 @@ interface WebGL2RenderingContextBase {
     format: GLenum,
     srcData: ArrayBufferView,
     srcOffset?: GLuint,
-    srcLengthOverride?: GLuint
+    srcLengthOverride?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/copyBufferSubData) */
   copyBufferSubData(
@@ -7655,7 +7655,7 @@ interface WebGL2RenderingContextBase {
     writeTarget: GLenum,
     readOffset: GLintptr,
     writeOffset: GLintptr,
-    size: GLsizeiptr
+    size: GLsizeiptr,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/copyTexSubImage3D) */
   copyTexSubImage3D(
@@ -7667,7 +7667,7 @@ interface WebGL2RenderingContextBase {
     x: GLint,
     y: GLint,
     width: GLsizei,
-    height: GLsizei
+    height: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/createQuery) */
   createQuery(): WebGLQuery | null;
@@ -7692,7 +7692,7 @@ interface WebGL2RenderingContextBase {
     mode: GLenum,
     first: GLint,
     count: GLsizei,
-    instanceCount: GLsizei
+    instanceCount: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/drawBuffers) */
   drawBuffers(buffers: GLenum[]): void;
@@ -7702,7 +7702,7 @@ interface WebGL2RenderingContextBase {
     count: GLsizei,
     type: GLenum,
     offset: GLintptr,
-    instanceCount: GLsizei
+    instanceCount: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/drawRangeElements) */
   drawRangeElements(
@@ -7711,7 +7711,7 @@ interface WebGL2RenderingContextBase {
     end: GLuint,
     count: GLsizei,
     type: GLenum,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/endQuery) */
   endQuery(target: GLenum): void;
@@ -7725,24 +7725,24 @@ interface WebGL2RenderingContextBase {
     attachment: GLenum,
     texture: WebGLTexture | null,
     level: GLint,
-    layer: GLint
+    layer: GLint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getActiveUniformBlockName) */
   getActiveUniformBlockName(
     program: WebGLProgram,
-    uniformBlockIndex: GLuint
+    uniformBlockIndex: GLuint,
   ): string | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getActiveUniformBlockParameter) */
   getActiveUniformBlockParameter(
     program: WebGLProgram,
     uniformBlockIndex: GLuint,
-    pname: GLenum
+    pname: GLenum,
   ): any;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getActiveUniforms) */
   getActiveUniforms(
     program: WebGLProgram,
     uniformIndices: GLuint[],
-    pname: GLenum
+    pname: GLenum,
   ): any;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getBufferSubData) */
   getBufferSubData(
@@ -7750,7 +7750,7 @@ interface WebGL2RenderingContextBase {
     srcByteOffset: GLintptr,
     dstBuffer: ArrayBufferView,
     dstOffset?: GLuint,
-    length?: GLuint
+    length?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getFragDataLocation) */
   getFragDataLocation(program: WebGLProgram, name: string): GLint;
@@ -7760,7 +7760,7 @@ interface WebGL2RenderingContextBase {
   getInternalformatParameter(
     target: GLenum,
     internalformat: GLenum,
-    pname: GLenum
+    pname: GLenum,
   ): any;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getQuery) */
   getQuery(target: GLenum, pname: GLenum): WebGLQuery | null;
@@ -7773,14 +7773,14 @@ interface WebGL2RenderingContextBase {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getTransformFeedbackVarying) */
   getTransformFeedbackVarying(
     program: WebGLProgram,
-    index: GLuint
+    index: GLuint,
   ): WebGLActiveInfo | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getUniformBlockIndex) */
   getUniformBlockIndex(program: WebGLProgram, uniformBlockName: string): GLuint;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getUniformIndices) */
   getUniformIndices(
     program: WebGLProgram,
-    uniformNames: string[]
+    uniformNames: string[],
   ): GLuint[] | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/invalidateFramebuffer) */
   invalidateFramebuffer(target: GLenum, attachments: GLenum[]): void;
@@ -7791,7 +7791,7 @@ interface WebGL2RenderingContextBase {
     x: GLint,
     y: GLint,
     width: GLsizei,
-    height: GLsizei
+    height: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/isQuery) */
   isQuery(query: WebGLQuery | null): GLboolean;
@@ -7813,7 +7813,7 @@ interface WebGL2RenderingContextBase {
     samples: GLsizei,
     internalformat: GLenum,
     width: GLsizei,
-    height: GLsizei
+    height: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/resumeTransformFeedback) */
   resumeTransformFeedback(): void;
@@ -7832,7 +7832,7 @@ interface WebGL2RenderingContextBase {
     border: GLint,
     format: GLenum,
     type: GLenum,
-    pboOffset: GLintptr
+    pboOffset: GLintptr,
   ): void;
   texImage3D(
     target: GLenum,
@@ -7844,7 +7844,7 @@ interface WebGL2RenderingContextBase {
     border: GLint,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
+    source: TexImageSource,
   ): void;
   texImage3D(
     target: GLenum,
@@ -7856,7 +7856,7 @@ interface WebGL2RenderingContextBase {
     border: GLint,
     format: GLenum,
     type: GLenum,
-    srcData: ArrayBufferView | null
+    srcData: ArrayBufferView | null,
   ): void;
   texImage3D(
     target: GLenum,
@@ -7869,7 +7869,7 @@ interface WebGL2RenderingContextBase {
     format: GLenum,
     type: GLenum,
     srcData: ArrayBufferView,
-    srcOffset: GLuint
+    srcOffset: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/texStorage2D) */
   texStorage2D(
@@ -7877,7 +7877,7 @@ interface WebGL2RenderingContextBase {
     levels: GLsizei,
     internalformat: GLenum,
     width: GLsizei,
-    height: GLsizei
+    height: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/texStorage3D) */
   texStorage3D(
@@ -7886,7 +7886,7 @@ interface WebGL2RenderingContextBase {
     internalformat: GLenum,
     width: GLsizei,
     height: GLsizei,
-    depth: GLsizei
+    depth: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/texSubImage3D) */
   texSubImage3D(
@@ -7900,7 +7900,7 @@ interface WebGL2RenderingContextBase {
     depth: GLsizei,
     format: GLenum,
     type: GLenum,
-    pboOffset: GLintptr
+    pboOffset: GLintptr,
   ): void;
   texSubImage3D(
     target: GLenum,
@@ -7913,7 +7913,7 @@ interface WebGL2RenderingContextBase {
     depth: GLsizei,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
+    source: TexImageSource,
   ): void;
   texSubImage3D(
     target: GLenum,
@@ -7927,13 +7927,13 @@ interface WebGL2RenderingContextBase {
     format: GLenum,
     type: GLenum,
     srcData: ArrayBufferView | null,
-    srcOffset?: GLuint
+    srcOffset?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/transformFeedbackVaryings) */
   transformFeedbackVaryings(
     program: WebGLProgram,
     varyings: string[],
-    bufferMode: GLenum
+    bufferMode: GLenum,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
   uniform1ui(location: WebGLUniformLocation | null, v0: GLuint): void;
@@ -7942,34 +7942,34 @@ interface WebGL2RenderingContextBase {
     location: WebGLUniformLocation | null,
     data: Uint32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
   uniform2ui(
     location: WebGLUniformLocation | null,
     v0: GLuint,
-    v1: GLuint
+    v1: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
   uniform2uiv(
     location: WebGLUniformLocation | null,
     data: Uint32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
   uniform3ui(
     location: WebGLUniformLocation | null,
     v0: GLuint,
     v1: GLuint,
-    v2: GLuint
+    v2: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
   uniform3uiv(
     location: WebGLUniformLocation | null,
     data: Uint32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
   uniform4ui(
@@ -7977,20 +7977,20 @@ interface WebGL2RenderingContextBase {
     v0: GLuint,
     v1: GLuint,
     v2: GLuint,
-    v3: GLuint
+    v3: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
   uniform4uiv(
     location: WebGLUniformLocation | null,
     data: Uint32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformBlockBinding) */
   uniformBlockBinding(
     program: WebGLProgram,
     uniformBlockIndex: GLuint,
-    uniformBlockBinding: GLuint
+    uniformBlockBinding: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix2x3fv(
@@ -7998,7 +7998,7 @@ interface WebGL2RenderingContextBase {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix2x4fv(
@@ -8006,7 +8006,7 @@ interface WebGL2RenderingContextBase {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix3x2fv(
@@ -8014,7 +8014,7 @@ interface WebGL2RenderingContextBase {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix3x4fv(
@@ -8022,7 +8022,7 @@ interface WebGL2RenderingContextBase {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix4x2fv(
@@ -8030,7 +8030,7 @@ interface WebGL2RenderingContextBase {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix4x3fv(
@@ -8038,7 +8038,7 @@ interface WebGL2RenderingContextBase {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/vertexAttribDivisor) */
   vertexAttribDivisor(index: GLuint, divisor: GLuint): void;
@@ -8052,7 +8052,7 @@ interface WebGL2RenderingContextBase {
     x: GLuint,
     y: GLuint,
     z: GLuint,
-    w: GLuint
+    w: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/vertexAttribI) */
   vertexAttribI4uiv(index: GLuint, values: Uint32List): void;
@@ -8062,7 +8062,7 @@ interface WebGL2RenderingContextBase {
     size: GLint,
     type: GLenum,
     stride: GLsizei,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/waitSync) */
   waitSync(sync: WebGLSync, flags: GLbitfield, timeout: GLint64): void;
@@ -8340,20 +8340,20 @@ interface WebGL2RenderingContextOverloads {
     srcData: ArrayBufferView,
     usage: GLenum,
     srcOffset: GLuint,
-    length?: GLuint
+    length?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/bufferSubData) */
   bufferSubData(
     target: GLenum,
     dstByteOffset: GLintptr,
-    srcData: BufferSource
+    srcData: BufferSource,
   ): void;
   bufferSubData(
     target: GLenum,
     dstByteOffset: GLintptr,
     srcData: ArrayBufferView,
     srcOffset: GLuint,
-    length?: GLuint
+    length?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/compressedTexImage2D) */
   compressedTexImage2D(
@@ -8364,7 +8364,7 @@ interface WebGL2RenderingContextOverloads {
     height: GLsizei,
     border: GLint,
     imageSize: GLsizei,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   compressedTexImage2D(
     target: GLenum,
@@ -8375,7 +8375,7 @@ interface WebGL2RenderingContextOverloads {
     border: GLint,
     srcData: ArrayBufferView,
     srcOffset?: GLuint,
-    srcLengthOverride?: GLuint
+    srcLengthOverride?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/compressedTexSubImage2D) */
   compressedTexSubImage2D(
@@ -8387,7 +8387,7 @@ interface WebGL2RenderingContextOverloads {
     height: GLsizei,
     format: GLenum,
     imageSize: GLsizei,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   compressedTexSubImage2D(
     target: GLenum,
@@ -8399,7 +8399,7 @@ interface WebGL2RenderingContextOverloads {
     format: GLenum,
     srcData: ArrayBufferView,
     srcOffset?: GLuint,
-    srcLengthOverride?: GLuint
+    srcLengthOverride?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/readPixels) */
   readPixels(
@@ -8409,7 +8409,7 @@ interface WebGL2RenderingContextOverloads {
     height: GLsizei,
     format: GLenum,
     type: GLenum,
-    dstData: ArrayBufferView | null
+    dstData: ArrayBufferView | null,
   ): void;
   readPixels(
     x: GLint,
@@ -8418,7 +8418,7 @@ interface WebGL2RenderingContextOverloads {
     height: GLsizei,
     format: GLenum,
     type: GLenum,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   readPixels(
     x: GLint,
@@ -8428,7 +8428,7 @@ interface WebGL2RenderingContextOverloads {
     format: GLenum,
     type: GLenum,
     dstData: ArrayBufferView,
-    dstOffset: GLuint
+    dstOffset: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/texImage2D) */
   texImage2D(
@@ -8440,7 +8440,7 @@ interface WebGL2RenderingContextOverloads {
     border: GLint,
     format: GLenum,
     type: GLenum,
-    pixels: ArrayBufferView | null
+    pixels: ArrayBufferView | null,
   ): void;
   texImage2D(
     target: GLenum,
@@ -8448,18 +8448,7 @@ interface WebGL2RenderingContextOverloads {
     internalformat: GLint,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
-  ): void;
-  texImage2D(
-    target: GLenum,
-    level: GLint,
-    internalformat: GLint,
-    width: GLsizei,
-    height: GLsizei,
-    border: GLint,
-    format: GLenum,
-    type: GLenum,
-    pboOffset: GLintptr
+    source: TexImageSource,
   ): void;
   texImage2D(
     target: GLenum,
@@ -8470,7 +8459,18 @@ interface WebGL2RenderingContextOverloads {
     border: GLint,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
+    pboOffset: GLintptr,
+  ): void;
+  texImage2D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    border: GLint,
+    format: GLenum,
+    type: GLenum,
+    source: TexImageSource,
   ): void;
   texImage2D(
     target: GLenum,
@@ -8482,7 +8482,7 @@ interface WebGL2RenderingContextOverloads {
     format: GLenum,
     type: GLenum,
     srcData: ArrayBufferView,
-    srcOffset: GLuint
+    srcOffset: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/texSubImage2D) */
   texSubImage2D(
@@ -8494,7 +8494,7 @@ interface WebGL2RenderingContextOverloads {
     height: GLsizei,
     format: GLenum,
     type: GLenum,
-    pixels: ArrayBufferView | null
+    pixels: ArrayBufferView | null,
   ): void;
   texSubImage2D(
     target: GLenum,
@@ -8503,18 +8503,7 @@ interface WebGL2RenderingContextOverloads {
     yoffset: GLint,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
-  ): void;
-  texSubImage2D(
-    target: GLenum,
-    level: GLint,
-    xoffset: GLint,
-    yoffset: GLint,
-    width: GLsizei,
-    height: GLsizei,
-    format: GLenum,
-    type: GLenum,
-    pboOffset: GLintptr
+    source: TexImageSource,
   ): void;
   texSubImage2D(
     target: GLenum,
@@ -8525,7 +8514,18 @@ interface WebGL2RenderingContextOverloads {
     height: GLsizei,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
+    pboOffset: GLintptr,
+  ): void;
+  texSubImage2D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    format: GLenum,
+    type: GLenum,
+    source: TexImageSource,
   ): void;
   texSubImage2D(
     target: GLenum,
@@ -8537,63 +8537,63 @@ interface WebGL2RenderingContextOverloads {
     format: GLenum,
     type: GLenum,
     srcData: ArrayBufferView,
-    srcOffset: GLuint
+    srcOffset: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform1fv(
     location: WebGLUniformLocation | null,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform1iv(
     location: WebGLUniformLocation | null,
     data: Int32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform2fv(
     location: WebGLUniformLocation | null,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform2iv(
     location: WebGLUniformLocation | null,
     data: Int32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform3fv(
     location: WebGLUniformLocation | null,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform3iv(
     location: WebGLUniformLocation | null,
     data: Int32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform4fv(
     location: WebGLUniformLocation | null,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform4iv(
     location: WebGLUniformLocation | null,
     data: Int32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
   uniformMatrix2fv(
@@ -8601,7 +8601,7 @@ interface WebGL2RenderingContextOverloads {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
   uniformMatrix3fv(
@@ -8609,7 +8609,7 @@ interface WebGL2RenderingContextOverloads {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
   uniformMatrix4fv(
@@ -8617,7 +8617,7 @@ interface WebGL2RenderingContextOverloads {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
 }
 
@@ -9040,7 +9040,7 @@ interface WebGLRenderingContextBase {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/bindRenderbuffer) */
   bindRenderbuffer(
     target: GLenum,
-    renderbuffer: WebGLRenderbuffer | null
+    renderbuffer: WebGLRenderbuffer | null,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/bindTexture) */
   bindTexture(target: GLenum, texture: WebGLTexture | null): void;
@@ -9049,7 +9049,7 @@ interface WebGLRenderingContextBase {
     red: GLclampf,
     green: GLclampf,
     blue: GLclampf,
-    alpha: GLclampf
+    alpha: GLclampf,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/blendEquation) */
   blendEquation(mode: GLenum): void;
@@ -9062,7 +9062,7 @@ interface WebGLRenderingContextBase {
     srcRGB: GLenum,
     dstRGB: GLenum,
     srcAlpha: GLenum,
-    dstAlpha: GLenum
+    dstAlpha: GLenum,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/checkFramebufferStatus) */
   checkFramebufferStatus(target: GLenum): GLenum;
@@ -9073,7 +9073,7 @@ interface WebGLRenderingContextBase {
     red: GLclampf,
     green: GLclampf,
     blue: GLclampf,
-    alpha: GLclampf
+    alpha: GLclampf,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/clearDepth) */
   clearDepth(depth: GLclampf): void;
@@ -9084,7 +9084,7 @@ interface WebGLRenderingContextBase {
     red: GLboolean,
     green: GLboolean,
     blue: GLboolean,
-    alpha: GLboolean
+    alpha: GLboolean,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/compileShader) */
   compileShader(shader: WebGLShader): void;
@@ -9097,7 +9097,7 @@ interface WebGLRenderingContextBase {
     y: GLint,
     width: GLsizei,
     height: GLsizei,
-    border: GLint
+    border: GLint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/copyTexSubImage2D) */
   copyTexSubImage2D(
@@ -9108,7 +9108,7 @@ interface WebGLRenderingContextBase {
     x: GLint,
     y: GLint,
     width: GLsizei,
-    height: GLsizei
+    height: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/createBuffer) */
   createBuffer(): WebGLBuffer | null;
@@ -9155,7 +9155,7 @@ interface WebGLRenderingContextBase {
     mode: GLenum,
     count: GLsizei,
     type: GLenum,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/enable) */
   enable(cap: GLenum): void;
@@ -9170,7 +9170,7 @@ interface WebGLRenderingContextBase {
     target: GLenum,
     attachment: GLenum,
     renderbuffertarget: GLenum,
-    renderbuffer: WebGLRenderbuffer | null
+    renderbuffer: WebGLRenderbuffer | null,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/framebufferTexture2D) */
   framebufferTexture2D(
@@ -9178,7 +9178,7 @@ interface WebGLRenderingContextBase {
     attachment: GLenum,
     textarget: GLenum,
     texture: WebGLTexture | null,
-    level: GLint
+    level: GLint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/frontFace) */
   frontFace(mode: GLenum): void;
@@ -9189,7 +9189,7 @@ interface WebGLRenderingContextBase {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getActiveUniform) */
   getActiveUniform(
     program: WebGLProgram,
-    index: GLuint
+    index: GLuint,
   ): WebGLActiveInfo | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getAttachedShaders) */
   getAttachedShaders(program: WebGLProgram): WebGLShader[] | null;
@@ -9203,85 +9203,85 @@ interface WebGLRenderingContextBase {
   getError(): GLenum;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getExtension) */
   getExtension(
-    extensionName: "ANGLE_instanced_arrays"
+    extensionName: "ANGLE_instanced_arrays",
   ): ANGLE_instanced_arrays | null;
   getExtension(extensionName: "EXT_blend_minmax"): EXT_blend_minmax | null;
   getExtension(
-    extensionName: "EXT_color_buffer_float"
+    extensionName: "EXT_color_buffer_float",
   ): EXT_color_buffer_float | null;
   getExtension(
-    extensionName: "EXT_color_buffer_half_float"
+    extensionName: "EXT_color_buffer_half_float",
   ): EXT_color_buffer_half_float | null;
   getExtension(extensionName: "EXT_float_blend"): EXT_float_blend | null;
   getExtension(extensionName: "EXT_frag_depth"): EXT_frag_depth | null;
   getExtension(extensionName: "EXT_sRGB"): EXT_sRGB | null;
   getExtension(
-    extensionName: "EXT_shader_texture_lod"
+    extensionName: "EXT_shader_texture_lod",
   ): EXT_shader_texture_lod | null;
   getExtension(
-    extensionName: "EXT_texture_compression_bptc"
+    extensionName: "EXT_texture_compression_bptc",
   ): EXT_texture_compression_bptc | null;
   getExtension(
-    extensionName: "EXT_texture_compression_rgtc"
+    extensionName: "EXT_texture_compression_rgtc",
   ): EXT_texture_compression_rgtc | null;
   getExtension(
-    extensionName: "EXT_texture_filter_anisotropic"
+    extensionName: "EXT_texture_filter_anisotropic",
   ): EXT_texture_filter_anisotropic | null;
   getExtension(
-    extensionName: "KHR_parallel_shader_compile"
+    extensionName: "KHR_parallel_shader_compile",
   ): KHR_parallel_shader_compile | null;
   getExtension(
-    extensionName: "OES_element_index_uint"
+    extensionName: "OES_element_index_uint",
   ): OES_element_index_uint | null;
   getExtension(
-    extensionName: "OES_fbo_render_mipmap"
+    extensionName: "OES_fbo_render_mipmap",
   ): OES_fbo_render_mipmap | null;
   getExtension(
-    extensionName: "OES_standard_derivatives"
+    extensionName: "OES_standard_derivatives",
   ): OES_standard_derivatives | null;
   getExtension(extensionName: "OES_texture_float"): OES_texture_float | null;
   getExtension(
-    extensionName: "OES_texture_float_linear"
+    extensionName: "OES_texture_float_linear",
   ): OES_texture_float_linear | null;
   getExtension(
-    extensionName: "OES_texture_half_float"
+    extensionName: "OES_texture_half_float",
   ): OES_texture_half_float | null;
   getExtension(
-    extensionName: "OES_texture_half_float_linear"
+    extensionName: "OES_texture_half_float_linear",
   ): OES_texture_half_float_linear | null;
   getExtension(
-    extensionName: "OES_vertex_array_object"
+    extensionName: "OES_vertex_array_object",
   ): OES_vertex_array_object | null;
   getExtension(extensionName: "OVR_multiview2"): OVR_multiview2 | null;
   getExtension(
-    extensionName: "WEBGL_color_buffer_float"
+    extensionName: "WEBGL_color_buffer_float",
   ): WEBGL_color_buffer_float | null;
   getExtension(
-    extensionName: "WEBGL_compressed_texture_astc"
+    extensionName: "WEBGL_compressed_texture_astc",
   ): WEBGL_compressed_texture_astc | null;
   getExtension(
-    extensionName: "WEBGL_compressed_texture_etc"
+    extensionName: "WEBGL_compressed_texture_etc",
   ): WEBGL_compressed_texture_etc | null;
   getExtension(
-    extensionName: "WEBGL_compressed_texture_etc1"
+    extensionName: "WEBGL_compressed_texture_etc1",
   ): WEBGL_compressed_texture_etc1 | null;
   getExtension(
-    extensionName: "WEBGL_compressed_texture_pvrtc"
+    extensionName: "WEBGL_compressed_texture_pvrtc",
   ): WEBGL_compressed_texture_pvrtc | null;
   getExtension(
-    extensionName: "WEBGL_compressed_texture_s3tc"
+    extensionName: "WEBGL_compressed_texture_s3tc",
   ): WEBGL_compressed_texture_s3tc | null;
   getExtension(
-    extensionName: "WEBGL_compressed_texture_s3tc_srgb"
+    extensionName: "WEBGL_compressed_texture_s3tc_srgb",
   ): WEBGL_compressed_texture_s3tc_srgb | null;
   getExtension(
-    extensionName: "WEBGL_debug_renderer_info"
+    extensionName: "WEBGL_debug_renderer_info",
   ): WEBGL_debug_renderer_info | null;
   getExtension(
-    extensionName: "WEBGL_debug_shaders"
+    extensionName: "WEBGL_debug_shaders",
   ): WEBGL_debug_shaders | null;
   getExtension(
-    extensionName: "WEBGL_depth_texture"
+    extensionName: "WEBGL_depth_texture",
   ): WEBGL_depth_texture | null;
   getExtension(extensionName: "WEBGL_draw_buffers"): WEBGL_draw_buffers | null;
   getExtension(extensionName: "WEBGL_lose_context"): WEBGL_lose_context | null;
@@ -9291,7 +9291,7 @@ interface WebGLRenderingContextBase {
   getFramebufferAttachmentParameter(
     target: GLenum,
     attachment: GLenum,
-    pname: GLenum
+    pname: GLenum,
   ): any;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getParameter) */
   getParameter(pname: GLenum): any;
@@ -9308,7 +9308,7 @@ interface WebGLRenderingContextBase {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getShaderPrecisionFormat) */
   getShaderPrecisionFormat(
     shadertype: GLenum,
-    precisiontype: GLenum
+    precisiontype: GLenum,
   ): WebGLShaderPrecisionFormat | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getShaderSource) */
   getShaderSource(shader: WebGLShader): string | null;
@@ -9321,7 +9321,7 @@ interface WebGLRenderingContextBase {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getUniformLocation) */
   getUniformLocation(
     program: WebGLProgram,
-    name: string
+    name: string,
   ): WebGLUniformLocation | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getVertexAttrib) */
   getVertexAttrib(index: GLuint, pname: GLenum): any;
@@ -9357,7 +9357,7 @@ interface WebGLRenderingContextBase {
     target: GLenum,
     internalformat: GLenum,
     width: GLsizei,
-    height: GLsizei
+    height: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/sampleCoverage) */
   sampleCoverage(value: GLclampf, invert: GLboolean): void;
@@ -9372,7 +9372,7 @@ interface WebGLRenderingContextBase {
     face: GLenum,
     func: GLenum,
     ref: GLint,
-    mask: GLuint
+    mask: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/stencilMask) */
   stencilMask(mask: GLuint): void;
@@ -9385,7 +9385,7 @@ interface WebGLRenderingContextBase {
     face: GLenum,
     fail: GLenum,
     zfail: GLenum,
-    zpass: GLenum
+    zpass: GLenum,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/texParameter) */
   texParameterf(target: GLenum, pname: GLenum, param: GLfloat): void;
@@ -9399,7 +9399,7 @@ interface WebGLRenderingContextBase {
   uniform2f(
     location: WebGLUniformLocation | null,
     x: GLfloat,
-    y: GLfloat
+    y: GLfloat,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform2i(location: WebGLUniformLocation | null, x: GLint, y: GLint): void;
@@ -9408,14 +9408,14 @@ interface WebGLRenderingContextBase {
     location: WebGLUniformLocation | null,
     x: GLfloat,
     y: GLfloat,
-    z: GLfloat
+    z: GLfloat,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform3i(
     location: WebGLUniformLocation | null,
     x: GLint,
     y: GLint,
-    z: GLint
+    z: GLint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform4f(
@@ -9423,7 +9423,7 @@ interface WebGLRenderingContextBase {
     x: GLfloat,
     y: GLfloat,
     z: GLfloat,
-    w: GLfloat
+    w: GLfloat,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform4i(
@@ -9431,7 +9431,7 @@ interface WebGLRenderingContextBase {
     x: GLint,
     y: GLint,
     z: GLint,
-    w: GLint
+    w: GLint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/useProgram) */
   useProgram(program: WebGLProgram | null): void;
@@ -9455,7 +9455,7 @@ interface WebGLRenderingContextBase {
     x: GLfloat,
     y: GLfloat,
     z: GLfloat,
-    w: GLfloat
+    w: GLfloat,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/vertexAttrib) */
   vertexAttrib4fv(index: GLuint, values: Float32List): void;
@@ -9466,7 +9466,7 @@ interface WebGLRenderingContextBase {
     type: GLenum,
     normalized: GLboolean,
     stride: GLsizei,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/viewport) */
   viewport(x: GLint, y: GLint, width: GLsizei, height: GLsizei): void;
@@ -9782,7 +9782,7 @@ interface WebGLRenderingContextOverloads {
     width: GLsizei,
     height: GLsizei,
     border: GLint,
-    data: ArrayBufferView
+    data: ArrayBufferView,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/compressedTexSubImage2D) */
   compressedTexSubImage2D(
@@ -9793,7 +9793,7 @@ interface WebGLRenderingContextOverloads {
     width: GLsizei,
     height: GLsizei,
     format: GLenum,
-    data: ArrayBufferView
+    data: ArrayBufferView,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/readPixels) */
   readPixels(
@@ -9803,7 +9803,7 @@ interface WebGLRenderingContextOverloads {
     height: GLsizei,
     format: GLenum,
     type: GLenum,
-    pixels: ArrayBufferView | null
+    pixels: ArrayBufferView | null,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/texImage2D) */
   texImage2D(
@@ -9815,7 +9815,7 @@ interface WebGLRenderingContextOverloads {
     border: GLint,
     format: GLenum,
     type: GLenum,
-    pixels: ArrayBufferView | null
+    pixels: ArrayBufferView | null,
   ): void;
   texImage2D(
     target: GLenum,
@@ -9823,7 +9823,7 @@ interface WebGLRenderingContextOverloads {
     internalformat: GLint,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
+    source: TexImageSource,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/texSubImage2D) */
   texSubImage2D(
@@ -9835,7 +9835,7 @@ interface WebGLRenderingContextOverloads {
     height: GLsizei,
     format: GLenum,
     type: GLenum,
-    pixels: ArrayBufferView | null
+    pixels: ArrayBufferView | null,
   ): void;
   texSubImage2D(
     target: GLenum,
@@ -9844,7 +9844,7 @@ interface WebGLRenderingContextOverloads {
     yoffset: GLint,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
+    source: TexImageSource,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform1fv(location: WebGLUniformLocation | null, v: Float32List): void;
@@ -9866,19 +9866,19 @@ interface WebGLRenderingContextOverloads {
   uniformMatrix2fv(
     location: WebGLUniformLocation | null,
     transpose: GLboolean,
-    value: Float32List
+    value: Float32List,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
   uniformMatrix3fv(
     location: WebGLUniformLocation | null,
     transpose: GLboolean,
-    value: Float32List
+    value: Float32List,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
   uniformMatrix4fv(
     location: WebGLUniformLocation | null,
     transpose: GLboolean,
-    value: Float32List
+    value: Float32List,
   ): void;
 }
 
@@ -10052,22 +10052,22 @@ interface WebSocket extends EventTarget {
   addEventListener<K extends keyof WebSocketEventMap>(
     type: K,
     listener: (this: WebSocket, ev: WebSocketEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof WebSocketEventMap>(
     type: K,
     listener: (this: WebSocket, ev: WebSocketEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10100,11 +10100,11 @@ interface WebTransport {
   close(closeInfo?: WebTransportCloseInfo): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/createBidirectionalStream) */
   createBidirectionalStream(
-    options?: WebTransportSendStreamOptions
+    options?: WebTransportSendStreamOptions,
   ): Promise<WebTransportBidirectionalStream>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/createUnidirectionalStream) */
   createUnidirectionalStream(
-    options?: WebTransportSendStreamOptions
+    options?: WebTransportSendStreamOptions,
   ): Promise<WritableStream>;
 }
 
@@ -10225,7 +10225,7 @@ interface WindowOrWorkerGlobalScope {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/createImageBitmap) */
   createImageBitmap(
     image: ImageBitmapSource,
-    options?: ImageBitmapOptions
+    options?: ImageBitmapOptions,
   ): Promise<ImageBitmap>;
   createImageBitmap(
     image: ImageBitmapSource,
@@ -10233,7 +10233,7 @@ interface WindowOrWorkerGlobalScope {
     sy: number,
     sw: number,
     sh: number,
-    options?: ImageBitmapOptions
+    options?: ImageBitmapOptions,
   ): Promise<ImageBitmap>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/fetch) */
   fetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response>;
@@ -10288,22 +10288,22 @@ interface Worker extends EventTarget, AbstractWorker {
   addEventListener<K extends keyof WorkerEventMap>(
     type: K,
     listener: (this: Worker, ev: WorkerEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof WorkerEventMap>(
     type: K,
     listener: (this: Worker, ev: WorkerEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10372,27 +10372,27 @@ interface WorkerGlobalScope
     type: K,
     listener: (
       this: WorkerGlobalScope,
-      ev: WorkerGlobalScopeEventMap[K]
+      ev: WorkerGlobalScopeEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof WorkerGlobalScopeEventMap>(
     type: K,
     listener: (
       this: WorkerGlobalScope,
-      ev: WorkerGlobalScopeEventMap[K]
+      ev: WorkerGlobalScopeEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10477,7 +10477,7 @@ declare var WritableStream: {
   prototype: WritableStream;
   new <W = any>(
     underlyingSink?: UnderlyingSink<W>,
-    strategy?: QueuingStrategy<W>
+    strategy?: QueuingStrategy<W>,
   ): WritableStream<W>;
 };
 
@@ -10626,7 +10626,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     url: string | URL,
     async: boolean,
     username?: string | null,
-    password?: string | null
+    password?: string | null,
   ): void;
   /**
    * Acts as if the `Content-Type` header value for a response is mime. (It does not change the header.)
@@ -10662,22 +10662,22 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
   addEventListener<K extends keyof XMLHttpRequestEventMap>(
     type: K,
     listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof XMLHttpRequestEventMap>(
     type: K,
     listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10714,27 +10714,27 @@ interface XMLHttpRequestEventTarget extends EventTarget {
     type: K,
     listener: (
       this: XMLHttpRequestEventTarget,
-      ev: XMLHttpRequestEventTargetEventMap[K]
+      ev: XMLHttpRequestEventTargetEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
     type: K,
     listener: (
       this: XMLHttpRequestEventTarget,
-      ev: XMLHttpRequestEventTargetEventMap[K]
+      ev: XMLHttpRequestEventTargetEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10749,27 +10749,27 @@ interface XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
     type: K,
     listener: (
       this: XMLHttpRequestUpload,
-      ev: XMLHttpRequestEventTargetEventMap[K]
+      ev: XMLHttpRequestEventTargetEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
     type: K,
     listener: (
       this: XMLHttpRequestUpload,
-      ev: XMLHttpRequestEventTargetEventMap[K]
+      ev: XMLHttpRequestEventTargetEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10844,7 +10844,7 @@ declare namespace WebAssembly {
     prototype: Global;
     new <T extends ValueType = ValueType>(
       descriptor: GlobalDescriptor<T>,
-      v?: ValueTypeMap[T]
+      v?: ValueTypeMap[T],
     ): Global<T>;
   };
 
@@ -10974,21 +10974,21 @@ declare namespace WebAssembly {
   function compile(bytes: BufferSource): Promise<Module>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/compileStreaming) */
   function compileStreaming(
-    source: Response | PromiseLike<Response>
+    source: Response | PromiseLike<Response>,
   ): Promise<Module>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiate) */
   function instantiate(
     bytes: BufferSource,
-    importObject?: Imports
+    importObject?: Imports,
   ): Promise<WebAssemblyInstantiatedSource>;
   function instantiate(
     moduleObject: Module,
-    importObject?: Imports
+    importObject?: Imports,
   ): Promise<Instance>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiateStreaming) */
   function instantiateStreaming(
     source: Response | PromiseLike<Response>,
-    importObject?: Imports
+    importObject?: Imports,
   ): Promise<WebAssemblyInstantiatedSource>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/validate) */
   function validate(bytes: BufferSource): boolean;
@@ -11012,7 +11012,7 @@ interface OnErrorEventHandlerNonNull {
     source?: string,
     lineno?: number,
     colno?: number,
-    error?: Error
+    error?: Error,
   ): any;
 }
 
@@ -11039,7 +11039,7 @@ interface TransformerStartCallback<O> {
 interface TransformerTransformCallback<I, O> {
   (
     chunk: I,
-    controller: TransformStreamDefaultController<O>
+    controller: TransformStreamDefaultController<O>,
   ): void | PromiseLike<void>;
 }
 
@@ -11058,7 +11058,7 @@ interface UnderlyingSinkStartCallback {
 interface UnderlyingSinkWriteCallback<W> {
   (
     chunk: W,
-    controller: WritableStreamDefaultController
+    controller: WritableStreamDefaultController,
   ): void | PromiseLike<void>;
 }
 
@@ -11114,7 +11114,7 @@ declare function close(): void;
 declare function postMessage(message: any, transfer: Transferable[]): void;
 declare function postMessage(
   message: any,
-  options?: StructuredSerializeOptions
+  options?: StructuredSerializeOptions,
 ): void;
 /**
  * Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
@@ -11205,7 +11205,7 @@ declare function clearTimeout(id: number | undefined): void;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/createImageBitmap) */
 declare function createImageBitmap(
   image: ImageBitmapSource,
-  options?: ImageBitmapOptions
+  options?: ImageBitmapOptions,
 ): Promise<ImageBitmap>;
 declare function createImageBitmap(
   image: ImageBitmapSource,
@@ -11213,12 +11213,12 @@ declare function createImageBitmap(
   sy: number,
   sw: number,
   sh: number,
-  options?: ImageBitmapOptions
+  options?: ImageBitmapOptions,
 ): Promise<ImageBitmap>;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/fetch) */
 declare function fetch(
   input: RequestInfo | URL,
-  init?: RequestInit
+  init?: RequestInit,
 ): Promise<Response>;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/queueMicrotask) */
 declare function queueMicrotask(callback: VoidFunction): void;
@@ -11239,39 +11239,39 @@ declare function setTimeout(
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/structuredClone) */
 declare function structuredClone<T = any>(
   value: T,
-  options?: StructuredSerializeOptions
+  options?: StructuredSerializeOptions,
 ): T;
 declare function cancelAnimationFrame(handle: number): void;
 declare function requestAnimationFrame(callback: FrameRequestCallback): number;
 declare function addEventListener<
-  K extends keyof DedicatedWorkerGlobalScopeEventMap
+  K extends keyof DedicatedWorkerGlobalScopeEventMap,
 >(
   type: K,
   listener: (
     this: DedicatedWorkerGlobalScope,
-    ev: DedicatedWorkerGlobalScopeEventMap[K]
+    ev: DedicatedWorkerGlobalScopeEventMap[K],
   ) => any,
-  options?: boolean | AddEventListenerOptions
+  options?: boolean | AddEventListenerOptions,
 ): void;
 declare function addEventListener(
   type: string,
   listener: EventListenerOrEventListenerObject,
-  options?: boolean | AddEventListenerOptions
+  options?: boolean | AddEventListenerOptions,
 ): void;
 declare function removeEventListener<
-  K extends keyof DedicatedWorkerGlobalScopeEventMap
+  K extends keyof DedicatedWorkerGlobalScopeEventMap,
 >(
   type: K,
   listener: (
     this: DedicatedWorkerGlobalScope,
-    ev: DedicatedWorkerGlobalScopeEventMap[K]
+    ev: DedicatedWorkerGlobalScopeEventMap[K],
   ) => any,
-  options?: boolean | EventListenerOptions
+  options?: boolean | EventListenerOptions,
 ): void;
 declare function removeEventListener(
   type: string,
   listener: EventListenerOrEventListenerObject,
-  options?: boolean | EventListenerOptions
+  options?: boolean | EventListenerOptions,
 ): void;
 type AlgorithmIdentifier = Algorithm | string;
 type AllowSharedBufferSource = ArrayBuffer | ArrayBufferView;

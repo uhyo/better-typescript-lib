@@ -1930,7 +1930,7 @@ interface UnderlyingByteSource {
 interface UnderlyingDefaultSource<R = any> {
   cancel?: UnderlyingSourceCancelCallback;
   pull?: (
-    controller: ReadableStreamDefaultController<R>
+    controller: ReadableStreamDefaultController<R>,
   ) => void | PromiseLike<void>;
   start?: (controller: ReadableStreamDefaultController<R>) => any;
   type?: undefined;
@@ -2187,7 +2187,7 @@ interface ANGLE_instanced_arrays {
     mode: GLenum,
     first: GLint,
     count: GLsizei,
-    primcount: GLsizei
+    primcount: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ANGLE_instanced_arrays/drawElementsInstancedANGLE) */
   drawElementsInstancedANGLE(
@@ -2195,7 +2195,7 @@ interface ANGLE_instanced_arrays {
     count: GLsizei,
     type: GLenum,
     offset: GLintptr,
-    primcount: GLsizei
+    primcount: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ANGLE_instanced_arrays/vertexAttribDivisorANGLE) */
   vertexAttribDivisorANGLE(index: GLuint, divisor: GLuint): void;
@@ -2329,22 +2329,22 @@ interface AbortSignal extends EventTarget {
   addEventListener<K extends keyof AbortSignalEventMap>(
     type: K,
     listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof AbortSignalEventMap>(
     type: K,
     listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -2406,22 +2406,22 @@ interface AbstractWorker {
   addEventListener<K extends keyof AbstractWorkerEventMap>(
     type: K,
     listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof AbstractWorkerEventMap>(
     type: K,
     listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -2460,7 +2460,7 @@ interface Animatable {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/animate) */
   animate(
     keyframes: Keyframe[] | PropertyIndexedKeyframes | null,
-    options?: number | KeyframeAnimationOptions
+    options?: number | KeyframeAnimationOptions,
   ): Animation;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/getAnimations) */
   getAnimations(options?: GetAnimationsOptions): Animation[];
@@ -2521,22 +2521,22 @@ interface Animation extends EventTarget {
   addEventListener<K extends keyof AnimationEventMap>(
     type: K,
     listener: (this: Animation, ev: AnimationEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof AnimationEventMap>(
     type: K,
     listener: (this: Animation, ev: AnimationEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -2544,7 +2544,7 @@ declare var Animation: {
   prototype: Animation;
   new (
     effect?: AnimationEffect | null,
-    timeline?: AnimationTimeline | null
+    timeline?: AnimationTimeline | null,
   ): Animation;
 };
 
@@ -2581,7 +2581,7 @@ declare var AnimationEvent: {
   prototype: AnimationEvent;
   new (
     type: string,
-    animationEventInitDict?: AnimationEventInit
+    animationEventInitDict?: AnimationEventInit,
   ): AnimationEvent;
 };
 
@@ -2602,7 +2602,7 @@ declare var AnimationPlaybackEvent: {
   prototype: AnimationPlaybackEvent;
   new (
     type: string,
-    eventInitDict?: AnimationPlaybackEventInit
+    eventInitDict?: AnimationPlaybackEventInit,
   ): AnimationPlaybackEvent;
 };
 
@@ -2667,13 +2667,13 @@ interface AudioBuffer {
   copyFromChannel(
     destination: Float32Array,
     channelNumber: number,
-    bufferOffset?: number
+    bufferOffset?: number,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioBuffer/copyToChannel) */
   copyToChannel(
     source: Float32Array,
     channelNumber: number,
-    bufferOffset?: number
+    bufferOffset?: number,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioBuffer/getChannelData) */
   getChannelData(channel: number): Float32Array;
@@ -2708,27 +2708,27 @@ interface AudioBufferSourceNode extends AudioScheduledSourceNode {
     type: K,
     listener: (
       this: AudioBufferSourceNode,
-      ev: AudioScheduledSourceNodeEventMap[K]
+      ev: AudioScheduledSourceNodeEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(
     type: K,
     listener: (
       this: AudioBufferSourceNode,
-      ev: AudioScheduledSourceNodeEventMap[K]
+      ev: AudioScheduledSourceNodeEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -2736,7 +2736,7 @@ declare var AudioBufferSourceNode: {
   prototype: AudioBufferSourceNode;
   new (
     context: BaseAudioContext,
-    options?: AudioBufferSourceOptions
+    options?: AudioBufferSourceOptions,
   ): AudioBufferSourceNode;
 };
 
@@ -2754,7 +2754,7 @@ interface AudioContext extends BaseAudioContext {
   close(): Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioContext/createMediaElementSource) */
   createMediaElementSource(
-    mediaElement: HTMLMediaElement
+    mediaElement: HTMLMediaElement,
   ): MediaElementAudioSourceNode;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioContext/createMediaStreamDestination) */
   createMediaStreamDestination(): MediaStreamAudioDestinationNode;
@@ -2769,22 +2769,22 @@ interface AudioContext extends BaseAudioContext {
   addEventListener<K extends keyof BaseAudioContextEventMap>(
     type: K,
     listener: (this: AudioContext, ev: BaseAudioContextEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof BaseAudioContextEventMap>(
     type: K,
     listener: (this: AudioContext, ev: BaseAudioContextEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -2843,7 +2843,7 @@ interface AudioListener {
     z: number,
     xUp: number,
     yUp: number,
-    zUp: number
+    zUp: number,
   ): void;
   /**
    * @deprecated
@@ -2880,7 +2880,7 @@ interface AudioNode extends EventTarget {
   connect(
     destinationNode: AudioNode,
     output?: number,
-    input?: number
+    input?: number,
   ): AudioNode;
   connect(destinationParam: AudioParam, output?: number): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioNode/disconnect) */
@@ -2926,7 +2926,7 @@ interface AudioParam {
   setTargetAtTime(
     target: number,
     startTime: number,
-    timeConstant: number
+    timeConstant: number,
   ): AudioParam;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioParam/setValueAtTime) */
   setValueAtTime(value: number, startTime: number): AudioParam;
@@ -2934,7 +2934,7 @@ interface AudioParam {
   setValueCurveAtTime(
     values: number[] | Float32Array,
     startTime: number,
-    duration: number
+    duration: number,
   ): AudioParam;
 }
 
@@ -2950,9 +2950,9 @@ interface AudioParamMap {
       this: This,
       value: AudioParam,
       key: string,
-      parent: this
+      parent: this,
     ) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
 }
 //     forEach(callbackfn: (value: AudioParam, key: string, parent: AudioParamMap) => void, thisArg?: any): void;
@@ -2994,7 +2994,7 @@ declare var AudioProcessingEvent: {
   prototype: AudioProcessingEvent;
   new (
     type: string,
-    eventInitDict: AudioProcessingEventInit
+    eventInitDict: AudioProcessingEventInit,
   ): AudioProcessingEvent;
 };
 
@@ -3014,27 +3014,27 @@ interface AudioScheduledSourceNode extends AudioNode {
     type: K,
     listener: (
       this: AudioScheduledSourceNode,
-      ev: AudioScheduledSourceNodeEventMap[K]
+      ev: AudioScheduledSourceNodeEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(
     type: K,
     listener: (
       this: AudioScheduledSourceNode,
-      ev: AudioScheduledSourceNodeEventMap[K]
+      ev: AudioScheduledSourceNodeEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -3074,22 +3074,22 @@ interface AudioWorkletNode extends AudioNode {
   addEventListener<K extends keyof AudioWorkletNodeEventMap>(
     type: K,
     listener: (this: AudioWorkletNode, ev: AudioWorkletNodeEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof AudioWorkletNodeEventMap>(
     type: K,
     listener: (this: AudioWorkletNode, ev: AudioWorkletNodeEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -3098,7 +3098,7 @@ declare var AudioWorkletNode: {
   new (
     context: BaseAudioContext,
     name: string,
-    options?: AudioWorkletNodeOptions
+    options?: AudioWorkletNodeOptions,
   ): AudioWorkletNode;
 };
 
@@ -3199,7 +3199,7 @@ interface BaseAudioContext extends EventTarget {
   createBuffer(
     numberOfChannels: number,
     length: number,
-    sampleRate: number
+    sampleRate: number,
   ): AudioBuffer;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/BaseAudioContext/createBufferSource) */
   createBufferSource(): AudioBufferSourceNode;
@@ -3227,7 +3227,7 @@ interface BaseAudioContext extends EventTarget {
   createPeriodicWave(
     real: number[] | Float32Array,
     imag: number[] | Float32Array,
-    constraints?: PeriodicWaveConstraints
+    constraints?: PeriodicWaveConstraints,
   ): PeriodicWave;
   /**
    * @deprecated
@@ -3237,7 +3237,7 @@ interface BaseAudioContext extends EventTarget {
   createScriptProcessor(
     bufferSize?: number,
     numberOfInputChannels?: number,
-    numberOfOutputChannels?: number
+    numberOfOutputChannels?: number,
   ): ScriptProcessorNode;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/BaseAudioContext/createStereoPanner) */
   createStereoPanner(): StereoPannerNode;
@@ -3247,27 +3247,27 @@ interface BaseAudioContext extends EventTarget {
   decodeAudioData(
     audioData: ArrayBuffer,
     successCallback?: DecodeSuccessCallback | null,
-    errorCallback?: DecodeErrorCallback | null
+    errorCallback?: DecodeErrorCallback | null,
   ): Promise<AudioBuffer>;
   addEventListener<K extends keyof BaseAudioContextEventMap>(
     type: K,
     listener: (this: BaseAudioContext, ev: BaseAudioContextEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof BaseAudioContextEventMap>(
     type: K,
     listener: (this: BaseAudioContext, ev: BaseAudioContextEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -3310,7 +3310,7 @@ interface BiquadFilterNode extends AudioNode {
   getFrequencyResponse(
     frequencyHz: Float32Array,
     magResponse: Float32Array,
-    phaseResponse: Float32Array
+    phaseResponse: Float32Array,
   ): void;
 }
 
@@ -3318,7 +3318,7 @@ declare var BiquadFilterNode: {
   prototype: BiquadFilterNode;
   new (
     context: BaseAudioContext,
-    options?: BiquadFilterOptions
+    options?: BiquadFilterOptions,
   ): BiquadFilterNode;
 };
 
@@ -3411,22 +3411,22 @@ interface BroadcastChannel extends EventTarget {
   addEventListener<K extends keyof BroadcastChannelEventMap>(
     type: K,
     listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof BroadcastChannelEventMap>(
     type: K,
     listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -3471,22 +3471,22 @@ interface CSSAnimation extends Animation {
   addEventListener<K extends keyof AnimationEventMap>(
     type: K,
     listener: (this: CSSAnimation, ev: AnimationEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof AnimationEventMap>(
     type: K,
     listener: (this: CSSAnimation, ev: AnimationEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -3723,7 +3723,7 @@ declare var CSSMathClamp: {
   new (
     lower: CSSNumberish,
     value: CSSNumberish,
-    upper: CSSNumberish
+    upper: CSSNumberish,
   ): CSSMathClamp;
 };
 
@@ -3814,7 +3814,7 @@ declare var CSSMatrixComponent: {
   prototype: CSSMatrixComponent;
   new (
     matrix: DOMMatrixReadOnly,
-    options?: CSSMatrixComponentOptions
+    options?: CSSMatrixComponentOptions,
   ): CSSMatrixComponent;
 };
 
@@ -3858,9 +3858,9 @@ interface CSSNumericArray {
     callbackfn: (
       value: CSSNumericValue,
       key: number,
-      parent: CSSNumericArray
+      parent: CSSNumericArray,
     ) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
   [index: number]: CSSNumericValue;
 }
@@ -3965,7 +3965,7 @@ declare var CSSRotate: {
     x: CSSNumberish,
     y: CSSNumberish,
     z: CSSNumberish,
-    angle: CSSNumericValue
+    angle: CSSNumericValue,
   ): CSSRotate;
 };
 
@@ -5417,9 +5417,9 @@ interface CSSTransformValue extends CSSStyleValue {
     callbackfn: (
       value: CSSTransformComponent,
       key: number,
-      parent: CSSTransformValue
+      parent: CSSTransformValue,
     ) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
   [index: number]: CSSTransformComponent;
 }
@@ -5436,22 +5436,22 @@ interface CSSTransition extends Animation {
   addEventListener<K extends keyof AnimationEventMap>(
     type: K,
     listener: (this: CSSTransition, ev: AnimationEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof AnimationEventMap>(
     type: K,
     listener: (this: CSSTransition, ev: AnimationEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -5475,7 +5475,7 @@ declare var CSSTranslate: {
   new (
     x: CSSNumericValue,
     y: CSSNumericValue,
-    z?: CSSNumericValue
+    z?: CSSNumericValue,
   ): CSSTranslate;
 };
 
@@ -5500,9 +5500,9 @@ interface CSSUnparsedValue extends CSSStyleValue {
     callbackfn: (
       value: CSSUnparsedSegment,
       key: number,
-      parent: CSSUnparsedValue
+      parent: CSSUnparsedValue,
     ) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
   [index: number]: CSSUnparsedSegment;
 }
@@ -5524,7 +5524,7 @@ declare var CSSVariableReferenceValue: {
   prototype: CSSVariableReferenceValue;
   new (
     variable: string,
-    fallback?: CSSUnparsedValue | null
+    fallback?: CSSUnparsedValue | null,
   ): CSSVariableReferenceValue;
 };
 
@@ -5542,22 +5542,22 @@ interface Cache {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Cache/delete) */
   delete(
     request: RequestInfo | URL,
-    options?: CacheQueryOptions
+    options?: CacheQueryOptions,
   ): Promise<boolean>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Cache/keys) */
   keys(
     request?: RequestInfo | URL,
-    options?: CacheQueryOptions
+    options?: CacheQueryOptions,
   ): Promise<ReadonlyArray<Request>>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Cache/match) */
   match(
     request: RequestInfo | URL,
-    options?: CacheQueryOptions
+    options?: CacheQueryOptions,
   ): Promise<Response | undefined>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Cache/matchAll) */
   matchAll(
     request?: RequestInfo | URL,
-    options?: CacheQueryOptions
+    options?: CacheQueryOptions,
   ): Promise<ReadonlyArray<Response>>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Cache/put) */
   put(request: RequestInfo | URL, response: Response): Promise<void>;
@@ -5584,7 +5584,7 @@ interface CacheStorage {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CacheStorage/match) */
   match(
     request: RequestInfo | URL,
-    options?: MultiCacheQueryOptions
+    options?: MultiCacheQueryOptions,
   ): Promise<Response | undefined>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CacheStorage/open) */
   open(cacheName: string): Promise<Cache>;
@@ -5605,27 +5605,27 @@ interface CanvasCaptureMediaStreamTrack extends MediaStreamTrack {
     type: K,
     listener: (
       this: CanvasCaptureMediaStreamTrack,
-      ev: MediaStreamTrackEventMap[K]
+      ev: MediaStreamTrackEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MediaStreamTrackEventMap>(
     type: K,
     listener: (
       this: CanvasCaptureMediaStreamTrack,
-      ev: MediaStreamTrackEventMap[K]
+      ev: MediaStreamTrackEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -5649,7 +5649,7 @@ interface CanvasDrawImage {
     dx: number,
     dy: number,
     dw: number,
-    dh: number
+    dh: number,
   ): void;
   drawImage(
     image: CanvasImageSource,
@@ -5660,7 +5660,7 @@ interface CanvasDrawImage {
     dx: number,
     dy: number,
     dw: number,
-    dh: number
+    dh: number,
   ): void;
 }
 
@@ -5679,7 +5679,7 @@ interface CanvasDrawPath {
     path: Path2D,
     x: number,
     y: number,
-    fillRule?: CanvasFillRule
+    fillRule?: CanvasFillRule,
   ): boolean;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/isPointInStroke) */
   isPointInStroke(x: number, y: number): boolean;
@@ -5701,12 +5701,12 @@ interface CanvasFillStrokeStyles {
     x0: number,
     y0: number,
     x1: number,
-    y1: number
+    y1: number,
   ): CanvasGradient;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/createPattern) */
   createPattern(
     image: CanvasImageSource,
-    repetition: string | null
+    repetition: string | null,
   ): CanvasPattern | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/createRadialGradient) */
   createRadialGradient(
@@ -5715,7 +5715,7 @@ interface CanvasFillStrokeStyles {
     r0: number,
     x1: number,
     y1: number,
-    r1: number
+    r1: number,
   ): CanvasGradient;
 }
 
@@ -5750,7 +5750,7 @@ interface CanvasImageData {
   createImageData(
     sw: number,
     sh: number,
-    settings?: ImageDataSettings
+    settings?: ImageDataSettings,
   ): ImageData;
   createImageData(imagedata: ImageData): ImageData;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/getImageData) */
@@ -5759,7 +5759,7 @@ interface CanvasImageData {
     sy: number,
     sw: number,
     sh: number,
-    settings?: ImageDataSettings
+    settings?: ImageDataSettings,
   ): ImageData;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/putImageData) */
   putImageData(imagedata: ImageData, dx: number, dy: number): void;
@@ -5770,7 +5770,7 @@ interface CanvasImageData {
     dirtyX: number,
     dirtyY: number,
     dirtyWidth: number,
-    dirtyHeight: number
+    dirtyHeight: number,
   ): void;
 }
 
@@ -5789,7 +5789,7 @@ interface CanvasPath {
     radius: number,
     startAngle: number,
     endAngle: number,
-    counterclockwise?: boolean
+    counterclockwise?: boolean,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/arcTo) */
   arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
@@ -5800,7 +5800,7 @@ interface CanvasPath {
     cp2x: number,
     cp2y: number,
     x: number,
-    y: number
+    y: number,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/closePath) */
   closePath(): void;
@@ -5813,7 +5813,7 @@ interface CanvasPath {
     rotation: number,
     startAngle: number,
     endAngle: number,
-    counterclockwise?: boolean
+    counterclockwise?: boolean,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/lineTo) */
   lineTo(x: number, y: number): void;
@@ -5829,7 +5829,7 @@ interface CanvasPath {
     y: number,
     w: number,
     h: number,
-    radii?: number | DOMPointInit | (number | DOMPointInit)[]
+    radii?: number | DOMPointInit | (number | DOMPointInit)[],
   ): void;
 }
 
@@ -5969,7 +5969,7 @@ interface CanvasTransform {
     c: number,
     d: number,
     e: number,
-    f: number
+    f: number,
   ): void;
   setTransform(transform?: DOMMatrix2DInit): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/transform) */
@@ -5979,7 +5979,7 @@ interface CanvasTransform {
     c: number,
     d: number,
     e: number,
-    f: number
+    f: number,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/translate) */
   translate(x: number, y: number): void;
@@ -6002,7 +6002,7 @@ declare var ChannelMergerNode: {
   prototype: ChannelMergerNode;
   new (
     context: BaseAudioContext,
-    options?: ChannelMergerOptions
+    options?: ChannelMergerOptions,
   ): ChannelMergerNode;
 };
 
@@ -6017,7 +6017,7 @@ declare var ChannelSplitterNode: {
   prototype: ChannelSplitterNode;
   new (
     context: BaseAudioContext,
-    options?: ChannelSplitterOptions
+    options?: ChannelSplitterOptions,
   ): ChannelSplitterNode;
 };
 
@@ -6137,7 +6137,7 @@ declare var ClipboardItem: {
   prototype: ClipboardItem;
   new (
     items: Record<string, string | Blob | PromiseLike<string | Blob>>,
-    options?: ClipboardItemOptions
+    options?: ClipboardItemOptions,
   ): ClipboardItem;
 };
 
@@ -6202,7 +6202,7 @@ interface CompositionEvent extends UIEvent {
     bubblesArg?: boolean,
     cancelableArg?: boolean,
     viewArg?: WindowProxy | null,
-    dataArg?: string
+    dataArg?: string,
   ): void;
 }
 
@@ -6227,27 +6227,27 @@ interface ConstantSourceNode extends AudioScheduledSourceNode {
     type: K,
     listener: (
       this: ConstantSourceNode,
-      ev: AudioScheduledSourceNodeEventMap[K]
+      ev: AudioScheduledSourceNodeEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(
     type: K,
     listener: (
       this: ConstantSourceNode,
-      ev: AudioScheduledSourceNodeEventMap[K]
+      ev: AudioScheduledSourceNodeEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -6255,7 +6255,7 @@ declare var ConstantSourceNode: {
   prototype: ConstantSourceNode;
   new (
     context: BaseAudioContext,
-    options?: ConstantSourceOptions
+    options?: ConstantSourceOptions,
   ): ConstantSourceNode;
 };
 
@@ -6386,7 +6386,7 @@ interface CustomElementRegistry {
   define(
     name: string,
     constructor: CustomElementConstructor,
-    options?: ElementDefinitionOptions
+    options?: ElementDefinitionOptions,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CustomElementRegistry/get) */
   get(name: string): CustomElementConstructor | undefined;
@@ -6418,7 +6418,7 @@ interface CustomEvent<T = any> extends Event {
     type: string,
     bubbles?: boolean,
     cancelable?: boolean,
-    detail?: T
+    detail?: T,
   ): void;
 }
 
@@ -6510,13 +6510,13 @@ interface DOMImplementation {
   createDocument(
     namespace: string | null,
     qualifiedName: string | null,
-    doctype?: DocumentType | null
+    doctype?: DocumentType | null,
   ): XMLDocument;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMImplementation/createDocumentType) */
   createDocumentType(
     qualifiedName: string,
     publicId: string,
-    systemId: string
+    systemId: string,
   ): DocumentType;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMImplementation/createHTMLDocument) */
   createHTMLDocument(title?: string): Document;
@@ -6564,7 +6564,7 @@ interface DOMMatrix extends DOMMatrixReadOnly {
     x?: number,
     y?: number,
     z?: number,
-    angle?: number
+    angle?: number,
   ): DOMMatrix;
   rotateFromVectorSelf(x?: number, y?: number): DOMMatrix;
   rotateSelf(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
@@ -6573,7 +6573,7 @@ interface DOMMatrix extends DOMMatrixReadOnly {
     scale?: number,
     originX?: number,
     originY?: number,
-    originZ?: number
+    originZ?: number,
   ): DOMMatrix;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/scaleSelf) */
   scaleSelf(
@@ -6582,7 +6582,7 @@ interface DOMMatrix extends DOMMatrixReadOnly {
     scaleZ?: number,
     originX?: number,
     originY?: number,
-    originZ?: number
+    originZ?: number,
   ): DOMMatrix;
   setMatrixValue(transformList: string): DOMMatrix;
   skewXSelf(sx?: number): DOMMatrix;
@@ -6669,7 +6669,7 @@ interface DOMMatrixReadOnly {
     x?: number,
     y?: number,
     z?: number,
-    angle?: number
+    angle?: number,
   ): DOMMatrix;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/rotateFromVector) */
   rotateFromVector(x?: number, y?: number): DOMMatrix;
@@ -6680,14 +6680,14 @@ interface DOMMatrixReadOnly {
     scaleZ?: number,
     originX?: number,
     originY?: number,
-    originZ?: number
+    originZ?: number,
   ): DOMMatrix;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/scale3d) */
   scale3d(
     scale?: number,
     originX?: number,
     originY?: number,
-    originZ?: number
+    originZ?: number,
   ): DOMMatrix;
   /**
    * @deprecated
@@ -6810,7 +6810,7 @@ declare var DOMQuad: {
     p1?: DOMPointInit,
     p2?: DOMPointInit,
     p3?: DOMPointInit,
-    p4?: DOMPointInit
+    p4?: DOMPointInit,
   ): DOMQuad;
   fromQuad(other?: DOMQuadInit): DOMQuad;
   fromRect(other?: DOMRectInit): DOMQuad;
@@ -6871,7 +6871,7 @@ declare var DOMRectReadOnly: {
     x?: number,
     y?: number,
     width?: number,
-    height?: number
+    height?: number,
   ): DOMRectReadOnly;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRectReadOnly/fromRect_static) */
   fromRect(other?: DOMRectInit): DOMRectReadOnly;
@@ -7010,7 +7010,7 @@ interface DOMTokenList {
   toggle(token: string, force?: boolean): boolean;
   forEach(
     callbackfn: (value: string, key: number, parent: DOMTokenList) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
   [index: number]: string;
 }
@@ -7276,7 +7276,7 @@ declare var DeviceOrientationEvent: {
   prototype: DeviceOrientationEvent;
   new (
     type: string,
-    eventInitDict?: DeviceOrientationEventInit
+    eventInitDict?: DeviceOrientationEventInit,
   ): DeviceOrientationEvent;
 };
 
@@ -7653,12 +7653,12 @@ interface Document
    */
   createElement<K extends keyof HTMLElementTagNameMap>(
     tagName: K,
-    options?: ElementCreationOptions
+    options?: ElementCreationOptions,
   ): HTMLElementTagNameMap[K];
   /** @deprecated */
   createElement<K extends keyof HTMLElementDeprecatedTagNameMap>(
     tagName: K,
-    options?: ElementCreationOptions
+    options?: ElementCreationOptions,
   ): HTMLElementDeprecatedTagNameMap[K];
   createElement(tagName: string, options?: ElementCreationOptions): HTMLElement;
   /**
@@ -7680,33 +7680,33 @@ interface Document
    */
   createElementNS(
     namespaceURI: "http://www.w3.org/1999/xhtml",
-    qualifiedName: string
+    qualifiedName: string,
   ): HTMLElement;
   createElementNS<K extends keyof SVGElementTagNameMap>(
     namespaceURI: "http://www.w3.org/2000/svg",
-    qualifiedName: K
+    qualifiedName: K,
   ): SVGElementTagNameMap[K];
   createElementNS(
     namespaceURI: "http://www.w3.org/2000/svg",
-    qualifiedName: string
+    qualifiedName: string,
   ): SVGElement;
   createElementNS<K extends keyof MathMLElementTagNameMap>(
     namespaceURI: "http://www.w3.org/1998/Math/MathML",
-    qualifiedName: K
+    qualifiedName: K,
   ): MathMLElementTagNameMap[K];
   createElementNS(
     namespaceURI: "http://www.w3.org/1998/Math/MathML",
-    qualifiedName: string
+    qualifiedName: string,
   ): MathMLElement;
   createElementNS(
     namespaceURI: string | null,
     qualifiedName: string,
-    options?: ElementCreationOptions
+    options?: ElementCreationOptions,
   ): Element;
   createElementNS(
     namespace: string | null,
     qualifiedName: string,
-    options?: string | ElementCreationOptions
+    options?: string | ElementCreationOptions,
   ): Element;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/createEvent) */
   createEvent(eventInterface: "AnimationEvent"): AnimationEvent;
@@ -7744,14 +7744,14 @@ interface Document
   createEvent(eventInterface: "MutationEvent"): MutationEvent;
   createEvent(eventInterface: "MutationEvents"): MutationEvent;
   createEvent(
-    eventInterface: "OfflineAudioCompletionEvent"
+    eventInterface: "OfflineAudioCompletionEvent",
   ): OfflineAudioCompletionEvent;
   createEvent(eventInterface: "PageTransitionEvent"): PageTransitionEvent;
   createEvent(
-    eventInterface: "PaymentMethodChangeEvent"
+    eventInterface: "PaymentMethodChangeEvent",
   ): PaymentMethodChangeEvent;
   createEvent(
-    eventInterface: "PaymentRequestUpdateEvent"
+    eventInterface: "PaymentRequestUpdateEvent",
   ): PaymentRequestUpdateEvent;
   createEvent(eventInterface: "PictureInPictureEvent"): PictureInPictureEvent;
   createEvent(eventInterface: "PointerEvent"): PointerEvent;
@@ -7762,17 +7762,17 @@ interface Document
   createEvent(eventInterface: "RTCDataChannelEvent"): RTCDataChannelEvent;
   createEvent(eventInterface: "RTCErrorEvent"): RTCErrorEvent;
   createEvent(
-    eventInterface: "RTCPeerConnectionIceErrorEvent"
+    eventInterface: "RTCPeerConnectionIceErrorEvent",
   ): RTCPeerConnectionIceErrorEvent;
   createEvent(
-    eventInterface: "RTCPeerConnectionIceEvent"
+    eventInterface: "RTCPeerConnectionIceEvent",
   ): RTCPeerConnectionIceEvent;
   createEvent(eventInterface: "RTCTrackEvent"): RTCTrackEvent;
   createEvent(
-    eventInterface: "SecurityPolicyViolationEvent"
+    eventInterface: "SecurityPolicyViolationEvent",
   ): SecurityPolicyViolationEvent;
   createEvent(
-    eventInterface: "SpeechSynthesisErrorEvent"
+    eventInterface: "SpeechSynthesisErrorEvent",
   ): SpeechSynthesisErrorEvent;
   createEvent(eventInterface: "SpeechSynthesisEvent"): SpeechSynthesisEvent;
   createEvent(eventInterface: "StorageEvent"): StorageEvent;
@@ -7797,7 +7797,7 @@ interface Document
   createNodeIterator(
     root: Node,
     whatToShow?: number,
-    filter?: NodeFilter | null
+    filter?: NodeFilter | null,
   ): NodeIterator;
   /**
    * Returns a ProcessingInstruction node whose target is target and data is data. If target does not match the Name production an "InvalidCharacterError" DOMException will be thrown. If data contains "?>" an "InvalidCharacterError" DOMException will be thrown.
@@ -7806,7 +7806,7 @@ interface Document
    */
   createProcessingInstruction(
     target: string,
-    data: string
+    data: string,
   ): ProcessingInstruction;
   /**
    *  Returns an empty range object that has both of its boundary points positioned at the beginning of the document.
@@ -7832,7 +7832,7 @@ interface Document
   createTreeWalker(
     root: Node,
     whatToShow?: number,
-    filter?: NodeFilter | null
+    filter?: NodeFilter | null,
   ): TreeWalker;
   /**
    * Executes a command on the current document, current selection, or the given range.
@@ -7879,17 +7879,17 @@ interface Document
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/getElementsByTagName)
    */
   getElementsByTagName<K extends keyof HTMLElementTagNameMap>(
-    qualifiedName: K
+    qualifiedName: K,
   ): HTMLCollectionOf<HTMLElementTagNameMap[K]>;
   getElementsByTagName<K extends keyof SVGElementTagNameMap>(
-    qualifiedName: K
+    qualifiedName: K,
   ): HTMLCollectionOf<SVGElementTagNameMap[K]>;
   getElementsByTagName<K extends keyof MathMLElementTagNameMap>(
-    qualifiedName: K
+    qualifiedName: K,
   ): HTMLCollectionOf<MathMLElementTagNameMap[K]>;
   /** @deprecated */
   getElementsByTagName<K extends keyof HTMLElementDeprecatedTagNameMap>(
-    qualifiedName: K
+    qualifiedName: K,
   ): HTMLCollectionOf<HTMLElementDeprecatedTagNameMap[K]>;
   getElementsByTagName(qualifiedName: string): HTMLCollectionOf<Element>;
   /**
@@ -7905,19 +7905,19 @@ interface Document
    */
   getElementsByTagNameNS(
     namespaceURI: "http://www.w3.org/1999/xhtml",
-    localName: string
+    localName: string,
   ): HTMLCollectionOf<HTMLElement>;
   getElementsByTagNameNS(
     namespaceURI: "http://www.w3.org/2000/svg",
-    localName: string
+    localName: string,
   ): HTMLCollectionOf<SVGElement>;
   getElementsByTagNameNS(
     namespaceURI: "http://www.w3.org/1998/Math/MathML",
-    localName: string
+    localName: string,
   ): HTMLCollectionOf<MathMLElement>;
   getElementsByTagNameNS(
     namespace: string | null,
-    localName: string
+    localName: string,
   ): HTMLCollectionOf<Element>;
   /**
    * Returns an object representing the current selection of the document that is loaded into the object displaying a webpage.
@@ -8017,22 +8017,22 @@ interface Document
   addEventListener<K extends keyof DocumentEventMap>(
     type: K,
     listener: (this: Document, ev: DocumentEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof DocumentEventMap>(
     type: K,
     listener: (this: Document, ev: DocumentEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -8167,7 +8167,7 @@ declare var DynamicsCompressorNode: {
   prototype: DynamicsCompressorNode;
   new (
     context: BaseAudioContext,
-    options?: DynamicsCompressorOptions
+    options?: DynamicsCompressorOptions,
   ): DynamicsCompressorNode;
 };
 
@@ -8360,13 +8360,13 @@ interface Element
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/closest)
    */
   closest<K extends keyof HTMLElementTagNameMap>(
-    selector: K
+    selector: K,
   ): HTMLElementTagNameMap[K] | null;
   closest<K extends keyof SVGElementTagNameMap>(
-    selector: K
+    selector: K,
   ): SVGElementTagNameMap[K] | null;
   closest<K extends keyof MathMLElementTagNameMap>(
-    selector: K
+    selector: K,
   ): MathMLElementTagNameMap[K] | null;
   closest<E extends Element = Element>(selectors: string): E | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/computedStyleMap) */
@@ -8405,35 +8405,35 @@ interface Element
   getElementsByClassName(classNames: string): HTMLCollectionOf<Element>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/getElementsByTagName) */
   getElementsByTagName<K extends keyof HTMLElementTagNameMap>(
-    qualifiedName: K
+    qualifiedName: K,
   ): HTMLCollectionOf<HTMLElementTagNameMap[K]>;
   getElementsByTagName<K extends keyof SVGElementTagNameMap>(
-    qualifiedName: K
+    qualifiedName: K,
   ): HTMLCollectionOf<SVGElementTagNameMap[K]>;
   getElementsByTagName<K extends keyof MathMLElementTagNameMap>(
-    qualifiedName: K
+    qualifiedName: K,
   ): HTMLCollectionOf<MathMLElementTagNameMap[K]>;
   /** @deprecated */
   getElementsByTagName<K extends keyof HTMLElementDeprecatedTagNameMap>(
-    qualifiedName: K
+    qualifiedName: K,
   ): HTMLCollectionOf<HTMLElementDeprecatedTagNameMap[K]>;
   getElementsByTagName(qualifiedName: string): HTMLCollectionOf<Element>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/getElementsByTagNameNS) */
   getElementsByTagNameNS(
     namespaceURI: "http://www.w3.org/1999/xhtml",
-    localName: string
+    localName: string,
   ): HTMLCollectionOf<HTMLElement>;
   getElementsByTagNameNS(
     namespaceURI: "http://www.w3.org/2000/svg",
-    localName: string
+    localName: string,
   ): HTMLCollectionOf<SVGElement>;
   getElementsByTagNameNS(
     namespaceURI: "http://www.w3.org/1998/Math/MathML",
-    localName: string
+    localName: string,
   ): HTMLCollectionOf<MathMLElement>;
   getElementsByTagNameNS(
     namespace: string | null,
-    localName: string
+    localName: string,
   ): HTMLCollectionOf<Element>;
   /**
    * Returns true if element has an attribute whose qualified name is qualifiedName, and false otherwise.
@@ -8458,7 +8458,7 @@ interface Element
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/insertAdjacentElement) */
   insertAdjacentElement(
     where: InsertPosition,
-    element: Element
+    element: Element,
   ): Element | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/insertAdjacentHTML) */
   insertAdjacentHTML(position: InsertPosition, text: string): void;
@@ -8521,7 +8521,7 @@ interface Element
   setAttributeNS(
     namespace: string | null,
     qualifiedName: string,
-    value: string
+    value: string,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/setAttributeNode) */
   setAttributeNode(attr: Attr): Attr | null;
@@ -8546,22 +8546,22 @@ interface Element
   addEventListener<K extends keyof ElementEventMap>(
     type: K,
     listener: (this: Element, ev: ElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof ElementEventMap>(
     type: K,
     listener: (this: Element, ev: ElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -8646,7 +8646,7 @@ interface ElementInternals extends ARIAMixin {
    */
   setFormValue(
     value: File | string | FormData | null,
-    state?: File | string | FormData | null
+    state?: File | string | FormData | null,
   ): void;
   /**
    * Marks internals's target element as suffering from the constraints indicated by the flags argument, and sets the element's validation message to message. If anchor is specified, the user agent might use it to indicate problems with the constraints of internals's target element when the form owner is validated interactively or reportValidity() is called.
@@ -8656,7 +8656,7 @@ interface ElementInternals extends ARIAMixin {
   setValidity(
     flags?: ValidityStateFlags,
     message?: string,
-    anchor?: HTMLElement
+    anchor?: HTMLElement,
   ): void;
 }
 
@@ -8840,7 +8840,7 @@ declare var Event: {
 interface EventCounts {
   forEach<This = undefined>(
     callbackfn: (this: This, value: number, key: string, parent: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
 }
 //     forEach(callbackfn: (value: number, key: string, parent: EventCounts) => void, thisArg?: any): void;
@@ -8902,32 +8902,32 @@ interface EventSource extends EventTarget {
   addEventListener<K extends keyof EventSourceEventMap>(
     type: K,
     listener: (this: EventSource, ev: EventSourceEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: (this: EventSource, event: MessageEvent) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof EventSourceEventMap>(
     type: K,
     listener: (this: EventSource, ev: EventSourceEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: (this: EventSource, event: MessageEvent) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -8965,7 +8965,7 @@ interface EventTarget {
   addEventListener(
     type: string,
     callback: EventListenerOrEventListenerObject | null,
-    options?: AddEventListenerOptions | boolean
+    options?: AddEventListenerOptions | boolean,
   ): void;
   /**
    * Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise.
@@ -8981,7 +8981,7 @@ interface EventTarget {
   removeEventListener(
     type: string,
     callback: EventListenerOrEventListenerObject | null,
-    options?: EventListenerOptions | boolean
+    options?: EventListenerOptions | boolean,
   ): void;
 }
 
@@ -9107,22 +9107,22 @@ interface FileReader extends EventTarget {
   addEventListener<K extends keyof FileReaderEventMap>(
     type: K,
     listener: (this: FileReader, ev: FileReaderEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof FileReaderEventMap>(
     type: K,
     listener: (this: FileReader, ev: FileReaderEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -9156,14 +9156,14 @@ interface FileSystemDirectoryEntry extends FileSystemEntry {
     path?: string | null,
     options?: FileSystemFlags,
     successCallback?: FileSystemEntryCallback,
-    errorCallback?: ErrorCallback
+    errorCallback?: ErrorCallback,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemDirectoryEntry/getFile) */
   getFile(
     path?: string | null,
     options?: FileSystemFlags,
     successCallback?: FileSystemEntryCallback,
-    errorCallback?: ErrorCallback
+    errorCallback?: ErrorCallback,
   ): void;
 }
 
@@ -9182,12 +9182,12 @@ interface FileSystemDirectoryHandle extends FileSystemHandle {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemDirectoryHandle/getDirectoryHandle) */
   getDirectoryHandle(
     name: string,
-    options?: FileSystemGetDirectoryOptions
+    options?: FileSystemGetDirectoryOptions,
   ): Promise<FileSystemDirectoryHandle>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemDirectoryHandle/getFileHandle) */
   getFileHandle(
     name: string,
-    options?: FileSystemGetFileOptions
+    options?: FileSystemGetFileOptions,
   ): Promise<FileSystemFileHandle>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemDirectoryHandle/removeEntry) */
   removeEntry(name: string, options?: FileSystemRemoveOptions): Promise<void>;
@@ -9205,7 +9205,7 @@ interface FileSystemDirectoryReader {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemDirectoryReader/readEntries) */
   readEntries(
     successCallback: FileSystemEntriesCallback,
-    errorCallback?: ErrorCallback
+    errorCallback?: ErrorCallback,
   ): void;
 }
 
@@ -9229,7 +9229,7 @@ interface FileSystemEntry {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemEntry/getParent) */
   getParent(
     successCallback?: FileSystemEntryCallback,
-    errorCallback?: ErrorCallback
+    errorCallback?: ErrorCallback,
   ): void;
 }
 
@@ -9258,7 +9258,7 @@ interface FileSystemFileHandle extends FileSystemHandle {
   readonly kind: "file";
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemFileHandle/createWritable) */
   createWritable(
-    options?: FileSystemCreateWritableOptions
+    options?: FileSystemCreateWritableOptions,
   ): Promise<FileSystemWritableFileStream>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FileSystemFileHandle/getFile) */
   getFile(): Promise<File>;
@@ -9359,7 +9359,7 @@ declare var FontFace: {
   new (
     family: string,
     source: string | BinaryData,
-    descriptors?: FontFaceDescriptors
+    descriptors?: FontFaceDescriptors,
   ): FontFace;
 };
 
@@ -9390,29 +9390,29 @@ interface FontFaceSet extends EventTarget {
       this: This,
       value: FontFace,
       key: FontFace,
-      parent: this
+      parent: this,
     ) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
   addEventListener<K extends keyof FontFaceSetEventMap>(
     type: K,
     listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof FontFaceSetEventMap>(
     type: K,
     listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 //     forEach(callbackfn: (value: FontFace, key: FontFace, parent: FontFaceSet) => void, thisArg?: any): void;
@@ -9432,7 +9432,7 @@ declare var FontFaceSetLoadEvent: {
   prototype: FontFaceSetLoadEvent;
   new (
     type: string,
-    eventInitDict?: FontFaceSetLoadEventInit
+    eventInitDict?: FontFaceSetLoadEventInit,
   ): FontFaceSetLoadEvent;
 };
 
@@ -9467,9 +9467,9 @@ interface FormData {
     callbackfn: (
       value: FormDataEntryValue,
       key: string,
-      parent: FormData
+      parent: FormData,
     ) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
 }
 
@@ -9585,7 +9585,7 @@ interface GamepadHapticActuator {
   readonly type: GamepadHapticActuatorType;
   playEffect(
     type: GamepadHapticEffectType,
-    params?: GamepadEffectParameters
+    params?: GamepadEffectParameters,
   ): Promise<GamepadHapticsResult>;
   reset(): Promise<GamepadHapticsResult>;
 }
@@ -9614,13 +9614,13 @@ interface Geolocation {
   getCurrentPosition(
     successCallback: PositionCallback,
     errorCallback?: PositionErrorCallback | null,
-    options?: PositionOptions
+    options?: PositionOptions,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Geolocation/watchPosition) */
   watchPosition(
     successCallback: PositionCallback,
     errorCallback?: PositionErrorCallback | null,
-    options?: PositionOptions
+    options?: PositionOptions,
   ): number;
 }
 
@@ -10272,27 +10272,27 @@ interface GlobalEventHandlers {
     type: K,
     listener: (
       this: GlobalEventHandlers,
-      ev: GlobalEventHandlersEventMap[K]
+      ev: GlobalEventHandlersEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof GlobalEventHandlersEventMap>(
     type: K,
     listener: (
       this: GlobalEventHandlers,
-      ev: GlobalEventHandlersEventMap[K]
+      ev: GlobalEventHandlersEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10405,22 +10405,22 @@ interface HTMLAnchorElement extends HTMLElement, HTMLHyperlinkElementUtils {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLAnchorElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLAnchorElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10478,22 +10478,22 @@ interface HTMLAreaElement extends HTMLElement, HTMLHyperlinkElementUtils {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLAreaElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLAreaElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10511,22 +10511,22 @@ interface HTMLAudioElement extends HTMLMediaElement {
   addEventListener<K extends keyof HTMLMediaElementEventMap>(
     type: K,
     listener: (this: HTMLAudioElement, ev: HTMLMediaElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLMediaElementEventMap>(
     type: K,
     listener: (this: HTMLAudioElement, ev: HTMLMediaElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10551,22 +10551,22 @@ interface HTMLBRElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLBRElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLBRElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10596,22 +10596,22 @@ interface HTMLBaseElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLBaseElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLBaseElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10669,22 +10669,22 @@ interface HTMLBodyElement extends HTMLElement, WindowEventHandlers {
   addEventListener<K extends keyof HTMLBodyElementEventMap>(
     type: K,
     listener: (this: HTMLBodyElement, ev: HTMLBodyElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLBodyElementEventMap>(
     type: K,
     listener: (this: HTMLBodyElement, ev: HTMLBodyElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10787,22 +10787,22 @@ interface HTMLButtonElement extends HTMLElement, PopoverInvokerElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLButtonElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLButtonElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10839,19 +10839,19 @@ interface HTMLCanvasElement extends HTMLElement {
    */
   getContext(
     contextId: "2d",
-    options?: CanvasRenderingContext2DSettings
+    options?: CanvasRenderingContext2DSettings,
   ): CanvasRenderingContext2D | null;
   getContext(
     contextId: "bitmaprenderer",
-    options?: ImageBitmapRenderingContextSettings
+    options?: ImageBitmapRenderingContextSettings,
   ): ImageBitmapRenderingContext | null;
   getContext(
     contextId: "webgl",
-    options?: WebGLContextAttributes
+    options?: WebGLContextAttributes,
   ): WebGLRenderingContext | null;
   getContext(
     contextId: "webgl2",
-    options?: WebGLContextAttributes
+    options?: WebGLContextAttributes,
   ): WebGL2RenderingContext | null;
   getContext(contextId: string, options?: any): RenderingContext | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLCanvasElement/toBlob) */
@@ -10868,22 +10868,22 @@ interface HTMLCanvasElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLCanvasElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLCanvasElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10948,22 +10948,22 @@ interface HTMLDListElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLDListElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLDListElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -10983,22 +10983,22 @@ interface HTMLDataElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLDataElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLDataElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11022,22 +11022,22 @@ interface HTMLDataListElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLDataListElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLDataListElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11053,22 +11053,22 @@ interface HTMLDetailsElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLDetailsElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLDetailsElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11102,22 +11102,22 @@ interface HTMLDialogElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLDialogElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLDialogElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11133,22 +11133,22 @@ interface HTMLDirectoryElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLDirectoryElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLDirectoryElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11174,22 +11174,22 @@ interface HTMLDivElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLDivElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLDivElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11203,22 +11203,22 @@ interface HTMLDocument extends Document {
   addEventListener<K extends keyof DocumentEventMap>(
     type: K,
     listener: (this: HTMLDocument, ev: DocumentEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof DocumentEventMap>(
     type: K,
     listener: (this: HTMLDocument, ev: DocumentEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11292,22 +11292,22 @@ interface HTMLElement
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11340,22 +11340,22 @@ interface HTMLEmbedElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLEmbedElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLEmbedElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11422,22 +11422,22 @@ interface HTMLFieldSetElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLFieldSetElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLFieldSetElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11475,22 +11475,22 @@ interface HTMLFontElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLFontElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLFontElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11620,22 +11620,22 @@ interface HTMLFormElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLFormElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLFormElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   [index: number]: Element;
   [name: string]: any;
@@ -11725,22 +11725,22 @@ interface HTMLFrameElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLFrameElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLFrameElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11775,27 +11775,27 @@ interface HTMLFrameSetElement extends HTMLElement, WindowEventHandlers {
     type: K,
     listener: (
       this: HTMLFrameSetElement,
-      ev: HTMLFrameSetElementEventMap[K]
+      ev: HTMLFrameSetElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLFrameSetElementEventMap>(
     type: K,
     listener: (
       this: HTMLFrameSetElement,
-      ev: HTMLFrameSetElementEventMap[K]
+      ev: HTMLFrameSetElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11833,22 +11833,22 @@ interface HTMLHRElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLHRElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLHRElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11866,22 +11866,22 @@ interface HTMLHeadElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLHeadElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLHeadElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11906,22 +11906,22 @@ interface HTMLHeadingElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLHeadingElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLHeadingElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -11946,22 +11946,22 @@ interface HTMLHtmlElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLHtmlElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLHtmlElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -12160,22 +12160,22 @@ interface HTMLIFrameElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLIFrameElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLIFrameElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -12319,22 +12319,22 @@ interface HTMLImageElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLImageElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLImageElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -12544,7 +12544,7 @@ interface HTMLInputElement extends HTMLElement, PopoverInvokerElement {
     replacement: string,
     start: number,
     end: number,
-    selectionMode?: SelectionMode
+    selectionMode?: SelectionMode,
   ): void;
   /**
    * Sets the start and end positions of a selection in a text field.
@@ -12557,7 +12557,7 @@ interface HTMLInputElement extends HTMLElement, PopoverInvokerElement {
   setSelectionRange(
     start: number | null,
     end: number | null,
-    direction?: "forward" | "backward" | "none"
+    direction?: "forward" | "backward" | "none",
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/showPicker) */
   showPicker(): void;
@@ -12578,22 +12578,22 @@ interface HTMLInputElement extends HTMLElement, PopoverInvokerElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLInputElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLInputElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -12615,22 +12615,22 @@ interface HTMLLIElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLLIElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLLIElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -12666,22 +12666,22 @@ interface HTMLLabelElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLLabelElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLLabelElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -12703,22 +12703,22 @@ interface HTMLLegendElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLLegendElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLLegendElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -12779,22 +12779,22 @@ interface HTMLLinkElement extends HTMLElement, LinkStyle {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLLinkElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLLinkElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -12824,22 +12824,22 @@ interface HTMLMapElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLMapElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLMapElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -12884,22 +12884,22 @@ interface HTMLMarqueeElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLMarqueeElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLMarqueeElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -13071,7 +13071,7 @@ interface HTMLMediaElement extends HTMLElement {
   addTextTrack(
     kind: TextTrackKind,
     label?: string,
-    language?: string
+    language?: string,
   ): TextTrack;
   /**
    * Returns a string that specifies whether the client can play a given media resource type.
@@ -13117,22 +13117,22 @@ interface HTMLMediaElement extends HTMLElement {
   addEventListener<K extends keyof HTMLMediaElementEventMap>(
     type: K,
     listener: (this: HTMLMediaElement, ev: HTMLMediaElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLMediaElementEventMap>(
     type: K,
     listener: (this: HTMLMediaElement, ev: HTMLMediaElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -13161,22 +13161,22 @@ interface HTMLMenuElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLMenuElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLMenuElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -13206,22 +13206,22 @@ interface HTMLMetaElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLMetaElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLMetaElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -13253,22 +13253,22 @@ interface HTMLMeterElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLMeterElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLMeterElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -13298,22 +13298,22 @@ interface HTMLModElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLModElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLModElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -13347,22 +13347,22 @@ interface HTMLOListElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLOListElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLOListElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -13530,22 +13530,22 @@ interface HTMLObjectElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLObjectElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLObjectElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -13571,22 +13571,22 @@ interface HTMLOptGroupElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLOptGroupElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLOptGroupElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -13648,22 +13648,22 @@ interface HTMLOptionElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLOptionElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLOptionElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -13709,7 +13709,7 @@ interface HTMLOptionsCollection extends HTMLCollectionOf<HTMLOptionElement> {
    */
   add(
     element: HTMLOptionElement | HTMLOptGroupElement,
-    before?: HTMLElement | number | null
+    before?: HTMLElement | number | null,
   ): void;
   /**
    * Removes the item with index index from the collection.
@@ -13783,22 +13783,22 @@ interface HTMLOutputElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLOutputElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLOutputElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -13823,22 +13823,22 @@ interface HTMLParagraphElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLParagraphElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLParagraphElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -13885,22 +13885,22 @@ interface HTMLParamElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLParamElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLParamElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -13919,22 +13919,22 @@ interface HTMLPictureElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLPictureElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLPictureElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -13959,22 +13959,22 @@ interface HTMLPreElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLPreElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLPreElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -14012,22 +14012,22 @@ interface HTMLProgressElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLProgressElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLProgressElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -14051,22 +14051,22 @@ interface HTMLQuoteElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLQuoteElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLQuoteElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -14113,22 +14113,22 @@ interface HTMLScriptElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLScriptElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLScriptElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -14240,7 +14240,7 @@ interface HTMLSelectElement extends HTMLElement {
    */
   add(
     element: HTMLOptionElement | HTMLOptGroupElement,
-    before?: HTMLElement | number | null
+    before?: HTMLElement | number | null,
   ): void;
   /**
    * Returns whether a form will validate when it is submitted, without having to submit it.
@@ -14283,22 +14283,22 @@ interface HTMLSelectElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLSelectElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLSelectElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   [name: number]: HTMLOptionElement | HTMLOptGroupElement;
 }
@@ -14321,22 +14321,22 @@ interface HTMLSlotElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLSlotElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLSlotElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -14378,22 +14378,22 @@ interface HTMLSourceElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLSourceElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLSourceElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -14411,22 +14411,22 @@ interface HTMLSpanElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLSpanElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLSpanElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -14463,22 +14463,22 @@ interface HTMLStyleElement extends HTMLElement, LinkStyle {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLStyleElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLStyleElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -14504,27 +14504,27 @@ interface HTMLTableCaptionElement extends HTMLElement {
     type: K,
     listener: (
       this: HTMLTableCaptionElement,
-      ev: HTMLElementEventMap[K]
+      ev: HTMLElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (
       this: HTMLTableCaptionElement,
-      ev: HTMLElementEventMap[K]
+      ev: HTMLElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -14637,22 +14637,22 @@ interface HTMLTableCellElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTableCellElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTableCellElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -14708,22 +14708,22 @@ interface HTMLTableColElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTableColElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTableColElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -14738,27 +14738,27 @@ interface HTMLTableDataCellElement extends HTMLTableCellElement {
     type: K,
     listener: (
       this: HTMLTableDataCellElement,
-      ev: HTMLElementEventMap[K]
+      ev: HTMLElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (
       this: HTMLTableDataCellElement,
-      ev: HTMLElementEventMap[K]
+      ev: HTMLElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -14919,22 +14919,22 @@ interface HTMLTableElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTableElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTableElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -14949,27 +14949,27 @@ interface HTMLTableHeaderCellElement extends HTMLTableCellElement {
     type: K,
     listener: (
       this: HTMLTableHeaderCellElement,
-      ev: HTMLElementEventMap[K]
+      ev: HTMLElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (
       this: HTMLTableHeaderCellElement,
-      ev: HTMLElementEventMap[K]
+      ev: HTMLElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -15045,22 +15045,22 @@ interface HTMLTableRowElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTableRowElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTableRowElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -15124,27 +15124,27 @@ interface HTMLTableSectionElement extends HTMLElement {
     type: K,
     listener: (
       this: HTMLTableSectionElement,
-      ev: HTMLElementEventMap[K]
+      ev: HTMLElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (
       this: HTMLTableSectionElement,
-      ev: HTMLElementEventMap[K]
+      ev: HTMLElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -15168,22 +15168,22 @@ interface HTMLTemplateElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTemplateElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTemplateElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -15258,7 +15258,7 @@ interface HTMLTextAreaElement extends HTMLElement {
     replacement: string,
     start: number,
     end: number,
-    selectionMode?: SelectionMode
+    selectionMode?: SelectionMode,
   ): void;
   /**
    * Sets the start and end positions of a selection in a text field.
@@ -15269,27 +15269,27 @@ interface HTMLTextAreaElement extends HTMLElement {
   setSelectionRange(
     start: number | null,
     end: number | null,
-    direction?: "forward" | "backward" | "none"
+    direction?: "forward" | "backward" | "none",
   ): void;
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTextAreaElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTextAreaElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -15309,22 +15309,22 @@ interface HTMLTimeElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTimeElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTimeElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -15348,22 +15348,22 @@ interface HTMLTitleElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTitleElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTitleElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -15403,22 +15403,22 @@ interface HTMLTrackElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTrackElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLTrackElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -15452,22 +15452,22 @@ interface HTMLUListElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLUListElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLUListElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -15485,22 +15485,22 @@ interface HTMLUnknownElement extends HTMLElement {
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLUnknownElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLUnknownElement, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -15567,22 +15567,22 @@ interface HTMLVideoElement extends HTMLMediaElement {
   addEventListener<K extends keyof HTMLVideoElementEventMap>(
     type: K,
     listener: (this: HTMLVideoElement, ev: HTMLVideoElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof HTMLVideoElementEventMap>(
     type: K,
     listener: (this: HTMLVideoElement, ev: HTMLVideoElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -15636,7 +15636,7 @@ interface Headers {
   set(name: string, value: string): void;
   forEach(
     callbackfn: (value: string, key: string, parent: Headers) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
 }
 
@@ -15822,7 +15822,7 @@ interface IDBDatabase extends EventTarget {
    */
   createObjectStore(
     name: string,
-    options?: IDBObjectStoreParameters
+    options?: IDBObjectStoreParameters,
   ): IDBObjectStore;
   /**
    * Deletes the object store with the given name.
@@ -15840,27 +15840,27 @@ interface IDBDatabase extends EventTarget {
   transaction(
     storeNames: string | string[],
     mode?: IDBTransactionMode,
-    options?: IDBTransactionOptions
+    options?: IDBTransactionOptions,
   ): IDBTransaction;
   addEventListener<K extends keyof IDBDatabaseEventMap>(
     type: K,
     listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof IDBDatabaseEventMap>(
     type: K,
     listener: (this: IDBDatabase, ev: IDBDatabaseEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -15953,7 +15953,7 @@ interface IDBIndex {
    */
   getAll(
     query?: IDBValidKey | IDBKeyRange | null,
-    count?: number
+    count?: number,
   ): IDBRequest<any[]>;
   /**
    * Retrieves the keys of records matching the given key or key range in query (up to count if given).
@@ -15964,7 +15964,7 @@ interface IDBIndex {
    */
   getAllKeys(
     query?: IDBValidKey | IDBKeyRange | null,
-    count?: number
+    count?: number,
   ): IDBRequest<IDBValidKey[]>;
   /**
    * Retrieves the key of the first record matching the given key or key range in query.
@@ -15983,7 +15983,7 @@ interface IDBIndex {
    */
   openCursor(
     query?: IDBValidKey | IDBKeyRange | null,
-    direction?: IDBCursorDirection
+    direction?: IDBCursorDirection,
   ): IDBRequest<IDBCursorWithValue | null>;
   /**
    * Opens a cursor with key only flag set over the records matching query, ordered by direction. If query is null, all records in index are matched.
@@ -15994,7 +15994,7 @@ interface IDBIndex {
    */
   openKeyCursor(
     query?: IDBValidKey | IDBKeyRange | null,
-    direction?: IDBCursorDirection
+    direction?: IDBCursorDirection,
   ): IDBRequest<IDBCursor | null>;
 }
 
@@ -16053,7 +16053,7 @@ declare var IDBKeyRange: {
     lower: any,
     upper: any,
     lowerOpen?: boolean,
-    upperOpen?: boolean
+    upperOpen?: boolean,
   ): IDBKeyRange;
   /**
    * Returns a new IDBKeyRange starting at key with no upper bound. If open is true, key is not included in the range.
@@ -16149,7 +16149,7 @@ interface IDBObjectStore {
   createIndex(
     name: string,
     keyPath: string | string[],
-    options?: IDBIndexParameters
+    options?: IDBIndexParameters,
   ): IDBIndex;
   /**
    * Deletes records in store with the given key or in the given key range in query.
@@ -16184,7 +16184,7 @@ interface IDBObjectStore {
    */
   getAll(
     query?: IDBValidKey | IDBKeyRange | null,
-    count?: number
+    count?: number,
   ): IDBRequest<any[]>;
   /**
    * Retrieves the keys of records matching the given key or key range in query (up to count if given).
@@ -16195,7 +16195,7 @@ interface IDBObjectStore {
    */
   getAllKeys(
     query?: IDBValidKey | IDBKeyRange | null,
-    count?: number
+    count?: number,
   ): IDBRequest<IDBValidKey[]>;
   /**
    * Retrieves the key of the first record matching the given key or key range in query.
@@ -16216,7 +16216,7 @@ interface IDBObjectStore {
    */
   openCursor(
     query?: IDBValidKey | IDBKeyRange | null,
-    direction?: IDBCursorDirection
+    direction?: IDBCursorDirection,
   ): IDBRequest<IDBCursorWithValue | null>;
   /**
    * Opens a cursor with key only flag set over the records matching query, ordered by direction. If query is null, all records in store are matched.
@@ -16227,7 +16227,7 @@ interface IDBObjectStore {
    */
   openKeyCursor(
     query?: IDBValidKey | IDBKeyRange | null,
-    direction?: IDBCursorDirection
+    direction?: IDBCursorDirection,
   ): IDBRequest<IDBCursor | null>;
   /**
    * Adds or updates a record in store with the given value and key.
@@ -16270,22 +16270,22 @@ interface IDBOpenDBRequest extends IDBRequest<IDBDatabase> {
   addEventListener<K extends keyof IDBOpenDBRequestEventMap>(
     type: K,
     listener: (this: IDBOpenDBRequest, ev: IDBOpenDBRequestEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof IDBOpenDBRequestEventMap>(
     type: K,
     listener: (this: IDBOpenDBRequest, ev: IDBOpenDBRequestEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -16342,22 +16342,22 @@ interface IDBRequest<T = any> extends EventTarget {
   addEventListener<K extends keyof IDBRequestEventMap>(
     type: K,
     listener: (this: IDBRequest<T>, ev: IDBRequestEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof IDBRequestEventMap>(
     type: K,
     listener: (this: IDBRequest<T>, ev: IDBRequestEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -16423,22 +16423,22 @@ interface IDBTransaction extends EventTarget {
   addEventListener<K extends keyof IDBTransactionEventMap>(
     type: K,
     listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof IDBTransactionEventMap>(
     type: K,
     listener: (this: IDBTransaction, ev: IDBTransactionEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -16463,7 +16463,7 @@ declare var IDBVersionChangeEvent: {
   prototype: IDBVersionChangeEvent;
   new (
     type: string,
-    eventInitDict?: IDBVersionChangeEventInit
+    eventInitDict?: IDBVersionChangeEventInit,
   ): IDBVersionChangeEvent;
 };
 
@@ -16477,7 +16477,7 @@ interface IIRFilterNode extends AudioNode {
   getFrequencyResponse(
     frequencyHz: Float32Array,
     magResponse: Float32Array,
-    phaseResponse: Float32Array
+    phaseResponse: Float32Array,
   ): void;
 }
 
@@ -16578,7 +16578,7 @@ declare var ImageData: {
     data: Uint8ClampedArray,
     sw: number,
     sh?: number,
-    settings?: ImageDataSettings
+    settings?: ImageDataSettings,
   ): ImageData;
 };
 
@@ -16647,7 +16647,7 @@ declare var IntersectionObserver: {
   prototype: IntersectionObserver;
   new (
     callback: IntersectionObserverCallback,
-    options?: IntersectionObserverInit
+    options?: IntersectionObserverInit,
   ): IntersectionObserver;
 };
 
@@ -16676,7 +16676,7 @@ interface IntersectionObserverEntry {
 declare var IntersectionObserverEntry: {
   prototype: IntersectionObserverEntry;
   new (
-    intersectionObserverEntryInit: IntersectionObserverEntryInit
+    intersectionObserverEntryInit: IntersectionObserverEntryInit,
   ): IntersectionObserverEntry;
 };
 
@@ -16734,7 +16734,7 @@ interface KeyboardEvent extends UIEvent {
     ctrlKey?: boolean,
     altKey?: boolean,
     shiftKey?: boolean,
-    metaKey?: boolean
+    metaKey?: boolean,
   ): void;
   readonly DOM_KEY_LOCATION_STANDARD: 0x00;
   readonly DOM_KEY_LOCATION_LEFT: 0x01;
@@ -16772,7 +16772,7 @@ declare var KeyframeEffect: {
   new (
     target: Element | null,
     keyframes: Keyframe[] | PropertyIndexedKeyframes | null,
-    options?: number | KeyframeEffectOptions
+    options?: number | KeyframeEffectOptions,
   ): KeyframeEffect;
   new (source: KeyframeEffect): KeyframeEffect;
 };
@@ -16920,7 +16920,7 @@ interface LockManager {
   request(
     name: string,
     options: LockOptions,
-    callback: LockGrantedCallback
+    callback: LockGrantedCallback,
   ): Promise<any>;
 }
 
@@ -16950,22 +16950,22 @@ interface MIDIAccess extends EventTarget {
   addEventListener<K extends keyof MIDIAccessEventMap>(
     type: K,
     listener: (this: MIDIAccess, ev: MIDIAccessEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MIDIAccessEventMap>(
     type: K,
     listener: (this: MIDIAccess, ev: MIDIAccessEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -16988,7 +16988,7 @@ declare var MIDIConnectionEvent: {
   prototype: MIDIConnectionEvent;
   new (
     type: string,
-    eventInitDict?: MIDIConnectionEventInit
+    eventInitDict?: MIDIConnectionEventInit,
   ): MIDIConnectionEvent;
 };
 
@@ -17007,22 +17007,22 @@ interface MIDIInput extends MIDIPort {
   addEventListener<K extends keyof MIDIInputEventMap>(
     type: K,
     listener: (this: MIDIInput, ev: MIDIInputEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MIDIInputEventMap>(
     type: K,
     listener: (this: MIDIInput, ev: MIDIInputEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -17042,9 +17042,9 @@ interface MIDIInputMap {
       this: This,
       value: MIDIInput,
       key: string,
-      parent: this
+      parent: this,
     ) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
 }
 //     forEach(callbackfn: (value: MIDIInput, key: string, parent: MIDIInputMap) => void, thisArg?: any): void;
@@ -17080,22 +17080,22 @@ interface MIDIOutput extends MIDIPort {
   addEventListener<K extends keyof MIDIPortEventMap>(
     type: K,
     listener: (this: MIDIOutput, ev: MIDIPortEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MIDIPortEventMap>(
     type: K,
     listener: (this: MIDIOutput, ev: MIDIPortEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -17115,9 +17115,9 @@ interface MIDIOutputMap {
       this: This,
       value: MIDIOutput,
       key: string,
-      parent: this
+      parent: this,
     ) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
 }
 //     forEach(callbackfn: (value: MIDIOutput, key: string, parent: MIDIOutputMap) => void, thisArg?: any): void;
@@ -17160,22 +17160,22 @@ interface MIDIPort extends EventTarget {
   addEventListener<K extends keyof MIDIPortEventMap>(
     type: K,
     listener: (this: MIDIPort, ev: MIDIPortEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MIDIPortEventMap>(
     type: K,
     listener: (this: MIDIPort, ev: MIDIPortEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -17197,22 +17197,22 @@ interface MathMLElement
   addEventListener<K extends keyof MathMLElementEventMap>(
     type: K,
     listener: (this: MathMLElement, ev: MathMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MathMLElementEventMap>(
     type: K,
     listener: (this: MathMLElement, ev: MathMLElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -17225,11 +17225,11 @@ declare var MathMLElement: {
 interface MediaCapabilities {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaCapabilities/decodingInfo) */
   decodingInfo(
-    configuration: MediaDecodingConfiguration
+    configuration: MediaDecodingConfiguration,
   ): Promise<MediaCapabilitiesDecodingInfo>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaCapabilities/encodingInfo) */
   encodingInfo(
-    configuration: MediaEncodingConfiguration
+    configuration: MediaEncodingConfiguration,
   ): Promise<MediaCapabilitiesEncodingInfo>;
 }
 
@@ -17286,22 +17286,22 @@ interface MediaDevices extends EventTarget {
   addEventListener<K extends keyof MediaDevicesEventMap>(
     type: K,
     listener: (this: MediaDevices, ev: MediaDevicesEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MediaDevicesEventMap>(
     type: K,
     listener: (this: MediaDevices, ev: MediaDevicesEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -17324,7 +17324,7 @@ declare var MediaElementAudioSourceNode: {
   prototype: MediaElementAudioSourceNode;
   new (
     context: AudioContext,
-    options: MediaElementAudioSourceOptions
+    options: MediaElementAudioSourceOptions,
   ): MediaElementAudioSourceNode;
 };
 
@@ -17340,7 +17340,7 @@ declare var MediaEncryptedEvent: {
   prototype: MediaEncryptedEvent;
   new (
     type: string,
-    eventInitDict?: MediaEncryptedEventInit
+    eventInitDict?: MediaEncryptedEventInit,
   ): MediaEncryptedEvent;
 };
 
@@ -17386,7 +17386,7 @@ declare var MediaKeyMessageEvent: {
   prototype: MediaKeyMessageEvent;
   new (
     type: string,
-    eventInitDict: MediaKeyMessageEventInit
+    eventInitDict: MediaKeyMessageEventInit,
   ): MediaKeyMessageEvent;
 };
 
@@ -17427,22 +17427,22 @@ interface MediaKeySession extends EventTarget {
   addEventListener<K extends keyof MediaKeySessionEventMap>(
     type: K,
     listener: (this: MediaKeySession, ev: MediaKeySessionEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MediaKeySessionEventMap>(
     type: K,
     listener: (this: MediaKeySession, ev: MediaKeySessionEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -17468,9 +17468,9 @@ interface MediaKeyStatusMap {
     callbackfn: (
       value: MediaKeyStatus,
       key: BufferSource,
-      parent: MediaKeyStatusMap
+      parent: MediaKeyStatusMap,
     ) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
 }
 
@@ -17577,7 +17577,7 @@ interface MediaQueryList extends EventTarget {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaQueryList/addListener)
    */
   addListener(
-    callback: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null
+    callback: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null,
   ): void;
   /**
    * @deprecated
@@ -17585,27 +17585,27 @@ interface MediaQueryList extends EventTarget {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaQueryList/removeListener)
    */
   removeListener(
-    callback: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null
+    callback: ((this: MediaQueryList, ev: MediaQueryListEvent) => any) | null,
   ): void;
   addEventListener<K extends keyof MediaQueryListEventMap>(
     type: K,
     listener: (this: MediaQueryList, ev: MediaQueryListEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MediaQueryListEventMap>(
     type: K,
     listener: (this: MediaQueryList, ev: MediaQueryListEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -17626,7 +17626,7 @@ declare var MediaQueryListEvent: {
   prototype: MediaQueryListEvent;
   new (
     type: string,
-    eventInitDict?: MediaQueryListEventInit
+    eventInitDict?: MediaQueryListEventInit,
   ): MediaQueryListEvent;
 };
 
@@ -17676,22 +17676,22 @@ interface MediaRecorder extends EventTarget {
   addEventListener<K extends keyof MediaRecorderEventMap>(
     type: K,
     listener: (this: MediaRecorder, ev: MediaRecorderEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MediaRecorderEventMap>(
     type: K,
     listener: (this: MediaRecorder, ev: MediaRecorderEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -17711,7 +17711,7 @@ interface MediaSession {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaSession/setActionHandler) */
   setActionHandler(
     action: MediaSessionAction,
-    handler: MediaSessionActionHandler | null
+    handler: MediaSessionActionHandler | null,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/MediaSession/setPositionState) */
   setPositionState(state?: MediaPositionState): void;
@@ -17761,22 +17761,22 @@ interface MediaSource extends EventTarget {
   addEventListener<K extends keyof MediaSourceEventMap>(
     type: K,
     listener: (this: MediaSource, ev: MediaSourceEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MediaSourceEventMap>(
     type: K,
     listener: (this: MediaSource, ev: MediaSourceEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -17823,22 +17823,22 @@ interface MediaStream extends EventTarget {
   addEventListener<K extends keyof MediaStreamEventMap>(
     type: K,
     listener: (this: MediaStream, ev: MediaStreamEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MediaStreamEventMap>(
     type: K,
     listener: (this: MediaStream, ev: MediaStreamEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -17859,7 +17859,7 @@ declare var MediaStreamAudioDestinationNode: {
   prototype: MediaStreamAudioDestinationNode;
   new (
     context: AudioContext,
-    options?: AudioNodeOptions
+    options?: AudioNodeOptions,
   ): MediaStreamAudioDestinationNode;
 };
 
@@ -17877,7 +17877,7 @@ declare var MediaStreamAudioSourceNode: {
   prototype: MediaStreamAudioSourceNode;
   new (
     context: AudioContext,
-    options: MediaStreamAudioSourceOptions
+    options: MediaStreamAudioSourceOptions,
   ): MediaStreamAudioSourceNode;
 };
 
@@ -17928,22 +17928,22 @@ interface MediaStreamTrack extends EventTarget {
   addEventListener<K extends keyof MediaStreamTrackEventMap>(
     type: K,
     listener: (this: MediaStreamTrack, ev: MediaStreamTrackEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MediaStreamTrackEventMap>(
     type: K,
     listener: (this: MediaStreamTrack, ev: MediaStreamTrackEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -17966,7 +17966,7 @@ declare var MediaStreamTrackEvent: {
   prototype: MediaStreamTrackEvent;
   new (
     type: string,
-    eventInitDict: MediaStreamTrackEventInit
+    eventInitDict: MediaStreamTrackEventInit,
   ): MediaStreamTrackEvent;
 };
 
@@ -18044,7 +18044,7 @@ interface MessageEvent<T = any> extends Event {
     origin?: string,
     lastEventId?: string,
     source?: MessageEventSource | null,
-    ports?: MessagePort[]
+    ports?: MessagePort[],
   ): void;
 }
 
@@ -18092,22 +18092,22 @@ interface MessagePort extends EventTarget {
   addEventListener<K extends keyof MessagePortEventMap>(
     type: K,
     listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof MessagePortEventMap>(
     type: K,
     listener: (this: MessagePort, ev: MessagePortEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -18259,7 +18259,7 @@ interface MouseEvent extends UIEvent {
     shiftKeyArg: boolean,
     metaKeyArg: boolean,
     buttonArg: number,
-    relatedTargetArg: EventTarget | null
+    relatedTargetArg: EventTarget | null,
   ): void;
 }
 
@@ -18318,7 +18318,7 @@ interface MutationEvent extends Event {
     prevValueArg?: string,
     newValueArg?: string,
     attrNameArg?: string,
-    attrChangeArg?: number
+    attrChangeArg?: number,
   ): void;
   readonly MODIFICATION: 1;
   readonly ADDITION: 2;
@@ -18562,7 +18562,7 @@ interface Navigator
    */
   requestMediaKeySystemAccess(
     keySystem: string,
-    supportedConfigurations: MediaKeySystemConfiguration[]
+    supportedConfigurations: MediaKeySystemConfiguration[],
   ): Promise<MediaKeySystemAccess>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Navigator/sendBeacon) */
   sendBeacon(url: string | URL, data?: BodyInit | null): boolean;
@@ -18980,7 +18980,7 @@ interface NodeList {
    */
   forEach(
     callbackfn: (value: Node, key: number, parent: NodeList) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
   [index: number]: Node;
 }
@@ -18999,7 +18999,7 @@ interface NodeListOf<TNode extends Node> extends NodeList {
    */
   forEach(
     callbackfn: (value: TNode, key: number, parent: NodeListOf<TNode>) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
   [index: number]: TNode;
 }
@@ -19070,22 +19070,22 @@ interface Notification extends EventTarget {
   addEventListener<K extends keyof NotificationEventMap>(
     type: K,
     listener: (this: Notification, ev: NotificationEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof NotificationEventMap>(
     type: K,
     listener: (this: Notification, ev: NotificationEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -19096,7 +19096,7 @@ declare var Notification: {
   readonly permission: NotificationPermission;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Notification/requestPermission_static) */
   requestPermission(
-    deprecatedCallback?: NotificationPermissionCallback
+    deprecatedCallback?: NotificationPermissionCallback,
   ): Promise<NotificationPermission>;
 };
 
@@ -19106,7 +19106,7 @@ interface OES_draw_buffers_indexed {
   blendEquationSeparateiOES(
     buf: GLuint,
     modeRGB: GLenum,
-    modeAlpha: GLenum
+    modeAlpha: GLenum,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/OES_draw_buffers_indexed/blendEquationiOES) */
   blendEquationiOES(buf: GLuint, mode: GLenum): void;
@@ -19116,7 +19116,7 @@ interface OES_draw_buffers_indexed {
     srcRGB: GLenum,
     dstRGB: GLenum,
     srcAlpha: GLenum,
-    dstAlpha: GLenum
+    dstAlpha: GLenum,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/OES_draw_buffers_indexed/blendFunciOES) */
   blendFunciOES(buf: GLuint, src: GLenum, dst: GLenum): void;
@@ -19126,7 +19126,7 @@ interface OES_draw_buffers_indexed {
     r: GLboolean,
     g: GLboolean,
     b: GLboolean,
-    a: GLboolean
+    a: GLboolean,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/OES_draw_buffers_indexed/disableiOES) */
   disableiOES(target: GLenum, index: GLuint): void;
@@ -19205,7 +19205,7 @@ interface OVR_multiview2 {
     texture: WebGLTexture | null,
     level: GLint,
     baseViewIndex: GLint,
-    numViews: GLsizei
+    numViews: GLsizei,
   ): void;
   readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR: 0x9630;
   readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR: 0x9632;
@@ -19227,7 +19227,7 @@ declare var OfflineAudioCompletionEvent: {
   prototype: OfflineAudioCompletionEvent;
   new (
     type: string,
-    eventInitDict: OfflineAudioCompletionEventInit
+    eventInitDict: OfflineAudioCompletionEventInit,
   ): OfflineAudioCompletionEvent;
 };
 
@@ -19257,27 +19257,27 @@ interface OfflineAudioContext extends BaseAudioContext {
     type: K,
     listener: (
       this: OfflineAudioContext,
-      ev: OfflineAudioContextEventMap[K]
+      ev: OfflineAudioContextEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof OfflineAudioContextEventMap>(
     type: K,
     listener: (
       this: OfflineAudioContext,
-      ev: OfflineAudioContextEventMap[K]
+      ev: OfflineAudioContextEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -19287,7 +19287,7 @@ declare var OfflineAudioContext: {
   new (
     numberOfChannels: number,
     length: number,
-    sampleRate: number
+    sampleRate: number,
   ): OfflineAudioContext;
 };
 
@@ -19335,17 +19335,17 @@ interface OffscreenCanvas extends EventTarget {
    */
   getContext(
     contextId: "2d",
-    options?: any
+    options?: any,
   ): OffscreenCanvasRenderingContext2D | null;
   getContext(
     contextId: "bitmaprenderer",
-    options?: any
+    options?: any,
   ): ImageBitmapRenderingContext | null;
   getContext(contextId: "webgl", options?: any): WebGLRenderingContext | null;
   getContext(contextId: "webgl2", options?: any): WebGL2RenderingContext | null;
   getContext(
     contextId: OffscreenRenderingContextId,
-    options?: any
+    options?: any,
   ): OffscreenRenderingContext | null;
   /**
    * Returns a newly created ImageBitmap object with the image in the OffscreenCanvas object. The image in the OffscreenCanvas object is replaced with a new blank image.
@@ -19356,22 +19356,22 @@ interface OffscreenCanvas extends EventTarget {
   addEventListener<K extends keyof OffscreenCanvasEventMap>(
     type: K,
     listener: (this: OffscreenCanvas, ev: OffscreenCanvasEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof OffscreenCanvasEventMap>(
     type: K,
     listener: (this: OffscreenCanvas, ev: OffscreenCanvasEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -19425,27 +19425,27 @@ interface OscillatorNode extends AudioScheduledSourceNode {
     type: K,
     listener: (
       this: OscillatorNode,
-      ev: AudioScheduledSourceNodeEventMap[K]
+      ev: AudioScheduledSourceNodeEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof AudioScheduledSourceNodeEventMap>(
     type: K,
     listener: (
       this: OscillatorNode,
-      ev: AudioScheduledSourceNodeEventMap[K]
+      ev: AudioScheduledSourceNodeEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -19492,7 +19492,7 @@ declare var PageTransitionEvent: {
   prototype: PageTransitionEvent;
   new (
     type: string,
-    eventInitDict?: PageTransitionEventInit
+    eventInitDict?: PageTransitionEventInit,
   ): PageTransitionEvent;
 };
 
@@ -19592,17 +19592,17 @@ interface ParentNode extends Node {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/querySelector)
    */
   querySelector<K extends keyof HTMLElementTagNameMap>(
-    selectors: K
+    selectors: K,
   ): HTMLElementTagNameMap[K] | null;
   querySelector<K extends keyof SVGElementTagNameMap>(
-    selectors: K
+    selectors: K,
   ): SVGElementTagNameMap[K] | null;
   querySelector<K extends keyof MathMLElementTagNameMap>(
-    selectors: K
+    selectors: K,
   ): MathMLElementTagNameMap[K] | null;
   /** @deprecated */
   querySelector<K extends keyof HTMLElementDeprecatedTagNameMap>(
-    selectors: K
+    selectors: K,
   ): HTMLElementDeprecatedTagNameMap[K] | null;
   querySelector<E extends Element = Element>(selectors: string): E | null;
   /**
@@ -19611,20 +19611,20 @@ interface ParentNode extends Node {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/querySelectorAll)
    */
   querySelectorAll<K extends keyof HTMLElementTagNameMap>(
-    selectors: K
+    selectors: K,
   ): NodeListOf<HTMLElementTagNameMap[K]>;
   querySelectorAll<K extends keyof SVGElementTagNameMap>(
-    selectors: K
+    selectors: K,
   ): NodeListOf<SVGElementTagNameMap[K]>;
   querySelectorAll<K extends keyof MathMLElementTagNameMap>(
-    selectors: K
+    selectors: K,
   ): NodeListOf<MathMLElementTagNameMap[K]>;
   /** @deprecated */
   querySelectorAll<K extends keyof HTMLElementDeprecatedTagNameMap>(
-    selectors: K
+    selectors: K,
   ): NodeListOf<HTMLElementDeprecatedTagNameMap[K]>;
   querySelectorAll<E extends Element = Element>(
-    selectors: string
+    selectors: string,
   ): NodeListOf<E>;
   /**
    * Replace all children of node with nodes, while replacing strings in nodes with equivalent Text nodes.
@@ -19671,7 +19671,7 @@ declare var PaymentMethodChangeEvent: {
   prototype: PaymentMethodChangeEvent;
   new (
     type: string,
-    eventInitDict?: PaymentMethodChangeEventInit
+    eventInitDict?: PaymentMethodChangeEventInit,
   ): PaymentMethodChangeEvent;
 };
 
@@ -19696,27 +19696,27 @@ interface PaymentRequest extends EventTarget {
   canMakePayment(): Promise<boolean>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PaymentRequest/show) */
   show(
-    detailsPromise?: PaymentDetailsUpdate | PromiseLike<PaymentDetailsUpdate>
+    detailsPromise?: PaymentDetailsUpdate | PromiseLike<PaymentDetailsUpdate>,
   ): Promise<PaymentResponse>;
   addEventListener<K extends keyof PaymentRequestEventMap>(
     type: K,
     listener: (this: PaymentRequest, ev: PaymentRequestEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof PaymentRequestEventMap>(
     type: K,
     listener: (this: PaymentRequest, ev: PaymentRequestEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -19724,7 +19724,7 @@ declare var PaymentRequest: {
   prototype: PaymentRequest;
   new (
     methodData: PaymentMethodData[],
-    details: PaymentDetailsInit
+    details: PaymentDetailsInit,
   ): PaymentRequest;
 };
 
@@ -19737,7 +19737,7 @@ declare var PaymentRequest: {
 interface PaymentRequestUpdateEvent extends Event {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PaymentRequestUpdateEvent/updateWith) */
   updateWith(
-    detailsPromise: PaymentDetailsUpdate | PromiseLike<PaymentDetailsUpdate>
+    detailsPromise: PaymentDetailsUpdate | PromiseLike<PaymentDetailsUpdate>,
   ): void;
 }
 
@@ -19745,7 +19745,7 @@ declare var PaymentRequestUpdateEvent: {
   prototype: PaymentRequestUpdateEvent;
   new (
     type: string,
-    eventInitDict?: PaymentRequestUpdateEventInit
+    eventInitDict?: PaymentRequestUpdateEventInit,
   ): PaymentRequestUpdateEvent;
 };
 
@@ -19821,7 +19821,7 @@ interface Performance extends EventTarget {
   measure(
     measureName: string,
     startOrMeasureOptions?: string | PerformanceMeasureOptions,
-    endMark?: string
+    endMark?: string,
   ): PerformanceMeasure;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Performance/now) */
   now(): DOMHighResTimeStamp;
@@ -19832,22 +19832,22 @@ interface Performance extends EventTarget {
   addEventListener<K extends keyof PerformanceEventMap>(
     type: K,
     listener: (this: Performance, ev: PerformanceEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof PerformanceEventMap>(
     type: K,
     listener: (this: Performance, ev: PerformanceEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -20286,22 +20286,22 @@ interface PermissionStatus extends EventTarget {
   addEventListener<K extends keyof PermissionStatusEventMap>(
     type: K,
     listener: (this: PermissionStatus, ev: PermissionStatusEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof PermissionStatusEventMap>(
     type: K,
     listener: (this: PermissionStatus, ev: PermissionStatusEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -20331,7 +20331,7 @@ declare var PictureInPictureEvent: {
   prototype: PictureInPictureEvent;
   new (
     type: string,
-    eventInitDict: PictureInPictureEventInit
+    eventInitDict: PictureInPictureEventInit,
   ): PictureInPictureEvent;
 };
 
@@ -20351,27 +20351,27 @@ interface PictureInPictureWindow extends EventTarget {
     type: K,
     listener: (
       this: PictureInPictureWindow,
-      ev: PictureInPictureWindowEventMap[K]
+      ev: PictureInPictureWindowEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof PictureInPictureWindowEventMap>(
     type: K,
     listener: (
       this: PictureInPictureWindow,
-      ev: PictureInPictureWindowEventMap[K]
+      ev: PictureInPictureWindowEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -20589,7 +20589,7 @@ declare var PromiseRejectionEvent: {
   prototype: PromiseRejectionEvent;
   new (
     type: string,
-    eventInitDict: PromiseRejectionEventInit
+    eventInitDict: PromiseRejectionEventInit,
   ): PromiseRejectionEvent;
 };
 
@@ -20627,7 +20627,7 @@ interface PushManager {
   getSubscription(): Promise<PushSubscription | null>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PushManager/permissionState) */
   permissionState(
-    options?: PushSubscriptionOptionsInit
+    options?: PushSubscriptionOptionsInit,
   ): Promise<PermissionState>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PushManager/subscribe) */
   subscribe(options?: PushSubscriptionOptionsInit): Promise<PushSubscription>;
@@ -20715,22 +20715,22 @@ interface RTCDTMFSender extends EventTarget {
   addEventListener<K extends keyof RTCDTMFSenderEventMap>(
     type: K,
     listener: (this: RTCDTMFSender, ev: RTCDTMFSenderEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof RTCDTMFSenderEventMap>(
     type: K,
     listener: (this: RTCDTMFSender, ev: RTCDTMFSenderEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -20753,7 +20753,7 @@ declare var RTCDTMFToneChangeEvent: {
   prototype: RTCDTMFToneChangeEvent;
   new (
     type: string,
-    eventInitDict?: RTCDTMFToneChangeEventInit
+    eventInitDict?: RTCDTMFToneChangeEventInit,
   ): RTCDTMFToneChangeEvent;
 };
 
@@ -20812,22 +20812,22 @@ interface RTCDataChannel extends EventTarget {
   addEventListener<K extends keyof RTCDataChannelEventMap>(
     type: K,
     listener: (this: RTCDataChannel, ev: RTCDataChannelEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof RTCDataChannelEventMap>(
     type: K,
     listener: (this: RTCDataChannel, ev: RTCDataChannelEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -20846,7 +20846,7 @@ declare var RTCDataChannelEvent: {
   prototype: RTCDataChannelEvent;
   new (
     type: string,
-    eventInitDict: RTCDataChannelEventInit
+    eventInitDict: RTCDataChannelEventInit,
   ): RTCDataChannelEvent;
 };
 
@@ -20869,22 +20869,22 @@ interface RTCDtlsTransport extends EventTarget {
   addEventListener<K extends keyof RTCDtlsTransportEventMap>(
     type: K,
     listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof RTCDtlsTransportEventMap>(
     type: K,
     listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -21018,22 +21018,22 @@ interface RTCIceTransport extends EventTarget {
   addEventListener<K extends keyof RTCIceTransportEventMap>(
     type: K,
     listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof RTCIceTransportEventMap>(
     type: K,
     listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -21116,14 +21116,14 @@ interface RTCPeerConnection extends EventTarget {
   addIceCandidate(
     candidate: RTCIceCandidateInit,
     successCallback: VoidFunction,
-    failureCallback: RTCPeerConnectionErrorCallback
+    failureCallback: RTCPeerConnectionErrorCallback,
   ): Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCPeerConnection/addTrack) */
   addTrack(track: MediaStreamTrack, ...streams: MediaStream[]): RTCRtpSender;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCPeerConnection/addTransceiver) */
   addTransceiver(
     trackOrKind: MediaStreamTrack | string,
-    init?: RTCRtpTransceiverInit
+    init?: RTCRtpTransceiverInit,
   ): RTCRtpTransceiver;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCPeerConnection/close) */
   close(): void;
@@ -21132,12 +21132,12 @@ interface RTCPeerConnection extends EventTarget {
   /** @deprecated */
   createAnswer(
     successCallback: RTCSessionDescriptionCallback,
-    failureCallback: RTCPeerConnectionErrorCallback
+    failureCallback: RTCPeerConnectionErrorCallback,
   ): Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCPeerConnection/createDataChannel) */
   createDataChannel(
     label: string,
-    dataChannelDict?: RTCDataChannelInit
+    dataChannelDict?: RTCDataChannelInit,
   ): RTCDataChannel;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCPeerConnection/createOffer) */
   createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>;
@@ -21145,7 +21145,7 @@ interface RTCPeerConnection extends EventTarget {
   createOffer(
     successCallback: RTCSessionDescriptionCallback,
     failureCallback: RTCPeerConnectionErrorCallback,
-    options?: RTCOfferOptions
+    options?: RTCOfferOptions,
   ): Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCPeerConnection/getConfiguration) */
   getConfiguration(): RTCConfiguration;
@@ -21165,13 +21165,13 @@ interface RTCPeerConnection extends EventTarget {
   setConfiguration(configuration?: RTCConfiguration): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCPeerConnection/setLocalDescription) */
   setLocalDescription(
-    description?: RTCLocalSessionDescriptionInit
+    description?: RTCLocalSessionDescriptionInit,
   ): Promise<void>;
   /** @deprecated */
   setLocalDescription(
     description: RTCLocalSessionDescriptionInit,
     successCallback: VoidFunction,
-    failureCallback: RTCPeerConnectionErrorCallback
+    failureCallback: RTCPeerConnectionErrorCallback,
   ): Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCPeerConnection/setRemoteDescription) */
   setRemoteDescription(description: RTCSessionDescriptionInit): Promise<void>;
@@ -21179,33 +21179,33 @@ interface RTCPeerConnection extends EventTarget {
   setRemoteDescription(
     description: RTCSessionDescriptionInit,
     successCallback: VoidFunction,
-    failureCallback: RTCPeerConnectionErrorCallback
+    failureCallback: RTCPeerConnectionErrorCallback,
   ): Promise<void>;
   addEventListener<K extends keyof RTCPeerConnectionEventMap>(
     type: K,
     listener: (
       this: RTCPeerConnection,
-      ev: RTCPeerConnectionEventMap[K]
+      ev: RTCPeerConnectionEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof RTCPeerConnectionEventMap>(
     type: K,
     listener: (
       this: RTCPeerConnection,
-      ev: RTCPeerConnectionEventMap[K]
+      ev: RTCPeerConnectionEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -21214,7 +21214,7 @@ declare var RTCPeerConnection: {
   new (configuration?: RTCConfiguration): RTCPeerConnection;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCPeerConnection/generateCertificate_static) */
   generateCertificate(
-    keygenAlgorithm: AlgorithmIdentifier
+    keygenAlgorithm: AlgorithmIdentifier,
   ): Promise<RTCCertificate>;
 };
 
@@ -21235,7 +21235,7 @@ declare var RTCPeerConnectionIceErrorEvent: {
   prototype: RTCPeerConnectionIceErrorEvent;
   new (
     type: string,
-    eventInitDict: RTCPeerConnectionIceErrorEventInit
+    eventInitDict: RTCPeerConnectionIceErrorEventInit,
   ): RTCPeerConnectionIceErrorEvent;
 };
 
@@ -21253,7 +21253,7 @@ declare var RTCPeerConnectionIceEvent: {
   prototype: RTCPeerConnectionIceEvent;
   new (
     type: string,
-    eventInitDict?: RTCPeerConnectionIceEventInit
+    eventInitDict?: RTCPeerConnectionIceEventInit,
   ): RTCPeerConnectionIceEvent;
 };
 
@@ -21356,22 +21356,22 @@ interface RTCSctpTransport extends EventTarget {
   addEventListener<K extends keyof RTCSctpTransportEventMap>(
     type: K,
     listener: (this: RTCSctpTransport, ev: RTCSctpTransportEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof RTCSctpTransportEventMap>(
     type: K,
     listener: (this: RTCSctpTransport, ev: RTCSctpTransportEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -21403,7 +21403,7 @@ declare var RTCSessionDescription: {
 interface RTCStatsReport {
   forEach<This = undefined>(
     callbackfn: (this: This, value: unknown, key: string, parent: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
 }
 //     forEach(callbackfn: (value: any, key: string, parent: RTCStatsReport) => void, thisArg?: any): void;
@@ -21559,12 +21559,12 @@ interface ReadableStream<R = any> {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStream/pipeThrough) */
   pipeThrough<T>(
     transform: ReadableWritablePair<T, R>,
-    options?: StreamPipeOptions
+    options?: StreamPipeOptions,
   ): ReadableStream<T>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStream/pipeTo) */
   pipeTo(
     destination: WritableStream<R>,
-    options?: StreamPipeOptions
+    options?: StreamPipeOptions,
   ): Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStream/tee) */
   tee(): [ReadableStream<R>, ReadableStream<R>];
@@ -21574,15 +21574,15 @@ declare var ReadableStream: {
   prototype: ReadableStream;
   new (
     underlyingSource: UnderlyingByteSource,
-    strategy?: { highWaterMark?: number }
+    strategy?: { highWaterMark?: number },
   ): ReadableStream<Uint8Array>;
   new <R = any>(
     underlyingSource: UnderlyingDefaultSource<R>,
-    strategy?: QueuingStrategy<R>
+    strategy?: QueuingStrategy<R>,
   ): ReadableStream<R>;
   new <R = any>(
     underlyingSource?: UnderlyingSource<R>,
-    strategy?: QueuingStrategy<R>
+    strategy?: QueuingStrategy<R>,
   ): ReadableStream<R>;
 };
 
@@ -21590,7 +21590,7 @@ declare var ReadableStream: {
 interface ReadableStreamBYOBReader extends ReadableStreamGenericReader {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/read) */
   read<T extends ArrayBufferView>(
-    view: T
+    view: T,
   ): Promise<ReadableStreamReadResult<T>>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/releaseLock) */
   releaseLock(): void;
@@ -21676,27 +21676,27 @@ interface RemotePlayback extends EventTarget {
   prompt(): Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RemotePlayback/watchAvailability) */
   watchAvailability(
-    callback: RemotePlaybackAvailabilityCallback
+    callback: RemotePlaybackAvailabilityCallback,
   ): Promise<number>;
   addEventListener<K extends keyof RemotePlaybackEventMap>(
     type: K,
     listener: (this: RemotePlayback, ev: RemotePlaybackEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof RemotePlaybackEventMap>(
     type: K,
     listener: (this: RemotePlayback, ev: RemotePlaybackEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -21745,7 +21745,7 @@ declare var ReportingObserver: {
   prototype: ReportingObserver;
   new (
     callback: ReportingObserverCallback,
-    options?: ReportingObserverOptions
+    options?: ReportingObserverOptions,
   ): ReportingObserver;
 };
 
@@ -21936,22 +21936,22 @@ interface SVGAElement extends SVGGraphicsElement, SVGURIReference {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGAElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGAElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -21994,22 +21994,22 @@ interface SVGAnimateElement extends SVGAnimationElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGAnimateElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGAnimateElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22023,22 +22023,22 @@ interface SVGAnimateMotionElement extends SVGAnimationElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGAnimateMotionElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGAnimateMotionElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22053,27 +22053,27 @@ interface SVGAnimateTransformElement extends SVGAnimationElement {
     type: K,
     listener: (
       this: SVGAnimateTransformElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (
       this: SVGAnimateTransformElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22283,22 +22283,22 @@ interface SVGAnimationElement extends SVGElement, SVGTests {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGAnimationElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGAnimationElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22322,22 +22322,22 @@ interface SVGCircleElement extends SVGGeometryElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGCircleElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGCircleElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22359,22 +22359,22 @@ interface SVGClipPathElement extends SVGElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGClipPathElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGClipPathElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22406,27 +22406,27 @@ interface SVGComponentTransferFunctionElement extends SVGElement {
     type: K,
     listener: (
       this: SVGComponentTransferFunctionElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (
       this: SVGComponentTransferFunctionElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22450,22 +22450,22 @@ interface SVGDefsElement extends SVGGraphicsElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGDefsElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGDefsElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22483,22 +22483,22 @@ interface SVGDescElement extends SVGElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGDescElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGDescElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22528,22 +22528,22 @@ interface SVGElement
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22565,22 +22565,22 @@ interface SVGEllipseElement extends SVGGeometryElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGEllipseElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGEllipseElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22620,22 +22620,22 @@ interface SVGFEBlendElement
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEBlendElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEBlendElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22683,22 +22683,22 @@ interface SVGFEColorMatrixElement
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEColorMatrixElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEColorMatrixElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22725,27 +22725,27 @@ interface SVGFEComponentTransferElement
     type: K,
     listener: (
       this: SVGFEComponentTransferElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (
       this: SVGFEComponentTransferElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22779,22 +22779,22 @@ interface SVGFECompositeElement
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFECompositeElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFECompositeElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22838,27 +22838,27 @@ interface SVGFEConvolveMatrixElement
     type: K,
     listener: (
       this: SVGFEConvolveMatrixElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (
       this: SVGFEConvolveMatrixElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22888,27 +22888,27 @@ interface SVGFEDiffuseLightingElement
     type: K,
     listener: (
       this: SVGFEDiffuseLightingElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (
       this: SVGFEDiffuseLightingElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22939,27 +22939,27 @@ interface SVGFEDisplacementMapElement
     type: K,
     listener: (
       this: SVGFEDisplacementMapElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (
       this: SVGFEDisplacementMapElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -22985,27 +22985,27 @@ interface SVGFEDistantLightElement extends SVGElement {
     type: K,
     listener: (
       this: SVGFEDistantLightElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (
       this: SVGFEDistantLightElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23027,22 +23027,22 @@ interface SVGFEDropShadowElement
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEDropShadowElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEDropShadowElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23062,22 +23062,22 @@ interface SVGFEFloodElement
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEFloodElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEFloodElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23095,22 +23095,22 @@ interface SVGFEFuncAElement extends SVGComponentTransferFunctionElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEFuncAElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEFuncAElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23128,22 +23128,22 @@ interface SVGFEFuncBElement extends SVGComponentTransferFunctionElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEFuncBElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEFuncBElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23161,22 +23161,22 @@ interface SVGFEFuncGElement extends SVGComponentTransferFunctionElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEFuncGElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEFuncGElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23194,22 +23194,22 @@ interface SVGFEFuncRElement extends SVGComponentTransferFunctionElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEFuncRElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEFuncRElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23234,27 +23234,27 @@ interface SVGFEGaussianBlurElement
     type: K,
     listener: (
       this: SVGFEGaussianBlurElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (
       this: SVGFEGaussianBlurElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23276,22 +23276,22 @@ interface SVGFEImageElement
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEImageElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEImageElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23311,22 +23311,22 @@ interface SVGFEMergeElement
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEMergeElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEMergeElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23345,22 +23345,22 @@ interface SVGFEMergeNodeElement extends SVGElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEMergeNodeElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEMergeNodeElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23387,22 +23387,22 @@ interface SVGFEMorphologyElement
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEMorphologyElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEMorphologyElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23428,22 +23428,22 @@ interface SVGFEOffsetElement
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEOffsetElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEOffsetElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23464,22 +23464,22 @@ interface SVGFEPointLightElement extends SVGElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEPointLightElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFEPointLightElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23506,27 +23506,27 @@ interface SVGFESpecularLightingElement
     type: K,
     listener: (
       this: SVGFESpecularLightingElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (
       this: SVGFESpecularLightingElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23552,22 +23552,22 @@ interface SVGFESpotLightElement extends SVGElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFESpotLightElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFESpotLightElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23588,22 +23588,22 @@ interface SVGFETileElement
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFETileElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFETileElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23635,22 +23635,22 @@ interface SVGFETurbulenceElement
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFETurbulenceElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFETurbulenceElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23680,22 +23680,22 @@ interface SVGFilterElement extends SVGElement, SVGURIReference {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFilterElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGFilterElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23732,22 +23732,22 @@ interface SVGForeignObjectElement extends SVGGraphicsElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGForeignObjectElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGForeignObjectElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23765,22 +23765,22 @@ interface SVGGElement extends SVGGraphicsElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGGElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGGElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23804,22 +23804,22 @@ interface SVGGeometryElement extends SVGGraphicsElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGGeometryElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGGeometryElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23844,22 +23844,22 @@ interface SVGGradientElement extends SVGElement, SVGURIReference {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGGradientElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGGradientElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23886,22 +23886,22 @@ interface SVGGraphicsElement extends SVGElement, SVGTests {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGGraphicsElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGGraphicsElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -23929,22 +23929,22 @@ interface SVGImageElement extends SVGGraphicsElement, SVGURIReference {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGImageElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGImageElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24030,22 +24030,22 @@ interface SVGLineElement extends SVGGeometryElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGLineElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGLineElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24068,27 +24068,27 @@ interface SVGLinearGradientElement extends SVGGradientElement {
     type: K,
     listener: (
       this: SVGLinearGradientElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (
       this: SVGLinearGradientElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24102,22 +24102,22 @@ interface SVGMPathElement extends SVGElement, SVGURIReference {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGMPathElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGMPathElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24155,22 +24155,22 @@ interface SVGMarkerElement extends SVGElement, SVGFitToViewBox {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGMarkerElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGMarkerElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24206,22 +24206,22 @@ interface SVGMaskElement extends SVGElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGMaskElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGMaskElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24239,22 +24239,22 @@ interface SVGMetadataElement extends SVGElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGMetadataElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGMetadataElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24309,22 +24309,22 @@ interface SVGPathElement extends SVGGeometryElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGPathElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGPathElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24352,22 +24352,22 @@ interface SVGPatternElement
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGPatternElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGPatternElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24413,22 +24413,22 @@ interface SVGPolygonElement extends SVGGeometryElement, SVGAnimatedPoints {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGPolygonElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGPolygonElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24446,22 +24446,22 @@ interface SVGPolylineElement extends SVGGeometryElement, SVGAnimatedPoints {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGPolylineElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGPolylineElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24529,27 +24529,27 @@ interface SVGRadialGradientElement extends SVGGradientElement {
     type: K,
     listener: (
       this: SVGRadialGradientElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (
       this: SVGRadialGradientElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24573,22 +24573,22 @@ interface SVGRectElement extends SVGGeometryElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGRectElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGRectElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24634,7 +24634,7 @@ interface SVGSVGElement
   getElementById(elementId: string): Element;
   getEnclosureList(
     rect: DOMRectReadOnly,
-    referenceElement: SVGElement | null
+    referenceElement: SVGElement | null,
   ): NodeListOf<
     | SVGCircleElement
     | SVGEllipseElement
@@ -24649,7 +24649,7 @@ interface SVGSVGElement
   >;
   getIntersectionList(
     rect: DOMRectReadOnly,
-    referenceElement: SVGElement | null
+    referenceElement: SVGElement | null,
   ): NodeListOf<
     | SVGCircleElement
     | SVGEllipseElement
@@ -24674,22 +24674,22 @@ interface SVGSVGElement
   addEventListener<K extends keyof SVGSVGElementEventMap>(
     type: K,
     listener: (this: SVGSVGElement, ev: SVGSVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGSVGElementEventMap>(
     type: K,
     listener: (this: SVGSVGElement, ev: SVGSVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24708,22 +24708,22 @@ interface SVGScriptElement extends SVGElement, SVGURIReference {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGScriptElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGScriptElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24737,22 +24737,22 @@ interface SVGSetElement extends SVGAnimationElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGSetElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGSetElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24771,22 +24771,22 @@ interface SVGStopElement extends SVGElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGStopElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGStopElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24838,22 +24838,22 @@ interface SVGStyleElement extends SVGElement, LinkStyle {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGStyleElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGStyleElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24871,22 +24871,22 @@ interface SVGSwitchElement extends SVGGraphicsElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGSwitchElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGSwitchElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24904,22 +24904,22 @@ interface SVGSymbolElement extends SVGElement, SVGFitToViewBox {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGSymbolElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGSymbolElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24937,22 +24937,22 @@ interface SVGTSpanElement extends SVGTextPositioningElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGTSpanElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGTSpanElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -24990,22 +24990,22 @@ interface SVGTextContentElement extends SVGGraphicsElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGTextContentElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGTextContentElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25026,22 +25026,22 @@ interface SVGTextElement extends SVGTextPositioningElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGTextElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGTextElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25068,22 +25068,22 @@ interface SVGTextPathElement extends SVGTextContentElement, SVGURIReference {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGTextPathElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGTextPathElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25113,27 +25113,27 @@ interface SVGTextPositioningElement extends SVGTextContentElement {
     type: K,
     listener: (
       this: SVGTextPositioningElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (
       this: SVGTextPositioningElement,
-      ev: SVGElementEventMap[K]
+      ev: SVGElementEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25151,22 +25151,22 @@ interface SVGTitleElement extends SVGElement {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGTitleElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGTitleElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25272,22 +25272,22 @@ interface SVGUseElement extends SVGGraphicsElement, SVGURIReference {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGUseElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGUseElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25305,22 +25305,22 @@ interface SVGViewElement extends SVGElement, SVGFitToViewBox {
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGViewElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SVGElementEventMap>(
     type: K,
     listener: (this: SVGViewElement, ev: SVGElementEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25373,27 +25373,27 @@ interface ScreenOrientation extends EventTarget {
     type: K,
     listener: (
       this: ScreenOrientation,
-      ev: ScreenOrientationEventMap[K]
+      ev: ScreenOrientationEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof ScreenOrientationEventMap>(
     type: K,
     listener: (
       this: ScreenOrientation,
-      ev: ScreenOrientationEventMap[K]
+      ev: ScreenOrientationEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25431,27 +25431,27 @@ interface ScriptProcessorNode extends AudioNode {
     type: K,
     listener: (
       this: ScriptProcessorNode,
-      ev: ScriptProcessorNodeEventMap[K]
+      ev: ScriptProcessorNodeEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof ScriptProcessorNodeEventMap>(
     type: K,
     listener: (
       this: ScriptProcessorNode,
-      ev: ScriptProcessorNodeEventMap[K]
+      ev: ScriptProcessorNodeEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25497,7 +25497,7 @@ declare var SecurityPolicyViolationEvent: {
   prototype: SecurityPolicyViolationEvent;
   new (
     type: string,
-    eventInitDict?: SecurityPolicyViolationEventInit
+    eventInitDict?: SecurityPolicyViolationEventInit,
   ): SecurityPolicyViolationEvent;
 };
 
@@ -25552,7 +25552,7 @@ interface Selection {
     anchorNode: Node,
     anchorOffset: number,
     focusNode: Node,
-    focusOffset: number
+    focusOffset: number,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Selection/collapse) */
   setPosition(node: Node | null, offset?: number): void;
@@ -25587,22 +25587,22 @@ interface ServiceWorker extends EventTarget, AbstractWorker {
   addEventListener<K extends keyof ServiceWorkerEventMap>(
     type: K,
     listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof ServiceWorkerEventMap>(
     type: K,
     listener: (this: ServiceWorker, ev: ServiceWorkerEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25637,14 +25637,14 @@ interface ServiceWorkerContainer extends EventTarget {
   readonly ready: Promise<ServiceWorkerRegistration>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerContainer/getRegistration) */
   getRegistration(
-    clientURL?: string | URL
+    clientURL?: string | URL,
   ): Promise<ServiceWorkerRegistration | undefined>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerContainer/getRegistrations) */
   getRegistrations(): Promise<ReadonlyArray<ServiceWorkerRegistration>>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerContainer/register) */
   register(
     scriptURL: string | URL,
-    options?: RegistrationOptions
+    options?: RegistrationOptions,
   ): Promise<ServiceWorkerRegistration>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ServiceWorkerContainer/startMessages) */
   startMessages(): void;
@@ -25652,27 +25652,27 @@ interface ServiceWorkerContainer extends EventTarget {
     type: K,
     listener: (
       this: ServiceWorkerContainer,
-      ev: ServiceWorkerContainerEventMap[K]
+      ev: ServiceWorkerContainerEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof ServiceWorkerContainerEventMap>(
     type: K,
     listener: (
       this: ServiceWorkerContainer,
-      ev: ServiceWorkerContainerEventMap[K]
+      ev: ServiceWorkerContainerEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25720,27 +25720,27 @@ interface ServiceWorkerRegistration extends EventTarget {
     type: K,
     listener: (
       this: ServiceWorkerRegistration,
-      ev: ServiceWorkerRegistrationEventMap[K]
+      ev: ServiceWorkerRegistrationEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof ServiceWorkerRegistrationEventMap>(
     type: K,
     listener: (
       this: ServiceWorkerRegistration,
-      ev: ServiceWorkerRegistrationEventMap[K]
+      ev: ServiceWorkerRegistrationEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25768,22 +25768,22 @@ interface ShadowRoot extends DocumentFragment, DocumentOrShadowRoot, InnerHTML {
   addEventListener<K extends keyof ShadowRootEventMap>(
     type: K,
     listener: (this: ShadowRoot, ev: ShadowRootEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof ShadowRootEventMap>(
     type: K,
     listener: (this: ShadowRoot, ev: ShadowRootEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25803,22 +25803,22 @@ interface SharedWorker extends EventTarget, AbstractWorker {
   addEventListener<K extends keyof AbstractWorkerEventMap>(
     type: K,
     listener: (this: SharedWorker, ev: AbstractWorkerEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof AbstractWorkerEventMap>(
     type: K,
     listener: (this: SharedWorker, ev: AbstractWorkerEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25879,22 +25879,22 @@ interface SourceBuffer extends EventTarget {
   addEventListener<K extends keyof SourceBufferEventMap>(
     type: K,
     listener: (this: SourceBuffer, ev: SourceBufferEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SourceBufferEventMap>(
     type: K,
     listener: (this: SourceBuffer, ev: SourceBufferEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -25923,22 +25923,22 @@ interface SourceBufferList extends EventTarget {
   addEventListener<K extends keyof SourceBufferListEventMap>(
     type: K,
     listener: (this: SourceBufferList, ev: SourceBufferListEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SourceBufferListEventMap>(
     type: K,
     listener: (this: SourceBufferList, ev: SourceBufferListEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   [index: number]: SourceBuffer;
 }
@@ -26022,22 +26022,22 @@ interface SpeechSynthesis extends EventTarget {
   addEventListener<K extends keyof SpeechSynthesisEventMap>(
     type: K,
     listener: (this: SpeechSynthesis, ev: SpeechSynthesisEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SpeechSynthesisEventMap>(
     type: K,
     listener: (this: SpeechSynthesis, ev: SpeechSynthesisEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -26056,7 +26056,7 @@ declare var SpeechSynthesisErrorEvent: {
   prototype: SpeechSynthesisErrorEvent;
   new (
     type: string,
-    eventInitDict: SpeechSynthesisErrorEventInit
+    eventInitDict: SpeechSynthesisErrorEventInit,
   ): SpeechSynthesisErrorEvent;
 };
 
@@ -26082,7 +26082,7 @@ declare var SpeechSynthesisEvent: {
   prototype: SpeechSynthesisEvent;
   new (
     type: string,
-    eventInitDict: SpeechSynthesisEventInit
+    eventInitDict: SpeechSynthesisEventInit,
   ): SpeechSynthesisEvent;
 };
 
@@ -26146,27 +26146,27 @@ interface SpeechSynthesisUtterance extends EventTarget {
     type: K,
     listener: (
       this: SpeechSynthesisUtterance,
-      ev: SpeechSynthesisUtteranceEventMap[K]
+      ev: SpeechSynthesisUtteranceEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof SpeechSynthesisUtteranceEventMap>(
     type: K,
     listener: (
       this: SpeechSynthesisUtterance,
-      ev: SpeechSynthesisUtteranceEventMap[K]
+      ev: SpeechSynthesisUtteranceEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -26220,7 +26220,7 @@ declare var StereoPannerNode: {
   prototype: StereoPannerNode;
   new (
     context: BaseAudioContext,
-    options?: StereoPannerOptions
+    options?: StereoPannerOptions,
   ): StereoPannerNode;
 };
 
@@ -26331,7 +26331,7 @@ interface StorageEvent extends Event {
     oldValue?: string | null,
     newValue?: string | null,
     url?: string | URL,
-    storageArea?: Storage | null
+    storageArea?: Storage | null,
   ): void;
 }
 
@@ -26398,9 +26398,9 @@ interface StylePropertyMapReadOnly {
     callbackfn: (
       value: CSSStyleValue[],
       key: string,
-      parent: StylePropertyMapReadOnly
+      parent: StylePropertyMapReadOnly,
     ) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
 }
 
@@ -26485,7 +26485,7 @@ interface SubtleCrypto {
       | AesCbcParams
       | AesGcmParams,
     key: CryptoKey,
-    data: BufferSource
+    data: BufferSource,
   ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/deriveBits) */
   deriveBits(
@@ -26495,7 +26495,7 @@ interface SubtleCrypto {
       | HkdfParams
       | Pbkdf2Params,
     baseKey: CryptoKey,
-    length: number
+    length: number,
   ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/deriveKey) */
   deriveKey(
@@ -26512,12 +26512,12 @@ interface SubtleCrypto {
       | HkdfParams
       | Pbkdf2Params,
     extractable: boolean,
-    keyUsages: KeyUsage[]
+    keyUsages: KeyUsage[],
   ): Promise<CryptoKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/digest) */
   digest(
     algorithm: AlgorithmIdentifier,
-    data: BufferSource
+    data: BufferSource,
   ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/encrypt) */
   encrypt(
@@ -26528,38 +26528,38 @@ interface SubtleCrypto {
       | AesCbcParams
       | AesGcmParams,
     key: CryptoKey,
-    data: BufferSource
+    data: BufferSource,
   ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/exportKey) */
   exportKey(format: "jwk", key: CryptoKey): Promise<JsonWebKey>;
   exportKey(
     format: Exclude<KeyFormat, "jwk">,
-    key: CryptoKey
+    key: CryptoKey,
   ): Promise<ArrayBuffer>;
   exportKey(
     format: KeyFormat,
-    key: CryptoKey
+    key: CryptoKey,
   ): Promise<ArrayBuffer | JsonWebKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/generateKey) */
   generateKey(
     algorithm: "Ed25519",
     extractable: boolean,
-    keyUsages: ReadonlyArray<"sign" | "verify">
+    keyUsages: ReadonlyArray<"sign" | "verify">,
   ): Promise<CryptoKeyPair>;
   generateKey(
     algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
     extractable: boolean,
-    keyUsages: ReadonlyArray<KeyUsage>
+    keyUsages: ReadonlyArray<KeyUsage>,
   ): Promise<CryptoKeyPair>;
   generateKey(
     algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params,
     extractable: boolean,
-    keyUsages: ReadonlyArray<KeyUsage>
+    keyUsages: ReadonlyArray<KeyUsage>,
   ): Promise<CryptoKey>;
   generateKey(
     algorithm: AlgorithmIdentifier,
     extractable: boolean,
-    keyUsages: KeyUsage[]
+    keyUsages: KeyUsage[],
   ): Promise<CryptoKeyPair | CryptoKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/importKey) */
   importKey(
@@ -26572,7 +26572,7 @@ interface SubtleCrypto {
       | HmacImportParams
       | AesKeyAlgorithm,
     extractable: boolean,
-    keyUsages: ReadonlyArray<KeyUsage>
+    keyUsages: ReadonlyArray<KeyUsage>,
   ): Promise<CryptoKey>;
   importKey(
     format: Exclude<KeyFormat, "jwk">,
@@ -26584,13 +26584,13 @@ interface SubtleCrypto {
       | HmacImportParams
       | AesKeyAlgorithm,
     extractable: boolean,
-    keyUsages: KeyUsage[]
+    keyUsages: KeyUsage[],
   ): Promise<CryptoKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/sign) */
   sign(
     algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams,
     key: CryptoKey,
-    data: BufferSource
+    data: BufferSource,
   ): Promise<ArrayBuffer>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/unwrapKey) */
   unwrapKey(
@@ -26610,14 +26610,14 @@ interface SubtleCrypto {
       | HmacImportParams
       | AesKeyAlgorithm,
     extractable: boolean,
-    keyUsages: KeyUsage[]
+    keyUsages: KeyUsage[],
   ): Promise<CryptoKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/verify) */
   verify(
     algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams,
     key: CryptoKey,
     signature: BufferSource,
-    data: BufferSource
+    data: BufferSource,
   ): Promise<boolean>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/wrapKey) */
   wrapKey(
@@ -26629,7 +26629,7 @@ interface SubtleCrypto {
       | RsaOaepParams
       | AesCtrParams
       | AesCbcParams
-      | AesGcmParams
+      | AesGcmParams,
   ): Promise<ArrayBuffer>;
 }
 
@@ -26743,7 +26743,7 @@ interface TextEncoder extends TextEncoderCommon {
    */
   encodeInto(
     source: string,
-    destination: Uint8Array
+    destination: Uint8Array,
   ): TextEncoderEncodeIntoResult;
 }
 
@@ -26908,22 +26908,22 @@ interface TextTrack extends EventTarget {
   addEventListener<K extends keyof TextTrackEventMap>(
     type: K,
     listener: (this: TextTrack, ev: TextTrackEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof TextTrackEventMap>(
     type: K,
     listener: (this: TextTrack, ev: TextTrackEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -26988,22 +26988,22 @@ interface TextTrackCue extends EventTarget {
   addEventListener<K extends keyof TextTrackCueEventMap>(
     type: K,
     listener: (this: TextTrackCue, ev: TextTrackCueEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof TextTrackCueEventMap>(
     type: K,
     listener: (this: TextTrackCue, ev: TextTrackCueEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -27057,22 +27057,22 @@ interface TextTrackList extends EventTarget {
   addEventListener<K extends keyof TextTrackListEventMap>(
     type: K,
     listener: (this: TextTrackList, ev: TextTrackListEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof TextTrackListEventMap>(
     type: K,
     listener: (this: TextTrackList, ev: TextTrackListEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   [index: number]: TextTrack;
 }
@@ -27244,7 +27244,7 @@ declare var TransformStream: {
   new <I = any, O = any>(
     transformer?: Transformer<I, O>,
     writableStrategy?: QueuingStrategy<I>,
-    readableStrategy?: QueuingStrategy<O>
+    readableStrategy?: QueuingStrategy<O>,
   ): TransformStream<I, O>;
 };
 
@@ -27283,7 +27283,7 @@ declare var TransitionEvent: {
   prototype: TransitionEvent;
   new (
     type: string,
-    transitionEventInitDict?: TransitionEventInit
+    transitionEventInitDict?: TransitionEventInit,
   ): TransitionEvent;
 };
 
@@ -27348,7 +27348,7 @@ interface UIEvent extends Event {
     bubblesArg?: boolean,
     cancelableArg?: boolean,
     viewArg?: Window | null,
-    detailArg?: number
+    detailArg?: number,
   ): void;
 }
 
@@ -27452,14 +27452,14 @@ interface URLSearchParams {
   toString(): string;
   forEach(
     callbackfn: (value: string, key: string, parent: URLSearchParams) => void,
-    thisArg?: any
+    thisArg?: any,
   ): void;
 }
 
 declare var URLSearchParams: {
   prototype: URLSearchParams;
   new (
-    init?: string[][] | Record<string, string> | string | URLSearchParams
+    init?: string[][] | Record<string, string> | string | URLSearchParams,
   ): URLSearchParams;
 };
 
@@ -27503,22 +27503,22 @@ interface VTTCue extends TextTrackCue {
   addEventListener<K extends keyof TextTrackCueEventMap>(
     type: K,
     listener: (this: VTTCue, ev: TextTrackCueEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof TextTrackCueEventMap>(
     type: K,
     listener: (this: VTTCue, ev: TextTrackCueEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -27634,22 +27634,22 @@ interface VideoDecoder extends EventTarget {
   addEventListener<K extends keyof VideoDecoderEventMap>(
     type: K,
     listener: (this: VideoDecoder, ev: VideoDecoderEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof VideoDecoderEventMap>(
     type: K,
     listener: (this: VideoDecoder, ev: VideoDecoderEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -27686,22 +27686,22 @@ interface VideoEncoder extends EventTarget {
   addEventListener<K extends keyof VideoEncoderEventMap>(
     type: K,
     listener: (this: VideoEncoder, ev: VideoEncoderEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof VideoEncoderEventMap>(
     type: K,
     listener: (this: VideoEncoder, ev: VideoEncoderEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -27741,7 +27741,7 @@ interface VideoFrame {
   close(): void;
   copyTo(
     destination: BufferSource,
-    options?: VideoFrameCopyToOptions
+    options?: VideoFrameCopyToOptions,
   ): Promise<PlaneLayout[]>;
 }
 
@@ -27804,22 +27804,22 @@ interface VisualViewport extends EventTarget {
   addEventListener<K extends keyof VisualViewportEventMap>(
     type: K,
     listener: (this: VisualViewport, ev: VisualViewportEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof VisualViewportEventMap>(
     type: K,
     listener: (this: VisualViewport, ev: VisualViewportEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -28000,7 +28000,7 @@ interface WEBGL_multi_draw {
     countsOffset: GLuint,
     instanceCountsList: Int32Array | GLsizei[],
     instanceCountsOffset: GLuint,
-    drawcount: GLsizei
+    drawcount: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WEBGL_multi_draw/multiDrawArraysWEBGL) */
   multiDrawArraysWEBGL(
@@ -28009,7 +28009,7 @@ interface WEBGL_multi_draw {
     firstsOffset: GLuint,
     countsList: Int32Array | GLsizei[],
     countsOffset: GLuint,
-    drawcount: GLsizei
+    drawcount: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WEBGL_multi_draw/multiDrawElementsInstancedWEBGL) */
   multiDrawElementsInstancedWEBGL(
@@ -28021,7 +28021,7 @@ interface WEBGL_multi_draw {
     offsetsOffset: GLuint,
     instanceCountsList: Int32Array | GLsizei[],
     instanceCountsOffset: GLuint,
-    drawcount: GLsizei
+    drawcount: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WEBGL_multi_draw/multiDrawElementsWEBGL) */
   multiDrawElementsWEBGL(
@@ -28031,7 +28031,7 @@ interface WEBGL_multi_draw {
     type: GLenum,
     offsetsList: Int32Array | GLsizei[],
     offsetsOffset: GLuint,
-    drawcount: GLsizei
+    drawcount: GLsizei,
   ): void;
 }
 
@@ -28071,22 +28071,22 @@ interface WakeLockSentinel extends EventTarget {
   addEventListener<K extends keyof WakeLockSentinelEventMap>(
     type: K,
     listener: (this: WakeLockSentinel, ev: WakeLockSentinelEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof WakeLockSentinelEventMap>(
     type: K,
     listener: (this: WakeLockSentinel, ev: WakeLockSentinelEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -28691,7 +28691,7 @@ interface WebGL2RenderingContextBase {
   bindBufferBase(
     target: GLenum,
     index: GLuint,
-    buffer: WebGLBuffer | null
+    buffer: WebGLBuffer | null,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/bindBufferRange) */
   bindBufferRange(
@@ -28699,14 +28699,14 @@ interface WebGL2RenderingContextBase {
     index: GLuint,
     buffer: WebGLBuffer | null,
     offset: GLintptr,
-    size: GLsizeiptr
+    size: GLsizeiptr,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/bindSampler) */
   bindSampler(unit: GLuint, sampler: WebGLSampler | null): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/bindTransformFeedback) */
   bindTransformFeedback(
     target: GLenum,
-    tf: WebGLTransformFeedback | null
+    tf: WebGLTransformFeedback | null,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/bindVertexArray) */
   bindVertexArray(array: WebGLVertexArrayObject | null): void;
@@ -28721,35 +28721,35 @@ interface WebGL2RenderingContextBase {
     dstX1: GLint,
     dstY1: GLint,
     mask: GLbitfield,
-    filter: GLenum
+    filter: GLenum,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clearBuffer) */
   clearBufferfi(
     buffer: GLenum,
     drawbuffer: GLint,
     depth: GLfloat,
-    stencil: GLint
+    stencil: GLint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clearBuffer) */
   clearBufferfv(
     buffer: GLenum,
     drawbuffer: GLint,
     values: Float32List,
-    srcOffset?: GLuint
+    srcOffset?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clearBuffer) */
   clearBufferiv(
     buffer: GLenum,
     drawbuffer: GLint,
     values: Int32List,
-    srcOffset?: GLuint
+    srcOffset?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clearBuffer) */
   clearBufferuiv(
     buffer: GLenum,
     drawbuffer: GLint,
     values: Uint32List,
-    srcOffset?: GLuint
+    srcOffset?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clientWaitSync) */
   clientWaitSync(sync: WebGLSync, flags: GLbitfield, timeout: GLuint64): GLenum;
@@ -28763,7 +28763,7 @@ interface WebGL2RenderingContextBase {
     depth: GLsizei,
     border: GLint,
     imageSize: GLsizei,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   compressedTexImage3D(
     target: GLenum,
@@ -28775,7 +28775,7 @@ interface WebGL2RenderingContextBase {
     border: GLint,
     srcData: ArrayBufferView,
     srcOffset?: GLuint,
-    srcLengthOverride?: GLuint
+    srcLengthOverride?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/compressedTexSubImage3D) */
   compressedTexSubImage3D(
@@ -28789,7 +28789,7 @@ interface WebGL2RenderingContextBase {
     depth: GLsizei,
     format: GLenum,
     imageSize: GLsizei,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   compressedTexSubImage3D(
     target: GLenum,
@@ -28803,7 +28803,7 @@ interface WebGL2RenderingContextBase {
     format: GLenum,
     srcData: ArrayBufferView,
     srcOffset?: GLuint,
-    srcLengthOverride?: GLuint
+    srcLengthOverride?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/copyBufferSubData) */
   copyBufferSubData(
@@ -28811,7 +28811,7 @@ interface WebGL2RenderingContextBase {
     writeTarget: GLenum,
     readOffset: GLintptr,
     writeOffset: GLintptr,
-    size: GLsizeiptr
+    size: GLsizeiptr,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/copyTexSubImage3D) */
   copyTexSubImage3D(
@@ -28823,7 +28823,7 @@ interface WebGL2RenderingContextBase {
     x: GLint,
     y: GLint,
     width: GLsizei,
-    height: GLsizei
+    height: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/createQuery) */
   createQuery(): WebGLQuery | null;
@@ -28848,7 +28848,7 @@ interface WebGL2RenderingContextBase {
     mode: GLenum,
     first: GLint,
     count: GLsizei,
-    instanceCount: GLsizei
+    instanceCount: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/drawBuffers) */
   drawBuffers(buffers: GLenum[]): void;
@@ -28858,7 +28858,7 @@ interface WebGL2RenderingContextBase {
     count: GLsizei,
     type: GLenum,
     offset: GLintptr,
-    instanceCount: GLsizei
+    instanceCount: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/drawRangeElements) */
   drawRangeElements(
@@ -28867,7 +28867,7 @@ interface WebGL2RenderingContextBase {
     end: GLuint,
     count: GLsizei,
     type: GLenum,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/endQuery) */
   endQuery(target: GLenum): void;
@@ -28881,24 +28881,24 @@ interface WebGL2RenderingContextBase {
     attachment: GLenum,
     texture: WebGLTexture | null,
     level: GLint,
-    layer: GLint
+    layer: GLint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getActiveUniformBlockName) */
   getActiveUniformBlockName(
     program: WebGLProgram,
-    uniformBlockIndex: GLuint
+    uniformBlockIndex: GLuint,
   ): string | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getActiveUniformBlockParameter) */
   getActiveUniformBlockParameter(
     program: WebGLProgram,
     uniformBlockIndex: GLuint,
-    pname: GLenum
+    pname: GLenum,
   ): any;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getActiveUniforms) */
   getActiveUniforms(
     program: WebGLProgram,
     uniformIndices: GLuint[],
-    pname: GLenum
+    pname: GLenum,
   ): any;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getBufferSubData) */
   getBufferSubData(
@@ -28906,7 +28906,7 @@ interface WebGL2RenderingContextBase {
     srcByteOffset: GLintptr,
     dstBuffer: ArrayBufferView,
     dstOffset?: GLuint,
-    length?: GLuint
+    length?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getFragDataLocation) */
   getFragDataLocation(program: WebGLProgram, name: string): GLint;
@@ -28916,7 +28916,7 @@ interface WebGL2RenderingContextBase {
   getInternalformatParameter(
     target: GLenum,
     internalformat: GLenum,
-    pname: GLenum
+    pname: GLenum,
   ): any;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getQuery) */
   getQuery(target: GLenum, pname: GLenum): WebGLQuery | null;
@@ -28929,14 +28929,14 @@ interface WebGL2RenderingContextBase {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getTransformFeedbackVarying) */
   getTransformFeedbackVarying(
     program: WebGLProgram,
-    index: GLuint
+    index: GLuint,
   ): WebGLActiveInfo | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getUniformBlockIndex) */
   getUniformBlockIndex(program: WebGLProgram, uniformBlockName: string): GLuint;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/getUniformIndices) */
   getUniformIndices(
     program: WebGLProgram,
-    uniformNames: string[]
+    uniformNames: string[],
   ): GLuint[] | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/invalidateFramebuffer) */
   invalidateFramebuffer(target: GLenum, attachments: GLenum[]): void;
@@ -28947,7 +28947,7 @@ interface WebGL2RenderingContextBase {
     x: GLint,
     y: GLint,
     width: GLsizei,
-    height: GLsizei
+    height: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/isQuery) */
   isQuery(query: WebGLQuery | null): GLboolean;
@@ -28969,7 +28969,7 @@ interface WebGL2RenderingContextBase {
     samples: GLsizei,
     internalformat: GLenum,
     width: GLsizei,
-    height: GLsizei
+    height: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/resumeTransformFeedback) */
   resumeTransformFeedback(): void;
@@ -28988,7 +28988,7 @@ interface WebGL2RenderingContextBase {
     border: GLint,
     format: GLenum,
     type: GLenum,
-    pboOffset: GLintptr
+    pboOffset: GLintptr,
   ): void;
   texImage3D(
     target: GLenum,
@@ -29000,7 +29000,7 @@ interface WebGL2RenderingContextBase {
     border: GLint,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
+    source: TexImageSource,
   ): void;
   texImage3D(
     target: GLenum,
@@ -29012,7 +29012,7 @@ interface WebGL2RenderingContextBase {
     border: GLint,
     format: GLenum,
     type: GLenum,
-    srcData: ArrayBufferView | null
+    srcData: ArrayBufferView | null,
   ): void;
   texImage3D(
     target: GLenum,
@@ -29025,7 +29025,7 @@ interface WebGL2RenderingContextBase {
     format: GLenum,
     type: GLenum,
     srcData: ArrayBufferView,
-    srcOffset: GLuint
+    srcOffset: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/texStorage2D) */
   texStorage2D(
@@ -29033,7 +29033,7 @@ interface WebGL2RenderingContextBase {
     levels: GLsizei,
     internalformat: GLenum,
     width: GLsizei,
-    height: GLsizei
+    height: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/texStorage3D) */
   texStorage3D(
@@ -29042,7 +29042,7 @@ interface WebGL2RenderingContextBase {
     internalformat: GLenum,
     width: GLsizei,
     height: GLsizei,
-    depth: GLsizei
+    depth: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/texSubImage3D) */
   texSubImage3D(
@@ -29056,7 +29056,7 @@ interface WebGL2RenderingContextBase {
     depth: GLsizei,
     format: GLenum,
     type: GLenum,
-    pboOffset: GLintptr
+    pboOffset: GLintptr,
   ): void;
   texSubImage3D(
     target: GLenum,
@@ -29069,7 +29069,7 @@ interface WebGL2RenderingContextBase {
     depth: GLsizei,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
+    source: TexImageSource,
   ): void;
   texSubImage3D(
     target: GLenum,
@@ -29083,13 +29083,13 @@ interface WebGL2RenderingContextBase {
     format: GLenum,
     type: GLenum,
     srcData: ArrayBufferView | null,
-    srcOffset?: GLuint
+    srcOffset?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/transformFeedbackVaryings) */
   transformFeedbackVaryings(
     program: WebGLProgram,
     varyings: string[],
-    bufferMode: GLenum
+    bufferMode: GLenum,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
   uniform1ui(location: WebGLUniformLocation | null, v0: GLuint): void;
@@ -29098,34 +29098,34 @@ interface WebGL2RenderingContextBase {
     location: WebGLUniformLocation | null,
     data: Uint32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
   uniform2ui(
     location: WebGLUniformLocation | null,
     v0: GLuint,
-    v1: GLuint
+    v1: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
   uniform2uiv(
     location: WebGLUniformLocation | null,
     data: Uint32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
   uniform3ui(
     location: WebGLUniformLocation | null,
     v0: GLuint,
     v1: GLuint,
-    v2: GLuint
+    v2: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
   uniform3uiv(
     location: WebGLUniformLocation | null,
     data: Uint32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
   uniform4ui(
@@ -29133,20 +29133,20 @@ interface WebGL2RenderingContextBase {
     v0: GLuint,
     v1: GLuint,
     v2: GLuint,
-    v3: GLuint
+    v3: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniform) */
   uniform4uiv(
     location: WebGLUniformLocation | null,
     data: Uint32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformBlockBinding) */
   uniformBlockBinding(
     program: WebGLProgram,
     uniformBlockIndex: GLuint,
-    uniformBlockBinding: GLuint
+    uniformBlockBinding: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix2x3fv(
@@ -29154,7 +29154,7 @@ interface WebGL2RenderingContextBase {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix2x4fv(
@@ -29162,7 +29162,7 @@ interface WebGL2RenderingContextBase {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix3x2fv(
@@ -29170,7 +29170,7 @@ interface WebGL2RenderingContextBase {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix3x4fv(
@@ -29178,7 +29178,7 @@ interface WebGL2RenderingContextBase {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix4x2fv(
@@ -29186,7 +29186,7 @@ interface WebGL2RenderingContextBase {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix4x3fv(
@@ -29194,7 +29194,7 @@ interface WebGL2RenderingContextBase {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/vertexAttribDivisor) */
   vertexAttribDivisor(index: GLuint, divisor: GLuint): void;
@@ -29208,7 +29208,7 @@ interface WebGL2RenderingContextBase {
     x: GLuint,
     y: GLuint,
     z: GLuint,
-    w: GLuint
+    w: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/vertexAttribI) */
   vertexAttribI4uiv(index: GLuint, values: Uint32List): void;
@@ -29218,7 +29218,7 @@ interface WebGL2RenderingContextBase {
     size: GLint,
     type: GLenum,
     stride: GLsizei,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/waitSync) */
   waitSync(sync: WebGLSync, flags: GLbitfield, timeout: GLint64): void;
@@ -29496,20 +29496,20 @@ interface WebGL2RenderingContextOverloads {
     srcData: ArrayBufferView,
     usage: GLenum,
     srcOffset: GLuint,
-    length?: GLuint
+    length?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/bufferSubData) */
   bufferSubData(
     target: GLenum,
     dstByteOffset: GLintptr,
-    srcData: BufferSource
+    srcData: BufferSource,
   ): void;
   bufferSubData(
     target: GLenum,
     dstByteOffset: GLintptr,
     srcData: ArrayBufferView,
     srcOffset: GLuint,
-    length?: GLuint
+    length?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/compressedTexImage2D) */
   compressedTexImage2D(
@@ -29520,7 +29520,7 @@ interface WebGL2RenderingContextOverloads {
     height: GLsizei,
     border: GLint,
     imageSize: GLsizei,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   compressedTexImage2D(
     target: GLenum,
@@ -29531,7 +29531,7 @@ interface WebGL2RenderingContextOverloads {
     border: GLint,
     srcData: ArrayBufferView,
     srcOffset?: GLuint,
-    srcLengthOverride?: GLuint
+    srcLengthOverride?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/compressedTexSubImage2D) */
   compressedTexSubImage2D(
@@ -29543,7 +29543,7 @@ interface WebGL2RenderingContextOverloads {
     height: GLsizei,
     format: GLenum,
     imageSize: GLsizei,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   compressedTexSubImage2D(
     target: GLenum,
@@ -29555,7 +29555,7 @@ interface WebGL2RenderingContextOverloads {
     format: GLenum,
     srcData: ArrayBufferView,
     srcOffset?: GLuint,
-    srcLengthOverride?: GLuint
+    srcLengthOverride?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/readPixels) */
   readPixels(
@@ -29565,7 +29565,7 @@ interface WebGL2RenderingContextOverloads {
     height: GLsizei,
     format: GLenum,
     type: GLenum,
-    dstData: ArrayBufferView | null
+    dstData: ArrayBufferView | null,
   ): void;
   readPixels(
     x: GLint,
@@ -29574,7 +29574,7 @@ interface WebGL2RenderingContextOverloads {
     height: GLsizei,
     format: GLenum,
     type: GLenum,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   readPixels(
     x: GLint,
@@ -29584,7 +29584,7 @@ interface WebGL2RenderingContextOverloads {
     format: GLenum,
     type: GLenum,
     dstData: ArrayBufferView,
-    dstOffset: GLuint
+    dstOffset: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/texImage2D) */
   texImage2D(
@@ -29596,7 +29596,7 @@ interface WebGL2RenderingContextOverloads {
     border: GLint,
     format: GLenum,
     type: GLenum,
-    pixels: ArrayBufferView | null
+    pixels: ArrayBufferView | null,
   ): void;
   texImage2D(
     target: GLenum,
@@ -29604,18 +29604,7 @@ interface WebGL2RenderingContextOverloads {
     internalformat: GLint,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
-  ): void;
-  texImage2D(
-    target: GLenum,
-    level: GLint,
-    internalformat: GLint,
-    width: GLsizei,
-    height: GLsizei,
-    border: GLint,
-    format: GLenum,
-    type: GLenum,
-    pboOffset: GLintptr
+    source: TexImageSource,
   ): void;
   texImage2D(
     target: GLenum,
@@ -29626,7 +29615,18 @@ interface WebGL2RenderingContextOverloads {
     border: GLint,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
+    pboOffset: GLintptr,
+  ): void;
+  texImage2D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    border: GLint,
+    format: GLenum,
+    type: GLenum,
+    source: TexImageSource,
   ): void;
   texImage2D(
     target: GLenum,
@@ -29638,7 +29638,7 @@ interface WebGL2RenderingContextOverloads {
     format: GLenum,
     type: GLenum,
     srcData: ArrayBufferView,
-    srcOffset: GLuint
+    srcOffset: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/texSubImage2D) */
   texSubImage2D(
@@ -29650,7 +29650,7 @@ interface WebGL2RenderingContextOverloads {
     height: GLsizei,
     format: GLenum,
     type: GLenum,
-    pixels: ArrayBufferView | null
+    pixels: ArrayBufferView | null,
   ): void;
   texSubImage2D(
     target: GLenum,
@@ -29659,18 +29659,7 @@ interface WebGL2RenderingContextOverloads {
     yoffset: GLint,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
-  ): void;
-  texSubImage2D(
-    target: GLenum,
-    level: GLint,
-    xoffset: GLint,
-    yoffset: GLint,
-    width: GLsizei,
-    height: GLsizei,
-    format: GLenum,
-    type: GLenum,
-    pboOffset: GLintptr
+    source: TexImageSource,
   ): void;
   texSubImage2D(
     target: GLenum,
@@ -29681,7 +29670,18 @@ interface WebGL2RenderingContextOverloads {
     height: GLsizei,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
+    pboOffset: GLintptr,
+  ): void;
+  texSubImage2D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    format: GLenum,
+    type: GLenum,
+    source: TexImageSource,
   ): void;
   texSubImage2D(
     target: GLenum,
@@ -29693,63 +29693,63 @@ interface WebGL2RenderingContextOverloads {
     format: GLenum,
     type: GLenum,
     srcData: ArrayBufferView,
-    srcOffset: GLuint
+    srcOffset: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform1fv(
     location: WebGLUniformLocation | null,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform1iv(
     location: WebGLUniformLocation | null,
     data: Int32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform2fv(
     location: WebGLUniformLocation | null,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform2iv(
     location: WebGLUniformLocation | null,
     data: Int32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform3fv(
     location: WebGLUniformLocation | null,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform3iv(
     location: WebGLUniformLocation | null,
     data: Int32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform4fv(
     location: WebGLUniformLocation | null,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform4iv(
     location: WebGLUniformLocation | null,
     data: Int32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
   uniformMatrix2fv(
@@ -29757,7 +29757,7 @@ interface WebGL2RenderingContextOverloads {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
   uniformMatrix3fv(
@@ -29765,7 +29765,7 @@ interface WebGL2RenderingContextOverloads {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
   uniformMatrix4fv(
@@ -29773,7 +29773,7 @@ interface WebGL2RenderingContextOverloads {
     transpose: GLboolean,
     data: Float32List,
     srcOffset?: GLuint,
-    srcLength?: GLuint
+    srcLength?: GLuint,
   ): void;
 }
 
@@ -30198,7 +30198,7 @@ interface WebGLRenderingContextBase {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/bindRenderbuffer) */
   bindRenderbuffer(
     target: GLenum,
-    renderbuffer: WebGLRenderbuffer | null
+    renderbuffer: WebGLRenderbuffer | null,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/bindTexture) */
   bindTexture(target: GLenum, texture: WebGLTexture | null): void;
@@ -30207,7 +30207,7 @@ interface WebGLRenderingContextBase {
     red: GLclampf,
     green: GLclampf,
     blue: GLclampf,
-    alpha: GLclampf
+    alpha: GLclampf,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/blendEquation) */
   blendEquation(mode: GLenum): void;
@@ -30220,7 +30220,7 @@ interface WebGLRenderingContextBase {
     srcRGB: GLenum,
     dstRGB: GLenum,
     srcAlpha: GLenum,
-    dstAlpha: GLenum
+    dstAlpha: GLenum,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/checkFramebufferStatus) */
   checkFramebufferStatus(target: GLenum): GLenum;
@@ -30231,7 +30231,7 @@ interface WebGLRenderingContextBase {
     red: GLclampf,
     green: GLclampf,
     blue: GLclampf,
-    alpha: GLclampf
+    alpha: GLclampf,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/clearDepth) */
   clearDepth(depth: GLclampf): void;
@@ -30242,7 +30242,7 @@ interface WebGLRenderingContextBase {
     red: GLboolean,
     green: GLboolean,
     blue: GLboolean,
-    alpha: GLboolean
+    alpha: GLboolean,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/compileShader) */
   compileShader(shader: WebGLShader): void;
@@ -30255,7 +30255,7 @@ interface WebGLRenderingContextBase {
     y: GLint,
     width: GLsizei,
     height: GLsizei,
-    border: GLint
+    border: GLint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/copyTexSubImage2D) */
   copyTexSubImage2D(
@@ -30266,7 +30266,7 @@ interface WebGLRenderingContextBase {
     x: GLint,
     y: GLint,
     width: GLsizei,
-    height: GLsizei
+    height: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/createBuffer) */
   createBuffer(): WebGLBuffer | null;
@@ -30313,7 +30313,7 @@ interface WebGLRenderingContextBase {
     mode: GLenum,
     count: GLsizei,
     type: GLenum,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/enable) */
   enable(cap: GLenum): void;
@@ -30328,7 +30328,7 @@ interface WebGLRenderingContextBase {
     target: GLenum,
     attachment: GLenum,
     renderbuffertarget: GLenum,
-    renderbuffer: WebGLRenderbuffer | null
+    renderbuffer: WebGLRenderbuffer | null,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/framebufferTexture2D) */
   framebufferTexture2D(
@@ -30336,7 +30336,7 @@ interface WebGLRenderingContextBase {
     attachment: GLenum,
     textarget: GLenum,
     texture: WebGLTexture | null,
-    level: GLint
+    level: GLint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/frontFace) */
   frontFace(mode: GLenum): void;
@@ -30347,7 +30347,7 @@ interface WebGLRenderingContextBase {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getActiveUniform) */
   getActiveUniform(
     program: WebGLProgram,
-    index: GLuint
+    index: GLuint,
   ): WebGLActiveInfo | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getAttachedShaders) */
   getAttachedShaders(program: WebGLProgram): WebGLShader[] | null;
@@ -30361,85 +30361,85 @@ interface WebGLRenderingContextBase {
   getError(): GLenum;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getExtension) */
   getExtension(
-    extensionName: "ANGLE_instanced_arrays"
+    extensionName: "ANGLE_instanced_arrays",
   ): ANGLE_instanced_arrays | null;
   getExtension(extensionName: "EXT_blend_minmax"): EXT_blend_minmax | null;
   getExtension(
-    extensionName: "EXT_color_buffer_float"
+    extensionName: "EXT_color_buffer_float",
   ): EXT_color_buffer_float | null;
   getExtension(
-    extensionName: "EXT_color_buffer_half_float"
+    extensionName: "EXT_color_buffer_half_float",
   ): EXT_color_buffer_half_float | null;
   getExtension(extensionName: "EXT_float_blend"): EXT_float_blend | null;
   getExtension(extensionName: "EXT_frag_depth"): EXT_frag_depth | null;
   getExtension(extensionName: "EXT_sRGB"): EXT_sRGB | null;
   getExtension(
-    extensionName: "EXT_shader_texture_lod"
+    extensionName: "EXT_shader_texture_lod",
   ): EXT_shader_texture_lod | null;
   getExtension(
-    extensionName: "EXT_texture_compression_bptc"
+    extensionName: "EXT_texture_compression_bptc",
   ): EXT_texture_compression_bptc | null;
   getExtension(
-    extensionName: "EXT_texture_compression_rgtc"
+    extensionName: "EXT_texture_compression_rgtc",
   ): EXT_texture_compression_rgtc | null;
   getExtension(
-    extensionName: "EXT_texture_filter_anisotropic"
+    extensionName: "EXT_texture_filter_anisotropic",
   ): EXT_texture_filter_anisotropic | null;
   getExtension(
-    extensionName: "KHR_parallel_shader_compile"
+    extensionName: "KHR_parallel_shader_compile",
   ): KHR_parallel_shader_compile | null;
   getExtension(
-    extensionName: "OES_element_index_uint"
+    extensionName: "OES_element_index_uint",
   ): OES_element_index_uint | null;
   getExtension(
-    extensionName: "OES_fbo_render_mipmap"
+    extensionName: "OES_fbo_render_mipmap",
   ): OES_fbo_render_mipmap | null;
   getExtension(
-    extensionName: "OES_standard_derivatives"
+    extensionName: "OES_standard_derivatives",
   ): OES_standard_derivatives | null;
   getExtension(extensionName: "OES_texture_float"): OES_texture_float | null;
   getExtension(
-    extensionName: "OES_texture_float_linear"
+    extensionName: "OES_texture_float_linear",
   ): OES_texture_float_linear | null;
   getExtension(
-    extensionName: "OES_texture_half_float"
+    extensionName: "OES_texture_half_float",
   ): OES_texture_half_float | null;
   getExtension(
-    extensionName: "OES_texture_half_float_linear"
+    extensionName: "OES_texture_half_float_linear",
   ): OES_texture_half_float_linear | null;
   getExtension(
-    extensionName: "OES_vertex_array_object"
+    extensionName: "OES_vertex_array_object",
   ): OES_vertex_array_object | null;
   getExtension(extensionName: "OVR_multiview2"): OVR_multiview2 | null;
   getExtension(
-    extensionName: "WEBGL_color_buffer_float"
+    extensionName: "WEBGL_color_buffer_float",
   ): WEBGL_color_buffer_float | null;
   getExtension(
-    extensionName: "WEBGL_compressed_texture_astc"
+    extensionName: "WEBGL_compressed_texture_astc",
   ): WEBGL_compressed_texture_astc | null;
   getExtension(
-    extensionName: "WEBGL_compressed_texture_etc"
+    extensionName: "WEBGL_compressed_texture_etc",
   ): WEBGL_compressed_texture_etc | null;
   getExtension(
-    extensionName: "WEBGL_compressed_texture_etc1"
+    extensionName: "WEBGL_compressed_texture_etc1",
   ): WEBGL_compressed_texture_etc1 | null;
   getExtension(
-    extensionName: "WEBGL_compressed_texture_pvrtc"
+    extensionName: "WEBGL_compressed_texture_pvrtc",
   ): WEBGL_compressed_texture_pvrtc | null;
   getExtension(
-    extensionName: "WEBGL_compressed_texture_s3tc"
+    extensionName: "WEBGL_compressed_texture_s3tc",
   ): WEBGL_compressed_texture_s3tc | null;
   getExtension(
-    extensionName: "WEBGL_compressed_texture_s3tc_srgb"
+    extensionName: "WEBGL_compressed_texture_s3tc_srgb",
   ): WEBGL_compressed_texture_s3tc_srgb | null;
   getExtension(
-    extensionName: "WEBGL_debug_renderer_info"
+    extensionName: "WEBGL_debug_renderer_info",
   ): WEBGL_debug_renderer_info | null;
   getExtension(
-    extensionName: "WEBGL_debug_shaders"
+    extensionName: "WEBGL_debug_shaders",
   ): WEBGL_debug_shaders | null;
   getExtension(
-    extensionName: "WEBGL_depth_texture"
+    extensionName: "WEBGL_depth_texture",
   ): WEBGL_depth_texture | null;
   getExtension(extensionName: "WEBGL_draw_buffers"): WEBGL_draw_buffers | null;
   getExtension(extensionName: "WEBGL_lose_context"): WEBGL_lose_context | null;
@@ -30449,7 +30449,7 @@ interface WebGLRenderingContextBase {
   getFramebufferAttachmentParameter(
     target: GLenum,
     attachment: GLenum,
-    pname: GLenum
+    pname: GLenum,
   ): any;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getParameter) */
   getParameter(pname: GLenum): any;
@@ -30466,7 +30466,7 @@ interface WebGLRenderingContextBase {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getShaderPrecisionFormat) */
   getShaderPrecisionFormat(
     shadertype: GLenum,
-    precisiontype: GLenum
+    precisiontype: GLenum,
   ): WebGLShaderPrecisionFormat | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getShaderSource) */
   getShaderSource(shader: WebGLShader): string | null;
@@ -30479,7 +30479,7 @@ interface WebGLRenderingContextBase {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getUniformLocation) */
   getUniformLocation(
     program: WebGLProgram,
-    name: string
+    name: string,
   ): WebGLUniformLocation | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/getVertexAttrib) */
   getVertexAttrib(index: GLuint, pname: GLenum): any;
@@ -30515,7 +30515,7 @@ interface WebGLRenderingContextBase {
     target: GLenum,
     internalformat: GLenum,
     width: GLsizei,
-    height: GLsizei
+    height: GLsizei,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/sampleCoverage) */
   sampleCoverage(value: GLclampf, invert: GLboolean): void;
@@ -30530,7 +30530,7 @@ interface WebGLRenderingContextBase {
     face: GLenum,
     func: GLenum,
     ref: GLint,
-    mask: GLuint
+    mask: GLuint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/stencilMask) */
   stencilMask(mask: GLuint): void;
@@ -30543,7 +30543,7 @@ interface WebGLRenderingContextBase {
     face: GLenum,
     fail: GLenum,
     zfail: GLenum,
-    zpass: GLenum
+    zpass: GLenum,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/texParameter) */
   texParameterf(target: GLenum, pname: GLenum, param: GLfloat): void;
@@ -30557,7 +30557,7 @@ interface WebGLRenderingContextBase {
   uniform2f(
     location: WebGLUniformLocation | null,
     x: GLfloat,
-    y: GLfloat
+    y: GLfloat,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform2i(location: WebGLUniformLocation | null, x: GLint, y: GLint): void;
@@ -30566,14 +30566,14 @@ interface WebGLRenderingContextBase {
     location: WebGLUniformLocation | null,
     x: GLfloat,
     y: GLfloat,
-    z: GLfloat
+    z: GLfloat,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform3i(
     location: WebGLUniformLocation | null,
     x: GLint,
     y: GLint,
-    z: GLint
+    z: GLint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform4f(
@@ -30581,7 +30581,7 @@ interface WebGLRenderingContextBase {
     x: GLfloat,
     y: GLfloat,
     z: GLfloat,
-    w: GLfloat
+    w: GLfloat,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform4i(
@@ -30589,7 +30589,7 @@ interface WebGLRenderingContextBase {
     x: GLint,
     y: GLint,
     z: GLint,
-    w: GLint
+    w: GLint,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/useProgram) */
   useProgram(program: WebGLProgram | null): void;
@@ -30613,7 +30613,7 @@ interface WebGLRenderingContextBase {
     x: GLfloat,
     y: GLfloat,
     z: GLfloat,
-    w: GLfloat
+    w: GLfloat,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/vertexAttrib) */
   vertexAttrib4fv(index: GLuint, values: Float32List): void;
@@ -30624,7 +30624,7 @@ interface WebGLRenderingContextBase {
     type: GLenum,
     normalized: GLboolean,
     stride: GLsizei,
-    offset: GLintptr
+    offset: GLintptr,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/viewport) */
   viewport(x: GLint, y: GLint, width: GLsizei, height: GLsizei): void;
@@ -30940,7 +30940,7 @@ interface WebGLRenderingContextOverloads {
     width: GLsizei,
     height: GLsizei,
     border: GLint,
-    data: ArrayBufferView
+    data: ArrayBufferView,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/compressedTexSubImage2D) */
   compressedTexSubImage2D(
@@ -30951,7 +30951,7 @@ interface WebGLRenderingContextOverloads {
     width: GLsizei,
     height: GLsizei,
     format: GLenum,
-    data: ArrayBufferView
+    data: ArrayBufferView,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/readPixels) */
   readPixels(
@@ -30961,7 +30961,7 @@ interface WebGLRenderingContextOverloads {
     height: GLsizei,
     format: GLenum,
     type: GLenum,
-    pixels: ArrayBufferView | null
+    pixels: ArrayBufferView | null,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/texImage2D) */
   texImage2D(
@@ -30973,7 +30973,7 @@ interface WebGLRenderingContextOverloads {
     border: GLint,
     format: GLenum,
     type: GLenum,
-    pixels: ArrayBufferView | null
+    pixels: ArrayBufferView | null,
   ): void;
   texImage2D(
     target: GLenum,
@@ -30981,7 +30981,7 @@ interface WebGLRenderingContextOverloads {
     internalformat: GLint,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
+    source: TexImageSource,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/texSubImage2D) */
   texSubImage2D(
@@ -30993,7 +30993,7 @@ interface WebGLRenderingContextOverloads {
     height: GLsizei,
     format: GLenum,
     type: GLenum,
-    pixels: ArrayBufferView | null
+    pixels: ArrayBufferView | null,
   ): void;
   texSubImage2D(
     target: GLenum,
@@ -31002,7 +31002,7 @@ interface WebGLRenderingContextOverloads {
     yoffset: GLint,
     format: GLenum,
     type: GLenum,
-    source: TexImageSource
+    source: TexImageSource,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniform) */
   uniform1fv(location: WebGLUniformLocation | null, v: Float32List): void;
@@ -31024,19 +31024,19 @@ interface WebGLRenderingContextOverloads {
   uniformMatrix2fv(
     location: WebGLUniformLocation | null,
     transpose: GLboolean,
-    value: Float32List
+    value: Float32List,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
   uniformMatrix3fv(
     location: WebGLUniformLocation | null,
     transpose: GLboolean,
-    value: Float32List
+    value: Float32List,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
   uniformMatrix4fv(
     location: WebGLUniformLocation | null,
     transpose: GLboolean,
-    value: Float32List
+    value: Float32List,
   ): void;
 }
 
@@ -31210,22 +31210,22 @@ interface WebSocket extends EventTarget {
   addEventListener<K extends keyof WebSocketEventMap>(
     type: K,
     listener: (this: WebSocket, ev: WebSocketEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof WebSocketEventMap>(
     type: K,
     listener: (this: WebSocket, ev: WebSocketEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -31258,11 +31258,11 @@ interface WebTransport {
   close(closeInfo?: WebTransportCloseInfo): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/createBidirectionalStream) */
   createBidirectionalStream(
-    options?: WebTransportSendStreamOptions
+    options?: WebTransportSendStreamOptions,
   ): Promise<WebTransportBidirectionalStream>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/createUnidirectionalStream) */
   createUnidirectionalStream(
-    options?: WebTransportSendStreamOptions
+    options?: WebTransportSendStreamOptions,
   ): Promise<WritableStream>;
 }
 
@@ -31583,7 +31583,7 @@ interface Window
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/getComputedStyle) */
   getComputedStyle(
     elt: Element,
-    pseudoElt?: string | null
+    pseudoElt?: string | null,
   ): CSSStyleDeclaration;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/getSelection) */
   getSelection(): Selection | null;
@@ -31597,7 +31597,7 @@ interface Window
   open(
     url?: string | URL,
     target?: string,
-    features?: string
+    features?: string,
   ): WindowProxy | null;
   /**
    * Posts a message to the given window. Messages can be structured objects, e.g. nested objects and arrays, can contain JavaScript values (strings, numbers, Date objects, etc), and can contain certain data objects such as File Blob, FileList, and ArrayBuffer objects.
@@ -31615,7 +31615,7 @@ interface Window
   postMessage(
     message: any,
     targetOrigin: string,
-    transfer?: Transferable[]
+    transfer?: Transferable[],
   ): void;
   postMessage(message: any, options?: WindowPostMessageOptions): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/print) */
@@ -31631,7 +31631,7 @@ interface Window
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/requestIdleCallback) */
   requestIdleCallback(
     callback: IdleRequestCallback,
-    options?: IdleRequestOptions
+    options?: IdleRequestOptions,
   ): number;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/resizeBy) */
   resizeBy(x: number, y: number): void;
@@ -31655,22 +31655,22 @@ interface Window
   addEventListener<K extends keyof WindowEventMap>(
     type: K,
     listener: (this: Window, ev: WindowEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof WindowEventMap>(
     type: K,
     listener: (this: Window, ev: WindowEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   [index: number]: Window;
 }
@@ -31758,27 +31758,27 @@ interface WindowEventHandlers {
     type: K,
     listener: (
       this: WindowEventHandlers,
-      ev: WindowEventHandlersEventMap[K]
+      ev: WindowEventHandlersEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof WindowEventHandlersEventMap>(
     type: K,
     listener: (
       this: WindowEventHandlers,
-      ev: WindowEventHandlersEventMap[K]
+      ev: WindowEventHandlersEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -31817,7 +31817,7 @@ interface WindowOrWorkerGlobalScope {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/createImageBitmap) */
   createImageBitmap(
     image: ImageBitmapSource,
-    options?: ImageBitmapOptions
+    options?: ImageBitmapOptions,
   ): Promise<ImageBitmap>;
   createImageBitmap(
     image: ImageBitmapSource,
@@ -31825,7 +31825,7 @@ interface WindowOrWorkerGlobalScope {
     sy: number,
     sw: number,
     sh: number,
-    options?: ImageBitmapOptions
+    options?: ImageBitmapOptions,
   ): Promise<ImageBitmap>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/fetch) */
   fetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response>;
@@ -31885,22 +31885,22 @@ interface Worker extends EventTarget, AbstractWorker {
   addEventListener<K extends keyof WorkerEventMap>(
     type: K,
     listener: (this: Worker, ev: WorkerEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof WorkerEventMap>(
     type: K,
     listener: (this: Worker, ev: WorkerEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -31952,7 +31952,7 @@ declare var WritableStream: {
   prototype: WritableStream;
   new <W = any>(
     underlyingSink?: UnderlyingSink<W>,
-    strategy?: QueuingStrategy<W>
+    strategy?: QueuingStrategy<W>,
   ): WritableStream<W>;
 };
 
@@ -32009,22 +32009,22 @@ interface XMLDocument extends Document {
   addEventListener<K extends keyof DocumentEventMap>(
     type: K,
     listener: (this: XMLDocument, ev: DocumentEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof DocumentEventMap>(
     type: K,
     listener: (this: XMLDocument, ev: DocumentEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -32142,7 +32142,7 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
     url: string | URL,
     async: boolean,
     username?: string | null,
-    password?: string | null
+    password?: string | null,
   ): void;
   /**
    * Acts as if the `Content-Type` header value for a response is mime. (It does not change the header.)
@@ -32178,22 +32178,22 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
   addEventListener<K extends keyof XMLHttpRequestEventMap>(
     type: K,
     listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof XMLHttpRequestEventMap>(
     type: K,
     listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -32230,27 +32230,27 @@ interface XMLHttpRequestEventTarget extends EventTarget {
     type: K,
     listener: (
       this: XMLHttpRequestEventTarget,
-      ev: XMLHttpRequestEventTargetEventMap[K]
+      ev: XMLHttpRequestEventTargetEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
     type: K,
     listener: (
       this: XMLHttpRequestEventTarget,
-      ev: XMLHttpRequestEventTargetEventMap[K]
+      ev: XMLHttpRequestEventTargetEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -32265,27 +32265,27 @@ interface XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
     type: K,
     listener: (
       this: XMLHttpRequestUpload,
-      ev: XMLHttpRequestEventTargetEventMap[K]
+      ev: XMLHttpRequestEventTargetEventMap[K],
     ) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(
     type: K,
     listener: (
       this: XMLHttpRequestUpload,
-      ev: XMLHttpRequestEventTargetEventMap[K]
+      ev: XMLHttpRequestEventTargetEventMap[K],
     ) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
   removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
@@ -32325,7 +32325,7 @@ interface XPathEvaluatorBase {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/createExpression) */
   createExpression(
     expression: string,
-    resolver?: XPathNSResolver | null
+    resolver?: XPathNSResolver | null,
   ): XPathExpression;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/createNSResolver) */
   createNSResolver(nodeResolver: Node): Node;
@@ -32335,7 +32335,7 @@ interface XPathEvaluatorBase {
     contextNode: Node,
     resolver?: XPathNSResolver | null,
     type?: number,
-    result?: XPathResult | null
+    result?: XPathResult | null,
   ): XPathResult;
 }
 
@@ -32349,7 +32349,7 @@ interface XPathExpression {
   evaluate(
     contextNode: Node,
     type?: number,
-    result?: XPathResult | null
+    result?: XPathResult | null,
   ): XPathResult;
 }
 
@@ -32429,7 +32429,7 @@ interface XSLTProcessor {
   setParameter(
     namespaceURI: string | null,
     localName: string,
-    value: any
+    value: any,
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/XSLTProcessor/transformToDocument) */
   transformToDocument(source: Node): Document;
@@ -32627,7 +32627,7 @@ declare namespace WebAssembly {
     prototype: Global;
     new <T extends ValueType = ValueType>(
       descriptor: GlobalDescriptor<T>,
-      v?: ValueTypeMap[T]
+      v?: ValueTypeMap[T],
     ): Global<T>;
   };
 
@@ -32757,21 +32757,21 @@ declare namespace WebAssembly {
   function compile(bytes: BufferSource): Promise<Module>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/compileStreaming) */
   function compileStreaming(
-    source: Response | PromiseLike<Response>
+    source: Response | PromiseLike<Response>,
   ): Promise<Module>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiate) */
   function instantiate(
     bytes: BufferSource,
-    importObject?: Imports
+    importObject?: Imports,
   ): Promise<WebAssemblyInstantiatedSource>;
   function instantiate(
     moduleObject: Module,
-    importObject?: Imports
+    importObject?: Imports,
   ): Promise<Instance>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiateStreaming) */
   function instantiateStreaming(
     source: Response | PromiseLike<Response>,
-    importObject?: Imports
+    importObject?: Imports,
   ): Promise<WebAssemblyInstantiatedSource>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/validate) */
   function validate(bytes: BufferSource): boolean;
@@ -32855,7 +32855,7 @@ interface OnErrorEventHandlerNonNull {
     source?: string,
     lineno?: number,
     colno?: number,
-    error?: Error
+    error?: Error,
   ): any;
 }
 
@@ -32906,7 +32906,7 @@ interface TransformerStartCallback<O> {
 interface TransformerTransformCallback<I, O> {
   (
     chunk: I,
-    controller: TransformStreamDefaultController<O>
+    controller: TransformStreamDefaultController<O>,
   ): void | PromiseLike<void>;
 }
 
@@ -32925,7 +32925,7 @@ interface UnderlyingSinkStartCallback {
 interface UnderlyingSinkWriteCallback<W> {
   (
     chunk: W,
-    controller: WritableStreamDefaultController
+    controller: WritableStreamDefaultController,
   ): void | PromiseLike<void>;
 }
 
@@ -33221,7 +33221,7 @@ declare var Option: {
     text?: string,
     value?: string,
     defaultSelected?: boolean,
-    selected?: boolean
+    selected?: boolean,
   ): HTMLOptionElement;
 };
 /**
@@ -33426,7 +33426,7 @@ declare function focus(): void;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/getComputedStyle) */
 declare function getComputedStyle(
   elt: Element,
-  pseudoElt?: string | null
+  pseudoElt?: string | null,
 ): CSSStyleDeclaration;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/getSelection) */
 declare function getSelection(): Selection | null;
@@ -33440,7 +33440,7 @@ declare function moveTo(x: number, y: number): void;
 declare function open(
   url?: string | URL,
   target?: string,
-  features?: string
+  features?: string,
 ): WindowProxy | null;
 /**
  * Posts a message to the given window. Messages can be structured objects, e.g. nested objects and arrays, can contain JavaScript values (strings, numbers, Date objects, etc), and can contain certain data objects such as File Blob, FileList, and ArrayBuffer objects.
@@ -33458,11 +33458,11 @@ declare function open(
 declare function postMessage(
   message: any,
   targetOrigin: string,
-  transfer?: Transferable[]
+  transfer?: Transferable[],
 ): void;
 declare function postMessage(
   message: any,
-  options?: WindowPostMessageOptions
+  options?: WindowPostMessageOptions,
 ): void;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/print) */
 declare function print(): void;
@@ -33477,7 +33477,7 @@ declare function releaseEvents(): void;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/requestIdleCallback) */
 declare function requestIdleCallback(
   callback: IdleRequestCallback,
-  options?: IdleRequestOptions
+  options?: IdleRequestOptions,
 ): number;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/resizeBy) */
 declare function resizeBy(x: number, y: number): void;
@@ -34050,7 +34050,7 @@ declare function clearTimeout(id: number | undefined): void;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/createImageBitmap) */
 declare function createImageBitmap(
   image: ImageBitmapSource,
-  options?: ImageBitmapOptions
+  options?: ImageBitmapOptions,
 ): Promise<ImageBitmap>;
 declare function createImageBitmap(
   image: ImageBitmapSource,
@@ -34058,12 +34058,12 @@ declare function createImageBitmap(
   sy: number,
   sw: number,
   sh: number,
-  options?: ImageBitmapOptions
+  options?: ImageBitmapOptions,
 ): Promise<ImageBitmap>;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/fetch) */
 declare function fetch(
   input: RequestInfo | URL,
-  init?: RequestInit
+  init?: RequestInit,
 ): Promise<Response>;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/queueMicrotask) */
 declare function queueMicrotask(callback: VoidFunction): void;
@@ -34081,32 +34081,42 @@ declare function setTimeout(
   timeout?: number,
   ...arguments: any[]
 ): number;
+
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/structuredClone) */
-declare function structuredClone<T = any>(
+declare function structuredClone<
+  const T extends BetterTypeScriptLibInternals.StructuredClone.NeverOrUnknown<
+    BetterTypeScriptLibInternals.StructuredClone.StructuredCloneOutput<
+      BetterTypeScriptLibInternals.StructuredClone.AvoidCyclicConstraint<T>
+    >
+  >,
+>(
   value: T,
-  options?: StructuredSerializeOptions
-): T;
+  options?: StructuredSerializeOptions,
+): BetterTypeScriptLibInternals.StructuredClone.StructuredCloneOutput<T>;
+// /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/structuredClone) */
+// declare function structuredClone<T = any>(value: T, options?: StructuredSerializeOptions): T;
+
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage) */
 declare var sessionStorage: Storage;
 declare function addEventListener<K extends keyof WindowEventMap>(
   type: K,
   listener: (this: Window, ev: WindowEventMap[K]) => any,
-  options?: boolean | AddEventListenerOptions
+  options?: boolean | AddEventListenerOptions,
 ): void;
 declare function addEventListener(
   type: string,
   listener: EventListenerOrEventListenerObject,
-  options?: boolean | AddEventListenerOptions
+  options?: boolean | AddEventListenerOptions,
 ): void;
 declare function removeEventListener<K extends keyof WindowEventMap>(
   type: K,
   listener: (this: Window, ev: WindowEventMap[K]) => any,
-  options?: boolean | EventListenerOptions
+  options?: boolean | EventListenerOptions,
 ): void;
 declare function removeEventListener(
   type: string,
   listener: EventListenerOrEventListenerObject,
-  options?: boolean | EventListenerOptions
+  options?: boolean | EventListenerOptions,
 ): void;
 type AlgorithmIdentifier = Algorithm | string;
 type AllowSharedBufferSource = ArrayBuffer | ArrayBufferView;
@@ -34742,3 +34752,126 @@ type XMLHttpRequestResponseType =
   | "document"
   | "json"
   | "text";
+// --------------------
+
+declare namespace BetterTypeScriptLibInternals {
+  export namespace StructuredClone {
+    type Basics = [
+      EvalError,
+      RangeError,
+      ReferenceError,
+      TypeError,
+      SyntaxError,
+      URIError,
+      Error,
+      Boolean,
+      String,
+      Date,
+      RegExp,
+    ];
+    type DOMSpecifics = [
+      DOMException,
+      DOMMatrix,
+      DOMMatrixReadOnly,
+      DOMPoint,
+      DOMPointReadOnly,
+      DOMQuad,
+      DOMRect,
+      DOMRectReadOnly,
+    ];
+    type FileSystemTypeFamily = [
+      FileSystemDirectoryHandle,
+      FileSystemFileHandle,
+      FileSystemHandle,
+    ];
+    type WebGPURelatedTypeFamily = [
+      // GPUCompilationInfo,
+      // GPUCompilationMessage,
+    ];
+    type TypedArrayFamily = [
+      Int8Array,
+      Int16Array,
+      Int32Array,
+      BigInt64Array,
+      Uint8Array,
+      Uint16Array,
+      Uint32Array,
+      BigUint64Array,
+      Uint8ClampedArray,
+    ];
+    type Weaken = [
+      ...Basics,
+      // AudioData,
+      Blob,
+      // CropTarget,
+      // CryptoTarget,
+      ...DOMSpecifics,
+      ...FileSystemTypeFamily,
+      ...WebGPURelatedTypeFamily,
+      File,
+      FileList,
+      ...TypedArrayFamily,
+      DataView,
+      ImageBitmap,
+      ImageData,
+      RTCCertificate,
+      VideoFrame,
+    ];
+
+    type MapSubtype<R> = {
+      [k in keyof Weaken]: R extends Weaken[k] ? true : false;
+    };
+    type SelectNumericLiteral<H> = number extends H ? never : H;
+    type FilterByNumericLiteralKey<R extends Record<string | number, any>> = {
+      [k in keyof R as `${R[k] extends true ? Exclude<SelectNumericLiteral<k>, symbol> : never}`]: [];
+    };
+    type HitWeakenEntry<E> = keyof FilterByNumericLiteralKey<MapSubtype<E>>;
+
+    type NonCloneablePrimitive =
+      | Function
+      | { new (...args: any[]): any }
+      | ((...args: any[]) => any)
+      | symbol;
+
+    type Writeable<T> = T extends readonly []
+      ? []
+      : T extends readonly [infer X, ...infer XS]
+        ? [X, ...XS]
+        : T extends { [x: PropertyKey]: any }
+          ? {
+              -readonly [P in keyof T]: Writeable<T[P]>;
+            }
+          : T;
+
+    type StructuredCloneOutput<T> = T extends NonCloneablePrimitive
+      ? never
+      : T extends ReadonlyArray<any>
+        ? number extends T["length"]
+          ? Array<StructuredCloneOutput<T[number]>>
+          : T extends [infer X, ...infer XS]
+            ? [StructuredCloneOutput<X>, ...StructuredCloneOutput<XS>]
+            : Writeable<T>
+        : T extends Map<infer K, infer V>
+          ? Map<StructuredCloneOutput<K>, StructuredCloneOutput<V>>
+          : T extends Set<infer E>
+            ? Set<StructuredCloneOutput<E>>
+            : T extends Record<any, any>
+              ? HitWeakenEntry<T> extends never
+                ? Writeable<{
+                    -readonly [k in Exclude<
+                      keyof T,
+                      symbol
+                    > as `${[StructuredCloneOutput<T[k]>] extends [never] ? never : k}`]: StructuredCloneOutput<
+                      T[k]
+                    >;
+                  }>
+                : // hit
+                  Weaken[HitWeakenEntry<T>]
+              : T;
+
+    type AvoidCyclicConstraint<T> = [T] extends [infer R] ? R : never;
+
+    // 上限が不正にきつくなっているのを無視する
+    type NeverOrUnknown<T> = [T] extends [never] ? never : unknown;
+  }
+}

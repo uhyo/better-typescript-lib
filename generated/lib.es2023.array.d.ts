@@ -11,11 +11,11 @@ interface Array<T> {
    */
   findLast<S extends T>(
     predicate: (value: T, index: number, array: T[]) => value is S,
-    thisArg?: any
+    thisArg?: any,
   ): S | undefined;
   findLast(
     predicate: (value: T, index: number, array: T[]) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): T | undefined;
 
   /**
@@ -29,7 +29,7 @@ interface Array<T> {
    */
   findLastIndex(
     predicate: (value: T, index: number, array: T[]) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number;
 
   /**
@@ -89,11 +89,11 @@ interface ReadonlyArray<T> {
    */
   findLast<S extends T>(
     predicate: (value: T, index: number, array: readonly T[]) => value is S,
-    thisArg?: any
+    thisArg?: any,
   ): S | undefined;
   findLast(
     predicate: (value: T, index: number, array: readonly T[]) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): T | undefined;
 
   /**
@@ -107,7 +107,7 @@ interface ReadonlyArray<T> {
    */
   findLastIndex(
     predicate: (value: T, index: number, array: readonly T[]) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number;
 
   /**
@@ -167,11 +167,11 @@ interface Int8Array {
    */
   findLast<S extends number>(
     predicate: (value: number, index: number, array: Int8Array) => value is S,
-    thisArg?: any
+    thisArg?: any,
   ): S | undefined;
   findLast(
     predicate: (value: number, index: number, array: Int8Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number | undefined;
 
   /**
@@ -185,7 +185,7 @@ interface Int8Array {
    */
   findLastIndex(
     predicate: (value: number, index: number, array: Int8Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number;
 
   /**
@@ -227,11 +227,11 @@ interface Uint8Array {
    */
   findLast<S extends number>(
     predicate: (value: number, index: number, array: Uint8Array) => value is S,
-    thisArg?: any
+    thisArg?: any,
   ): S | undefined;
   findLast(
     predicate: (value: number, index: number, array: Uint8Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number | undefined;
 
   /**
@@ -245,7 +245,7 @@ interface Uint8Array {
    */
   findLastIndex(
     predicate: (value: number, index: number, array: Uint8Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number;
 
   /**
@@ -289,17 +289,17 @@ interface Uint8ClampedArray {
     predicate: (
       value: number,
       index: number,
-      array: Uint8ClampedArray
+      array: Uint8ClampedArray,
     ) => value is S,
-    thisArg?: any
+    thisArg?: any,
   ): S | undefined;
   findLast(
     predicate: (
       value: number,
       index: number,
-      array: Uint8ClampedArray
+      array: Uint8ClampedArray,
     ) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number | undefined;
 
   /**
@@ -315,9 +315,9 @@ interface Uint8ClampedArray {
     predicate: (
       value: number,
       index: number,
-      array: Uint8ClampedArray
+      array: Uint8ClampedArray,
     ) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number;
 
   /**
@@ -359,11 +359,11 @@ interface Int16Array {
    */
   findLast<S extends number>(
     predicate: (value: number, index: number, array: Int16Array) => value is S,
-    thisArg?: any
+    thisArg?: any,
   ): S | undefined;
   findLast(
     predicate: (value: number, index: number, array: Int16Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number | undefined;
 
   /**
@@ -377,7 +377,7 @@ interface Int16Array {
    */
   findLastIndex(
     predicate: (value: number, index: number, array: Int16Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number;
 
   /**
@@ -419,11 +419,11 @@ interface Uint16Array {
    */
   findLast<S extends number>(
     predicate: (value: number, index: number, array: Uint16Array) => value is S,
-    thisArg?: any
+    thisArg?: any,
   ): S | undefined;
   findLast(
     predicate: (value: number, index: number, array: Uint16Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number | undefined;
 
   /**
@@ -437,7 +437,7 @@ interface Uint16Array {
    */
   findLastIndex(
     predicate: (value: number, index: number, array: Uint16Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number;
 
   /**
@@ -479,11 +479,11 @@ interface Int32Array {
    */
   findLast<S extends number>(
     predicate: (value: number, index: number, array: Int32Array) => value is S,
-    thisArg?: any
+    thisArg?: any,
   ): S | undefined;
   findLast(
     predicate: (value: number, index: number, array: Int32Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number | undefined;
 
   /**
@@ -497,7 +497,7 @@ interface Int32Array {
    */
   findLastIndex(
     predicate: (value: number, index: number, array: Int32Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number;
 
   /**
@@ -539,11 +539,11 @@ interface Uint32Array {
    */
   findLast<S extends number>(
     predicate: (value: number, index: number, array: Uint32Array) => value is S,
-    thisArg?: any
+    thisArg?: any,
   ): S | undefined;
   findLast(
     predicate: (value: number, index: number, array: Uint32Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number | undefined;
 
   /**
@@ -557,7 +557,7 @@ interface Uint32Array {
    */
   findLastIndex(
     predicate: (value: number, index: number, array: Uint32Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number;
 
   /**
@@ -601,13 +601,13 @@ interface Float32Array {
     predicate: (
       value: number,
       index: number,
-      array: Float32Array
+      array: Float32Array,
     ) => value is S,
-    thisArg?: any
+    thisArg?: any,
   ): S | undefined;
   findLast(
     predicate: (value: number, index: number, array: Float32Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number | undefined;
 
   /**
@@ -621,7 +621,7 @@ interface Float32Array {
    */
   findLastIndex(
     predicate: (value: number, index: number, array: Float32Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number;
 
   /**
@@ -665,13 +665,13 @@ interface Float64Array {
     predicate: (
       value: number,
       index: number,
-      array: Float64Array
+      array: Float64Array,
     ) => value is S,
-    thisArg?: any
+    thisArg?: any,
   ): S | undefined;
   findLast(
     predicate: (value: number, index: number, array: Float64Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number | undefined;
 
   /**
@@ -685,7 +685,7 @@ interface Float64Array {
    */
   findLastIndex(
     predicate: (value: number, index: number, array: Float64Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number;
 
   /**
@@ -729,13 +729,13 @@ interface BigInt64Array {
     predicate: (
       value: bigint,
       index: number,
-      array: BigInt64Array
+      array: BigInt64Array,
     ) => value is S,
-    thisArg?: any
+    thisArg?: any,
   ): S | undefined;
   findLast(
     predicate: (value: bigint, index: number, array: BigInt64Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): bigint | undefined;
 
   /**
@@ -749,7 +749,7 @@ interface BigInt64Array {
    */
   findLastIndex(
     predicate: (value: bigint, index: number, array: BigInt64Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number;
 
   /**
@@ -793,13 +793,13 @@ interface BigUint64Array {
     predicate: (
       value: bigint,
       index: number,
-      array: BigUint64Array
+      array: BigUint64Array,
     ) => value is S,
-    thisArg?: any
+    thisArg?: any,
   ): S | undefined;
   findLast(
     predicate: (value: bigint, index: number, array: BigUint64Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): bigint | undefined;
 
   /**
@@ -813,7 +813,7 @@ interface BigUint64Array {
    */
   findLastIndex(
     predicate: (value: bigint, index: number, array: BigUint64Array) => unknown,
-    thisArg?: any
+    thisArg?: any,
   ): number;
 
   /**

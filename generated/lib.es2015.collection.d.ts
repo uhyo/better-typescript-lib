@@ -10,7 +10,7 @@ interface Map<K, V> {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: V, key: K, map: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
   /**
    * Returns a specified element from the Map object. If the value that is associated to the provided key is an object, then you will get a reference to that object and any change made to that object will effectively modify it inside the Map.
@@ -48,7 +48,7 @@ declare var Map: MapConstructor;
 interface ReadonlyMap<K, V> {
   forEach<This = undefined>(
     callbackfn: (this: This, value: V, key: K, map: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
   get(key: K): V | undefined;
   has(key: K): boolean;
@@ -79,7 +79,7 @@ interface WeakMap<K extends WeakKey, V> {
 
 interface WeakMapConstructor {
   new <K extends WeakKey, V>(
-    entries?: readonly (readonly [K, V])[] | null
+    entries?: readonly (readonly [K, V])[] | null,
   ): WeakMap<K, V>;
   readonly prototype: WeakMap<WeakKey, unknown>;
 }
@@ -105,7 +105,7 @@ interface Set<T> {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: T, value2: T, set: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
   /**
    * @returns a boolean indicating whether an element with the specified value exists in the Set or not.
@@ -133,7 +133,7 @@ declare var Set: SetConstructor;
 interface ReadonlySet<T> {
   forEach<This = undefined>(
     callbackfn: (this: This, value: T, value2: T, set: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
   has(value: T): boolean;
   readonly size: number;

@@ -8,7 +8,7 @@ declare namespace Intl {
     formatRange(start: number | bigint, end: number | bigint): string;
     formatRangeToParts(
       start: number | bigint,
-      end: number | bigint
+      end: number | bigint,
     ): NumberRangeFormatPart[];
   }
 }

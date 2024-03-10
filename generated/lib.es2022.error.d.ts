@@ -46,11 +46,11 @@ interface AggregateErrorConstructor {
   new (
     errors: Iterable<any>,
     message?: string,
-    options?: ErrorOptions
+    options?: ErrorOptions,
   ): AggregateError;
   (
     errors: Iterable<any>,
     message?: string,
-    options?: ErrorOptions
+    options?: ErrorOptions,
   ): AggregateError;
 }
