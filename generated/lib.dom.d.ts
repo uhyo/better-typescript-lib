@@ -34081,21 +34081,11 @@ declare function setTimeout(
   timeout?: number,
   ...arguments: any[]
 ): number;
-
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/structuredClone) */
-declare function structuredClone<
-  const T extends BetterTypeScriptLibInternals.StructuredClone.NeverOrUnknown<
-    BetterTypeScriptLibInternals.StructuredClone.StructuredCloneOutput<
-      BetterTypeScriptLibInternals.StructuredClone.AvoidCyclicConstraint<T>
-    >
-  >,
->(
+declare function structuredClone<T = any>(
   value: T,
   options?: StructuredSerializeOptions,
-): BetterTypeScriptLibInternals.StructuredClone.StructuredCloneOutput<T>;
-// /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/structuredClone) */
-// declare function structuredClone<T = any>(value: T, options?: StructuredSerializeOptions): T;
-
+): T;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage) */
 declare var sessionStorage: Storage;
 declare function addEventListener<K extends keyof WindowEventMap>(
@@ -34752,126 +34742,3 @@ type XMLHttpRequestResponseType =
   | "document"
   | "json"
   | "text";
-// --------------------
-
-declare namespace BetterTypeScriptLibInternals {
-  export namespace StructuredClone {
-    type Basics = [
-      EvalError,
-      RangeError,
-      ReferenceError,
-      TypeError,
-      SyntaxError,
-      URIError,
-      Error,
-      Boolean,
-      String,
-      Date,
-      RegExp,
-    ];
-    type DOMSpecifics = [
-      DOMException,
-      DOMMatrix,
-      DOMMatrixReadOnly,
-      DOMPoint,
-      DOMPointReadOnly,
-      DOMQuad,
-      DOMRect,
-      DOMRectReadOnly,
-    ];
-    type FileSystemTypeFamily = [
-      FileSystemDirectoryHandle,
-      FileSystemFileHandle,
-      FileSystemHandle,
-    ];
-    type WebGPURelatedTypeFamily = [
-      // GPUCompilationInfo,
-      // GPUCompilationMessage,
-    ];
-    type TypedArrayFamily = [
-      Int8Array,
-      Int16Array,
-      Int32Array,
-      BigInt64Array,
-      Uint8Array,
-      Uint16Array,
-      Uint32Array,
-      BigUint64Array,
-      Uint8ClampedArray,
-    ];
-    type Weaken = [
-      ...Basics,
-      // AudioData,
-      Blob,
-      // CropTarget,
-      // CryptoTarget,
-      ...DOMSpecifics,
-      ...FileSystemTypeFamily,
-      ...WebGPURelatedTypeFamily,
-      File,
-      FileList,
-      ...TypedArrayFamily,
-      DataView,
-      ImageBitmap,
-      ImageData,
-      RTCCertificate,
-      VideoFrame,
-    ];
-
-    type MapSubtype<R> = {
-      [k in keyof Weaken]: R extends Weaken[k] ? true : false;
-    };
-    type SelectNumericLiteral<H> = number extends H ? never : H;
-    type FilterByNumericLiteralKey<R extends Record<string | number, any>> = {
-      [k in keyof R as `${R[k] extends true ? Exclude<SelectNumericLiteral<k>, symbol> : never}`]: [];
-    };
-    type HitWeakenEntry<E> = keyof FilterByNumericLiteralKey<MapSubtype<E>>;
-
-    type NonCloneablePrimitive =
-      | Function
-      | { new (...args: any[]): any }
-      | ((...args: any[]) => any)
-      | symbol;
-
-    type Writeable<T> = T extends readonly []
-      ? []
-      : T extends readonly [infer X, ...infer XS]
-        ? [X, ...XS]
-        : T extends { [x: PropertyKey]: any }
-          ? {
-              -readonly [P in keyof T]: Writeable<T[P]>;
-            }
-          : T;
-
-    type StructuredCloneOutput<T> = T extends NonCloneablePrimitive
-      ? never
-      : T extends ReadonlyArray<any>
-        ? number extends T["length"]
-          ? Array<StructuredCloneOutput<T[number]>>
-          : T extends [infer X, ...infer XS]
-            ? [StructuredCloneOutput<X>, ...StructuredCloneOutput<XS>]
-            : Writeable<T>
-        : T extends Map<infer K, infer V>
-          ? Map<StructuredCloneOutput<K>, StructuredCloneOutput<V>>
-          : T extends Set<infer E>
-            ? Set<StructuredCloneOutput<E>>
-            : T extends Record<any, any>
-              ? HitWeakenEntry<T> extends never
-                ? Writeable<{
-                    -readonly [k in Exclude<
-                      keyof T,
-                      symbol
-                    > as `${[StructuredCloneOutput<T[k]>] extends [never] ? never : k}`]: StructuredCloneOutput<
-                      T[k]
-                    >;
-                  }>
-                : // hit
-                  Weaken[HitWeakenEntry<T>]
-              : T;
-
-    type AvoidCyclicConstraint<T> = [T] extends [infer R] ? R : never;
-
-    // 上限が不正にきつくなっているのを無視する
-    type NeverOrUnknown<T> = [T] extends [never] ? never : unknown;
-  }
-}
