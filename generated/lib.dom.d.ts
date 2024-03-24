@@ -34833,15 +34833,13 @@ declare namespace BetterTypeScriptLibInternals {
       | ((...args: any[]) => any)
       | symbol;
 
-    type Writeable<T> = T extends readonly []
-      ? []
-      : T extends readonly [infer X, ...infer XS]
-        ? [X, ...XS]
-        : T extends { [x: PropertyKey]: any }
-          ? {
-              -readonly [P in keyof T]: Writeable<T[P]>;
-            }
-          : T;
+    type StructuredCloneOutputObject<T> = {
+      -readonly [K in Exclude<keyof T, symbol> as [
+        StructuredCloneOutput<T[K]>,
+      ] extends [never]
+        ? never
+        : K]: StructuredCloneOutput<T[K]>;
+    };
 
     type StructuredCloneOutput<T> = T extends NonCloneablePrimitive
       ? never
@@ -34850,23 +34848,17 @@ declare namespace BetterTypeScriptLibInternals {
           ? Array<StructuredCloneOutput<T[number]>>
           : T extends readonly [infer X, ...infer XS]
             ? [StructuredCloneOutput<X>, ...StructuredCloneOutput<XS>]
-            : Writeable<T>
+            : T extends []
+              ? []
+              : StructuredCloneOutputObject<T>
         : T extends Map<infer K, infer V>
           ? Map<StructuredCloneOutput<K>, StructuredCloneOutput<V>>
           : T extends Set<infer E>
             ? Set<StructuredCloneOutput<E>>
             : T extends Record<any, any>
               ? HitWeakenEntry<T> extends never
-                ? Writeable<{
-                    -readonly [k in Exclude<
-                      keyof T,
-                      symbol
-                    > as `${[StructuredCloneOutput<T[k]>] extends [never] ? never : k}`]: StructuredCloneOutput<
-                      T[k]
-                    >;
-                  }>
-                : // hit
-                  Weaken[HitWeakenEntry<T>]
+                ? StructuredCloneOutputObject<T>
+                : Weaken[HitWeakenEntry<T>]
               : T;
 
     type AvoidCyclicConstraint<T> = [T] extends [infer R] ? R : never;
