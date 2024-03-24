@@ -34084,11 +34084,7 @@ declare function setTimeout(
 
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/structuredClone) */
 declare function structuredClone<
-  const T extends BetterTypeScriptLibInternals.StructuredClone.NeverOrUnknown<
-    BetterTypeScriptLibInternals.StructuredClone.StructuredCloneOutput<
-      BetterTypeScriptLibInternals.StructuredClone.AvoidCyclicConstraint<T>
-    >
-  >,
+  const T extends BetterTypeScriptLibInternals.StructuredClone.Constraint<T>,
 >(
   value: T,
   options?: StructuredSerializeOptions,
@@ -34863,7 +34859,13 @@ declare namespace BetterTypeScriptLibInternals {
 
     type AvoidCyclicConstraint<T> = [T] extends [infer R] ? R : never;
 
-    // 上限が不正にきつくなっているのを無視する
     type NeverOrUnknown<T> = [T] extends [never] ? never : unknown;
+
+    export type Constraint<T> =
+      BetterTypeScriptLibInternals.StructuredClone.NeverOrUnknown<
+        BetterTypeScriptLibInternals.StructuredClone.StructuredCloneOutput<
+          BetterTypeScriptLibInternals.StructuredClone.AvoidCyclicConstraint<T>
+        >
+      >;
   }
 }

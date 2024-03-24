@@ -115,4 +115,25 @@ const test = async (url: string) => {
     // @ts-expect-error
     const p = structuredClone(() => 1);
   }
+  // unions
+  {
+    function getData() {
+      if (Math.random() > 0.5) {
+        return { a: 5, b: null };
+      } else {
+        return { a: null, b: "hello" };
+      }
+    }
+    expectType<{ a: number; b: null } | { a: null; b: string }>(
+      structuredClone(getData()),
+    );
+  }
+  // generic functions
+  {
+    function func1<
+      T extends BetterTypeScriptLibInternals.StructuredClone.Constraint<T>,
+    >(obj: T) {
+      return structuredClone(obj);
+    }
+  }
 }
