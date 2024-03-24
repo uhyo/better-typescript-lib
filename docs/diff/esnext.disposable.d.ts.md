@@ -16,7 +16,7 @@ Index: esnext.disposable.d.ts
 +  suppressed: unknown;
  }
  
- interface SuppressedErrorConstructor extends ErrorConstructor {
+ interface SuppressedErrorConstructor {
    new (error: any, suppressed: any, message?: string): SuppressedError;
 
 ```

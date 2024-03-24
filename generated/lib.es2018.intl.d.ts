@@ -30,18 +30,22 @@ declare namespace Intl {
     select(n: number): LDMLPluralRule;
   }
 
-  const PluralRules: {
+  interface PluralRulesConstructor {
     new (
-      locales?: string | string[],
+      locales?: string | readonly string[],
       options?: PluralRulesOptions,
     ): PluralRules;
-    (locales?: string | string[], options?: PluralRulesOptions): PluralRules;
-
+    (
+      locales?: string | readonly string[],
+      options?: PluralRulesOptions,
+    ): PluralRules;
     supportedLocalesOf(
-      locales: string | string[],
+      locales: string | readonly string[],
       options?: { localeMatcher?: "lookup" | "best fit" },
     ): string[];
-  };
+  }
+
+  const PluralRules: PluralRulesConstructor;
 
   // We can only have one definition for 'type' in TypeScript, and so you can learn where the keys come from here:
   type ES2018NumberFormatPartType =
