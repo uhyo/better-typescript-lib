@@ -18,7 +18,7 @@ import { expectType } from "tsd";
     function () {
       expectType<string>(this.foo);
     },
-    { foo: "foo" }
+    { foo: "foo" },
   );
 
   const map2 = new Map();
@@ -59,6 +59,6 @@ import { expectType } from "tsd";
     function () {
       expectType<string>(this.foo);
     },
-    { foo: "foo" }
+    { foo: "foo" },
   );
 }

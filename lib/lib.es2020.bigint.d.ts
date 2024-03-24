@@ -12,9 +12,9 @@ interface TypedBigIntArray {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
@@ -28,9 +28,9 @@ interface TypedBigIntArray {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): TypedBigIntArray;
   /**
    * Returns the value of the first element in the array where predicate is true, and undefined
@@ -46,9 +46,9 @@ interface TypedBigIntArray {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): bigint | undefined;
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
@@ -64,9 +64,9 @@ interface TypedBigIntArray {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): number;
   /**
    * Performs the specified action for each element in an array.
@@ -77,7 +77,7 @@ interface TypedBigIntArray {
    */
   forEach<This = undefined>(
     callbackfn: (this: This, value: bigint, index: number, array: this) => void,
-    thisArg?: This
+    thisArg?: This,
   ): void;
   /**
    * Calls a defined callback function on each element of an array, and returns an array that
@@ -92,9 +92,9 @@ interface TypedBigIntArray {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => bigint,
-    thisArg?: This
+    thisArg?: This,
   ): TypedBigIntArray;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -108,8 +108,8 @@ interface TypedBigIntArray {
       previousValue: bigint | U,
       currentValue: bigint,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): bigint | U;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of
@@ -126,9 +126,9 @@ interface TypedBigIntArray {
       previousValue: U,
       currentValue: bigint,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -142,8 +142,8 @@ interface TypedBigIntArray {
       previousValue: bigint | U,
       currentValue: bigint,
       currentIndex: number,
-      array: this
-    ) => U
+      array: this,
+    ) => U,
   ): bigint | U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order.
@@ -160,9 +160,9 @@ interface TypedBigIntArray {
       previousValue: U,
       currentValue: bigint,
       currentIndex: number,
-      array: this
+      array: this,
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   /**
    * Determines whether the specified callback function returns true for any element of an array.
@@ -177,9 +177,9 @@ interface TypedBigIntArray {
       this: This,
       value: bigint,
       index: number,
-      array: this
+      array: this,
     ) => boolean,
-    thisArg?: This
+    thisArg?: This,
   ): boolean;
 }
 
@@ -198,6 +198,6 @@ interface TypedBigIntArrayConstructor {
   from<T, This = undefined>(
     arrayLike: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => bigint,
-    thisArg?: This
+    thisArg?: This,
   ): TypedBigIntArray;
 }

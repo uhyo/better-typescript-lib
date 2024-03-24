@@ -2,7 +2,7 @@ import { expectError, expectType } from "tsd";
 
 function createGenericRecord<K extends string, V>(
   keys: K[],
-  values: V[]
+  values: V[],
 ): Record<K, V> {
   return Object.fromEntries(keys.map((k, i) => [k, values[i]!] as const));
 }

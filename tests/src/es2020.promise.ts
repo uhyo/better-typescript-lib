@@ -1,7 +1,7 @@
 import { expectType } from "tsd";
 
 const test = async (
-  values: Iterable<string | PromiseLike<PromiseLike<number>>>
+  values: Iterable<string | PromiseLike<PromiseLike<number>>>,
 ) => {
   const results = await Promise.allSettled(values);
 

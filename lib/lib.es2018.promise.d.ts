@@ -9,6 +9,6 @@ interface Promise<T> {
    * @returns A Promise for the completion of the callback.
    */
   finally<U>(
-    onfinally?: (() => U | PromiseLike<U>) | null | undefined
+    onfinally?: (() => U | PromiseLike<U>) | null | undefined,
   ): Promise<T>;
 }

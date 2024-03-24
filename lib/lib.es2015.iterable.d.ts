@@ -25,7 +25,7 @@ interface ArrayConstructor {
   from<T, U, This = undefined>(
     iterable: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => U,
-    thisArg?: This
+    thisArg?: This,
   ): U[];
 }
 
@@ -71,6 +71,6 @@ interface TypedNumberArrayConstructor {
   from<T, This = undefined>(
     iterable: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
-    thisArg?: This
+    thisArg?: This,
   ): TypedNumberArray;
 }

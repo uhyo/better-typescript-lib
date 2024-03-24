@@ -18,6 +18,6 @@ export const getLibFiles = async () => {
       const sourceFile = `${lib}.d.ts`;
       const targetFile = paths[lib] || `lib.${sourceFile}`;
       return [targetFile, sourceFile];
-    })
+    }),
   );
 };

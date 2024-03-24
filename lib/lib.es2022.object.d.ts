@@ -6,15 +6,15 @@ interface ObjectConstructor {
    */
   hasOwn<Obj extends object, Key extends PropertyKey>(
     o: Obj,
-    v: Key
+    v: Key,
   ): o is Obj &
     (string extends Key
       ? {}
       : number extends Key
-      ? {}
-      : symbol extends Key
-      ? {}
-      : Key extends PropertyKey
-      ? { [key in Key]: unknown }
-      : {});
+        ? {}
+        : symbol extends Key
+          ? {}
+          : Key extends PropertyKey
+            ? { [key in Key]: unknown }
+            : {});
 }

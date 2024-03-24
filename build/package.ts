@@ -22,7 +22,7 @@ async function main() {
   const packageTemplateFiles = await readdir(templateDir);
 
   const libFiles = (await readdir(libDir)).filter((libFile) =>
-    /\.d\.ts$/.test(libFile)
+    /\.d\.ts$/.test(libFile),
   );
 
   const packageNames = new Set<string>();
@@ -49,7 +49,7 @@ async function main() {
       const packageJsonPath = path.join(
         packageDir,
         packageName,
-        "package.json"
+        "package.json",
       );
       await writeToPackageJson(packageJsonPath, () => ({
         name: toScopedPackageName(packageName),
@@ -73,7 +73,7 @@ async function main() {
     // copy root README to main package
     await writeFile(
       path.join(mainPackageDir, "README.md"),
-      await readFile(path.join(projectDir, "README.md"))
+      await readFile(path.join(projectDir, "README.md")),
     );
     // update package.json
     const packageJsonPath = path.join(mainPackageDir, "package.json");
@@ -85,13 +85,13 @@ async function main() {
         [...packageNames].map((packageName) => [
           `@typescript/lib-${packageName}`,
           `npm:${toScopedPackageName(packageName)}@${version}`,
-        ])
+        ]),
       ),
     }));
     // prepare symlink to dist
     await symlink(
       path.join(projectDir, "dist"),
-      path.join(mainPackageDir, "dist")
+      path.join(mainPackageDir, "dist"),
     );
   }
   // update package.json in "tests" folder
@@ -105,9 +105,9 @@ async function main() {
             `@typescript/lib-${packageName}`,
             `file:${path.relative(
               path.dirname(packageJsonPath),
-              path.join(packageDir, packageName)
+              path.join(packageDir, packageName),
             )}`,
-          ])
+          ]),
         ),
       },
     }));
@@ -119,12 +119,12 @@ async function main() {
         const filePath = path.join(templateDir, file);
         const targetPath = path.join(dir, file);
         return writeFile(targetPath, await readFile(filePath));
-      })
+      }),
     );
   }
   async function writeToPackageJson(
     packageJsonPath: string,
-    updates: (original: any) => Record<string, unknown>
+    updates: (original: any) => Record<string, unknown>,
   ) {
     const original = JSON.parse(await readFile(packageJsonPath, "utf-8"));
     return writeFile(
@@ -135,8 +135,8 @@ async function main() {
           ...updates(original),
         },
         null,
-        2
-      ) + "\n"
+        2,
+      ) + "\n",
     );
   }
   function toScopedPackageName(packageName: string) {

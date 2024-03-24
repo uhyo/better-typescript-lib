@@ -56,26 +56,26 @@ const testPromise = (promise: Promise<string>) => {
   expectType<Promise<number>>(promise.then((str) => str.length, null));
   expectType<Promise<number>>(promise.then((str) => str.length, undefined));
   expectType<Promise<number>>(
-    promise.then((str) => Promise.resolve(str.length))
+    promise.then((str) => Promise.resolve(str.length)),
   );
   expectType<Promise<number>>(
     promise.then(
       (str) => str.length,
-      (err) => `${err}`.length
-    )
+      (err) => `${err}`.length,
+    ),
   );
   expectType<Promise<number>>(
     promise.then(
       (str) => str.length,
-      (err) => Promise.resolve(`${err}`.length)
-    )
+      (err) => Promise.resolve(`${err}`.length),
+    ),
   );
   // @ts-expect-error
   promise.then<number>((str: string) => str);
   promise.then<number>(
     (str: string) => str.length,
     // @ts-expect-error
-    () => "NaN"
+    () => "NaN",
   );
   // @ts-expect-error
   promise.then(null, (err) => `${err}`.length);
@@ -94,7 +94,7 @@ expectType<unknown>(Object.getPrototypeOf([]));
 expectError(Object.getPrototypeOf(null));
 // Object.getOwnPropertyDescriptor
 expectType<PropertyDescriptor | undefined>(
-  Object.getOwnPropertyDescriptor([], "foo")
+  Object.getOwnPropertyDescriptor([], "foo"),
 );
 expectError(Object.getOwnPropertyDescriptor(null, "foo"));
 // Object.getOwnPropertyNames
@@ -117,7 +117,7 @@ const obj = {
 const obj1 = { baz: true };
 expectType<{ foo: number; bar: string }>(Object.create(null, obj));
 expectType<{ foo: number; bar: string; baz: boolean }>(
-  Object.create(obj1, obj)
+  Object.create(obj1, obj),
 );
 
 // Object
@@ -172,12 +172,12 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   expectType<{ foo: number }>(
     Object.defineProperty({}, "foo", {
       value: 123,
-    })
+    }),
   );
   expectType<{ foo: number } | { bar: number }>(
     Object.defineProperty({}, "foo" as "foo" | "bar", {
       value: 123,
-    })
+    }),
   );
 
   expectType<{ foo: number; bar: string; baz: boolean }>(
@@ -192,8 +192,8 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
             return true;
           },
         },
-      }
-    )
+      },
+    ),
   );
 }
 
@@ -218,7 +218,10 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
 // NewableFunction
 {
   class Foo {
-    constructor(private a: number, private b: number) {}
+    constructor(
+      private a: number,
+      private b: number,
+    ) {}
   }
   expectType<typeof Foo>(Foo.bind(null));
   expectType<new (b: number) => Foo>(Foo.bind(null, 123));
@@ -247,39 +250,39 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   expectType<JSONValue>(JSON.parse("{}"));
   expectType<unknown>(
     JSON.parse('{"p": 5}', (key, value) =>
-      typeof value === "number" ? value * 2 : value
-    )
+      typeof value === "number" ? value * 2 : value,
+    ),
   );
   expectType<JSONValue>(
     JSON.parse('{"p": 5}', (key, value) =>
-      typeof value === "number" ? value * 2 : value
-    )
+      typeof value === "number" ? value * 2 : value,
+    ),
   );
   expectError(
     JSON.parse('[[1,"one"],[2,"two"],[3,"three"]]', (key, value) =>
-      key === "" ? new Map(value) : value
-    )
+      key === "" ? new Map(value) : value,
+    ),
   );
   expectType<unknown>(
     JSON.parse('[[1,"one"],[2,"two"],[3,"three"]]', (key, value) =>
-      key === "" && isNumberStringEntries(value) ? new Map(value) : value
-    )
+      key === "" && isNumberStringEntries(value) ? new Map(value) : value,
+    ),
   );
   type JSONValueWithMap1 = JSONValue | Map<number, string>;
   expectError(
     JSON.parse<JSONValueWithMap1>(
       '[[1,"one"],[2,"two"],[3,"three"]]',
       (key, value) =>
-        key === "" && isNumberStringEntries(value) ? new Map(value) : value
-    )
+        key === "" && isNumberStringEntries(value) ? new Map(value) : value,
+    ),
   );
   type JSONValueWithMap2 = JSONValueF<JSONValue | Map<number, string>>;
   expectError(
     JSON.parse<JSONValueWithMap2>(
       '[[1,"one"],[2,"two"],[3,"three"]]',
       (key, value) =>
-        key === "" && isNumberStringEntries(value) ? new Map(value) : value
-    )
+        key === "" && isNumberStringEntries(value) ? new Map(value) : value,
+    ),
   );
   type JSONValueWithMap3 =
     | JSONPrimitive
@@ -290,8 +293,8 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
     JSON.parse<JSONValueWithMap3>(
       '[[1,"one"],[2,"two"],[3,"three"]]',
       (key, value) =>
-        key === "" && isNumberStringEntries(value) ? new Map(value) : value
-    )
+        key === "" && isNumberStringEntries(value) ? new Map(value) : value,
+    ),
   );
 
   // JSON.stringify
@@ -340,24 +343,24 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
   // JSON.stringify with replacer function
   const importantDates = new Map<string, Date>();
   expectError(
-    JSON.stringify(importantDates, (key, value) => Object.fromEntries(value))
+    JSON.stringify(importantDates, (key, value) => Object.fromEntries(value)),
   );
   expectError(
     JSON.stringify<Map<string, Date>>(importantDates, (key, value) =>
-      Object.fromEntries(value)
-    )
+      Object.fromEntries(value),
+    ),
   );
   type Value = Date | Map<string, Date>;
   expectType<string>(
     JSON.stringify<Value>(importantDates, (key, value) =>
-      typeof value === "string" ? value : Object.fromEntries(value)
-    )
+      typeof value === "string" ? value : Object.fromEntries(value),
+    ),
   );
   expectType<string | undefined>(
     JSON.stringify<Value>(importantDates, (key, value) => {
       if (typeof value !== "string") return Object.fromEntries(value);
       return new Date(value) < new Date("1900-01-01") ? undefined : value;
-    })
+    }),
   );
 }
 
@@ -374,15 +377,15 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
     a1.reduce((x) => {
       expectType<string | number>(x);
       return "foo";
-    })
+    }),
   );
   expectType<string>(
     a1.reduce((x) => {
       expectType<string>(x);
       return "foo";
-    }, "foo")
+    }, "foo"),
   );
-  expectType<typeof a1["reduce"]>(a1.reduceRight);
+  expectType<(typeof a1)["reduce"]>(a1.reduceRight);
 
   expectError(a1.filter((x) => x));
   expectError(a1.every((x) => x));
@@ -413,15 +416,15 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
     a1.reduce((x) => {
       expectType<string | number>(x);
       return "foo";
-    })
+    }),
   );
   expectType<string>(
     a1.reduce((x) => {
       expectType<string>(x);
       return "foo";
-    }, "foo")
+    }, "foo"),
   );
-  expectType<typeof a1["reduce"]>(a1.reduceRight);
+  expectType<(typeof a1)["reduce"]>(a1.reduceRight);
 
   expectError(a1.filter((x) => x));
   expectError(a1.every((x) => x));
@@ -466,7 +469,7 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
     const mapped: string[] = arr.map((v) =>
       magic((value) => {
         expectType<string>(value);
-      })
+      }),
     );
   }
 }

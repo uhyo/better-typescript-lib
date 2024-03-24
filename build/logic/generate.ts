@@ -18,7 +18,7 @@ export function generate(
   tsLibDir: string,
   targetFile: string,
   sourceFile: string,
-  { emitOriginalAsComment = false, emitNoDefaultLib = false }: GenerateOptions
+  { emitOriginalAsComment = false, emitNoDefaultLib = false }: GenerateOptions,
 ): string | undefined {
   const tsLibFile = path.join(tsLibDir, sourceFile);
   const originalProgram = ts.createProgram([tsLibFile], {});
@@ -60,7 +60,7 @@ export function generate(
     if (!ts.isInterfaceDeclaration(statement)) {
       // Find the replacement target of same kind.
       const replacementTargetOfSameKind = replacementTarget.flatMap((target) =>
-        target.type === "non-interface" ? [target] : []
+        target.type === "non-interface" ? [target] : [],
       );
       if (replacementTargetOfSameKind.length === 0) {
         result += statement.getFullText(originalFile);
@@ -79,7 +79,7 @@ export function generate(
       continue;
     }
     const replaceInterfaces = replacementTarget.flatMap((target) =>
-      target.type === "interface" ? [target] : []
+      target.type === "interface" ? [target] : [],
     );
     if (
       replaceInterfaces.some(
@@ -88,8 +88,8 @@ export function generate(
             statement,
             originalFile,
             target.originalStatement,
-            target.sourceFile
-          )
+            target.sourceFile,
+          ),
       )
     ) {
       // This needs to be a full replacement
@@ -197,7 +197,7 @@ type ReplacementTarget = (
  */
 function scanBetterFile(
   printer: ts.Printer,
-  targetFile: string
+  targetFile: string,
 ): Map<string, ReplacementTarget[]> {
   const replacementTargets = new Map<string, ReplacementTarget[]>();
   {
@@ -224,7 +224,7 @@ function scanBetterFile(
               const memberName = member.name?.getText(betterFile) ?? "";
               upsert(members, memberName, (members = []) => {
                 const leadingSpacesMatch = /^\s*/.exec(
-                  member.getFullText(betterFile)
+                  member.getFullText(betterFile),
                 );
                 const leadingSpaces =
                   leadingSpacesMatch !== null ? leadingSpacesMatch[0] : "";
@@ -235,7 +235,7 @@ function scanBetterFile(
                     printer.printNode(
                       ts.EmitHint.Unspecified,
                       member,
-                      betterFile
+                      betterFile,
                     ),
                 });
                 return members;
@@ -274,7 +274,7 @@ function isPartialReplacement(
   interfaceDecl: ts.InterfaceDeclaration,
   originalFile: ts.SourceFile,
   replacementDecl: ts.InterfaceDeclaration,
-  betterFile: ts.SourceFile
+  betterFile: ts.SourceFile,
 ): boolean {
   // Compare type parameters and herigate using full text.
   if (
@@ -334,7 +334,7 @@ function printInterface(
   printer: ts.Printer,
   originalNode: ts.InterfaceDeclaration,
   members: readonly { text: string }[],
-  originalSourceFile: ts.SourceFile
+  originalSourceFile: ts.SourceFile,
 ): string {
   let result = originalNode
     .getFullText(originalSourceFile)
@@ -343,27 +343,27 @@ function printInterface(
     result += printer.printNode(
       ts.EmitHint.Unspecified,
       mod,
-      originalSourceFile
+      originalSourceFile,
     );
   }
   result += "interface ";
   result += printer.printNode(
     ts.EmitHint.Unspecified,
     originalNode.name,
-    originalSourceFile
+    originalSourceFile,
   );
   if (originalNode.typeParameters) {
     result += printer.printList(
       ts.ListFormat.TypeParameters,
       originalNode.typeParameters,
-      originalSourceFile
+      originalSourceFile,
     );
   }
   if (originalNode.heritageClauses) {
     result += printer.printList(
       ts.ListFormat.HeritageClauses,
       originalNode.heritageClauses,
-      originalSourceFile
+      originalSourceFile,
     );
   }
   result += "{\n";
@@ -402,7 +402,7 @@ function commentOut(code: string): string {
 
 function replaceAliases(
   statement: ts.Statement,
-  typeMap: Map<string, string>
+  typeMap: Map<string, string>,
 ): ts.Statement {
   if (typeMap.size === 0) return statement;
   return ts.transform(statement, [
@@ -416,7 +416,7 @@ function replaceAliases(
           return ts.factory.updateTypeReferenceNode(
             node,
             ts.factory.createIdentifier(replacementType),
-            node.typeArguments
+            node.typeArguments,
           );
         }
         return ts.visitEachChild(node, visitor, context);

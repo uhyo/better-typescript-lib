@@ -1,6 +1,6 @@
 import { expectType } from "tsd";
 
-class A{}
+class A {}
 
 expectType<void>(Reflect.apply(() => {}, {}, []));
 // @ts-expect-error

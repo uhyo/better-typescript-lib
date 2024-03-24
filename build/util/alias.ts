@@ -27,7 +27,7 @@ export const alias = new Map(
             [originalType, replacement],
             [`${originalType}Constructor`, `${replacement}Constructor`],
           ]),
-        ])
+        ]),
       ),
     ],
     [
@@ -39,8 +39,8 @@ export const alias = new Map(
             [originalType, replacement],
             [`${originalType}Constructor`, `${replacement}Constructor`],
           ]),
-        ])
+        ]),
       ),
     ],
-  ])
+  ]),
 );

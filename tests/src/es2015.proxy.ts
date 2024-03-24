@@ -25,5 +25,5 @@ new Proxy(
       expectType<unknown>(newTarget);
       return {};
     },
-  }
+  },
 );

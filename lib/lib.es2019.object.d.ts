@@ -4,6 +4,6 @@ interface ObjectConstructor {
    * @param entries An iterable object that contains key-value entries for properties and methods.
    */
   fromEntries<T extends readonly [PropertyKey, unknown]>(
-    entries: Iterable<T>
+    entries: Iterable<T>,
   ): Record<T[0], T[1]>;
 }

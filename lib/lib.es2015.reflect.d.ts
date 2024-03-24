@@ -7,9 +7,9 @@ declare namespace Reflect {
    * @param argumentsList An array of argument values to be passed to the function.
    */
   function apply<T, A extends readonly any[], R>(
-      target: (this: T, ...args: A) => R,
-      thisArgument: T,
-      argumentsList: Readonly<A>,
+    target: (this: T, ...args: A) => R,
+    thisArgument: T,
+    argumentsList: Readonly<A>,
   ): R;
   /**
    * Constructs the target with the elements of specified array as the arguments
@@ -19,9 +19,9 @@ declare namespace Reflect {
    * @param newTarget The constructor to be used as the `new.target` object.
    */
   function construct<A extends readonly any[], R>(
-      target: new (...args: A) => R,
-      argumentsList: Readonly<A>,
-      newTarget?: new (...args: any) => any,
+    target: new (...args: A) => R,
+    argumentsList: Readonly<A>,
+    newTarget?: new (...args: any) => any,
   ): R;
   /**
    * Adds a property to an object, or modifies attributes of an existing property.
@@ -30,7 +30,11 @@ declare namespace Reflect {
    * @param propertyKey The property name.
    * @param attributes Descriptor for the property. It can be for a data property or an accessor property.
    */
-  function defineProperty(target: object, propertyKey: PropertyKey, attributes: PropertyDescriptor & ThisType<any>): boolean;
+  function defineProperty(
+    target: object,
+    propertyKey: PropertyKey,
+    attributes: PropertyDescriptor & ThisType<any>,
+  ): boolean;
   /**
    * Removes a property from an object, equivalent to `delete target[propertyKey]`,
    * except it won't throw if `target[propertyKey]` is non-configurable.
@@ -48,7 +52,7 @@ declare namespace Reflect {
   function get<T, P extends PropertyKey>(
     target: T,
     propertyKey: P,
-    receiver?: unknown
+    receiver?: unknown,
   ): P extends keyof T ? T[P] : unknown;
   /**
    * Gets the own property descriptor of the specified object.
@@ -57,8 +61,8 @@ declare namespace Reflect {
    * @param propertyKey The property name.
    */
   function getOwnPropertyDescriptor<T extends object, P extends PropertyKey>(
-      target: T,
-      propertyKey: P,
+    target: T,
+    propertyKey: P,
   ): TypedPropertyDescriptor<P extends keyof T ? T[P] : any> | undefined;
   /**
    * Returns the prototype of an object.
@@ -96,12 +100,17 @@ declare namespace Reflect {
    *        if `target[propertyKey]` is an accessor property.
    */
   function set<T extends object, P extends PropertyKey>(
-      target: T,
-      propertyKey: P,
-      value: P extends keyof T ? T[P] : any,
-      receiver?: any,
+    target: T,
+    propertyKey: P,
+    value: P extends keyof T ? T[P] : any,
+    receiver?: any,
   ): boolean;
-  function set(target: object, propertyKey: PropertyKey, value: any, receiver?: any): boolean;
+  function set(
+    target: object,
+    propertyKey: PropertyKey,
+    value: any,
+    receiver?: any,
+  ): boolean;
   /**
    * Sets the prototype of a specified object o to object proto or null.
    * @param target The object to change its prototype.

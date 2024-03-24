@@ -34,10 +34,10 @@ import { expectError, expectType } from "tsd";
 
 // https://github.com/uhyo/better-typescript-lib/issues/13
 {
-  const protoObj = { protoProp: 'protoProp' };
+  const protoObj = { protoProp: "protoProp" };
 
   const obj: Record<string, string> = Object.create(protoObj);
-  obj.ownProp = 'ownProp';
+  obj.ownProp = "ownProp";
 
   for (const key in obj) {
     if (!Object.hasOwn(obj, key)) continue;

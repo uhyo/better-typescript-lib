@@ -27,7 +27,7 @@ import { expectError, expectType } from "tsd";
   expectType<{ foo: number } & { bar: string } & { baz: boolean }>(obj3);
   const obj4 = Object.assign(
     { foo: 123 } as { foo: number } | { bar: string },
-    { baz: true }
+    { baz: true },
   );
   expectType<({ foo: number } | { bar: string }) & { baz: boolean }>(obj4);
   expectType<symbol[]>(Object.getOwnPropertySymbols([]));
