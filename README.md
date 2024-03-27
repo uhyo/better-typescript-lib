@@ -2,23 +2,40 @@
 
 An alternative TypeScript standard library with better type definitions.
 
-## The Problem
+## What is better-typescript-lib?
 
-While it is well known that TypeScript is not _very_ type safe due to the existence of `any` and other pitfalls, TypeScript's built-in type definitions are also to blame for that unsafety. For example, it is handy but very unsafe that the return type of `JSON.parse` is `any`.
+TypeScript's built-in type definitions are not _very_ type safe. For example, the return type of `JSON.parse` is `any`.
 
-The core type checker of TypeScript has been improved to be more type safe, maintaining backwards compatibility through compiler options. Unfortunately, however, the type definitions are still not very good, and are harder to improve keeping backwards compatibility.
+```ts
+const obj = JSON.parse('{"foo": 42}');
+//    ^? any
 
-## The Solution
+const foo: number = obj.fooo; // oops!
+```
 
-This package provides an alternative set of type definitions which replaces, and is safer than TypeScript's built-in ones. With this package, TypeScript users obtain less chance of unexpectedly getting `any` values. For example, in this type definition the return type of `JSON.parse` is not `any`, but `JSONData` which represents all possible JSON data.
+As you know, the `any` type breaks type safety and makes it far easier to introduce bugs.
 
-This package also includes other improved, stricter type definitions.
+If we consider type safety seriously, the return type of `JSON.parse` should be “any value that can be represented in JSON” and operations on such values should be limited until they are further inspected.
+
+This is why better-typescript-lib uses `JSONData` as the return type of `JSON.parse`.
+
+Almost all `any` usage in TypeScript's built-in type definitions is replaced with safer types in better-typescript-lib. Also, better-typescript-lib includes other improvements to the type definitions.
+
+## Why better-typescript-lib?
+
+Why don't we just fix TypeScript's built-in type definitions rather than maintaining a separate package? Actually, most of improvements in better-typescript-lib are unlikely to be accepted by TypeScript's maintainers if presented as possible improvement to TypeScript itself. This is because the improvements are too breaking to existing codebases.
+
+A large part of `any` usage in TypeScript's built-in type definitions are there before the `unknown` type was introduced in TypeScript 3.0. Back then, there was no good way to represent “any value” in TypeScript's type system. Therefore, `any` was used as the best approximation. Aside from `any`, there are a lot of possible improvements that became possible as TypeScript evolved.
+
+In other words, if you don't care about breaking changes (for example, you are starting a new project), you are just suffering from stale type definitions from the old days without getting any benefits from the maintained backward compatibility.
+
+This is where better-typescript-lib comes in. It is a separate package that can be used in new projects or projects that are willing to fix type errors caused by the improvements.
 
 [You can see the diff from the original TypeScript lib here](./docs/diff.md).
 
 ## Installation
 
-You only need to install `better-typescript-lib`. For npm and yarn, additional configuration is not needed; your TypeScript project automatically use `better-typescript-lib` definitions. For pnpm, see below.
+You only need to install `better-typescript-lib`. For npm and yarn, additional configuration is not needed; your TypeScript project automatically starts to use `better-typescript-lib` definitions. For pnpm, see below.
 
 ```sh
 npm i -D better-typescript-lib
@@ -32,7 +49,7 @@ Starting from TypeScript 4.5, the TypeScript compiler detects existence of `@typ
 
 ### With pnpm
 
-With pnpm, you must append the following line to the `.npmrc` file:
+With pnpm, you need to append the following line to the `.npmrc` file:
 
 ```properties
 public-hoist-pattern[]=@typescript/*
@@ -56,15 +73,21 @@ This is because, unlike npm and yarn, by default pnpm does not allow your source
 
 [If you are using TypeScript 4.4 or prior, see the v1 branch.](https://github.com/uhyo/better-typescript-lib/tree/v1)
 
-## Concepts
+## Goals and Non-Goals
 
-Better-typescript-lib is _not_ meant to be compatible with TypeScript's built-in library. Therefore it is the most suitable to new TypeScript projects. An existing project may also adopt better-typescript-lib but additional type errors need to be fixed.
+Better-typescript-lib aims to provide better type definitions for TypeScript's standard library. _Better_ means more type safety, therefore they may cause more type errors to existing codebases.
 
-As this is only an alternative to TypeScript's built-in type definitions, we have no plan of providing any runtime implemention through better-typescript-lib.
+While better type definitions are often more convenient to use, this is not always the case. If type safety and convenience are in conflict, better-typescript-lib prioritizes type safety.
+
+As this is only an alternative to TypeScript's built-in type definitions, we have no plan of providing any runtime implementation through better-typescript-lib.
 
 ### Versioning Policy
 
-Improvements to type definitions may be released as a new minor version even if it may cause new type errors to existing codebases.
+Better-typescript-lib is based on TypeScript's standard library. Therefore, a new TypeScript version will be followed by a corresponding better-typescript-lib version. If you want to use a new feature included in a new TypeScript version, you need to use a better-typescript-lib version that supports that TypeScript version.
+
+Improvements to type definitions may be released as a new minor version even if it may cause new type errors to existing codebases. We recommend regularly updating better-typescript-lib to the latest version and fixing type errors caused by the updates.
+
+This is similar to how TypeScript itself evolves, but better-typescript-lib updates may have more breaking changes than TypeScript itself due to the nature of the improvements.
 
 ## Contributing
 
