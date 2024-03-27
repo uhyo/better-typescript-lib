@@ -24,7 +24,7 @@ interface ObjectConstructor {
    * Returns an array of key/values of the enumerable properties of an object
    * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
    */
-  entries<K extends PropertyKey, V>(o: Record<K, V>): [string, V][];
+  entries<K extends PropertyKey, V>(o: Record<K, V>): [K, V][];
   /**
    * Returns an array of key/values of the enumerable properties of an object
    * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
