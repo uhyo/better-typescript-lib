@@ -34,5 +34,8 @@
     "@typescript/lib-esnext": "file:../dist-package/esnext",
     "@typescript/lib-scripthost": "file:../dist-package/scripthost",
     "@typescript/lib-webworker": "file:../dist-package/webworker"
+  },
+  "overrides": {
+    "@tsd/typescript": "~5.4.3"
   }
 }
