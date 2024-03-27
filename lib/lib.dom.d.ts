@@ -67,6 +67,30 @@ interface FontFaceSet extends EventTarget {
   ): void;
 }
 
+interface Highlight {
+  forEach<This = undefined>(
+    callbackfn: (
+      this: This,
+      value: AbstractRange,
+      key: AbstractRange,
+      parent: this,
+    ) => void,
+    thisArg?: This,
+  ): void;
+}
+
+interface HighlightRegistry {
+  forEach<This = undefined>(
+    callbackfn: (
+      this: This,
+      value: Highlight,
+      key: string,
+      parent: this,
+    ) => void,
+    thisArg?: This,
+  ): void;
+}
+
 declare namespace BetterTypeScriptLibInternals {
   export namespace StructuredClone {
     type Basics = [

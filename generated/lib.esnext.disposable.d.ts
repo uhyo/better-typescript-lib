@@ -28,7 +28,7 @@ interface SuppressedError extends Error {
 //     error: any;
 //     suppressed: any;
 
-interface SuppressedErrorConstructor extends ErrorConstructor {
+interface SuppressedErrorConstructor {
   new (error: any, suppressed: any, message?: string): SuppressedError;
   (error: any, suppressed: any, message?: string): SuppressedError;
   readonly prototype: SuppressedError;

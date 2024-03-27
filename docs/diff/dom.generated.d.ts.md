@@ -5,7 +5,7 @@ Index: dom.generated.d.ts
 ===================================================================
 --- dom.generated.d.ts
 +++ dom.generated.d.ts
-@@ -2943,11 +2943,16 @@
+@@ -2944,11 +2944,16 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioParamMap) */
@@ -25,7 +25,7 @@ Index: dom.generated.d.ts
  }
  
  declare var AudioParamMap: {
-@@ -3364,9 +3369,9 @@
+@@ -3369,9 +3374,9 @@
    blob(): Promise<Blob>;
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/formData) */
    formData(): Promise<FormData>;
@@ -36,7 +36,7 @@ Index: dom.generated.d.ts
    text(): Promise<string>;
  }
  
-@@ -8828,11 +8833,11 @@
+@@ -8872,11 +8877,11 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/EventCounts) */
@@ -51,7 +51,7 @@ Index: dom.generated.d.ts
  }
  
  declare var EventCounts: {
-@@ -9374,11 +9379,16 @@
+@@ -9420,11 +9425,16 @@
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FontFaceSet/check) */
    check(font: string, text?: string): boolean;
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FontFaceSet/load) */
@@ -71,7 +71,47 @@ Index: dom.generated.d.ts
    addEventListener<K extends keyof FontFaceSetEventMap>(
      type: K,
      listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any,
-@@ -17020,11 +17030,16 @@
+@@ -15711,15 +15721,16 @@
+   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Highlight/priority) */
+   priority: number;
+   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Highlight/type) */
+   type: HighlightType;
+-  forEach(
++  forEach<This = undefined>(
+     callbackfn: (
++      this: This,
+       value: AbstractRange,
+       key: AbstractRange,
+-      parent: Highlight,
++      parent: this,
+     ) => void,
+-    thisArg?: any,
++    thisArg?: This,
+   ): void;
+ }
+ 
+ declare var Highlight: {
+@@ -15728,15 +15739,16 @@
+ };
+ 
+ /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HighlightRegistry) */
+ interface HighlightRegistry {
+-  forEach(
++  forEach<This = undefined>(
+     callbackfn: (
++      this: This,
+       value: Highlight,
+       key: string,
+-      parent: HighlightRegistry,
++      parent: this,
+     ) => void,
+-    thisArg?: any,
++    thisArg?: This,
+   ): void;
+ }
+ 
+ declare var HighlightRegistry: {
+@@ -17139,11 +17151,16 @@
   *
   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIInputMap)
   */
@@ -91,7 +131,7 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIInputMap: {
-@@ -17087,11 +17102,16 @@
+@@ -17206,11 +17223,16 @@
   *
   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIOutputMap)
   */
@@ -111,7 +151,7 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIOutputMap: {
-@@ -21372,11 +21392,11 @@
+@@ -21527,11 +21549,11 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCStatsReport) */
@@ -126,7 +166,7 @@ Index: dom.generated.d.ts
  }
  
  declare var RTCStatsReport: {
-@@ -34051,13 +34071,20 @@
+@@ -34291,13 +34313,16 @@
    handler: TimerHandler,
    timeout?: number,
    ...arguments: any[]
@@ -135,11 +175,7 @@ Index: dom.generated.d.ts
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/structuredClone) */
 -declare function structuredClone<T = any>(
 +declare function structuredClone<
-+  const T extends BetterTypeScriptLibInternals.StructuredClone.NeverOrUnknown<
-+    BetterTypeScriptLibInternals.StructuredClone.StructuredCloneOutput<
-+      BetterTypeScriptLibInternals.StructuredClone.AvoidCyclicConstraint<T>
-+    >
-+  >,
++  const T extends BetterTypeScriptLibInternals.StructuredClone.Constraint<T>,
 +>(
    value: T,
    options?: StructuredSerializeOptions,
@@ -149,7 +185,7 @@ Index: dom.generated.d.ts
  declare var sessionStorage: Storage;
  declare function addEventListener<K extends keyof WindowEventMap>(
    type: K,
-@@ -34712,4 +34739,119 @@
+@@ -34956,4 +34981,125 @@
    | "blob"
    | "document"
    | "json"
@@ -265,8 +301,14 @@ Index: dom.generated.d.ts
 +
 +    type AvoidCyclicConstraint<T> = [T] extends [infer R] ? R : never;
 +
-+    // 上限が不正にきつくなっているのを無視する
 +    type NeverOrUnknown<T> = [T] extends [never] ? never : unknown;
++
++    export type Constraint<T> =
++      BetterTypeScriptLibInternals.StructuredClone.NeverOrUnknown<
++        BetterTypeScriptLibInternals.StructuredClone.StructuredCloneOutput<
++          BetterTypeScriptLibInternals.StructuredClone.AvoidCyclicConstraint<T>
++        >
++      >;
 +  }
 +}
 
