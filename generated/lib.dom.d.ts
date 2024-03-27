@@ -15728,15 +15728,17 @@ interface Highlight {
   priority: number;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Highlight/type) */
   type: HighlightType;
-  forEach(
+  forEach<This = undefined>(
     callbackfn: (
+      this: This,
       value: AbstractRange,
       key: AbstractRange,
-      parent: Highlight,
+      parent: this,
     ) => void,
-    thisArg?: any,
+    thisArg?: This,
   ): void;
 }
+//     forEach(callbackfn: (value: AbstractRange, key: AbstractRange, parent: Highlight) => void, thisArg?: any): void;
 
 declare var Highlight: {
   prototype: Highlight;
@@ -15745,15 +15747,17 @@ declare var Highlight: {
 
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HighlightRegistry) */
 interface HighlightRegistry {
-  forEach(
+  forEach<This = undefined>(
     callbackfn: (
+      this: This,
       value: Highlight,
       key: string,
-      parent: HighlightRegistry,
+      parent: this,
     ) => void,
-    thisArg?: any,
+    thisArg?: This,
   ): void;
 }
+//     forEach(callbackfn: (value: Highlight, key: string, parent: HighlightRegistry) => void, thisArg?: any): void;
 
 declare var HighlightRegistry: {
   prototype: HighlightRegistry;

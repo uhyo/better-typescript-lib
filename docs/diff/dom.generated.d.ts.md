@@ -71,7 +71,47 @@ Index: dom.generated.d.ts
    addEventListener<K extends keyof FontFaceSetEventMap>(
      type: K,
      listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any,
-@@ -17139,11 +17149,16 @@
+@@ -15711,15 +15721,16 @@
+   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Highlight/priority) */
+   priority: number;
+   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Highlight/type) */
+   type: HighlightType;
+-  forEach(
++  forEach<This = undefined>(
+     callbackfn: (
++      this: This,
+       value: AbstractRange,
+       key: AbstractRange,
+-      parent: Highlight,
++      parent: this,
+     ) => void,
+-    thisArg?: any,
++    thisArg?: This,
+   ): void;
+ }
+ 
+ declare var Highlight: {
+@@ -15728,15 +15739,16 @@
+ };
+ 
+ /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HighlightRegistry) */
+ interface HighlightRegistry {
+-  forEach(
++  forEach<This = undefined>(
+     callbackfn: (
++      this: This,
+       value: Highlight,
+       key: string,
+-      parent: HighlightRegistry,
++      parent: this,
+     ) => void,
+-    thisArg?: any,
++    thisArg?: This,
+   ): void;
+ }
+ 
+ declare var HighlightRegistry: {
+@@ -17139,11 +17151,16 @@
   *
   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIInputMap)
   */
@@ -91,7 +131,7 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIInputMap: {
-@@ -17206,11 +17221,16 @@
+@@ -17206,11 +17223,16 @@
   *
   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIOutputMap)
   */
@@ -111,7 +151,7 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIOutputMap: {
-@@ -21527,11 +21547,11 @@
+@@ -21527,11 +21549,11 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCStatsReport) */
@@ -126,7 +166,7 @@ Index: dom.generated.d.ts
  }
  
  declare var RTCStatsReport: {
-@@ -34291,13 +34311,16 @@
+@@ -34291,13 +34313,16 @@
    handler: TimerHandler,
    timeout?: number,
    ...arguments: any[]
@@ -145,7 +185,7 @@ Index: dom.generated.d.ts
  declare var sessionStorage: Storage;
  declare function addEventListener<K extends keyof WindowEventMap>(
    type: K,
-@@ -34956,4 +34979,125 @@
+@@ -34956,4 +34981,125 @@
    | "blob"
    | "document"
    | "json"
