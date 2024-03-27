@@ -63,6 +63,7 @@ This is because, unlike npm and yarn, by default pnpm does not allow your source
 
 | better-typescript-lib | TypeScript      |
 | --------------------- | --------------- |
+| 2.7.0                 | TS 5.4 or later |
 | 2.6.0                 | TS 5.3 or later |
 | 2.5.0                 | TS 5.2 or later |
 | 2.4.0                 | TS 5.1 or later |
