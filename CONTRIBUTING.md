@@ -24,9 +24,30 @@ Below are the guidelines for submitting a pull request.
 
 better-typescript-lib replaces the built-in type definitions with its own ones. The renewed definitions are in the `lib/` directory.
 
-Replacement is done on per-name basis; if our definition includes an `A` interface, the entire declaration of `A` is replaced with ours. Other declarations are not affected and the original ones are kept.
+For interfaces, replacement is done on per-field basis. As illustrated below, if our definition includes an `A` interface with a `field1` field, the original `field1` type of the `A` interface is replaced with our definition. Other fields are not affected and the original ones are kept.
 
-### Commiting Build Artifacts
+```ts
+// Original
+interface A {
+  field1: string;
+  field2: number;
+}
+
+// Our lib/ definition
+interface A {
+  field1: SomeRefinedType;
+}
+
+// Result
+interface A {
+  field1: SomeRefinedType;
+  field2: number;
+}
+```
+
+For other declarations, such as type aliases, enums, and namespaces, the replacement is done on per-name basis. If our definition includes an `A` type alias, the entire declaration of `A` is replaced with ours.
+
+### Committing Build Artifacts
 
 Currently, build artifacts needs to be committed. Follow the following steps to build and commit them.
 
