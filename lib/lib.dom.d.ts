@@ -218,3 +218,7 @@ declare function structuredClone<
   value: T,
   options?: StructuredSerializeOptions,
 ): BetterTypeScriptLibInternals.StructuredClone.StructuredCloneOutput<T>;
+
+interface NodeListOf<TNode extends Node> extends NodeList {
+  item(index: number): TNode | null;
+}

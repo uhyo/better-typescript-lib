@@ -151,6 +151,17 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIOutputMap: {
+@@ -19085,9 +19107,9 @@
+   new (): NodeList;
+ };
+ 
+ interface NodeListOf<TNode extends Node> extends NodeList {
+-  item(index: number): TNode;
++  item(index: number): TNode | null;
+   /**
+    * Performs the specified action for each node in an list.
+    * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.
+    * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
 @@ -21527,11 +21549,11 @@
  };
  

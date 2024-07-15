@@ -19118,7 +19118,7 @@ declare var NodeList: {
 };
 
 interface NodeListOf<TNode extends Node> extends NodeList {
-  item(index: number): TNode;
+  item(index: number): TNode | null;
   /**
    * Performs the specified action for each node in an list.
    * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.
@@ -19130,6 +19130,7 @@ interface NodeListOf<TNode extends Node> extends NodeList {
   ): void;
   [index: number]: TNode;
 }
+//     item(index: number): TNode;
 
 interface NonDocumentTypeChildNode {
   /**
