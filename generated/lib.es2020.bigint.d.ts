@@ -524,7 +524,10 @@ interface BigInt64Array {
   subarray(begin?: number, end?: number): BigInt64Array;
 
   /** Converts the array to a string by using the current locale. */
-  toLocaleString(): string;
+  toLocaleString(
+    locales?: string | string[],
+    options?: Intl.NumberFormatOptions,
+  ): string;
 
   /** Returns a string representation of the array. */
   toString(): string;
@@ -986,7 +989,10 @@ interface BigUint64Array {
   subarray(begin?: number, end?: number): BigUint64Array;
 
   /** Converts the array to a string by using the current locale. */
-  toLocaleString(): string;
+  toLocaleString(
+    locales?: string | string[],
+    options?: Intl.NumberFormatOptions,
+  ): string;
 
   /** Returns a string representation of the array. */
   toString(): string;
@@ -1194,6 +1200,5 @@ interface DataView {
 declare namespace Intl {
   interface NumberFormat {
     format(value: number | bigint): string;
-    resolvedOptions(): ResolvedNumberFormatOptions;
   }
 }

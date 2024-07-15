@@ -3570,7 +3570,7 @@ Index: es5.d.ts
  }
  declare var Float64Array: Float64ArrayConstructor;
  
-@@ -5551,4 +5465,33 @@
+@@ -5584,4 +5498,33 @@
      locales?: string | string[],
      options?: Intl.DateTimeFormatOptions,
    ): string;
