@@ -5,7 +5,7 @@ Index: dom.generated.d.ts
 ===================================================================
 --- dom.generated.d.ts
 +++ dom.generated.d.ts
-@@ -2944,11 +2944,16 @@
+@@ -2969,11 +2969,16 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioParamMap) */
@@ -25,7 +25,7 @@ Index: dom.generated.d.ts
  }
  
  declare var AudioParamMap: {
-@@ -3369,9 +3374,9 @@
+@@ -3394,9 +3399,9 @@
    blob(): Promise<Blob>;
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/formData) */
    formData(): Promise<FormData>;
@@ -36,7 +36,7 @@ Index: dom.generated.d.ts
    text(): Promise<string>;
  }
  
-@@ -8872,11 +8877,11 @@
+@@ -8960,11 +8965,11 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/EventCounts) */
@@ -51,7 +51,7 @@ Index: dom.generated.d.ts
  }
  
  declare var EventCounts: {
-@@ -9420,11 +9425,16 @@
+@@ -9508,11 +9513,16 @@
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FontFaceSet/check) */
    check(font: string, text?: string): boolean;
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FontFaceSet/load) */
@@ -71,7 +71,7 @@ Index: dom.generated.d.ts
    addEventListener<K extends keyof FontFaceSetEventMap>(
      type: K,
      listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any,
-@@ -15711,15 +15721,16 @@
+@@ -15863,15 +15873,16 @@
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Highlight/priority) */
    priority: number;
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Highlight/type) */
@@ -91,7 +91,7 @@ Index: dom.generated.d.ts
  }
  
  declare var Highlight: {
-@@ -15728,15 +15739,16 @@
+@@ -15880,15 +15891,16 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HighlightRegistry) */
@@ -111,7 +111,7 @@ Index: dom.generated.d.ts
  }
  
  declare var HighlightRegistry: {
-@@ -17139,11 +17151,16 @@
+@@ -17314,11 +17326,16 @@
   *
   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIInputMap)
   */
@@ -131,7 +131,7 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIInputMap: {
-@@ -17206,11 +17223,16 @@
+@@ -17381,11 +17398,16 @@
   *
   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIOutputMap)
   */
@@ -151,7 +151,7 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIOutputMap: {
-@@ -19085,9 +19107,9 @@
+@@ -19260,9 +19282,9 @@
    new (): NodeList;
  };
  
@@ -162,7 +162,7 @@ Index: dom.generated.d.ts
     * Performs the specified action for each node in an list.
     * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.
     * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
-@@ -21527,11 +21549,11 @@
+@@ -21702,11 +21724,11 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCStatsReport) */
@@ -177,7 +177,7 @@ Index: dom.generated.d.ts
  }
  
  declare var RTCStatsReport: {
-@@ -34291,13 +34313,16 @@
+@@ -34477,13 +34499,16 @@
    handler: TimerHandler,
    timeout?: number,
    ...arguments: any[]
@@ -196,7 +196,7 @@ Index: dom.generated.d.ts
  declare var sessionStorage: Storage;
  declare function addEventListener<K extends keyof WindowEventMap>(
    type: K,
-@@ -34956,4 +34981,125 @@
+@@ -35141,4 +35166,125 @@
    | "blob"
    | "document"
    | "json"
