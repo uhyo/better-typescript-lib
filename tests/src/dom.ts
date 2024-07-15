@@ -137,3 +137,14 @@ const test = async (url: string) => {
     }
   }
 }
+
+// NodeListOf
+{
+  // https://github.com/uhyo/better-typescript-lib/issues/43
+  const list: NodeListOf<HTMLDivElement> = document.querySelectorAll("div");
+
+  const item = list.item(100);
+  expectType<HTMLDivElement | null>(item);
+  // @ts-expect-error
+  item.append("a");
+}
