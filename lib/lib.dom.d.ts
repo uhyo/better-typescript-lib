@@ -222,3 +222,10 @@ declare function structuredClone<
 interface NodeListOf<TNode extends Node> extends NodeList {
   item(index: number): TNode | null;
 }
+
+interface CustomStateSet {
+  forEach<This = undefined>(
+    callbackfn: (this: This, value: string, key: string, parent: this) => void,
+    thisArg?: This,
+  ): void;
+}

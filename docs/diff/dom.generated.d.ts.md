@@ -36,6 +36,21 @@ Index: dom.generated.d.ts
    text(): Promise<string>;
  }
  
+@@ -6530,11 +6535,11 @@
+ };
+ 
+ /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CustomStateSet) */
+ interface CustomStateSet {
+-  forEach(
+-    callbackfn: (value: string, key: string, parent: CustomStateSet) => void,
+-    thisArg?: any,
++  forEach<This = undefined>(
++    callbackfn: (this: This, value: string, key: string, parent: this) => void,
++    thisArg?: This,
+   ): void;
+ }
+ 
+ declare var CustomStateSet: {
 @@ -8960,11 +8965,11 @@
  };
  
