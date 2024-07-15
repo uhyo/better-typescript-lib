@@ -14,8 +14,8 @@
   },
   "devDependencies": {
     "@types/node": "^16.9.6",
-    "tsd": "^0.30.0",
-    "typescript": "^5.4.3"
+    "tsd": "^0.31.1",
+    "typescript": "^5.5.3"
   },
   "dependencies": {
     "@typescript/lib-decorators": "file:../dist-package/decorators",
@@ -36,6 +36,6 @@
     "@typescript/lib-webworker": "file:../dist-package/webworker"
   },
   "overrides": {
-    "@tsd/typescript": "~5.4.3"
+    "@tsd/typescript": "~5.5.3"
   }
 }
