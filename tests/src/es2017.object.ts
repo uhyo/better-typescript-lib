@@ -33,14 +33,14 @@ function createGenericRecord<K extends string, V>(
   const obj4 = createGenericRecord(["foo", "bar", "baz"], [1, 2, 3]);
   const values4 = Object.values(obj4);
   const entries4 = Object.entries(obj4);
-  expectType<number[]>(values4);
-  expectType<[string, number][]>(entries4);
+  expectType<unknown[]>(values4);
+  expectType<[string, unknown][]>(entries4);
 
   const obj5 = createGenericRecord(["foo", "bar", "baz"], [1, obj1, 3]);
   const values5 = Object.values(obj5);
   const entries5 = Object.entries(obj5);
-  expectType<(number | { [k: string]: number })[]>(values5);
-  expectType<[string, number | { [k: string]: number }][]>(entries5);
+  expectType<unknown[]>(values5);
+  expectType<[string, unknown][]>(entries5);
 }
 function test(obj: Record<string, unknown>) {
   const values = Object.values(obj);
@@ -49,4 +49,20 @@ function test(obj: Record<string, unknown>) {
   const entries = Object.entries(obj);
   expectType<string>(entries[0][0]);
   expectType<unknown>(entries[0][1]);
+}
+
+{
+  // https://github.com/uhyo/better-typescript-lib/issues/40
+  const obj: {} = {};
+  const obj2 = { foo: 123 };
+  const values = Object.values(obj);
+  const values2 = Object.values(obj2);
+  expectType<unknown[]>(values);
+  expectType<unknown[]>(values2);
+
+  const entries = Object.entries(obj);
+  const entries2 = Object.entries(obj2);
+
+  expectType<[string, unknown][]>(entries);
+  expectType<[string, unknown][]>(entries2);
 }
