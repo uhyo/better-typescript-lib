@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.8.0
+
+- Upgraded TypeScript to `5.5.3`. (https://github.com/uhyo/better-typescript-lib/pull/45)
+- fix: tighten up Object.values and Object.entries types (https://github.com/uhyo/better-typescript-lib/pull/42)
+- fix: improve NodeListOf<T>#item return type to include null (https://github.com/uhyo/better-typescript-lib/pull/44)
+
+## v2.7.0
+
+- Upgraded TypeScript to `5.4.3`. (https://github.com/uhyo/better-typescript-lib/pull/39)
+- Improved `structuredClone` typing. (https://github.com/uhyo/better-typescript-lib/pull/38)
+
 ## v2.6.0
 
 - Upgraded TypeScript to `5.3.3`.
