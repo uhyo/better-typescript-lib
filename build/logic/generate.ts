@@ -58,24 +58,12 @@ export function generate(
     consumedReplacements.add(name);
 
     if (!ts.isInterfaceDeclaration(statement)) {
-      // Find the replacement target of same kind.
-      const replacementTargetOfSameKind = replacementTarget.flatMap((target) =>
-        target.type === "non-interface" ? [target] : [],
+      result += generateFullReplacement(
+        originalFile,
+        statement,
+        replacementTarget,
+        emitOriginalAsComment,
       );
-      if (replacementTargetOfSameKind.length === 0) {
-        result += statement.getFullText(originalFile);
-        continue;
-      }
-      // Emit replaced statements
-      result +=
-        replacementTargetOfSameKind
-          .map(({ statement, sourceFile }) => statement.getFullText(sourceFile))
-          .join("") ?? "";
-      if (emitOriginalAsComment) {
-        // Replaced statements are emitted as comments
-        // to make it easier to detect original lib changes
-        result += "\n" + commentOut(statement.getFullText(originalFile)) + "\n";
-      }
       continue;
     }
 
@@ -104,6 +92,32 @@ export function generate(
         result += statement.originalStatement.getFullText(statement.sourceFile);
       }
     }
+  }
+  return result;
+}
+
+function generateFullReplacement(
+  originalFile: ts.SourceFile,
+  statement: ts.Statement,
+  replacementTarget: readonly ReplacementTarget[],
+  emitOriginalAsComment: boolean,
+) {
+  // Find the replacement target of same kind.
+  const replacementTargetOfSameKind = replacementTarget.flatMap((target) =>
+    target.type === "non-interface" ? [target] : [],
+  );
+  if (replacementTargetOfSameKind.length === 0) {
+    return statement.getFullText(originalFile);
+  }
+  // Emit replaced statements
+  let result =
+    replacementTargetOfSameKind
+      .map(({ statement, sourceFile }) => statement.getFullText(sourceFile))
+      .join("") ?? "";
+  if (emitOriginalAsComment) {
+    // Replaced statements are emitted as comments
+    // to make it easier to detect original lib changes
+    result += "\n" + commentOut(statement.getFullText(originalFile)) + "\n";
   }
   return result;
 }
