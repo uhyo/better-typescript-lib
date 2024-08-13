@@ -22,7 +22,7 @@ export type ReplacementTarget = (
   | {
       type: "declare-global";
       originalStatement: ts.ModuleDeclaration;
-      statements: ts.Statement[];
+      statements: readonly ts.Statement[];
     }
   | {
       type: "non-interface";
@@ -32,14 +32,17 @@ export type ReplacementTarget = (
   sourceFile: ts.SourceFile;
 };
 
+export const declareGlobalSymbol = Symbol("declare global");
+export type ReplacementName = string | typeof declareGlobalSymbol;
+
 /**
  * Scan better lib file to determine which statements need to be replaced.
  */
 export function scanBetterFile(
   printer: ts.Printer,
   targetFile: string,
-): Map<string, ReplacementTarget[]> {
-  const replacementTargets = new Map<string, ReplacementTarget[]>();
+): Map<ReplacementName, ReplacementTarget[]> {
+  const replacementTargets = new Map<ReplacementName, ReplacementTarget[]>();
   {
     const betterLibFile = path.join(betterLibDir, targetFile);
     const betterProgram = ts.createProgram([betterLibFile], {});
@@ -96,6 +99,19 @@ export function scanBetterFile(
             transformedStatement.name.text === "global"
           ) {
             // declare global
+            upsert(replacementTargets, declareGlobalSymbol, (targets = []) => {
+              targets.push({
+                type: "declare-global",
+                originalStatement: transformedStatement,
+                statements:
+                  transformedStatement.body &&
+                  ts.isModuleBlock(transformedStatement.body)
+                    ? transformedStatement.body.statements
+                    : [],
+                sourceFile: betterFile,
+              });
+              return targets;
+            });
           } else {
             upsert(replacementTargets, targetName, (statements = []) => {
               statements.push({
