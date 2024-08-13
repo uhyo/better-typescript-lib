@@ -78,78 +78,14 @@ export function generate(
       }
       continue;
     }
-    const replaceInterfaces = replacementTarget.flatMap((target) =>
-      target.type === "interface" ? [target] : [],
+
+    result += generateInterface(
+      printer,
+      originalFile,
+      statement,
+      replacementTarget,
+      emitOriginalAsComment,
     );
-    if (
-      replaceInterfaces.some(
-        (target) =>
-          !isPartialReplacement(
-            statement,
-            originalFile,
-            target.originalStatement,
-            target.sourceFile,
-          ),
-      )
-    ) {
-      // This needs to be a full replacement
-      for (const target of replaceInterfaces) {
-        result += target.originalStatement.getFullText(target.sourceFile);
-      }
-      if (emitOriginalAsComment) {
-        result += "\n" + commentOut(statement.getFullText(originalFile)) + "\n";
-      }
-      continue;
-    }
-
-    const replaceInterfaceMembers = new Map<
-      string,
-      {
-        member: ts.TypeElement;
-        text: string;
-      }[]
-    >();
-    for (const target of replacementTarget) {
-      if (target.type !== "interface") {
-        continue;
-      }
-      for (const [memberName, elements] of target.members) {
-        upsert(replaceInterfaceMembers, memberName, (members = []) => {
-          members.push(...elements);
-          return members;
-        });
-      }
-    }
-    const emittedMembers = new Map<string, ts.TypeElement[]>();
-    const memberList = statement.members.flatMap((mem) => {
-      const nameStr = mem.name?.getText(originalFile) ?? "";
-      if (emittedMembers.has(nameStr)) {
-        emittedMembers.get(nameStr)?.push(mem);
-        return [];
-      }
-      const replacedMembers = replaceInterfaceMembers.get(nameStr);
-      if (replacedMembers !== undefined) {
-        emittedMembers.set(nameStr, [mem]);
-        return replacedMembers;
-      }
-      return [
-        {
-          member: mem,
-          text: mem.getFullText(originalFile),
-        },
-      ];
-    });
-    result += printInterface(printer, statement, memberList, originalFile);
-
-    if (emitOriginalAsComment) {
-      result += "\n";
-      for (const originalMems of emittedMembers.values()) {
-        for (const originalMem of originalMems) {
-          result += commentOut(originalMem.getFullText(originalFile));
-        }
-      }
-      result += "\n";
-    }
   }
   result += originalFile.text.slice(originalFile.endOfFileToken.pos);
 
@@ -169,6 +105,92 @@ export function generate(
       }
     }
   }
+  return result;
+}
+
+function generateInterface(
+  printer: ts.Printer,
+  originalFile: ts.SourceFile,
+  statement: ts.InterfaceDeclaration,
+  replacementTarget: readonly ReplacementTarget[],
+  emitOriginalAsComment: boolean,
+) {
+  const replaceInterfaces = replacementTarget.flatMap((target) =>
+    target.type === "interface" ? [target] : [],
+  );
+  if (
+    replaceInterfaces.some(
+      (target) =>
+        !isPartialReplacement(
+          statement,
+          originalFile,
+          target.originalStatement,
+          target.sourceFile,
+        ),
+    )
+  ) {
+    // This needs to be a full replacement
+    let result = "";
+    for (const target of replaceInterfaces) {
+      result += target.originalStatement.getFullText(target.sourceFile);
+    }
+    if (emitOriginalAsComment) {
+      result += "\n" + commentOut(statement.getFullText(originalFile)) + "\n";
+    }
+    return result;
+  }
+
+  const replaceInterfaceMembers = new Map<
+    string,
+    {
+      member: ts.TypeElement;
+      text: string;
+    }[]
+  >();
+  for (const target of replacementTarget) {
+    if (target.type !== "interface") {
+      continue;
+    }
+    for (const [memberName, elements] of target.members) {
+      upsert(replaceInterfaceMembers, memberName, (members = []) => {
+        members.push(...elements);
+        return members;
+      });
+    }
+  }
+  const emittedMembers = new Map<string, ts.TypeElement[]>();
+  const memberList = statement.members.flatMap((mem) => {
+    const nameStr = mem.name?.getText(originalFile) ?? "";
+    if (emittedMembers.has(nameStr)) {
+      emittedMembers.get(nameStr)?.push(mem);
+      return [];
+    }
+    const replacedMembers = replaceInterfaceMembers.get(nameStr);
+    if (replacedMembers !== undefined) {
+      emittedMembers.set(nameStr, [mem]);
+      return replacedMembers;
+    }
+    return [
+      {
+        member: mem,
+        text: mem.getFullText(originalFile),
+      },
+    ];
+  });
+
+  let result = "";
+  result += printInterface(printer, statement, memberList, originalFile);
+
+  if (emitOriginalAsComment) {
+    result += "\n";
+    for (const originalMems of emittedMembers.values()) {
+      for (const originalMem of originalMems) {
+        result += commentOut(originalMem.getFullText(originalFile));
+      }
+    }
+    result += "\n";
+  }
+
   return result;
 }
 
