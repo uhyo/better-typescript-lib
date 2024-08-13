@@ -1,10 +1,8 @@
 import path from "path";
 import ts from "typescript";
-import { alias } from "../util/alias";
 import { upsert } from "../util/upsert";
-import { projectDir } from "./projectDir";
-
-const betterLibDir = path.join(projectDir, "lib");
+import { getStatementDeclName } from "./ast/getStatementDeclName";
+import { ReplacementTarget, scanBetterFile } from "./scanBetterFile";
 
 type GenerateOptions = {
   emitOriginalAsComment?: boolean;
@@ -208,101 +206,6 @@ function generateInterface(
   return result;
 }
 
-type ReplacementTarget = (
-  | {
-      type: "interface";
-      originalStatement: ts.InterfaceDeclaration;
-      members: Map<
-        string,
-        {
-          member: ts.TypeElement;
-          text: string;
-        }[]
-      >;
-    }
-  | {
-      type: "non-interface";
-      statement: ts.Statement;
-    }
-) & {
-  sourceFile: ts.SourceFile;
-};
-
-/**
- * Scan better lib file to determine which statements need to be replaced.
- */
-function scanBetterFile(
-  printer: ts.Printer,
-  targetFile: string,
-): Map<string, ReplacementTarget[]> {
-  const replacementTargets = new Map<string, ReplacementTarget[]>();
-  {
-    const betterLibFile = path.join(betterLibDir, targetFile);
-    const betterProgram = ts.createProgram([betterLibFile], {});
-    const betterFile = betterProgram.getSourceFile(betterLibFile);
-    if (betterFile) {
-      // Scan better file to determine which statements need to be replaced.
-      for (const statement of betterFile.statements) {
-        const name = getStatementDeclName(statement) ?? "";
-        const aliasesMap =
-          alias.get(name) ?? new Map([[name, new Map<string, string>()]]);
-        for (const [targetName, typeMap] of aliasesMap) {
-          const transformedStatement = replaceAliases(statement, typeMap);
-          if (ts.isInterfaceDeclaration(transformedStatement)) {
-            const members = new Map<
-              string,
-              {
-                member: ts.TypeElement;
-                text: string;
-              }[]
-            >();
-            for (const member of transformedStatement.members) {
-              const memberName = member.name?.getText(betterFile) ?? "";
-              upsert(members, memberName, (members = []) => {
-                const leadingSpacesMatch = /^\s*/.exec(
-                  member.getFullText(betterFile),
-                );
-                const leadingSpaces =
-                  leadingSpacesMatch !== null ? leadingSpacesMatch[0] : "";
-                members.push({
-                  member,
-                  text:
-                    leadingSpaces +
-                    printer.printNode(
-                      ts.EmitHint.Unspecified,
-                      member,
-                      betterFile,
-                    ),
-                });
-                return members;
-              });
-            }
-            upsert(replacementTargets, targetName, (targets = []) => {
-              targets.push({
-                type: "interface",
-                members,
-                originalStatement: transformedStatement,
-                sourceFile: betterFile,
-              });
-              return targets;
-            });
-          } else {
-            upsert(replacementTargets, targetName, (statements = []) => {
-              statements.push({
-                type: "non-interface",
-                statement: transformedStatement,
-                sourceFile: betterFile,
-              });
-              return statements;
-            });
-          }
-        }
-      }
-    }
-  }
-  return replacementTargets;
-}
-
 /**
  * Determines whether interface can be partially replaced.
  */
@@ -410,54 +313,8 @@ function printInterface(
   return result;
 }
 
-function getStatementDeclName(statement: ts.Statement): string | undefined {
-  if (ts.isVariableStatement(statement)) {
-    for (const dec of statement.declarationList.declarations) {
-      if (ts.isIdentifier(dec.name)) {
-        return dec.name.text;
-      }
-    }
-  } else if (
-    ts.isFunctionDeclaration(statement) ||
-    ts.isInterfaceDeclaration(statement) ||
-    ts.isTypeAliasDeclaration(statement) ||
-    ts.isModuleDeclaration(statement)
-  ) {
-    return statement.name?.text;
-  } else if (ts.isInterfaceDeclaration(statement)) {
-    return statement.name.text;
-  }
-  return undefined;
-}
-
 function commentOut(code: string): string {
   const lines = code.split("\n").filter((line) => line.trim().length > 0);
   const result = lines.map((line) => `// ${line}`);
   return result.join("\n") + "\n";
-}
-
-function replaceAliases(
-  statement: ts.Statement,
-  typeMap: Map<string, string>,
-): ts.Statement {
-  if (typeMap.size === 0) return statement;
-  return ts.transform(statement, [
-    (context) => (sourceStatement) => {
-      const visitor = (node: ts.Node): ts.Node => {
-        if (ts.isTypeReferenceNode(node) && ts.isIdentifier(node.typeName)) {
-          const replacementType = typeMap.get(node.typeName.text);
-          if (replacementType === undefined) {
-            return node;
-          }
-          return ts.factory.updateTypeReferenceNode(
-            node,
-            ts.factory.createIdentifier(replacementType),
-            node.typeArguments,
-          );
-        }
-        return ts.visitEachChild(node, visitor, context);
-      };
-      return ts.visitNode(sourceStatement, visitor, ts.isStatement);
-    },
-  ]).transformed[0];
 }
