@@ -35,7 +35,9 @@ interface AsyncIterable<T, TReturn = unknown, TNext = undefined> {
  * Describes a user-defined {@link AsyncIterator} that is also async iterable.
  */
 interface AsyncIterableIterator<T, TReturn = unknown, TNext = undefined>
-  extends AsyncIterator<T, TReturn, TNext> {}
+  extends AsyncIterator<T, TReturn, TNext> {
+  [Symbol.asyncIterator](): AsyncIterableIterator<T, TReturn, TNext>;
+}
 // /**
 //  * Describes a user-defined {@link AsyncIterator} that is also async iterable.
 //  */

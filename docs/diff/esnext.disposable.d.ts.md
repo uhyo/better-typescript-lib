@@ -5,7 +5,7 @@ Index: esnext.disposable.d.ts
 ===================================================================
 --- esnext.disposable.d.ts
 +++ esnext.disposable.d.ts
-@@ -20,10 +20,10 @@
+@@ -22,10 +22,10 @@
    [Symbol.asyncDispose](): PromiseLike<void>;
  }
  
