@@ -9,3 +9,4 @@
 /// <reference lib="esnext.array" />
 /// <reference lib="esnext.regexp" />
 /// <reference lib="esnext.string" />
+/// <reference lib="esnext.iterator" />

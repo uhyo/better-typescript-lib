@@ -1,12 +1,20 @@
 interface Iterator<T, TReturn = unknown, TNext = undefined> {
   // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
-  next(...args: [] | [TNext]): IteratorResult<T, TReturn>;
+  next(...[value]: [] | [TNext]): IteratorResult<T, TReturn>;
   return?(value?: TReturn): IteratorResult<T, TReturn>;
   throw?(e?: any): IteratorResult<T, TReturn>;
 }
 
-interface IterableIterator<T> extends Iterator<T, undefined, void> {
-  [Symbol.iterator](): IterableIterator<T>;
+interface Iterable<T, TReturn = unknown, TNext = undefined> {
+  [Symbol.iterator](): Iterator<T, TReturn, TNext>;
+}
+
+/**
+ * Describes a user-defined {@link Iterator} that is also iterable.
+ */
+interface IterableIterator<T, TReturn = undefined, TNext = void>
+  extends Iterator<T, TReturn, TNext> {
+  [Symbol.iterator](): IterableIterator<T, TReturn, TNext>;
 }
 
 interface ArrayConstructor {
@@ -31,7 +39,7 @@ interface ArrayConstructor {
 
 interface IArguments {
   /** Iterator */
-  [Symbol.iterator](): IterableIterator<unknown>;
+  [Symbol.iterator](): ArrayIterator<unknown>;
 }
 
 interface PromiseConstructor {
