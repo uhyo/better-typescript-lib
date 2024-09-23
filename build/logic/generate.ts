@@ -1,8 +1,15 @@
 import path from "path";
 import ts from "typescript";
+import { mergeArrayMap } from "../util/mergeArrayMap";
 import { upsert } from "../util/upsert";
 import { getStatementDeclName } from "./ast/getStatementDeclName";
-import { ReplacementTarget, scanBetterFile } from "./scanBetterFile";
+import {
+  declareGlobalSymbol,
+  ReplacementMap,
+  ReplacementName,
+  ReplacementTarget,
+  scanBetterFile,
+} from "./scanBetterFile";
 
 type GenerateOptions = {
   emitOriginalAsComment?: boolean;
@@ -39,9 +46,53 @@ export function generate(
     return result + originalFile.text;
   }
 
-  const consumedReplacements = new Set<string>();
+  return (
+    result +
+    generateStatements(
+      printer,
+      originalFile,
+      originalFile.statements,
+      replacementTargets,
+      emitOriginalAsComment,
+    )
+  );
+}
 
-  for (const statement of originalFile.statements) {
+function generateStatements(
+  printer: ts.Printer,
+  originalFile: ts.SourceFile,
+  statements: readonly ts.Statement[],
+  replacementTargets: ReplacementMap,
+  emitOriginalAsComment: boolean,
+): string {
+  let result = "";
+  const consumedReplacements = new Set<ReplacementName>();
+  for (const statement of statements) {
+    if (
+      ts.isModuleDeclaration(statement) &&
+      ts.isIdentifier(statement.name) &&
+      statement.name.text === "global"
+    ) {
+      // declare global { ... }
+      consumedReplacements.add(declareGlobalSymbol);
+
+      const declareGlobalReplacement =
+        replacementTargets.get(declareGlobalSymbol);
+      if (declareGlobalReplacement === undefined) {
+        result += statement.getFullText(originalFile);
+        continue;
+      }
+
+      result += generateDeclareGlobalReplacement(
+        printer,
+        originalFile,
+        statement,
+        declareGlobalReplacement,
+        emitOriginalAsComment,
+      );
+      continue;
+    }
+
     const name = getStatementDeclName(statement);
     if (name === undefined) {
       result += statement.getFullText(originalFile);
@@ -55,8 +106,9 @@ export function generate(
 
     consumedReplacements.add(name);
 
-    if (!ts.isInterfaceDeclaration(statement)) {
-      result += generateFullReplacement(
+    if (ts.isInterfaceDeclaration(statement)) {
+      result += generateInterface(
+        printer,
         originalFile,
         statement,
         replacementTarget,
@@ -65,8 +117,7 @@ export function generate(
       continue;
     }
 
-    result += generateInterface(
-      printer,
+    result += generateFullReplacement(
       originalFile,
       statement,
       replacementTarget,
@@ -117,6 +168,42 @@ function generateFullReplacement(
     // to make it easier to detect original lib changes
     result += "\n" + commentOut(statement.getFullText(originalFile)) + "\n";
   }
+  return result;
+}
+
+function generateDeclareGlobalReplacement(
+  printer: ts.Printer,
+  originalFile: ts.SourceFile,
+  statement: ts.ModuleDeclaration,
+  replacementTarget: readonly ReplacementTarget[],
+  emitOriginalAsComment: boolean,
+) {
+  if (!replacementTarget.every((target) => target.type === "declare-global")) {
+    throw new Error("Invalid replacement target");
+  }
+  if (!statement.body || !ts.isModuleBlock(statement.body)) {
+    return statement.getFullText(originalFile);
+  }
+
+  const nestedStatements = statement.body.statements;
+
+  let result = "";
+
+  result += "declare global {\n";
+
+  const nestedReplacementTarget = mergeArrayMap(
+    replacementTarget.map((t) => t.statements),
+  );
+
+  result += generateStatements(
+    printer,
+    originalFile,
+    nestedStatements,
+    nestedReplacementTarget,
+    emitOriginalAsComment,
+  );
+
+  result += "}\n";
   return result;
 }
 
