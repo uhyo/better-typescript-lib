@@ -22,7 +22,7 @@ export type ReplacementTarget = (
   | {
       type: "declare-global";
       originalStatement: ts.ModuleDeclaration;
-      statements: readonly ts.Statement[];
+      statements: ReplacementMap;
     }
   | {
       type: "non-interface";
@@ -31,6 +31,8 @@ export type ReplacementTarget = (
 ) & {
   sourceFile: ts.SourceFile;
 };
+
+export type ReplacementMap = Map<ReplacementName, ReplacementTarget[]>;
 
 export const declareGlobalSymbol = Symbol("declare global");
 export type ReplacementName = string | typeof declareGlobalSymbol;
@@ -41,88 +43,95 @@ export type ReplacementName = string | typeof declareGlobalSymbol;
 export function scanBetterFile(
   printer: ts.Printer,
   targetFile: string,
-): Map<ReplacementName, ReplacementTarget[]> {
+): ReplacementMap {
+  const betterLibFile = path.join(betterLibDir, targetFile);
+  const betterProgram = ts.createProgram([betterLibFile], {});
+  const betterFile = betterProgram.getSourceFile(betterLibFile);
+  if (!betterFile) {
+    // This happens when the better file of that name does not exist.
+    return new Map();
+  }
+  return scanStatements(printer, betterFile.statements, betterFile);
+}
+
+function scanStatements(
+  printer: ts.Printer,
+  statements: ts.NodeArray<ts.Statement>,
+  sourceFile: ts.SourceFile,
+): ReplacementMap {
   const replacementTargets = new Map<ReplacementName, ReplacementTarget[]>();
-  {
-    const betterLibFile = path.join(betterLibDir, targetFile);
-    const betterProgram = ts.createProgram([betterLibFile], {});
-    const betterFile = betterProgram.getSourceFile(betterLibFile);
-    if (betterFile) {
-      // Scan better file to determine which statements need to be replaced.
-      for (const statement of betterFile.statements) {
-        const name = getStatementDeclName(statement) ?? "";
-        const aliasesMap =
-          alias.get(name) ?? new Map([[name, new Map<string, string>()]]);
-        for (const [targetName, typeMap] of aliasesMap) {
-          const transformedStatement = replaceAliases(statement, typeMap);
-          if (ts.isInterfaceDeclaration(transformedStatement)) {
-            const members = new Map<
-              string,
-              {
-                member: ts.TypeElement;
-                text: string;
-              }[]
-            >();
-            for (const member of transformedStatement.members) {
-              const memberName = member.name?.getText(betterFile) ?? "";
-              upsert(members, memberName, (members = []) => {
-                const leadingSpacesMatch = /^\s*/.exec(
-                  member.getFullText(betterFile),
-                );
-                const leadingSpaces =
-                  leadingSpacesMatch !== null ? leadingSpacesMatch[0] : "";
-                members.push({
-                  member,
-                  text:
-                    leadingSpaces +
-                    printer.printNode(
-                      ts.EmitHint.Unspecified,
-                      member,
-                      betterFile,
-                    ),
-                });
-                return members;
-              });
-            }
-            upsert(replacementTargets, targetName, (targets = []) => {
-              targets.push({
-                type: "interface",
-                members,
-                originalStatement: transformedStatement,
-                sourceFile: betterFile,
-              });
-              return targets;
+  for (const statement of statements) {
+    const name = getStatementDeclName(statement) ?? "";
+    const aliasesMap =
+      alias.get(name) ?? new Map([[name, new Map<string, string>()]]);
+    for (const [targetName, typeMap] of aliasesMap) {
+      const transformedStatement = replaceAliases(statement, typeMap);
+      if (ts.isInterfaceDeclaration(transformedStatement)) {
+        const members = new Map<
+          string,
+          {
+            member: ts.TypeElement;
+            text: string;
+          }[]
+        >();
+        for (const member of transformedStatement.members) {
+          const memberName = member.name?.getText(sourceFile) ?? "";
+          upsert(members, memberName, (members = []) => {
+            const leadingSpacesMatch = /^\s*/.exec(
+              member.getFullText(sourceFile),
+            );
+            const leadingSpaces =
+              leadingSpacesMatch !== null ? leadingSpacesMatch[0] : "";
+            members.push({
+              member,
+              text:
+                leadingSpaces +
+                printer.printNode(ts.EmitHint.Unspecified, member, sourceFile),
             });
-          } else if (
-            ts.isModuleDeclaration(transformedStatement) &&
-            ts.isIdentifier(transformedStatement.name) &&
-            transformedStatement.name.text === "global"
-          ) {
-            // declare global
-            upsert(replacementTargets, declareGlobalSymbol, (targets = []) => {
-              targets.push({
-                type: "declare-global",
-                originalStatement: transformedStatement,
-                statements:
-                  transformedStatement.body &&
-                  ts.isModuleBlock(transformedStatement.body)
-                    ? transformedStatement.body.statements
-                    : [],
-                sourceFile: betterFile,
-              });
-              return targets;
-            });
-          } else {
-            upsert(replacementTargets, targetName, (statements = []) => {
-              statements.push({
-                type: "non-interface",
-                statement: transformedStatement,
-                sourceFile: betterFile,
-              });
-              return statements;
-            });
-          }
+            return members;
+          });
         }
+        upsert(replacementTargets, targetName, (targets = []) => {
+          targets.push({
+            type: "interface",
+            members,
+            originalStatement: transformedStatement,
+            sourceFile: sourceFile,
+          });
+          return targets;
+        });
+      } else if (
+        ts.isModuleDeclaration(transformedStatement) &&
+        ts.isIdentifier(transformedStatement.name) &&
+        transformedStatement.name.text === "global"
+      ) {
+        // declare global
+        upsert(replacementTargets, declareGlobalSymbol, (targets = []) => {
+          targets.push({
+            type: "declare-global",
+            originalStatement: transformedStatement,
+            statements:
+              transformedStatement.body &&
+              ts.isModuleBlock(transformedStatement.body)
+                ? scanStatements(
+                    printer,
+                    transformedStatement.body.statements,
+                    sourceFile,
+                  )
+                : new Map(),
+            sourceFile: sourceFile,
+          });
+          return targets;
+        });
+      } else {
+        upsert(replacementTargets, targetName, (statements = []) => {
+          statements.push({
+            type: "non-interface",
+            statement: transformedStatement,
+            sourceFile: sourceFile,
+          });
+          return statements;
+        });
       }
     }
   }
