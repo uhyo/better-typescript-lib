@@ -637,7 +637,9 @@ interface Promise<T> extends PromiseLike<T> {
   ): Promise<T>;
 }
 
-interface TypedNumberArray {
+interface TypedNumberArray<
+  TArrayBuffer extends ArrayBufferLike = ArrayBufferLike,
+> {
   /**
    * Determines whether all the members of an array satisfy the specified test.
    * @param predicate A function that accepts up to three arguments. The every method calls
@@ -817,7 +819,7 @@ interface TypedNumberArrayConstructor {
    * Creates an array from an array-like or iterable object.
    * @param arrayLike An array-like or iterable object to convert to an array.
    */
-  from(arrayLike: ArrayLike<number>): TypedNumberArray;
+  from(arrayLike: ArrayLike<number>): TypedNumberArray<ArrayBuffer>;
   /**
    * Creates an array from an array-like or iterable object.
    * @param arrayLike An array-like or iterable object to convert to an array.
@@ -828,5 +830,5 @@ interface TypedNumberArrayConstructor {
     arrayLike: ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
     thisArg?: This,
-  ): TypedNumberArray;
+  ): TypedNumberArray<ArrayBuffer>;
 }

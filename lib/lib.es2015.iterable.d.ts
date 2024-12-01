@@ -69,7 +69,9 @@ interface TypedNumberArrayConstructor {
    * Creates an array from an iterable object.
    * @param iterable An iterable object to convert to an array.
    */
-  from(iterable: Iterable<number> | ArrayLike<number>): TypedNumberArray;
+  from(
+    iterable: Iterable<number> | ArrayLike<number>,
+  ): TypedNumberArray<ArrayBuffer>;
   /**
    * Creates an array from an iterable object.
    * @param iterable An iterable object to convert to an array.
@@ -80,5 +82,5 @@ interface TypedNumberArrayConstructor {
     iterable: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => number,
     thisArg?: This,
-  ): TypedNumberArray;
+  ): TypedNumberArray<ArrayBuffer>;
 }
