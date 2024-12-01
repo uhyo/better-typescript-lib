@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.10.0
+
+- Upgraded TypeScript to `5.7.2`. (https://github.com/uhyo/better-typescript-lib/pull/54)
+
 ## v2.9.0
 
 - Upgraded TypeScript to `5.6.2`. (https://github.com/uhyo/better-typescript-lib/pull/51)
