@@ -63,7 +63,7 @@ Follow below steps to run tests locally.
 1. `npm run build:tsc`
 2. `npm run build:lib`
 3. `npm run build:package`
-4. `npm run install` in tests directory
+4. `npm install` in tests directory
 5. `npm test` in tests directory
 
 ## Upgrading TypeScript version
