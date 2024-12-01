@@ -303,6 +303,7 @@ function isPartialReplacement(
   betterFile: ts.SourceFile,
 ): boolean {
   // Compare type parameters and herigate using full text.
+  if (interfaceDecl.name.escapedText === "Uint8Array") debugger;
   if (
     interfaceDecl.typeParameters !== undefined &&
     replacementDecl.typeParameters !== undefined &&
@@ -313,8 +314,8 @@ function isPartialReplacement(
     if (
       interfaceDecl.typeParameters.some((typeParam, index) => {
         return (
-          typeParam.getFullText(originalFile) !==
-          rtp[index].getFullText(betterFile)
+          typeParam.getFullText(originalFile).trim() !==
+          rtp[index].getFullText(betterFile).trim()
         );
       })
     ) {

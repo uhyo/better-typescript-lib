@@ -33,7 +33,8 @@
     "@typescript/lib-es6": "file:../dist-package/es6",
     "@typescript/lib-esnext": "file:../dist-package/esnext",
     "@typescript/lib-scripthost": "file:../dist-package/scripthost",
-    "@typescript/lib-webworker": "file:../dist-package/webworker"
+    "@typescript/lib-webworker": "file:../dist-package/webworker",
+    "@typescript/lib-es2024": "file:../dist-package/es2024"
   },
   "overrides": {
     "@tsd/typescript": "~5.7.2"

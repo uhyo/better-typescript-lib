@@ -11,14 +11,14 @@ interface SharedArrayBuffer {
   /**
    * Returns a section of an SharedArrayBuffer.
    */
-  slice(begin: number, end?: number): SharedArrayBuffer;
+  slice(begin?: number, end?: number): SharedArrayBuffer;
   readonly [Symbol.species]: SharedArrayBuffer;
   readonly [Symbol.toStringTag]: "SharedArrayBuffer";
 }
 
 interface SharedArrayBufferConstructor {
   readonly prototype: SharedArrayBuffer;
-  new (byteLength: number): SharedArrayBuffer;
+  new (byteLength?: number): SharedArrayBuffer;
 }
 declare var SharedArrayBuffer: SharedArrayBufferConstructor;
 
@@ -34,12 +34,12 @@ interface Atomics {
    */
   add(
     typedArray:
-      | Int8Array
-      | Uint8Array
-      | Int16Array
-      | Uint16Array
-      | Int32Array
-      | Uint32Array,
+      | Int8Array<ArrayBufferLike>
+      | Uint8Array<ArrayBufferLike>
+      | Int16Array<ArrayBufferLike>
+      | Uint16Array<ArrayBufferLike>
+      | Int32Array<ArrayBufferLike>
+      | Uint32Array<ArrayBufferLike>,
     index: number,
     value: number,
   ): number;
@@ -51,12 +51,12 @@ interface Atomics {
    */
   and(
     typedArray:
-      | Int8Array
-      | Uint8Array
-      | Int16Array
-      | Uint16Array
-      | Int32Array
-      | Uint32Array,
+      | Int8Array<ArrayBufferLike>
+      | Uint8Array<ArrayBufferLike>
+      | Int16Array<ArrayBufferLike>
+      | Uint16Array<ArrayBufferLike>
+      | Int32Array<ArrayBufferLike>
+      | Uint32Array<ArrayBufferLike>,
     index: number,
     value: number,
   ): number;
@@ -68,12 +68,12 @@ interface Atomics {
    */
   compareExchange(
     typedArray:
-      | Int8Array
-      | Uint8Array
-      | Int16Array
-      | Uint16Array
-      | Int32Array
-      | Uint32Array,
+      | Int8Array<ArrayBufferLike>
+      | Uint8Array<ArrayBufferLike>
+      | Int16Array<ArrayBufferLike>
+      | Uint16Array<ArrayBufferLike>
+      | Int32Array<ArrayBufferLike>
+      | Uint32Array<ArrayBufferLike>,
     index: number,
     expectedValue: number,
     replacementValue: number,
@@ -86,12 +86,12 @@ interface Atomics {
    */
   exchange(
     typedArray:
-      | Int8Array
-      | Uint8Array
-      | Int16Array
-      | Uint16Array
-      | Int32Array
-      | Uint32Array,
+      | Int8Array<ArrayBufferLike>
+      | Uint8Array<ArrayBufferLike>
+      | Int16Array<ArrayBufferLike>
+      | Uint16Array<ArrayBufferLike>
+      | Int32Array<ArrayBufferLike>
+      | Uint32Array<ArrayBufferLike>,
     index: number,
     value: number,
   ): number;
@@ -109,12 +109,12 @@ interface Atomics {
    */
   load(
     typedArray:
-      | Int8Array
-      | Uint8Array
-      | Int16Array
-      | Uint16Array
-      | Int32Array
-      | Uint32Array,
+      | Int8Array<ArrayBufferLike>
+      | Uint8Array<ArrayBufferLike>
+      | Int16Array<ArrayBufferLike>
+      | Uint16Array<ArrayBufferLike>
+      | Int32Array<ArrayBufferLike>
+      | Uint32Array<ArrayBufferLike>,
     index: number,
   ): number;
 
@@ -125,12 +125,12 @@ interface Atomics {
    */
   or(
     typedArray:
-      | Int8Array
-      | Uint8Array
-      | Int16Array
-      | Uint16Array
-      | Int32Array
-      | Uint32Array,
+      | Int8Array<ArrayBufferLike>
+      | Uint8Array<ArrayBufferLike>
+      | Int16Array<ArrayBufferLike>
+      | Uint16Array<ArrayBufferLike>
+      | Int32Array<ArrayBufferLike>
+      | Uint32Array<ArrayBufferLike>,
     index: number,
     value: number,
   ): number;
@@ -141,12 +141,12 @@ interface Atomics {
    */
   store(
     typedArray:
-      | Int8Array
-      | Uint8Array
-      | Int16Array
-      | Uint16Array
-      | Int32Array
-      | Uint32Array,
+      | Int8Array<ArrayBufferLike>
+      | Uint8Array<ArrayBufferLike>
+      | Int16Array<ArrayBufferLike>
+      | Uint16Array<ArrayBufferLike>
+      | Int32Array<ArrayBufferLike>
+      | Uint32Array<ArrayBufferLike>,
     index: number,
     value: number,
   ): number;
@@ -158,12 +158,12 @@ interface Atomics {
    */
   sub(
     typedArray:
-      | Int8Array
-      | Uint8Array
-      | Int16Array
-      | Uint16Array
-      | Int32Array
-      | Uint32Array,
+      | Int8Array<ArrayBufferLike>
+      | Uint8Array<ArrayBufferLike>
+      | Int16Array<ArrayBufferLike>
+      | Uint16Array<ArrayBufferLike>
+      | Int32Array<ArrayBufferLike>
+      | Uint32Array<ArrayBufferLike>,
     index: number,
     value: number,
   ): number;
@@ -175,7 +175,7 @@ interface Atomics {
    * `"not-equal"`.
    */
   wait(
-    typedArray: Int32Array,
+    typedArray: Int32Array<ArrayBufferLike>,
     index: number,
     value: number,
     timeout?: number,
@@ -184,11 +184,15 @@ interface Atomics {
   /**
    * Wakes up sleeping agents that are waiting on the given index of the array, returning the
    * number of agents that were awoken.
-   * @param typedArray A shared Int32Array.
+   * @param typedArray A shared Int32Array<ArrayBufferLike>.
    * @param index The position in the typedArray to wake up on.
    * @param count The number of sleeping agents to notify. Defaults to +Infinity.
    */
-  notify(typedArray: Int32Array, index: number, count?: number): number;
+  notify(
+    typedArray: Int32Array<ArrayBufferLike>,
+    index: number,
+    count?: number,
+  ): number;
 
   /**
    * Stores the bitwise XOR of a value with the value at the given position in the array,
@@ -197,12 +201,12 @@ interface Atomics {
    */
   xor(
     typedArray:
-      | Int8Array
-      | Uint8Array
-      | Int16Array
-      | Uint16Array
-      | Int32Array
-      | Uint32Array,
+      | Int8Array<ArrayBufferLike>
+      | Uint8Array<ArrayBufferLike>
+      | Int16Array<ArrayBufferLike>
+      | Uint16Array<ArrayBufferLike>
+      | Int32Array<ArrayBufferLike>
+      | Uint32Array<ArrayBufferLike>,
     index: number,
     value: number,
   ): number;

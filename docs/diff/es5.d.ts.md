@@ -865,7 +865,7 @@ Index: es5.d.ts
  
  /**
   * Recursively unwraps the "awaited type" of a type. Non-promise "thenables" should resolve to `never`. This emulates the behavior of `await`.
-@@ -2137,20 +2228,24 @@
+@@ -2138,20 +2229,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -880,7 +880,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  every(
--    predicate: (value: number, index: number, array: Int8Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  every<This = undefined>(
 +    predicate: (
@@ -894,7 +894,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -2160,21 +2255,24 @@
+@@ -2161,21 +2256,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -908,8 +908,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  filter(
--    predicate: (value: number, index: number, array: Int8Array) => any,
+-    predicate: (value: number, index: number, array: this) => any,
 -    thisArg?: any,
+-  ): Int8Array<ArrayBuffer>;
+-
 +  filter<This = undefined>(
 +    predicate: (
 +      this: This,
@@ -918,19 +920,18 @@ Index: es5.d.ts
 +      array: this,
 +    ) => boolean,
 +    thisArg?: This,
-   ): Int8Array;
--
++  ): Int8Array;
    /**
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2182,13 +2280,12 @@
+@@ -2183,13 +2281,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  find(
--    predicate: (value: number, index: number, obj: Int8Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  find<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -941,13 +942,13 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2196,23 +2293,22 @@
+@@ -2197,23 +2294,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  findIndex(
--    predicate: (value: number, index: number, obj: Int8Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  findIndex<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -962,7 +963,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
--    callbackfn: (value: number, index: number, array: Int8Array) => void,
+-    callbackfn: (value: number, index: number, array: this) => void,
 -    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
@@ -971,7 +972,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -2240,50 +2336,40 @@
+@@ -2241,50 +2337,40 @@
    /**
     * The length of the array.
     */
@@ -986,8 +987,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  map(
--    callbackfn: (value: number, index: number, array: Int8Array) => number,
+-    callbackfn: (value: number, index: number, array: this) => number,
 -    thisArg?: any,
+-  ): Int8Array<ArrayBuffer>;
+-
 +  map<This = undefined>(
 +    callbackfn: (
 +      this: This,
@@ -996,8 +999,7 @@ Index: es5.d.ts
 +      array: this,
 +    ) => number,
 +    thisArg?: This,
-   ): Int8Array;
--
++  ): Int8Array;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
@@ -1015,7 +1017,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Int8Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduce(
@@ -1023,19 +1025,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Int8Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -2292,46 +2378,32 @@
+@@ -2293,46 +2379,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1046,8 +1047,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Int8Array,
-+      array: this,
+       array: this,
      ) => U,
      initialValue: U,
    ): U;
@@ -1069,7 +1069,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Int8Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduceRight(
@@ -1077,19 +1077,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Int8Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -2340,14 +2412,14 @@
+@@ -2341,9 +2413,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1100,17 +1099,11 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Int8Array,
-+      array: this,
-     ) => U,
-     initialValue: U,
-   ): U;
- 
-@@ -2368,20 +2440,24 @@
+@@ -2369,20 +2441,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
-   slice(start?: number, end?: number): Int8Array;
+   slice(start?: number, end?: number): Int8Array<ArrayBuffer>;
 -
    /**
     * Determines whether the specified callback function returns true for any element of an array.
@@ -1121,7 +1114,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  some(
--    predicate: (value: number, index: number, array: Int8Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  some<This = undefined>(
 +    predicate: (
@@ -1135,17 +1128,17 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -2436,25 +2512,23 @@
+@@ -2438,25 +2514,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
-   of(...items: number[]): Int8Array;
+   of(...items: number[]): Int8Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
     * @param arrayLike An array-like or iterable object to convert to an array.
     */
-   from(arrayLike: ArrayLike<number>): Int8Array;
+   from(arrayLike: ArrayLike<number>): Int8Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
@@ -1160,11 +1153,11 @@ Index: es5.d.ts
 -    thisArg?: any,
 +    mapfn: (this: This, v: T, k: number) => number,
 +    thisArg?: This,
-   ): Int8Array;
+   ): Int8Array<ArrayBuffer>;
  }
  declare var Int8Array: Int8ArrayConstructor;
  
-@@ -2492,20 +2566,24 @@
+@@ -2494,20 +2568,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -1179,7 +1172,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  every(
--    predicate: (value: number, index: number, array: Uint8Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  every<This = undefined>(
 +    predicate: (
@@ -1193,7 +1186,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -2515,21 +2593,24 @@
+@@ -2517,21 +2595,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -1207,8 +1200,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  filter(
--    predicate: (value: number, index: number, array: Uint8Array) => any,
+-    predicate: (value: number, index: number, array: this) => any,
 -    thisArg?: any,
+-  ): Uint8Array<ArrayBuffer>;
+-
 +  filter<This = undefined>(
 +    predicate: (
 +      this: This,
@@ -1217,19 +1212,18 @@ Index: es5.d.ts
 +      array: this,
 +    ) => boolean,
 +    thisArg?: This,
-   ): Uint8Array;
--
++  ): Uint8Array;
    /**
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2537,13 +2618,12 @@
+@@ -2539,13 +2620,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  find(
--    predicate: (value: number, index: number, obj: Uint8Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  find<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -1240,13 +1234,13 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2551,23 +2631,22 @@
+@@ -2553,23 +2633,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  findIndex(
--    predicate: (value: number, index: number, obj: Uint8Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  findIndex<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -1261,7 +1255,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
--    callbackfn: (value: number, index: number, array: Uint8Array) => void,
+-    callbackfn: (value: number, index: number, array: this) => void,
 -    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
@@ -1270,7 +1264,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -2595,50 +2674,40 @@
+@@ -2597,50 +2676,40 @@
    /**
     * The length of the array.
     */
@@ -1285,8 +1279,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  map(
--    callbackfn: (value: number, index: number, array: Uint8Array) => number,
+-    callbackfn: (value: number, index: number, array: this) => number,
 -    thisArg?: any,
+-  ): Uint8Array<ArrayBuffer>;
+-
 +  map<This = undefined>(
 +    callbackfn: (
 +      this: This,
@@ -1295,8 +1291,7 @@ Index: es5.d.ts
 +      array: this,
 +    ) => number,
 +    thisArg?: This,
-   ): Uint8Array;
--
++  ): Uint8Array;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
@@ -1314,7 +1309,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Uint8Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduce(
@@ -1322,19 +1317,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Uint8Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -2647,46 +2716,32 @@
+@@ -2649,46 +2718,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1345,8 +1339,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Uint8Array,
-+      array: this,
+       array: this,
      ) => U,
      initialValue: U,
    ): U;
@@ -1368,7 +1361,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Uint8Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduceRight(
@@ -1376,19 +1369,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Uint8Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -2695,14 +2750,14 @@
+@@ -2697,9 +2752,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1399,17 +1391,11 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Uint8Array,
-+      array: this,
-     ) => U,
-     initialValue: U,
-   ): U;
- 
-@@ -2723,20 +2778,24 @@
+@@ -2725,20 +2780,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
-   slice(start?: number, end?: number): Uint8Array;
+   slice(start?: number, end?: number): Uint8Array<ArrayBuffer>;
 -
    /**
     * Determines whether the specified callback function returns true for any element of an array.
@@ -1420,7 +1406,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  some(
--    predicate: (value: number, index: number, array: Uint8Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  some<This = undefined>(
 +    predicate: (
@@ -1434,17 +1420,17 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -2792,25 +2851,23 @@
+@@ -2794,25 +2853,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
-   of(...items: number[]): Uint8Array;
+   of(...items: number[]): Uint8Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
     * @param arrayLike An array-like or iterable object to convert to an array.
     */
-   from(arrayLike: ArrayLike<number>): Uint8Array;
+   from(arrayLike: ArrayLike<number>): Uint8Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
@@ -1459,11 +1445,11 @@ Index: es5.d.ts
 -    thisArg?: any,
 +    mapfn: (this: This, v: T, k: number) => number,
 +    thisArg?: This,
-   ): Uint8Array;
+   ): Uint8Array<ArrayBuffer>;
  }
  declare var Uint8Array: Uint8ArrayConstructor;
  
-@@ -2848,24 +2905,24 @@
+@@ -2852,20 +2909,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -1478,14 +1464,13 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  every(
-+  every<This = undefined>(
-     predicate: (
-+      this: This,
-       value: number,
-       index: number,
--      array: Uint8ClampedArray,
--    ) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
++  every<This = undefined>(
++    predicate: (
++      this: This,
++      value: number,
++      index: number,
 +      array: this,
 +    ) => boolean,
 +    thisArg?: This,
@@ -1493,7 +1478,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -2875,21 +2932,24 @@
+@@ -2875,21 +2936,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -1507,8 +1492,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  filter(
--    predicate: (value: number, index: number, array: Uint8ClampedArray) => any,
+-    predicate: (value: number, index: number, array: this) => any,
 -    thisArg?: any,
+-  ): Uint8ClampedArray<ArrayBuffer>;
+-
 +  filter<This = undefined>(
 +    predicate: (
 +      this: This,
@@ -1517,23 +1504,18 @@ Index: es5.d.ts
 +      array: this,
 +    ) => boolean,
 +    thisArg?: This,
-   ): Uint8ClampedArray;
--
++  ): Uint8ClampedArray;
    /**
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2897,17 +2957,12 @@
+@@ -2897,13 +2961,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  find(
--    predicate: (
--      value: number,
--      index: number,
--      obj: Uint8ClampedArray,
--    ) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  find<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -1544,17 +1526,13 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2915,31 +2970,22 @@
+@@ -2911,23 +2974,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  findIndex(
--    predicate: (
--      value: number,
--      index: number,
--      obj: Uint8ClampedArray,
--    ) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  findIndex<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -1569,11 +1547,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
--    callbackfn: (
--      value: number,
--      index: number,
--      array: Uint8ClampedArray,
--    ) => void,
+-    callbackfn: (value: number, index: number, array: this) => void,
 -    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
@@ -1582,7 +1556,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -2967,54 +3013,40 @@
+@@ -2955,50 +3017,40 @@
    /**
     * The length of the array.
     */
@@ -1597,18 +1571,19 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  map(
-+  map<This = undefined>(
-     callbackfn: (
-+      this: This,
-       value: number,
-       index: number,
--      array: Uint8ClampedArray,
-+      array: this,
-     ) => number,
+-    callbackfn: (value: number, index: number, array: this) => number,
 -    thisArg?: any,
-+    thisArg?: This,
-   ): Uint8ClampedArray;
+-  ): Uint8ClampedArray<ArrayBuffer>;
 -
++  map<This = undefined>(
++    callbackfn: (
++      this: This,
++      value: number,
++      index: number,
++      array: this,
++    ) => number,
++    thisArg?: This,
++  ): Uint8ClampedArray;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
@@ -1626,7 +1601,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Uint8ClampedArray,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduce(
@@ -1634,19 +1609,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Uint8ClampedArray,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -3023,46 +3055,32 @@
+@@ -3007,46 +3059,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1657,8 +1631,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Uint8ClampedArray,
-+      array: this,
+       array: this,
      ) => U,
      initialValue: U,
    ): U;
@@ -1680,7 +1653,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Uint8ClampedArray,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduceRight(
@@ -1688,19 +1661,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Uint8ClampedArray,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -3071,14 +3089,14 @@
+@@ -3055,9 +3093,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1711,17 +1683,11 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Uint8ClampedArray,
-+      array: this,
-     ) => U,
-     initialValue: U,
-   ): U;
- 
-@@ -3099,24 +3117,24 @@
+@@ -3083,20 +3121,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
-   slice(start?: number, end?: number): Uint8ClampedArray;
+   slice(start?: number, end?: number): Uint8ClampedArray<ArrayBuffer>;
 -
    /**
     * Determines whether the specified callback function returns true for any element of an array.
@@ -1732,14 +1698,13 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  some(
-+  some<This = undefined>(
-     predicate: (
-+      this: This,
-       value: number,
-       index: number,
--      array: Uint8ClampedArray,
--    ) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
++  some<This = undefined>(
++    predicate: (
++      this: This,
++      value: number,
++      index: number,
 +      array: this,
 +    ) => boolean,
 +    thisArg?: This,
@@ -1747,17 +1712,17 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -3172,25 +3190,23 @@
+@@ -3152,25 +3194,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
-   of(...items: number[]): Uint8ClampedArray;
+   of(...items: number[]): Uint8ClampedArray<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
     * @param arrayLike An array-like or iterable object to convert to an array.
     */
-   from(arrayLike: ArrayLike<number>): Uint8ClampedArray;
+   from(arrayLike: ArrayLike<number>): Uint8ClampedArray<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
@@ -1772,11 +1737,11 @@ Index: es5.d.ts
 -    thisArg?: any,
 +    mapfn: (this: This, v: T, k: number) => number,
 +    thisArg?: This,
-   ): Uint8ClampedArray;
+   ): Uint8ClampedArray<ArrayBuffer>;
  }
  declare var Uint8ClampedArray: Uint8ClampedArrayConstructor;
  
-@@ -3228,20 +3244,24 @@
+@@ -3208,20 +3248,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -1791,7 +1756,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  every(
--    predicate: (value: number, index: number, array: Int16Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  every<This = undefined>(
 +    predicate: (
@@ -1805,7 +1770,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -3251,21 +3271,24 @@
+@@ -3231,21 +3275,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -1819,8 +1784,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  filter(
--    predicate: (value: number, index: number, array: Int16Array) => any,
+-    predicate: (value: number, index: number, array: this) => any,
 -    thisArg?: any,
+-  ): Int16Array<ArrayBuffer>;
+-
 +  filter<This = undefined>(
 +    predicate: (
 +      this: This,
@@ -1829,19 +1796,18 @@ Index: es5.d.ts
 +      array: this,
 +    ) => boolean,
 +    thisArg?: This,
-   ): Int16Array;
--
++  ): Int16Array;
    /**
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3273,13 +3296,12 @@
+@@ -3253,13 +3300,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  find(
--    predicate: (value: number, index: number, obj: Int16Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  find<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -1852,13 +1818,13 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3287,23 +3309,22 @@
+@@ -3267,23 +3313,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  findIndex(
--    predicate: (value: number, index: number, obj: Int16Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  findIndex<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -1873,7 +1839,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
--    callbackfn: (value: number, index: number, array: Int16Array) => void,
+-    callbackfn: (value: number, index: number, array: this) => void,
 -    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
@@ -1882,7 +1848,7 @@ Index: es5.d.ts
    /**
     * Returns the index of the first occurrence of a value in an array.
     * @param searchElement The value to locate in the array.
-@@ -3330,50 +3351,40 @@
+@@ -3310,50 +3355,40 @@
    /**
     * The length of the array.
     */
@@ -1897,8 +1863,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  map(
--    callbackfn: (value: number, index: number, array: Int16Array) => number,
+-    callbackfn: (value: number, index: number, array: this) => number,
 -    thisArg?: any,
+-  ): Int16Array<ArrayBuffer>;
+-
 +  map<This = undefined>(
 +    callbackfn: (
 +      this: This,
@@ -1907,8 +1875,7 @@ Index: es5.d.ts
 +      array: this,
 +    ) => number,
 +    thisArg?: This,
-   ): Int16Array;
--
++  ): Int16Array;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
@@ -1926,7 +1893,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Int16Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduce(
@@ -1934,19 +1901,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Int16Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -3382,46 +3393,32 @@
+@@ -3362,46 +3397,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1957,8 +1923,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Int16Array,
-+      array: this,
+       array: this,
      ) => U,
      initialValue: U,
    ): U;
@@ -1980,7 +1945,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Int16Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduceRight(
@@ -1988,19 +1953,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Int16Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -3430,14 +3427,14 @@
+@@ -3410,9 +3431,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2011,17 +1975,11 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Int16Array,
-+      array: this,
-     ) => U,
-     initialValue: U,
-   ): U;
- 
-@@ -3458,20 +3455,24 @@
+@@ -3438,20 +3459,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
-   slice(start?: number, end?: number): Int16Array;
+   slice(start?: number, end?: number): Int16Array<ArrayBuffer>;
 -
    /**
     * Determines whether the specified callback function returns true for any element of an array.
@@ -2032,7 +1990,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  some(
--    predicate: (value: number, index: number, array: Int16Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  some<This = undefined>(
 +    predicate: (
@@ -2046,17 +2004,17 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -3527,25 +3528,23 @@
+@@ -3507,25 +3532,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
-   of(...items: number[]): Int16Array;
+   of(...items: number[]): Int16Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
     * @param arrayLike An array-like or iterable object to convert to an array.
     */
-   from(arrayLike: ArrayLike<number>): Int16Array;
+   from(arrayLike: ArrayLike<number>): Int16Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
@@ -2071,11 +2029,11 @@ Index: es5.d.ts
 -    thisArg?: any,
 +    mapfn: (this: This, v: T, k: number) => number,
 +    thisArg?: This,
-   ): Int16Array;
+   ): Int16Array<ArrayBuffer>;
  }
  declare var Int16Array: Int16ArrayConstructor;
  
-@@ -3583,20 +3582,24 @@
+@@ -3563,20 +3586,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -2090,7 +2048,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  every(
--    predicate: (value: number, index: number, array: Uint16Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  every<This = undefined>(
 +    predicate: (
@@ -2104,7 +2062,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -3606,21 +3609,24 @@
+@@ -3586,21 +3613,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -2118,8 +2076,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  filter(
--    predicate: (value: number, index: number, array: Uint16Array) => any,
+-    predicate: (value: number, index: number, array: this) => any,
 -    thisArg?: any,
+-  ): Uint16Array<ArrayBuffer>;
+-
 +  filter<This = undefined>(
 +    predicate: (
 +      this: This,
@@ -2128,19 +2088,18 @@ Index: es5.d.ts
 +      array: this,
 +    ) => boolean,
 +    thisArg?: This,
-   ): Uint16Array;
--
++  ): Uint16Array;
    /**
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3628,13 +3634,12 @@
+@@ -3608,13 +3638,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  find(
--    predicate: (value: number, index: number, obj: Uint16Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  find<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -2151,13 +2110,13 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3642,23 +3647,22 @@
+@@ -3622,23 +3651,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  findIndex(
--    predicate: (value: number, index: number, obj: Uint16Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  findIndex<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -2172,7 +2131,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
--    callbackfn: (value: number, index: number, array: Uint16Array) => void,
+-    callbackfn: (value: number, index: number, array: this) => void,
 -    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
@@ -2181,7 +2140,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -3686,50 +3690,40 @@
+@@ -3666,50 +3694,40 @@
    /**
     * The length of the array.
     */
@@ -2196,8 +2155,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  map(
--    callbackfn: (value: number, index: number, array: Uint16Array) => number,
+-    callbackfn: (value: number, index: number, array: this) => number,
 -    thisArg?: any,
+-  ): Uint16Array<ArrayBuffer>;
+-
 +  map<This = undefined>(
 +    callbackfn: (
 +      this: This,
@@ -2206,8 +2167,7 @@ Index: es5.d.ts
 +      array: this,
 +    ) => number,
 +    thisArg?: This,
-   ): Uint16Array;
--
++  ): Uint16Array;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
@@ -2225,7 +2185,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Uint16Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduce(
@@ -2233,19 +2193,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Uint16Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -3738,46 +3732,32 @@
+@@ -3718,46 +3736,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2256,8 +2215,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Uint16Array,
-+      array: this,
+       array: this,
      ) => U,
      initialValue: U,
    ): U;
@@ -2279,7 +2237,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Uint16Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduceRight(
@@ -2287,19 +2245,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Uint16Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -3786,14 +3766,14 @@
+@@ -3766,9 +3770,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2310,17 +2267,11 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Uint16Array,
-+      array: this,
-     ) => U,
-     initialValue: U,
-   ): U;
- 
-@@ -3814,20 +3794,24 @@
+@@ -3794,20 +3798,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
-   slice(start?: number, end?: number): Uint16Array;
+   slice(start?: number, end?: number): Uint16Array<ArrayBuffer>;
 -
    /**
     * Determines whether the specified callback function returns true for any element of an array.
@@ -2331,7 +2282,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  some(
--    predicate: (value: number, index: number, array: Uint16Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  some<This = undefined>(
 +    predicate: (
@@ -2345,17 +2296,17 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -3883,25 +3867,23 @@
+@@ -3863,25 +3871,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
-   of(...items: number[]): Uint16Array;
+   of(...items: number[]): Uint16Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
     * @param arrayLike An array-like or iterable object to convert to an array.
     */
-   from(arrayLike: ArrayLike<number>): Uint16Array;
+   from(arrayLike: ArrayLike<number>): Uint16Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
@@ -2370,11 +2321,11 @@ Index: es5.d.ts
 -    thisArg?: any,
 +    mapfn: (this: This, v: T, k: number) => number,
 +    thisArg?: This,
-   ): Uint16Array;
+   ): Uint16Array<ArrayBuffer>;
  }
  declare var Uint16Array: Uint16ArrayConstructor;
  /**
-@@ -3938,20 +3920,24 @@
+@@ -3918,20 +3924,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -2389,7 +2340,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  every(
--    predicate: (value: number, index: number, array: Int32Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  every<This = undefined>(
 +    predicate: (
@@ -2403,7 +2354,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -3961,21 +3947,24 @@
+@@ -3941,21 +3951,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -2417,8 +2368,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  filter(
--    predicate: (value: number, index: number, array: Int32Array) => any,
+-    predicate: (value: number, index: number, array: this) => any,
 -    thisArg?: any,
+-  ): Int32Array<ArrayBuffer>;
+-
 +  filter<This = undefined>(
 +    predicate: (
 +      this: This,
@@ -2427,19 +2380,18 @@ Index: es5.d.ts
 +      array: this,
 +    ) => boolean,
 +    thisArg?: This,
-   ): Int32Array;
--
++  ): Int32Array;
    /**
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3983,13 +3972,12 @@
+@@ -3963,13 +3976,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  find(
--    predicate: (value: number, index: number, obj: Int32Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  find<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -2450,13 +2402,13 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3997,23 +3985,22 @@
+@@ -3977,23 +3989,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  findIndex(
--    predicate: (value: number, index: number, obj: Int32Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  findIndex<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -2471,7 +2423,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
--    callbackfn: (value: number, index: number, array: Int32Array) => void,
+-    callbackfn: (value: number, index: number, array: this) => void,
 -    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
@@ -2480,7 +2432,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -4041,50 +4028,40 @@
+@@ -4021,50 +4032,40 @@
    /**
     * The length of the array.
     */
@@ -2495,8 +2447,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  map(
--    callbackfn: (value: number, index: number, array: Int32Array) => number,
+-    callbackfn: (value: number, index: number, array: this) => number,
 -    thisArg?: any,
+-  ): Int32Array<ArrayBuffer>;
+-
 +  map<This = undefined>(
 +    callbackfn: (
 +      this: This,
@@ -2505,8 +2459,7 @@ Index: es5.d.ts
 +      array: this,
 +    ) => number,
 +    thisArg?: This,
-   ): Int32Array;
--
++  ): Int32Array;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
@@ -2524,7 +2477,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Int32Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduce(
@@ -2532,19 +2485,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Int32Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -4093,46 +4070,32 @@
+@@ -4073,46 +4074,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2555,8 +2507,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Int32Array,
-+      array: this,
+       array: this,
      ) => U,
      initialValue: U,
    ): U;
@@ -2578,7 +2529,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Int32Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduceRight(
@@ -2586,19 +2537,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Int32Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -4141,14 +4104,14 @@
+@@ -4121,9 +4108,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2609,17 +2559,11 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Int32Array,
-+      array: this,
-     ) => U,
-     initialValue: U,
-   ): U;
- 
-@@ -4169,20 +4132,24 @@
+@@ -4149,20 +4136,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
-   slice(start?: number, end?: number): Int32Array;
+   slice(start?: number, end?: number): Int32Array<ArrayBuffer>;
 -
    /**
     * Determines whether the specified callback function returns true for any element of an array.
@@ -2630,7 +2574,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  some(
--    predicate: (value: number, index: number, array: Int32Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  some<This = undefined>(
 +    predicate: (
@@ -2644,17 +2588,17 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -4238,25 +4205,23 @@
+@@ -4218,25 +4209,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
-   of(...items: number[]): Int32Array;
+   of(...items: number[]): Int32Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
     * @param arrayLike An array-like or iterable object to convert to an array.
     */
-   from(arrayLike: ArrayLike<number>): Int32Array;
+   from(arrayLike: ArrayLike<number>): Int32Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
@@ -2669,11 +2613,11 @@ Index: es5.d.ts
 -    thisArg?: any,
 +    mapfn: (this: This, v: T, k: number) => number,
 +    thisArg?: This,
-   ): Int32Array;
+   ): Int32Array<ArrayBuffer>;
  }
  declare var Int32Array: Int32ArrayConstructor;
  
-@@ -4294,20 +4259,24 @@
+@@ -4274,20 +4263,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -2688,7 +2632,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  every(
--    predicate: (value: number, index: number, array: Uint32Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  every<This = undefined>(
 +    predicate: (
@@ -2702,7 +2646,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -4317,21 +4286,24 @@
+@@ -4297,21 +4290,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -2716,8 +2660,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  filter(
--    predicate: (value: number, index: number, array: Uint32Array) => any,
+-    predicate: (value: number, index: number, array: this) => any,
 -    thisArg?: any,
+-  ): Uint32Array<ArrayBuffer>;
+-
 +  filter<This = undefined>(
 +    predicate: (
 +      this: This,
@@ -2726,19 +2672,18 @@ Index: es5.d.ts
 +      array: this,
 +    ) => boolean,
 +    thisArg?: This,
-   ): Uint32Array;
--
++  ): Uint32Array;
    /**
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -4339,13 +4311,12 @@
+@@ -4319,13 +4315,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  find(
--    predicate: (value: number, index: number, obj: Uint32Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  find<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -2749,13 +2694,13 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -4353,23 +4324,22 @@
+@@ -4333,23 +4328,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  findIndex(
--    predicate: (value: number, index: number, obj: Uint32Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  findIndex<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -2770,7 +2715,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
--    callbackfn: (value: number, index: number, array: Uint32Array) => void,
+-    callbackfn: (value: number, index: number, array: this) => void,
 -    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
@@ -2779,7 +2724,7 @@ Index: es5.d.ts
    /**
     * Returns the index of the first occurrence of a value in an array.
     * @param searchElement The value to locate in the array.
-@@ -4396,50 +4366,40 @@
+@@ -4376,50 +4370,40 @@
    /**
     * The length of the array.
     */
@@ -2794,8 +2739,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  map(
--    callbackfn: (value: number, index: number, array: Uint32Array) => number,
+-    callbackfn: (value: number, index: number, array: this) => number,
 -    thisArg?: any,
+-  ): Uint32Array<ArrayBuffer>;
+-
 +  map<This = undefined>(
 +    callbackfn: (
 +      this: This,
@@ -2804,8 +2751,7 @@ Index: es5.d.ts
 +      array: this,
 +    ) => number,
 +    thisArg?: This,
-   ): Uint32Array;
--
++  ): Uint32Array;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
@@ -2823,7 +2769,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Uint32Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduce(
@@ -2831,19 +2777,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Uint32Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -4448,46 +4408,32 @@
+@@ -4428,46 +4412,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2854,8 +2799,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Uint32Array,
-+      array: this,
+       array: this,
      ) => U,
      initialValue: U,
    ): U;
@@ -2877,7 +2821,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Uint32Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduceRight(
@@ -2885,19 +2829,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Uint32Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -4496,14 +4442,14 @@
+@@ -4476,9 +4446,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2908,17 +2851,11 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Uint32Array,
-+      array: this,
-     ) => U,
-     initialValue: U,
-   ): U;
- 
-@@ -4524,20 +4470,24 @@
+@@ -4504,20 +4474,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
-   slice(start?: number, end?: number): Uint32Array;
+   slice(start?: number, end?: number): Uint32Array<ArrayBuffer>;
 -
    /**
     * Determines whether the specified callback function returns true for any element of an array.
@@ -2929,7 +2866,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  some(
--    predicate: (value: number, index: number, array: Uint32Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  some<This = undefined>(
 +    predicate: (
@@ -2943,17 +2880,17 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -4593,25 +4543,23 @@
+@@ -4573,25 +4547,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
-   of(...items: number[]): Uint32Array;
+   of(...items: number[]): Uint32Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
     * @param arrayLike An array-like or iterable object to convert to an array.
     */
-   from(arrayLike: ArrayLike<number>): Uint32Array;
+   from(arrayLike: ArrayLike<number>): Uint32Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
@@ -2968,11 +2905,11 @@ Index: es5.d.ts
 -    thisArg?: any,
 +    mapfn: (this: This, v: T, k: number) => number,
 +    thisArg?: This,
-   ): Uint32Array;
+   ): Uint32Array<ArrayBuffer>;
  }
  declare var Uint32Array: Uint32ArrayConstructor;
  
-@@ -4649,20 +4597,24 @@
+@@ -4629,20 +4601,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -2987,7 +2924,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  every(
--    predicate: (value: number, index: number, array: Float32Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  every<This = undefined>(
 +    predicate: (
@@ -3001,7 +2938,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -4672,21 +4624,24 @@
+@@ -4652,21 +4628,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -3015,8 +2952,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  filter(
--    predicate: (value: number, index: number, array: Float32Array) => any,
+-    predicate: (value: number, index: number, array: this) => any,
 -    thisArg?: any,
+-  ): Float32Array<ArrayBuffer>;
+-
 +  filter<This = undefined>(
 +    predicate: (
 +      this: This,
@@ -3025,19 +2964,18 @@ Index: es5.d.ts
 +      array: this,
 +    ) => boolean,
 +    thisArg?: This,
-   ): Float32Array;
--
++  ): Float32Array;
    /**
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -4694,13 +4649,12 @@
+@@ -4674,13 +4653,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  find(
--    predicate: (value: number, index: number, obj: Float32Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  find<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -3048,13 +2986,13 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -4708,23 +4662,22 @@
+@@ -4688,23 +4666,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  findIndex(
--    predicate: (value: number, index: number, obj: Float32Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  findIndex<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -3069,7 +3007,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
--    callbackfn: (value: number, index: number, array: Float32Array) => void,
+-    callbackfn: (value: number, index: number, array: this) => void,
 -    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
@@ -3078,7 +3016,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -4752,50 +4705,40 @@
+@@ -4732,50 +4709,40 @@
    /**
     * The length of the array.
     */
@@ -3093,8 +3031,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  map(
--    callbackfn: (value: number, index: number, array: Float32Array) => number,
+-    callbackfn: (value: number, index: number, array: this) => number,
 -    thisArg?: any,
+-  ): Float32Array<ArrayBuffer>;
+-
 +  map<This = undefined>(
 +    callbackfn: (
 +      this: This,
@@ -3103,8 +3043,7 @@ Index: es5.d.ts
 +      array: this,
 +    ) => number,
 +    thisArg?: This,
-   ): Float32Array;
--
++  ): Float32Array;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
@@ -3122,7 +3061,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Float32Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduce(
@@ -3130,19 +3069,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Float32Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -4804,46 +4747,32 @@
+@@ -4784,46 +4751,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -3153,8 +3091,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Float32Array,
-+      array: this,
+       array: this,
      ) => U,
      initialValue: U,
    ): U;
@@ -3176,7 +3113,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Float32Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduceRight(
@@ -3184,19 +3121,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Float32Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -4852,14 +4781,14 @@
+@@ -4832,9 +4785,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -3207,17 +3143,11 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Float32Array,
-+      array: this,
-     ) => U,
-     initialValue: U,
-   ): U;
- 
-@@ -4880,20 +4809,24 @@
+@@ -4860,20 +4813,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
-   slice(start?: number, end?: number): Float32Array;
+   slice(start?: number, end?: number): Float32Array<ArrayBuffer>;
 -
    /**
     * Determines whether the specified callback function returns true for any element of an array.
@@ -3228,7 +3158,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  some(
--    predicate: (value: number, index: number, array: Float32Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  some<This = undefined>(
 +    predicate: (
@@ -3242,17 +3172,17 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -4949,25 +4882,23 @@
+@@ -4929,25 +4886,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
-   of(...items: number[]): Float32Array;
+   of(...items: number[]): Float32Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
     * @param arrayLike An array-like or iterable object to convert to an array.
     */
-   from(arrayLike: ArrayLike<number>): Float32Array;
+   from(arrayLike: ArrayLike<number>): Float32Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
@@ -3267,11 +3197,11 @@ Index: es5.d.ts
 -    thisArg?: any,
 +    mapfn: (this: This, v: T, k: number) => number,
 +    thisArg?: This,
-   ): Float32Array;
+   ): Float32Array<ArrayBuffer>;
  }
  declare var Float32Array: Float32ArrayConstructor;
  
-@@ -5005,20 +4936,24 @@
+@@ -4985,20 +4940,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -3286,7 +3216,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  every(
--    predicate: (value: number, index: number, array: Float64Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  every<This = undefined>(
 +    predicate: (
@@ -3300,7 +3230,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -5028,21 +4963,24 @@
+@@ -5008,21 +4967,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -3314,8 +3244,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  filter(
--    predicate: (value: number, index: number, array: Float64Array) => any,
+-    predicate: (value: number, index: number, array: this) => any,
 -    thisArg?: any,
+-  ): Float64Array<ArrayBuffer>;
+-
 +  filter<This = undefined>(
 +    predicate: (
 +      this: This,
@@ -3324,19 +3256,18 @@ Index: es5.d.ts
 +      array: this,
 +    ) => boolean,
 +    thisArg?: This,
-   ): Float64Array;
--
++  ): Float64Array;
    /**
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -5050,13 +4988,12 @@
+@@ -5030,13 +4992,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  find(
--    predicate: (value: number, index: number, obj: Float64Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  find<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -3347,13 +3278,13 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -5064,23 +5001,22 @@
+@@ -5044,23 +5005,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
     */
 -  findIndex(
--    predicate: (value: number, index: number, obj: Float64Array) => boolean,
+-    predicate: (value: number, index: number, obj: this) => boolean,
 -    thisArg?: any,
 +  findIndex<This = undefined>(
 +    predicate: (this: This, value: number, index: number, obj: this) => boolean,
@@ -3368,7 +3299,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
--    callbackfn: (value: number, index: number, array: Float64Array) => void,
+-    callbackfn: (value: number, index: number, array: this) => void,
 -    thisArg?: any,
 +  forEach<This = undefined>(
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
@@ -3377,7 +3308,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -5108,50 +5044,40 @@
+@@ -5088,50 +5048,40 @@
    /**
     * The length of the array.
     */
@@ -3392,8 +3323,10 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  map(
--    callbackfn: (value: number, index: number, array: Float64Array) => number,
+-    callbackfn: (value: number, index: number, array: this) => number,
 -    thisArg?: any,
+-  ): Float64Array<ArrayBuffer>;
+-
 +  map<This = undefined>(
 +    callbackfn: (
 +      this: This,
@@ -3402,8 +3335,7 @@ Index: es5.d.ts
 +      array: this,
 +    ) => number,
 +    thisArg?: This,
-   ): Float64Array;
--
++  ): Float64Array;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
@@ -3421,7 +3353,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Float64Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduce(
@@ -3429,19 +3361,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Float64Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -5160,46 +5086,32 @@
+@@ -5140,46 +5090,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -3452,8 +3383,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Float64Array,
-+      array: this,
+       array: this,
      ) => U,
      initialValue: U,
    ): U;
@@ -3475,7 +3405,7 @@ Index: es5.d.ts
 +      previousValue: number | U,
        currentValue: number,
        currentIndex: number,
--      array: Float64Array,
+       array: this,
 -    ) => number,
 -  ): number;
 -  reduceRight(
@@ -3483,19 +3413,18 @@ Index: es5.d.ts
 -      previousValue: number,
 -      currentValue: number,
 -      currentIndex: number,
--      array: Float64Array,
+-      array: this,
 -    ) => number,
 -    initialValue: number,
 -  ): number;
 -
-+      array: this,
 +    ) => U,
 +  ): number | U;
    /**
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -5208,14 +5120,14 @@
+@@ -5188,9 +5124,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -3506,17 +3435,11 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
--      array: Float64Array,
-+      array: this,
-     ) => U,
-     initialValue: U,
-   ): U;
- 
-@@ -5236,20 +5148,24 @@
+@@ -5216,20 +5152,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
-   slice(start?: number, end?: number): Float64Array;
+   slice(start?: number, end?: number): Float64Array<ArrayBuffer>;
 -
    /**
     * Determines whether the specified callback function returns true for any element of an array.
@@ -3527,7 +3450,7 @@ Index: es5.d.ts
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  some(
--    predicate: (value: number, index: number, array: Float64Array) => unknown,
+-    predicate: (value: number, index: number, array: this) => unknown,
 -    thisArg?: any,
 +  some<This = undefined>(
 +    predicate: (
@@ -3541,17 +3464,17 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -5305,25 +5221,23 @@
+@@ -5285,25 +5225,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
-   of(...items: number[]): Float64Array;
+   of(...items: number[]): Float64Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
     * @param arrayLike An array-like or iterable object to convert to an array.
     */
-   from(arrayLike: ArrayLike<number>): Float64Array;
+   from(arrayLike: ArrayLike<number>): Float64Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
@@ -3566,11 +3489,11 @@ Index: es5.d.ts
 -    thisArg?: any,
 +    mapfn: (this: This, v: T, k: number) => number,
 +    thisArg?: This,
-   ): Float64Array;
+   ): Float64Array<ArrayBuffer>;
  }
  declare var Float64Array: Float64ArrayConstructor;
  
-@@ -5584,4 +5498,33 @@
+@@ -5564,4 +5502,33 @@
      locales?: string | string[],
      options?: Intl.DateTimeFormatOptions,
    ): string;

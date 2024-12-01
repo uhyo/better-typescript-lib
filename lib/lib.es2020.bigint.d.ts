@@ -1,4 +1,6 @@
-interface TypedBigIntArray {
+interface TypedBigIntArray<
+  TArrayBuffer extends ArrayBufferLike = ArrayBufferLike,
+> {
   /**
    * Determines whether all the members of an array satisfy the specified test.
    * @param predicate A function that accepts up to three arguments. The every method calls
@@ -188,7 +190,9 @@ interface TypedBigIntArrayConstructor {
    * Creates an array from an array-like or iterable object.
    * @param arrayLike An array-like or iterable object to convert to an array.
    */
-  from(arrayLike: Iterable<bigint> | ArrayLike<bigint>): TypedBigIntArray;
+  from(
+    arrayLike: Iterable<bigint> | ArrayLike<bigint>,
+  ): TypedBigIntArray<ArrayBuffer>;
   /**
    * Creates an array from an array-like or iterable object.
    * @param arrayLike An array-like or iterable object to convert to an array.
@@ -199,5 +203,5 @@ interface TypedBigIntArrayConstructor {
     arrayLike: Iterable<T> | ArrayLike<T>,
     mapfn: (this: This, v: T, k: number) => bigint,
     thisArg?: This,
-  ): TypedBigIntArray;
+  ): TypedBigIntArray<ArrayBuffer>;
 }
