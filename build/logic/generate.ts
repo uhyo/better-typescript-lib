@@ -303,7 +303,6 @@ function isPartialReplacement(
   betterFile: ts.SourceFile,
 ): boolean {
   // Compare type parameters and herigate using full text.
-  if (interfaceDecl.name.escapedText === "Uint8Array") debugger;
   if (
     interfaceDecl.typeParameters !== undefined &&
     replacementDecl.typeParameters !== undefined &&
