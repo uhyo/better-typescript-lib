@@ -366,6 +366,16 @@ expectType<{ foo: number; bar: string; baz: boolean }>(
       return new Date(value) < new Date("1900-01-01") ? undefined : value;
     }),
   );
+  // replacer or null
+  const optReplacer1 = ["a"] as string[] | null;
+  expectType<string>(JSON.stringify(null, optReplacer1));
+  expectType<string>(JSON.stringify(null, optReplacer1, 2));
+  const optReplacer2 = (() => "a") as (() => string) | null;
+  expectType<string>(JSON.stringify(null, optReplacer2));
+  expectType<string>(JSON.stringify(null, optReplacer2, 2));
+  const optReplacer3 = (() => "a") as (() => string | undefined) | null;
+  expectType<string | undefined>(JSON.stringify(null, optReplacer3));
+  expectType<string | undefined>(JSON.stringify(null, optReplacer3, 2));
 }
 
 // ReadonlyArray
