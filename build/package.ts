@@ -106,7 +106,7 @@ async function main() {
             `file:${path.relative(
               path.dirname(packageJsonPath),
               path.join(packageDir, packageName),
-            )}`,
+            ).replace(/\\/g, "/")}`,
           ]),
         ),
       },
