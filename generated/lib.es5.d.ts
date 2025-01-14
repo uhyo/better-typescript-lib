@@ -2095,10 +2095,10 @@ interface PromiseLike<T> {
    * @param onrejected The callback to execute when the Promise is rejected.
    * @returns A Promise for the completion of which ever callback is executed.
    */
-  then(
-    onfulfilled?: null | undefined,
-    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined,
-  ): PromiseLike<T>;
+  then<U>(
+    onfulfilled: (value: T) => U | PromiseLike<U>,
+    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
+  ): PromiseLike<U>;
 
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2107,9 +2107,9 @@ interface PromiseLike<T> {
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<U>(
-    onfulfilled: (value: T) => U | PromiseLike<U>,
+    onfulfilled: ((value: T) => U | PromiseLike<U>) | null | undefined,
     onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
-  ): PromiseLike<U>;
+  ): PromiseLike<T | U>;
 }
 //     /**
 //      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2126,10 +2126,10 @@ interface Promise<T> extends PromiseLike<T> {
    * @param onrejected The callback to execute when the Promise is rejected.
    * @returns A Promise for the completion of which ever callback is executed.
    */
-  then(
-    onfulfilled?: null | undefined,
-    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined,
-  ): Promise<T>;
+  then<U>(
+    onfulfilled: (value: T) => U | PromiseLike<U>,
+    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
+  ): Promise<U>;
 
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2138,18 +2138,18 @@ interface Promise<T> extends PromiseLike<T> {
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<U>(
-    onfulfilled: (value: T) => U | PromiseLike<U>,
+    onfulfilled: ((value: T) => U | PromiseLike<U>) | null | undefined,
     onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
-  ): Promise<U>;
+  ): Promise<T | U>;
 
   /**
    * Attaches a callback for only the rejection of the Promise.
    * @param onrejected The callback to execute when the Promise is rejected.
    * @returns A Promise for the completion of the callback.
    */
-  catch(
-    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined,
-  ): Promise<T>;
+  catch<U>(
+    onrejected: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
+  ): Promise<T | U>;
 }
 // /**
 //  * Represents the completion of an asynchronous operation

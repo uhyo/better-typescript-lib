@@ -793,10 +793,10 @@ Index: es5.d.ts
 -      | undefined
 -      | null,
 -  ): PromiseLike<TResult1 | TResult2>;
-+  then(
-+    onfulfilled?: null | undefined,
-+    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined,
-+  ): PromiseLike<T>;
++  then<U>(
++    onfulfilled: (value: T) => U | PromiseLike<U>,
++    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
++  ): PromiseLike<U>;
 +
 +  /**
 +   * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -805,9 +805,9 @@ Index: es5.d.ts
 +   * @returns A Promise for the completion of which ever callback is executed.
 +   */
 +  then<U>(
-+    onfulfilled: (value: T) => U | PromiseLike<U>,
++    onfulfilled: ((value: T) => U | PromiseLike<U>) | null | undefined,
 +    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
-+  ): PromiseLike<U>;
++  ): PromiseLike<T | U>;
  }
  
 -/**
@@ -831,10 +831,10 @@ Index: es5.d.ts
 -      | undefined
 -      | null,
 -  ): Promise<TResult1 | TResult2>;
-+  then(
-+    onfulfilled?: null | undefined,
-+    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined,
-+  ): Promise<T>;
++  then<U>(
++    onfulfilled: (value: T) => U | PromiseLike<U>,
++    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
++  ): Promise<U>;
  
    /**
 +   * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -843,9 +843,9 @@ Index: es5.d.ts
 +   * @returns A Promise for the completion of which ever callback is executed.
 +   */
 +  then<U>(
-+    onfulfilled: (value: T) => U | PromiseLike<U>,
++    onfulfilled: ((value: T) => U | PromiseLike<U>) | null | undefined,
 +    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
-+  ): Promise<U>;
++  ): Promise<T | U>;
 +
 +  /**
     * Attaches a callback for only the rejection of the Promise.
@@ -858,9 +858,9 @@ Index: es5.d.ts
 -      | undefined
 -      | null,
 -  ): Promise<T | TResult>;
-+  catch(
-+    onrejected?: ((reason: unknown) => T | PromiseLike<T>) | null | undefined,
-+  ): Promise<T>;
++  catch<U>(
++    onrejected: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
++  ): Promise<T | U>;
  }
  
  /**

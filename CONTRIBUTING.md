@@ -20,6 +20,16 @@ Feature suggestions are welcome, but please be aware that:
 
 Below are the guidelines for submitting a pull request.
 
+### Preparations
+
+If you are working on Windows, you may need to enable support for long paths in Git, othwise cloning the submodule may fail. Open an administrator shell, and execute `git config --system core.longpaths true`.
+
+In the cloned repository:
+
+1. `git submodule init`
+2. `git submodule update` (downloading the 3 GB sized TypeScript repository will take a while ...)
+3. `npm install`
+
 ### How to change type definitions
 
 better-typescript-lib replaces the built-in type definitions with its own ones. The renewed definitions are in the `lib/` directory.
@@ -49,7 +59,7 @@ For other declarations, such as type aliases, enums, and namespaces, the replace
 
 ### Committing Build Artifacts
 
-Currently, build artifacts needs to be committed. Follow the following steps to build and commit them.
+Currently, build artifacts need to be committed. Follow the steps below to build and commit them.
 
 1. `npm run build:tsc`
 2. `npm run build:lib`
