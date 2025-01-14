@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.10.1
+
+- fix: more generic types for `Promise.then` and `Promise.catch` (https://github.com/uhyo/better-typescript-lib/pull/60)
+- fix: allow to pass function or nullish to JSON.stringify (https://github.com/uhyo/better-typescript-lib/pull/61)
+
 ## v2.10.0
 
 - Upgraded TypeScript to `5.7.2`. (https://github.com/uhyo/better-typescript-lib/pull/54)
