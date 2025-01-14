@@ -284,11 +284,11 @@ interface JSON {
    */
   stringify<A>(
     value: A,
-    replacer: (
+    replacer: ((
       this: JSONComposite<A>,
       key: string,
       value: ToJSON<A>,
-    ) => JSONValueF<A>,
+    ) => JSONValueF<A>) | null | undefined,
     space?: string | number | null | undefined,
   ): string;
   /**
@@ -299,11 +299,11 @@ interface JSON {
    */
   stringify<A>(
     value: A,
-    replacer: (
+    replacer: ((
       this: JSONComposite<A>,
       key: string,
       value: ToJSON<A>,
-    ) => JSONValueF<A> | undefined,
+    ) => JSONValueF<A> | undefined) | null | undefined,
     space?: string | number | null | undefined,
   ): string | undefined;
 }
