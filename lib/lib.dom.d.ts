@@ -229,3 +229,22 @@ interface CustomStateSet {
     thisArg?: This,
   ): void;
 }
+
+interface Document
+  extends Node,
+    DocumentOrShadowRoot,
+    FontFaceSource,
+    GlobalEventHandlers,
+    NonElementParentNode,
+    ParentNode,
+    XPathEvaluatorBase {
+  /**
+   * Returns a reference to the first object with the specified value of the ID attribute.
+   * @param elementId String that specifies the ID value.
+   */
+  getElementById(elementId: string): Element | null;
+}
+
+interface DocumentFragment extends Node, NonElementParentNode, ParentNode {
+  getElementById(elementId: string): Element | null;
+}

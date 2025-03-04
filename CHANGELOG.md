@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- fix: correct return type of `document.getElementById` from `HTMLElement | null` to `Element | null` to account for more general situations like `SVGElement`
+
 ## v2.10.1
 
 - fix: more generic types for `Promise.then` and `Promise.catch` (https://github.com/uhyo/better-typescript-lib/pull/60)

@@ -51,6 +51,28 @@ Index: dom.generated.d.ts
  }
  
  declare var CustomStateSet: {
+@@ -8375,9 +8380,9 @@
+   /**
+    * Returns a reference to the first object with the specified value of the ID attribute.
+    * @param elementId String that specifies the ID value.
+    */
+-  getElementById(elementId: string): HTMLElement | null;
++  getElementById(elementId: string): Element | null;
+   /**
+    * Returns a HTMLCollection of the elements in the object on which the method was invoked (a document or an element) that have all the classes given by classNames. The classNames argument is interpreted as a space-separated list of classes.
+    *
+    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/getElementsByClassName)
+@@ -8563,9 +8568,9 @@
+  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DocumentFragment)
+  */
+ interface DocumentFragment extends Node, NonElementParentNode, ParentNode {
+   readonly ownerDocument: Document;
+-  getElementById(elementId: string): HTMLElement | null;
++  getElementById(elementId: string): Element | null;
+ }
+ 
+ declare var DocumentFragment: {
+   prototype: DocumentFragment;
 @@ -9378,11 +9383,11 @@
  };
  
