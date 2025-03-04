@@ -335,9 +335,11 @@ function isPartialReplacement(
     const rhc = replacementDecl.heritageClauses;
     if (
       interfaceDecl.heritageClauses.some((heritageClause, index) => {
-        return (
-          heritageClause.getFullText(originalFile) !==
-          rhc[index].getFullText(betterFile)
+        return !heritageClauseEquals(
+          heritageClause,
+          rhc[index],
+          originalFile,
+          betterFile,
         );
       })
     ) {
@@ -348,6 +350,29 @@ function isPartialReplacement(
     replacementDecl.heritageClauses !== undefined
   ) {
     return false;
+  }
+  return true;
+}
+
+function heritageClauseEquals(
+  left: ts.HeritageClause,
+  right: ts.HeritageClause,
+  leftSourceFile: ts.SourceFile,
+  rightSourceFile: ts.SourceFile,
+): boolean {
+  if (left.token !== right.token) {
+    return false;
+  }
+  if (left.types.length !== right.types.length) {
+    return false;
+  }
+  for (let i = 0; i < left.types.length; i++) {
+    if (
+      left.types[i].getFullText(leftSourceFile).trim() !==
+      right.types[i].getFullText(rightSourceFile).trim()
+    ) {
+      return false;
+    }
   }
   return true;
 }

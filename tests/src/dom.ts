@@ -148,3 +148,16 @@ const test = async (url: string) => {
   // @ts-expect-error
   item.append("a");
 }
+
+// document.getElementById
+{
+  const element = document.getElementById("test");
+  expectType<Element | null>(element);
+
+  // Verify that the return type is not specifically HTMLElement
+  expectNotType<HTMLElement | null>(element);
+
+  // Verify that SVGElement is assignable to the return type (without type assertion)
+  const svgElement: SVGElement = {} as SVGElement;
+  const elementOrNull: typeof element = svgElement;
+}

@@ -1,0 +1,11 @@
+# Project Structure
+
+This project, better-ts-lib, is a project that provides an alternative to TypeScript's standard library. The main ingredients of this project are in the `lib/` directory which contains incremental differences to the standard library.
+
+This project is structured differently from ordinary TypeScript projects. Carefully read CONTRIBUTING.md to understand how to modify the type definitions, how to build the project, and how to test the project.
+
+# Restrictions
+
+## Original TypeScript type definitions
+
+Please do not try to read the original type definitions from TypeScript. Those may be very large and you cannot read it. Instead, ask the user to provide relevant code snippets from the original type definitions.

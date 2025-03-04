@@ -8386,7 +8386,7 @@ interface Document
    * Returns a reference to the first object with the specified value of the ID attribute.
    * @param elementId String that specifies the ID value.
    */
-  getElementById(elementId: string): HTMLElement | null;
+  getElementById(elementId: string): Element | null;
   /**
    * Returns a HTMLCollection of the elements in the object on which the method was invoked (a document or an element) that have all the classes given by classNames. The classNames argument is interpreted as a space-separated list of classes.
    *
@@ -8559,6 +8559,11 @@ interface Document
     options?: boolean | EventListenerOptions,
   ): void;
 }
+//     /**
+//      * Returns a reference to the first object with the specified value of the ID attribute.
+//      * @param elementId String that specifies the ID value.
+//      */
+//     getElementById(elementId: string): HTMLElement | null;
 
 declare var Document: {
   prototype: Document;
@@ -8574,8 +8579,9 @@ declare var Document: {
  */
 interface DocumentFragment extends Node, NonElementParentNode, ParentNode {
   readonly ownerDocument: Document;
-  getElementById(elementId: string): HTMLElement | null;
+  getElementById(elementId: string): Element | null;
 }
+//     getElementById(elementId: string): HTMLElement | null;
 
 declare var DocumentFragment: {
   prototype: DocumentFragment;
