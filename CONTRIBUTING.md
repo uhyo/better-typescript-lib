@@ -57,6 +57,33 @@ interface A {
 
 For other declarations, such as type aliases, enums, and namespaces, the replacement is done on per-name basis. If our definition includes an `A` type alias, the entire declaration of `A` is replaced with ours.
 
+#### Precisely duplicate the interface shape
+
+Note that if you are to replace a field of an interface that has type parameters or an `extends` clause, you need to duplicate the entire interface shape for the partial replacement to work.
+
+```ts
+// Original
+interface A<T> extends Base<T> {
+  field1: T;
+  field2: number;
+}
+
+// Our lib/ definition
+interface A<T> extends Base<T> {
+  field1: SomeRefinedType;
+}
+```
+
+### How to Run Tests
+
+Follow below steps to run tests locally.
+
+1. `npm run build:tsc` (this is required only once, or when you change code in `build/`)
+2. `npm run build:lib` (this reflects the changes in `lib/` to `generated/`)
+3. `npm run build:package` (this puts the generated files in `package/`)
+4. `npm install` in tests directory
+5. `npm test` in tests directory
+
 ### Committing Build Artifacts
 
 Currently, build artifacts need to be committed. Follow the steps below to build and commit them.
@@ -65,16 +92,6 @@ Currently, build artifacts need to be committed. Follow the steps below to build
 2. `npm run build:lib`
 3. `npm run build:diff`
 4. Commit the build artifacts
-
-### How to Run Tests
-
-Follow below steps to run tests locally.
-
-1. `npm run build:tsc`
-2. `npm run build:lib`
-3. `npm run build:package`
-4. `npm install` in tests directory
-5. `npm test` in tests directory
 
 ## Upgrading TypeScript version
 

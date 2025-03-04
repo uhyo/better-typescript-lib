@@ -9,3 +9,15 @@ This project is structured differently from ordinary TypeScript projects. Carefu
 ## Original TypeScript type definitions
 
 Please do not try to read the original type definitions from TypeScript. Those may be very large and you cannot read it. Instead, ask the user to provide relevant code snippets from the original type definitions.
+
+# Development
+
+## Modifying the type definitions
+
+Modify the type definitions in the `lib/` directory to implement an improvement to the standard library.
+
+Note: while editing the files in `lib/`, you may see TypeScript errors. However, these errors are expected because the type definitions in `lib/` are incomplete. Do not worry too much about these errors. Instead, focus on test results to ensure that your changes are correct.
+
+## Adding tests
+
+When you modify the type definitions, you should add tests to ensure that your changes are correct. Add tests to the `test/` directory. Read the CONTRIBUTING.md file to understand how to run the tests.
