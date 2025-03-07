@@ -284,11 +284,14 @@ interface JSON {
    */
   stringify<A>(
     value: A,
-    replacer: ((
-      this: JSONComposite<A>,
-      key: string,
-      value: ToJSON<A>,
-    ) => JSONValueF<A>) | null | undefined,
+    replacer:
+      | ((
+          this: JSONComposite<A>,
+          key: string,
+          value: ToJSON<A>,
+        ) => JSONValueF<A>)
+      | null
+      | undefined,
     space?: string | number | null | undefined,
   ): string;
   /**
@@ -299,11 +302,14 @@ interface JSON {
    */
   stringify<A>(
     value: A,
-    replacer: ((
-      this: JSONComposite<A>,
-      key: string,
-      value: ToJSON<A>,
-    ) => JSONValueF<A> | undefined) | null | undefined,
+    replacer:
+      | ((
+          this: JSONComposite<A>,
+          key: string,
+          value: ToJSON<A>,
+        ) => JSONValueF<A> | undefined)
+      | null
+      | undefined,
     space?: string | number | null | undefined,
   ): string | undefined;
 }
@@ -832,3 +838,11 @@ interface TypedNumberArrayConstructor {
     thisArg?: This,
   ): TypedNumberArray<ArrayBuffer>;
 }
+
+/**
+ * Construct a type with the properties of T except for those in type K.
+ *
+ * @deprecated Omit is known to have an undesired behavior. It is recommended to bring your own implementation or use a library.
+ * @see {@link https://github.com/microsoft/TypeScript/issues/54451}
+ */
+type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;

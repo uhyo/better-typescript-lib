@@ -2239,8 +2239,15 @@ type Extract<T, U> = T extends U ? T : never;
 
 /**
  * Construct a type with the properties of T except for those in type K.
+ *
+ * @deprecated Omit is known to have an undesired behavior. It is recommended to bring your own implementation or use a library.
+ * @see {@link https://github.com/microsoft/TypeScript/issues/54451}
  */
 type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+// /**
+//  * Construct a type with the properties of T except for those in type K.
+//  */
+// type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 /**
  * Exclude null and undefined from T
