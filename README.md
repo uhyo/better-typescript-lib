@@ -43,6 +43,24 @@ npm i -D better-typescript-lib
 
 [If you are using TypeScript 4.4 or prior, see the v1 branch.](https://github.com/uhyo/better-typescript-lib/tree/v1)
 
+### Set `libReplacement: true`
+
+If you are using **TypeScript 5.8 or later**, include the following setting in your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    // ...
+    "libReplacement": true
+  }
+}
+```
+
+> [!NOTE]
+> The `libReplacement` option is available from TypeScript 5.8. If you are using TypeScript 5.7 or earlier, better-typescript-lib will work by default.
+>
+> Technically this option is not required for the current version of TypeScript because the default value is `true`. It is recommended to include it for future compatibility. In the following versions of TypeScript (likely 6.0 or later), the default value may be changed to `false` and you will need to set it to `true`.
+
 ### How it works
 
 Starting from TypeScript 4.5, the TypeScript compiler detects existence of `@typescript/lib-xxx` packages (e.g. `@typescript/lib-es2015`) and uses them instead of the built-in definitions. By installing `better-typescript-lib`, these package names are mapped to corresponding `@better-typescript-lib/xxx` packages.
