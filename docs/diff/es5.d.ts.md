@@ -428,8 +428,10 @@ Index: es5.d.ts
    ): boolean;
    /**
     * Performs the specified action for each element in an array.
-    * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array.
-    * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+-   * @param callbackfn A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array.
+-   * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
++   * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array.
++   * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
 -    callbackfn: (value: T, index: number, array: readonly T[]) => void,
@@ -614,8 +616,10 @@ Index: es5.d.ts
    ): boolean;
    /**
     * Performs the specified action for each element in an array.
-    * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array.
-    * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+-   * @param callbackfn A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array.
+-   * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
++   * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array.
++   * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
 -    callbackfn: (value: T, index: number, array: T[]) => void,
@@ -975,9 +979,11 @@ Index: es5.d.ts
 -
    /**
     * Performs the specified action for each element in an array.
-    * @param callbackfn  A function that accepts up to three arguments. forEach calls the
+-   * @param callbackfn A function that accepts up to three arguments. forEach calls the
++   * @param callbackfn  A function that accepts up to three arguments. forEach calls the
     * callbackfn function one time for each element in the array.
-    * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
+-   * @param thisArg An object to which the this keyword can refer in the callbackfn function.
++   * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
@@ -1146,7 +1152,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -2438,25 +2523,23 @@
+@@ -2443,25 +2528,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -1154,13 +1160,15 @@ Index: es5.d.ts
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     */
    from(arrayLike: ArrayLike<number>): Int8Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     * @param mapfn A mapping function to call on every element of the array.
     * @param thisArg Value of 'this' used to invoke the mapfn.
     */
@@ -1175,7 +1183,7 @@ Index: es5.d.ts
  }
  declare var Int8Array: Int8ArrayConstructor;
  
-@@ -2494,20 +2577,24 @@
+@@ -2499,20 +2582,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -1204,7 +1212,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -2517,21 +2604,24 @@
+@@ -2522,21 +2609,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -1235,7 +1243,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2539,13 +2629,12 @@
+@@ -2544,13 +2634,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -1252,7 +1260,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2553,23 +2642,22 @@
+@@ -2558,23 +2647,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -1267,9 +1275,11 @@ Index: es5.d.ts
 -
    /**
     * Performs the specified action for each element in an array.
-    * @param callbackfn  A function that accepts up to three arguments. forEach calls the
+-   * @param callbackfn A function that accepts up to three arguments. forEach calls the
++   * @param callbackfn  A function that accepts up to three arguments. forEach calls the
     * callbackfn function one time for each element in the array.
-    * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
+-   * @param thisArg An object to which the this keyword can refer in the callbackfn function.
++   * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
@@ -1282,7 +1292,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -2597,50 +2685,40 @@
+@@ -2602,50 +2690,40 @@
    /**
     * The length of the array.
     */
@@ -1346,7 +1356,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -2649,46 +2727,32 @@
+@@ -2654,46 +2732,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1398,7 +1408,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -2697,9 +2761,9 @@
+@@ -2702,9 +2766,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1409,7 +1419,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
-@@ -2725,20 +2789,24 @@
+@@ -2730,20 +2794,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -1438,7 +1448,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -2794,25 +2862,23 @@
+@@ -2804,25 +2872,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -1446,13 +1456,15 @@ Index: es5.d.ts
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     */
    from(arrayLike: ArrayLike<number>): Uint8Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     * @param mapfn A mapping function to call on every element of the array.
     * @param thisArg Value of 'this' used to invoke the mapfn.
     */
@@ -1467,7 +1479,7 @@ Index: es5.d.ts
  }
  declare var Uint8Array: Uint8ArrayConstructor;
  
-@@ -2852,20 +2918,24 @@
+@@ -2862,20 +2928,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -1496,7 +1508,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -2875,21 +2945,24 @@
+@@ -2885,21 +2955,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -1527,7 +1539,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2897,13 +2970,12 @@
+@@ -2907,13 +2980,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -1544,7 +1556,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -2911,23 +2983,22 @@
+@@ -2921,23 +2993,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -1559,9 +1571,11 @@ Index: es5.d.ts
 -
    /**
     * Performs the specified action for each element in an array.
-    * @param callbackfn  A function that accepts up to three arguments. forEach calls the
+-   * @param callbackfn A function that accepts up to three arguments. forEach calls the
++   * @param callbackfn  A function that accepts up to three arguments. forEach calls the
     * callbackfn function one time for each element in the array.
-    * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
+-   * @param thisArg An object to which the this keyword can refer in the callbackfn function.
++   * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
@@ -1574,7 +1588,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -2955,50 +3026,40 @@
+@@ -2965,50 +3036,40 @@
    /**
     * The length of the array.
     */
@@ -1638,7 +1652,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -3007,46 +3068,32 @@
+@@ -3017,46 +3078,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1690,7 +1704,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -3055,9 +3102,9 @@
+@@ -3065,9 +3112,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1701,7 +1715,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
-@@ -3083,20 +3130,24 @@
+@@ -3093,20 +3140,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -1730,7 +1744,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -3152,25 +3203,23 @@
+@@ -3167,25 +3218,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -1738,13 +1752,15 @@ Index: es5.d.ts
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     */
    from(arrayLike: ArrayLike<number>): Uint8ClampedArray<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     * @param mapfn A mapping function to call on every element of the array.
     * @param thisArg Value of 'this' used to invoke the mapfn.
     */
@@ -1759,7 +1775,7 @@ Index: es5.d.ts
  }
  declare var Uint8ClampedArray: Uint8ClampedArrayConstructor;
  
-@@ -3208,20 +3257,24 @@
+@@ -3223,20 +3272,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -1788,7 +1804,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -3231,21 +3284,24 @@
+@@ -3246,21 +3299,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -1819,7 +1835,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3253,13 +3309,12 @@
+@@ -3268,13 +3324,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -1836,7 +1852,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3267,23 +3322,22 @@
+@@ -3282,23 +3337,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -1851,9 +1867,11 @@ Index: es5.d.ts
 -
    /**
     * Performs the specified action for each element in an array.
-    * @param callbackfn  A function that accepts up to three arguments. forEach calls the
+-   * @param callbackfn A function that accepts up to three arguments. forEach calls the
++   * @param callbackfn  A function that accepts up to three arguments. forEach calls the
     * callbackfn function one time for each element in the array.
-    * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
+-   * @param thisArg An object to which the this keyword can refer in the callbackfn function.
++   * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
@@ -1866,7 +1884,7 @@ Index: es5.d.ts
    /**
     * Returns the index of the first occurrence of a value in an array.
     * @param searchElement The value to locate in the array.
-@@ -3310,50 +3364,40 @@
+@@ -3325,50 +3379,40 @@
    /**
     * The length of the array.
     */
@@ -1930,7 +1948,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -3362,46 +3406,32 @@
+@@ -3377,46 +3421,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1982,7 +2000,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -3410,9 +3440,9 @@
+@@ -3425,9 +3455,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -1993,7 +2011,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
-@@ -3438,20 +3468,24 @@
+@@ -3453,20 +3483,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -2022,7 +2040,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -3507,25 +3541,23 @@
+@@ -3527,25 +3561,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -2030,13 +2048,15 @@ Index: es5.d.ts
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     */
    from(arrayLike: ArrayLike<number>): Int16Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     * @param mapfn A mapping function to call on every element of the array.
     * @param thisArg Value of 'this' used to invoke the mapfn.
     */
@@ -2051,7 +2071,7 @@ Index: es5.d.ts
  }
  declare var Int16Array: Int16ArrayConstructor;
  
-@@ -3563,20 +3595,24 @@
+@@ -3583,20 +3615,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -2080,7 +2100,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -3586,21 +3622,24 @@
+@@ -3606,21 +3642,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -2111,7 +2131,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3608,13 +3647,12 @@
+@@ -3628,13 +3667,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -2128,7 +2148,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3622,23 +3660,22 @@
+@@ -3642,23 +3680,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -2143,9 +2163,11 @@ Index: es5.d.ts
 -
    /**
     * Performs the specified action for each element in an array.
-    * @param callbackfn  A function that accepts up to three arguments. forEach calls the
+-   * @param callbackfn A function that accepts up to three arguments. forEach calls the
++   * @param callbackfn  A function that accepts up to three arguments. forEach calls the
     * callbackfn function one time for each element in the array.
-    * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
+-   * @param thisArg An object to which the this keyword can refer in the callbackfn function.
++   * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
@@ -2158,7 +2180,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -3666,50 +3703,40 @@
+@@ -3686,50 +3723,40 @@
    /**
     * The length of the array.
     */
@@ -2222,7 +2244,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -3718,46 +3745,32 @@
+@@ -3738,46 +3765,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2274,7 +2296,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -3766,9 +3779,9 @@
+@@ -3786,9 +3799,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2285,7 +2307,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
-@@ -3794,20 +3807,24 @@
+@@ -3814,20 +3827,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -2314,7 +2336,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -3863,25 +3880,23 @@
+@@ -3888,25 +3905,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -2322,13 +2344,15 @@ Index: es5.d.ts
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     */
    from(arrayLike: ArrayLike<number>): Uint16Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     * @param mapfn A mapping function to call on every element of the array.
     * @param thisArg Value of 'this' used to invoke the mapfn.
     */
@@ -2343,7 +2367,7 @@ Index: es5.d.ts
  }
  declare var Uint16Array: Uint16ArrayConstructor;
  /**
-@@ -3918,20 +3933,24 @@
+@@ -3943,20 +3958,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -2372,7 +2396,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -3941,21 +3960,24 @@
+@@ -3966,21 +3985,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -2403,7 +2427,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3963,13 +3985,12 @@
+@@ -3988,13 +4010,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -2420,7 +2444,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -3977,23 +3998,22 @@
+@@ -4002,23 +4023,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -2435,9 +2459,11 @@ Index: es5.d.ts
 -
    /**
     * Performs the specified action for each element in an array.
-    * @param callbackfn  A function that accepts up to three arguments. forEach calls the
+-   * @param callbackfn A function that accepts up to three arguments. forEach calls the
++   * @param callbackfn  A function that accepts up to three arguments. forEach calls the
     * callbackfn function one time for each element in the array.
-    * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
+-   * @param thisArg An object to which the this keyword can refer in the callbackfn function.
++   * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
@@ -2450,7 +2476,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -4021,50 +4041,40 @@
+@@ -4046,50 +4066,40 @@
    /**
     * The length of the array.
     */
@@ -2514,7 +2540,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -4073,46 +4083,32 @@
+@@ -4098,46 +4108,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2566,7 +2592,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -4121,9 +4117,9 @@
+@@ -4146,9 +4142,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2577,7 +2603,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
-@@ -4149,20 +4145,24 @@
+@@ -4174,20 +4170,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -2606,7 +2632,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -4218,25 +4218,23 @@
+@@ -4248,25 +4248,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -2614,13 +2640,15 @@ Index: es5.d.ts
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     */
    from(arrayLike: ArrayLike<number>): Int32Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     * @param mapfn A mapping function to call on every element of the array.
     * @param thisArg Value of 'this' used to invoke the mapfn.
     */
@@ -2635,7 +2663,7 @@ Index: es5.d.ts
  }
  declare var Int32Array: Int32ArrayConstructor;
  
-@@ -4274,20 +4272,24 @@
+@@ -4304,20 +4302,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -2664,7 +2692,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -4297,21 +4299,24 @@
+@@ -4327,21 +4329,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -2695,7 +2723,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -4319,13 +4324,12 @@
+@@ -4349,13 +4354,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -2712,7 +2740,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -4333,23 +4337,22 @@
+@@ -4363,23 +4367,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -2727,9 +2755,11 @@ Index: es5.d.ts
 -
    /**
     * Performs the specified action for each element in an array.
-    * @param callbackfn  A function that accepts up to three arguments. forEach calls the
+-   * @param callbackfn A function that accepts up to three arguments. forEach calls the
++   * @param callbackfn  A function that accepts up to three arguments. forEach calls the
     * callbackfn function one time for each element in the array.
-    * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
+-   * @param thisArg An object to which the this keyword can refer in the callbackfn function.
++   * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
@@ -2742,7 +2772,7 @@ Index: es5.d.ts
    /**
     * Returns the index of the first occurrence of a value in an array.
     * @param searchElement The value to locate in the array.
-@@ -4376,50 +4379,40 @@
+@@ -4406,50 +4409,40 @@
    /**
     * The length of the array.
     */
@@ -2806,7 +2836,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -4428,46 +4421,32 @@
+@@ -4458,46 +4451,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2858,7 +2888,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -4476,9 +4455,9 @@
+@@ -4506,9 +4485,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -2869,7 +2899,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
-@@ -4504,20 +4483,24 @@
+@@ -4534,20 +4513,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -2898,7 +2928,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -4573,25 +4556,23 @@
+@@ -4608,25 +4591,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -2906,13 +2936,15 @@ Index: es5.d.ts
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     */
    from(arrayLike: ArrayLike<number>): Uint32Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     * @param mapfn A mapping function to call on every element of the array.
     * @param thisArg Value of 'this' used to invoke the mapfn.
     */
@@ -2927,7 +2959,7 @@ Index: es5.d.ts
  }
  declare var Uint32Array: Uint32ArrayConstructor;
  
-@@ -4629,20 +4610,24 @@
+@@ -4664,20 +4645,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -2956,7 +2988,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -4652,21 +4637,24 @@
+@@ -4687,21 +4672,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -2987,7 +3019,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -4674,13 +4662,12 @@
+@@ -4709,13 +4697,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -3004,7 +3036,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -4688,23 +4675,22 @@
+@@ -4723,23 +4710,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -3019,9 +3051,11 @@ Index: es5.d.ts
 -
    /**
     * Performs the specified action for each element in an array.
-    * @param callbackfn  A function that accepts up to three arguments. forEach calls the
+-   * @param callbackfn A function that accepts up to three arguments. forEach calls the
++   * @param callbackfn  A function that accepts up to three arguments. forEach calls the
     * callbackfn function one time for each element in the array.
-    * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
+-   * @param thisArg An object to which the this keyword can refer in the callbackfn function.
++   * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
@@ -3034,7 +3068,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -4732,50 +4718,40 @@
+@@ -4767,50 +4753,40 @@
    /**
     * The length of the array.
     */
@@ -3098,7 +3132,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -4784,46 +4760,32 @@
+@@ -4819,46 +4795,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -3150,7 +3184,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -4832,9 +4794,9 @@
+@@ -4867,9 +4829,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -3161,7 +3195,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
-@@ -4860,20 +4822,24 @@
+@@ -4895,20 +4857,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -3190,7 +3224,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -4929,25 +4895,23 @@
+@@ -4969,25 +4935,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -3198,13 +3232,15 @@ Index: es5.d.ts
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     */
    from(arrayLike: ArrayLike<number>): Float32Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     * @param mapfn A mapping function to call on every element of the array.
     * @param thisArg Value of 'this' used to invoke the mapfn.
     */
@@ -3219,7 +3255,7 @@ Index: es5.d.ts
  }
  declare var Float32Array: Float32ArrayConstructor;
  
-@@ -4985,20 +4949,24 @@
+@@ -5025,20 +4989,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
     */
@@ -3248,7 +3284,7 @@ Index: es5.d.ts
  
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
-@@ -5008,21 +4976,24 @@
+@@ -5048,21 +5016,24 @@
     * @param end index to stop filling the array at. If end is negative, it is treated as
     * length+end.
     */
@@ -3279,7 +3315,7 @@ Index: es5.d.ts
     * Returns the value of the first element in the array where predicate is true, and undefined
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -5030,13 +5001,12 @@
+@@ -5070,13 +5041,12 @@
     * immediately returns that element value. Otherwise, find returns undefined.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -3296,7 +3332,7 @@ Index: es5.d.ts
     * Returns the index of the first element in the array where predicate is true, and -1
     * otherwise.
     * @param predicate find calls predicate once for each element of the array, in ascending
-@@ -5044,23 +5014,22 @@
+@@ -5084,23 +5054,22 @@
     * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
     * @param thisArg If provided, it will be used as the this value for each invocation of
     * predicate. If it is not provided, undefined is used instead.
@@ -3311,9 +3347,11 @@ Index: es5.d.ts
 -
    /**
     * Performs the specified action for each element in an array.
-    * @param callbackfn  A function that accepts up to three arguments. forEach calls the
+-   * @param callbackfn A function that accepts up to three arguments. forEach calls the
++   * @param callbackfn  A function that accepts up to three arguments. forEach calls the
     * callbackfn function one time for each element in the array.
-    * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
+-   * @param thisArg An object to which the this keyword can refer in the callbackfn function.
++   * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
     * If thisArg is omitted, undefined is used as the this value.
     */
 -  forEach(
@@ -3326,7 +3364,7 @@ Index: es5.d.ts
  
    /**
     * Returns the index of the first occurrence of a value in an array.
-@@ -5088,50 +5057,40 @@
+@@ -5128,50 +5097,40 @@
    /**
     * The length of the array.
     */
@@ -3390,7 +3428,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array. The return value of
     * the callback function is the accumulated result, and is provided as an argument in the next
     * call to the callback function.
-@@ -5140,46 +5099,32 @@
+@@ -5180,46 +5139,32 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -3442,7 +3480,7 @@ Index: es5.d.ts
     * Calls the specified callback function for all the elements in an array, in descending order.
     * The return value of the callback function is the accumulated result, and is provided as an
     * argument in the next call to the callback function.
-@@ -5188,9 +5133,9 @@
+@@ -5228,9 +5173,9 @@
     * @param initialValue If initialValue is specified, it is used as the initial value to start
     * the accumulation. The first call to the callbackfn function provides this value as an argument
     * instead of an array value.
@@ -3453,7 +3491,7 @@ Index: es5.d.ts
        previousValue: U,
        currentValue: number,
        currentIndex: number,
-@@ -5216,20 +5161,24 @@
+@@ -5256,20 +5201,24 @@
     * @param start The beginning of the specified portion of the array.
     * @param end The end of the specified portion of the array. This is exclusive of the element at the index 'end'.
     */
@@ -3482,7 +3520,7 @@ Index: es5.d.ts
  
    /**
     * Sorts an array.
-@@ -5285,25 +5234,23 @@
+@@ -5330,25 +5279,23 @@
     * Returns a new array from a set of elements.
     * @param items A set of elements to include in the new array object.
     */
@@ -3490,13 +3528,15 @@ Index: es5.d.ts
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     */
    from(arrayLike: ArrayLike<number>): Float64Array<ArrayBuffer>;
 -
    /**
     * Creates an array from an array-like or iterable object.
-    * @param arrayLike An array-like or iterable object to convert to an array.
+-   * @param arrayLike An array-like object to convert to an array.
++   * @param arrayLike An array-like or iterable object to convert to an array.
     * @param mapfn A mapping function to call on every element of the array.
     * @param thisArg Value of 'this' used to invoke the mapfn.
     */
@@ -3511,7 +3551,7 @@ Index: es5.d.ts
  }
  declare var Float64Array: Float64ArrayConstructor;
  
-@@ -5564,4 +5511,33 @@
+@@ -5609,4 +5556,33 @@
      locales?: string | string[],
      options?: Intl.DateTimeFormatOptions,
    ): string;

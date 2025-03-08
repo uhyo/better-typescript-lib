@@ -3,11 +3,6 @@
 /// Worker Iterable APIs
 /////////////////////////////
 
-interface AbortSignal {
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/any_static) */
-  any(signals: Iterable<AbortSignal>): AbortSignal;
-}
-
 interface CSSNumericArray {
   [Symbol.iterator](): ArrayIterator<CSSNumericValue>;
   entries(): ArrayIterator<[number, CSSNumericValue]>;
@@ -118,6 +113,10 @@ interface IDBObjectStore {
   ): IDBIndex;
 }
 
+interface ImageTrackList {
+  [Symbol.iterator](): ArrayIterator<ImageTrack>;
+}
+
 interface MessageEvent<T = any> {
   /** @deprecated */
   initMessageEvent(
@@ -168,7 +167,7 @@ interface SubtleCrypto {
   ): Promise<CryptoKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/generateKey) */
   generateKey(
-    algorithm: "Ed25519",
+    algorithm: "Ed25519" | { name: "Ed25519" },
     extractable: boolean,
     keyUsages: ReadonlyArray<"sign" | "verify">,
   ): Promise<CryptoKeyPair>;
@@ -490,7 +489,7 @@ interface WebGL2RenderingContextOverloads {
     srcOffset?: number,
     srcLength?: GLuint,
   ): void;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix2fv(
     location: WebGLUniformLocation | null,
     transpose: GLboolean,

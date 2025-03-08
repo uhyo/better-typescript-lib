@@ -769,6 +769,26 @@ interface ImageDataSettings {
   colorSpace?: PredefinedColorSpace;
 }
 
+interface ImageDecodeOptions {
+  completeFramesOnly?: boolean;
+  frameIndex?: number;
+}
+
+interface ImageDecodeResult {
+  complete: boolean;
+  image: VideoFrame;
+}
+
+interface ImageDecoderInit {
+  colorSpaceConversion?: ColorSpaceConversion;
+  data: ImageBufferSource;
+  desiredHeight?: number;
+  desiredWidth?: number;
+  preferAnimation?: boolean;
+  transfer?: ArrayBuffer[];
+  type: string;
+}
+
 interface ImageEncodeOptions {
   quality?: number;
   type?: string;
@@ -1160,6 +1180,15 @@ interface OscillatorOptions extends AudioNodeOptions {
   type?: OscillatorType;
 }
 
+interface PageRevealEventInit extends EventInit {
+  viewTransition?: ViewTransition | null;
+}
+
+interface PageSwapEventInit extends EventInit {
+  activation?: NavigationActivation | null;
+  viewTransition?: ViewTransition | null;
+}
+
 interface PageTransitionEventInit extends EventInit {
   persisted?: boolean;
 }
@@ -1549,13 +1578,18 @@ interface RTCIceCandidateInit {
 interface RTCIceCandidatePairStats extends RTCStats {
   availableIncomingBitrate?: number;
   availableOutgoingBitrate?: number;
+  bytesDiscardedOnSend?: number;
   bytesReceived?: number;
   bytesSent?: number;
+  consentRequestsSent?: number;
   currentRoundTripTime?: number;
   lastPacketReceivedTimestamp?: DOMHighResTimeStamp;
   lastPacketSentTimestamp?: DOMHighResTimeStamp;
   localCandidateId: string;
   nominated?: boolean;
+  packetsDiscardedOnSend?: number;
+  packetsReceived?: number;
+  packetsSent?: number;
   remoteCandidateId: string;
   requestsReceived?: number;
   requestsSent?: number;
@@ -1579,32 +1613,47 @@ interface RTCInboundRtpStreamStats extends RTCReceivedRtpStreamStats {
   concealmentEvents?: number;
   decoderImplementation?: string;
   estimatedPlayoutTimestamp?: DOMHighResTimeStamp;
+  fecBytesReceived?: number;
   fecPacketsDiscarded?: number;
   fecPacketsReceived?: number;
+  fecSsrc?: number;
   firCount?: number;
   frameHeight?: number;
   frameWidth?: number;
+  framesAssembledFromMultiplePackets?: number;
   framesDecoded?: number;
   framesDropped?: number;
   framesPerSecond?: number;
   framesReceived?: number;
+  framesRendered?: number;
+  freezeCount?: number;
   headerBytesReceived?: number;
   insertedSamplesForDeceleration?: number;
   jitterBufferDelay?: number;
   jitterBufferEmittedCount?: number;
+  jitterBufferMinimumDelay?: number;
+  jitterBufferTargetDelay?: number;
   keyFramesDecoded?: number;
   lastPacketReceivedTimestamp?: DOMHighResTimeStamp;
   mid?: string;
   nackCount?: number;
   packetsDiscarded?: number;
+  pauseCount?: number;
+  playoutId?: string;
   pliCount?: number;
   qpSum?: number;
   remoteId?: string;
   removedSamplesForAcceleration?: number;
+  retransmittedBytesReceived?: number;
+  retransmittedPacketsReceived?: number;
+  rtxSsrc?: number;
   silentConcealedSamples?: number;
+  totalAssemblyTime?: number;
   totalAudioEnergy?: number;
   totalDecodeTime?: number;
+  totalFreezesDuration?: number;
   totalInterFrameDelay?: number;
+  totalPausesDuration?: number;
   totalProcessingDelay?: number;
   totalSamplesDuration?: number;
   totalSamplesReceived?: number;
@@ -1626,6 +1675,7 @@ interface RTCOfferOptions extends RTCOfferAnswerOptions {
 }
 
 interface RTCOutboundRtpStreamStats extends RTCSentRtpStreamStats {
+  active?: boolean;
   firCount?: number;
   frameHeight?: number;
   frameWidth?: number;
@@ -1636,15 +1686,19 @@ interface RTCOutboundRtpStreamStats extends RTCSentRtpStreamStats {
   hugeFramesSent?: number;
   keyFramesEncoded?: number;
   mediaSourceId?: string;
+  mid?: string;
   nackCount?: number;
   pliCount?: number;
   qpSum?: number;
+  qualityLimitationDurations?: Record<string, number>;
+  qualityLimitationReason?: RTCQualityLimitationReason;
   qualityLimitationResolutionChanges?: number;
   remoteId?: string;
   retransmittedBytesSent?: number;
   retransmittedPacketsSent?: number;
   rid?: string;
   rtxSsrc?: number;
+  scalabilityMode?: string;
   targetBitrate?: number;
   totalEncodeTime?: number;
   totalEncodedBytesTarget?: number;
@@ -1779,9 +1833,16 @@ interface RTCTransportStats extends RTCStats {
   bytesReceived?: number;
   bytesSent?: number;
   dtlsCipher?: string;
+  dtlsRole?: RTCDtlsRole;
   dtlsState: RTCDtlsTransportState;
+  iceLocalUsernameFragment?: string;
+  iceRole?: RTCIceRole;
+  iceState?: RTCIceTransportState;
   localCertificateId?: string;
+  packetsReceived?: number;
+  packetsSent?: number;
   remoteCertificateId?: string;
+  selectedCandidatePairChanges?: number;
   selectedCandidatePairId?: string;
   srtpCipher?: string;
   tlsVersion?: string;
@@ -2455,6 +2516,8 @@ interface ARIAMixin {
   ariaPressed: string | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/ariaReadOnly) */
   ariaReadOnly: string | null;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/ariaRelevant) */
+  ariaRelevant: string | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/ariaRequired) */
   ariaRequired: string | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/ariaRoleDescription) */
@@ -3919,7 +3982,8 @@ declare var CSSCounterStyleRule: {
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSFontFaceRule) */
 interface CSSFontFaceRule extends CSSRule {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSFontFaceRule/style) */
-  readonly style: CSSStyleDeclaration;
+  get style(): CSSStyleDeclaration;
+  set style(cssText: string);
 }
 
 declare var CSSFontFaceRule: {
@@ -3989,7 +4053,8 @@ interface CSSImportRule extends CSSRule {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSImportRule/layerName) */
   readonly layerName: string | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSImportRule/media) */
-  readonly media: MediaList;
+  get media(): MediaList;
+  set media(mediaText: string);
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSImportRule/styleSheet) */
   readonly styleSheet: CSSStyleSheet | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSImportRule/supportsText) */
@@ -4010,7 +4075,8 @@ interface CSSKeyframeRule extends CSSRule {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSKeyframeRule/keyText) */
   keyText: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSKeyframeRule/style) */
-  readonly style: CSSStyleDeclaration;
+  get style(): CSSStyleDeclaration;
+  set style(cssText: string);
 }
 
 declare var CSSKeyframeRule: {
@@ -4190,7 +4256,8 @@ declare var CSSMatrixComponent: {
  */
 interface CSSMediaRule extends CSSConditionRule {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSMediaRule/media) */
-  readonly media: MediaList;
+  get media(): MediaList;
+  set media(mediaText: string);
 }
 
 declare var CSSMediaRule: {
@@ -4213,6 +4280,18 @@ interface CSSNamespaceRule extends CSSRule {
 declare var CSSNamespaceRule: {
   prototype: CSSNamespaceRule;
   new (): CSSNamespaceRule;
+};
+
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSNestedDeclarations) */
+interface CSSNestedDeclarations extends CSSRule {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSNestedDeclarations/style) */
+  get style(): CSSStyleDeclaration;
+  set style(cssText: string);
+}
+
+declare var CSSNestedDeclarations: {
+  prototype: CSSNestedDeclarations;
+  new (): CSSNestedDeclarations;
 };
 
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSNumericArray) */
@@ -4275,7 +4354,8 @@ interface CSSPageRule extends CSSGroupingRule {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSPageRule/selectorText) */
   selectorText: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSPageRule/style) */
-  readonly style: CSSStyleDeclaration;
+  get style(): CSSStyleDeclaration;
+  set style(cssText: string);
 }
 
 declare var CSSPageRule: {
@@ -4486,6 +4566,7 @@ interface CSSStyleDeclaration {
   alignItems: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/align-self) */
   alignSelf: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/alignment-baseline) */
   alignmentBaseline: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/all) */
   all: string;
@@ -4669,6 +4750,8 @@ interface CSSStyleDeclaration {
   borderWidth: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/bottom) */
   bottom: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/box-decoration-break) */
+  boxDecorationBreak: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/box-shadow) */
   boxShadow: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/box-sizing) */
@@ -4795,7 +4878,9 @@ interface CSSStyleDeclaration {
   flexWrap: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/float) */
   float: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/flood-color) */
   floodColor: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/flood-opacity) */
   floodOpacity: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/font) */
   font: string;
@@ -4927,6 +5012,7 @@ interface CSSStyleDeclaration {
   readonly length: number;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/letter-spacing) */
   letterSpacing: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/lighting-color) */
   lightingColor: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/line-break) */
   lineBreak: string;
@@ -5090,11 +5176,23 @@ interface CSSStyleDeclaration {
   paddingTop: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/page) */
   page: string;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/page-break-after) */
+  /**
+   * @deprecated
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/page-break-after)
+   */
   pageBreakAfter: string;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/page-break-before) */
+  /**
+   * @deprecated
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/page-break-before)
+   */
   pageBreakBefore: string;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/page-break-inside) */
+  /**
+   * @deprecated
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/page-break-inside)
+   */
   pageBreakInside: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/paint-order) */
   paintOrder: string;
@@ -5234,6 +5332,9 @@ interface CSSStyleDeclaration {
   textAlignLast: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-anchor) */
   textAnchor: string;
+  textBox: string;
+  textBoxEdge: string;
+  textBoxTrim: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-combine-upright) */
   textCombineUpright: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/text-decoration) */
@@ -5312,6 +5413,7 @@ interface CSSStyleDeclaration {
   vectorEffect: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/vertical-align) */
   verticalAlign: string;
+  viewTransitionClass: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/view-transition-name) */
   viewTransitionName: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/visibility) */
@@ -5544,11 +5646,7 @@ interface CSSStyleDeclaration {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/justify-content)
    */
   webkitJustifyContent: string;
-  /**
-   * @deprecated This is a legacy alias of `lineClamp`.
-   *
-   * [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/-webkit-line-clamp)
-   */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/-webkit-line-clamp) */
   webkitLineClamp: string;
   /**
    * @deprecated This is a legacy alias of `mask`.
@@ -5734,7 +5832,11 @@ interface CSSStyleDeclaration {
   wordBreak: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/word-spacing) */
   wordSpacing: string;
-  /** @deprecated */
+  /**
+   * @deprecated
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/overflow-wrap)
+   */
   wordWrap: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/CSS/writing-mode) */
   writingMode: string;
@@ -5773,7 +5875,8 @@ interface CSSStyleRule extends CSSGroupingRule {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSStyleRule/selectorText) */
   selectorText: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSStyleRule/style) */
-  readonly style: CSSStyleDeclaration;
+  get style(): CSSStyleDeclaration;
+  set style(cssText: string);
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CSSStyleRule/styleMap) */
   readonly styleMap: StylePropertyMap;
 }
@@ -5987,6 +6090,16 @@ declare var CSSVariableReferenceValue: {
     variable: string,
     fallback?: CSSUnparsedValue | null,
   ): CSSVariableReferenceValue;
+};
+
+interface CSSViewTransitionRule extends CSSRule {
+  readonly navigation: string;
+  readonly types: ReadonlyArray<string>;
+}
+
+declare var CSSViewTransitionRule: {
+  prototype: CSSViewTransitionRule;
+  new (): CSSViewTransitionRule;
 };
 
 /**
@@ -6355,6 +6468,7 @@ interface CanvasRenderingContext2D
     CanvasPath,
     CanvasPathDrawingStyles,
     CanvasRect,
+    CanvasSettings,
     CanvasShadowStyles,
     CanvasState,
     CanvasText,
@@ -6363,14 +6477,17 @@ interface CanvasRenderingContext2D
     CanvasUserInterface {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/canvas) */
   readonly canvas: HTMLCanvasElement;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/getContextAttributes) */
-  getContextAttributes(): CanvasRenderingContext2DSettings;
 }
 
 declare var CanvasRenderingContext2D: {
   prototype: CanvasRenderingContext2D;
   new (): CanvasRenderingContext2D;
 };
+
+interface CanvasSettings {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/getContextAttributes) */
+  getContextAttributes(): CanvasRenderingContext2DSettings;
+}
 
 interface CanvasShadowStyles {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/shadowBlur) */
@@ -7101,8 +7218,11 @@ interface DOMMatrix extends DOMMatrixReadOnly {
   m43: number;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix#instance_properties) */
   m44: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/invertSelf) */
   invertSelf(): DOMMatrix;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/multiplySelf) */
   multiplySelf(other?: DOMMatrixInit): DOMMatrix;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/preMultiplySelf) */
   preMultiplySelf(other?: DOMMatrixInit): DOMMatrix;
   rotateAxisAngleSelf(
     x?: number,
@@ -7111,6 +7231,7 @@ interface DOMMatrix extends DOMMatrixReadOnly {
     angle?: number,
   ): DOMMatrix;
   rotateFromVectorSelf(x?: number, y?: number): DOMMatrix;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/rotateSelf) */
   rotateSelf(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
   scale3dSelf(
     scale?: number,
@@ -7126,9 +7247,13 @@ interface DOMMatrix extends DOMMatrixReadOnly {
     originY?: number,
     originZ?: number,
   ): DOMMatrix;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/setMatrixValue) */
   setMatrixValue(transformList: string): DOMMatrix;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/skewXSelf) */
   skewXSelf(sx?: number): DOMMatrix;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/skewYSelf) */
   skewYSelf(sy?: number): DOMMatrix;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrix/translateSelf) */
   translateSelf(tx?: number, ty?: number, tz?: number): DOMMatrix;
 }
 
@@ -7160,7 +7285,9 @@ interface DOMMatrixReadOnly {
   readonly e: number;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly#instance_properties) */
   readonly f: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/is2D) */
   readonly is2D: boolean;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/isIdentity) */
   readonly isIdentity: boolean;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly#instance_properties) */
   readonly m11: number;
@@ -7196,8 +7323,11 @@ interface DOMMatrixReadOnly {
   readonly m44: number;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/flipX) */
   flipX(): DOMMatrix;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/flipY) */
   flipY(): DOMMatrix;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/inverse) */
   inverse(): DOMMatrix;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/multiply) */
   multiply(other?: DOMMatrixInit): DOMMatrix;
   rotate(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
   rotateAxisAngle(
@@ -7226,9 +7356,13 @@ interface DOMMatrixReadOnly {
   scaleNonUniform(scaleX?: number, scaleY?: number): DOMMatrix;
   skewX(sx?: number): DOMMatrix;
   skewY(sy?: number): DOMMatrix;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/toFloat32Array) */
   toFloat32Array(): Float32Array;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/toFloat64Array) */
   toFloat64Array(): Float64Array;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/toJSON) */
   toJSON(): any;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/transformPoint) */
   transformPoint(point?: DOMPointInit): DOMPoint;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMMatrixReadOnly/translate) */
   translate(tx?: number, ty?: number, tz?: number): DOMMatrix;
@@ -7300,6 +7434,7 @@ interface DOMPointReadOnly {
   readonly y: number;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMPointReadOnly/z) */
   readonly z: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMPointReadOnly/matrixTransform) */
   matrixTransform(matrix?: DOMMatrixInit): DOMPoint;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMPointReadOnly/toJSON) */
   toJSON(): any;
@@ -7314,11 +7449,17 @@ declare var DOMPointReadOnly: {
 
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMQuad) */
 interface DOMQuad {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMQuad/p1) */
   readonly p1: DOMPoint;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMQuad/p2) */
   readonly p2: DOMPoint;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMQuad/p3) */
   readonly p3: DOMPoint;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMQuad/p4) */
   readonly p4: DOMPoint;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMQuad/getBounds) */
   getBounds(): DOMRect;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMQuad/toJSON) */
   toJSON(): any;
 }
 
@@ -7336,9 +7477,13 @@ declare var DOMQuad: {
 
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRect) */
 interface DOMRect extends DOMRectReadOnly {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRect/height) */
   height: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRect/width) */
   width: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRect/x) */
   x: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRect/y) */
   y: number;
 }
 
@@ -7352,8 +7497,11 @@ declare var DOMRect: {
 type SVGRect = DOMRect;
 declare var SVGRect: typeof DOMRect;
 
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRectList) */
 interface DOMRectList {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRectList/length) */
   readonly length: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRectList/item) */
   item(index: number): DOMRect | null;
   [index: number]: DOMRect;
 }
@@ -7381,6 +7529,7 @@ interface DOMRectReadOnly {
   readonly x: number;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRectReadOnly/y) */
   readonly y: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRectReadOnly/toJSON) */
   toJSON(): any;
 }
 
@@ -8043,7 +8192,7 @@ interface Document
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/location)
    */
   get location(): Location;
-  set location(href: string | Location);
+  set location(href: string);
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/fullscreenchange_event) */
   onfullscreenchange: ((this: Document, ev: Event) => any) | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/fullscreenerror_event) */
@@ -8234,7 +8383,11 @@ interface Document
     qualifiedName: string,
     options?: string | ElementCreationOptions,
   ): Element;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/createEvent) */
+  /**
+   * @deprecated
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/createEvent)
+   */
   createEvent(eventInterface: "AnimationEvent"): AnimationEvent;
   createEvent(eventInterface: "AnimationPlaybackEvent"): AnimationPlaybackEvent;
   createEvent(eventInterface: "AudioProcessingEvent"): AudioProcessingEvent;
@@ -8273,6 +8426,8 @@ interface Document
   createEvent(
     eventInterface: "OfflineAudioCompletionEvent",
   ): OfflineAudioCompletionEvent;
+  createEvent(eventInterface: "PageRevealEvent"): PageRevealEvent;
+  createEvent(eventInterface: "PageSwapEvent"): PageSwapEvent;
   createEvent(eventInterface: "PageTransitionEvent"): PageTransitionEvent;
   createEvent(
     eventInterface: "PaymentMethodChangeEvent",
@@ -8468,7 +8623,7 @@ interface Document
    *
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/importNode)
    */
-  importNode<T extends Node>(node: T, deep?: boolean): T;
+  importNode<T extends Node>(node: T, subtree?: boolean): T;
   /**
    * Opens a new window and loads a document specified by a given URL. Also, opens a new window that uses the url parameter and the name parameter to collect the output of the write method and the writeln method.
    * @param url Specifies a MIME type for the document.
@@ -8527,6 +8682,7 @@ interface Document
   /**
    * Writes one or more HTML expressions to a document in the specified window.
    * @param content Specifies the text and HTML tags to write.
+   * @deprecated
    *
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/write)
    */
@@ -8804,7 +8960,8 @@ interface Element
    *
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/classList)
    */
-  readonly classList: DOMTokenList;
+  get classList(): DOMTokenList;
+  set classList(value: string);
   /**
    * Returns the value of element's class content attribute. Can be set to change it.
    *
@@ -8849,7 +9006,8 @@ interface Element
   outerHTML: string;
   readonly ownerDocument: Document;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/part) */
-  readonly part: DOMTokenList;
+  get part(): DOMTokenList;
+  set part(value: string);
   /**
    * Returns the namespace prefix.
    *
@@ -9114,7 +9272,8 @@ interface ElementCSSInlineStyle {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/attributeStyleMap) */
   readonly attributeStyleMap: StylePropertyMap;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/style) */
-  readonly style: CSSStyleDeclaration;
+  get style(): CSSStyleDeclaration;
+  set style(cssText: string);
 }
 
 interface ElementContentEditable {
@@ -9252,10 +9411,15 @@ declare var EncodedVideoChunk: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ErrorEvent)
  */
 interface ErrorEvent extends Event {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ErrorEvent/colno) */
   readonly colno: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ErrorEvent/error) */
   readonly error: any;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ErrorEvent/filename) */
   readonly filename: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ErrorEvent/lineno) */
   readonly lineno: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ErrorEvent/message) */
   readonly message: string;
 }
 
@@ -10049,6 +10213,16 @@ declare var FragmentDirective: {
 };
 
 /**
+ * Available only in secure contexts.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/GPUError)
+ */
+interface GPUError {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/GPUError/message) */
+  readonly message: string;
+}
+
+/**
  * A change in volume. It is an AudioNode audio-processing module that causes a given gain to be applied to the input data before its propagation to the output. A GainNode always has exactly one input and one output, both with the same number of channels.
  *
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/GainNode)
@@ -10390,7 +10564,7 @@ interface GlobalEventHandlers {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/blur_event)
    */
   onblur: ((this: GlobalEventHandlers, ev: FocusEvent) => any) | null;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/cancel_event) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLDialogElement/cancel_event) */
   oncancel: ((this: GlobalEventHandlers, ev: Event) => any) | null;
   /**
    * Occurs when playback is possible, but would require further buffering.
@@ -10417,7 +10591,7 @@ interface GlobalEventHandlers {
   onclick: ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLDialogElement/close_event) */
   onclose: ((this: GlobalEventHandlers, ev: Event) => any) | null;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLCanvasElement/webglcontextlost_event) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLCanvasElement/contextlost_event) */
   oncontextlost: ((this: GlobalEventHandlers, ev: Event) => any) | null;
   /**
    * Fires when the user clicks the right mouse button in the client area, opening the context menu.
@@ -10750,7 +10924,7 @@ interface GlobalEventHandlers {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLMediaElement/timeupdate_event)
    */
   ontimeupdate: ((this: GlobalEventHandlers, ev: Event) => any) | null;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLDetailsElement/toggle_event) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/toggle_event) */
   ontoggle: ((this: GlobalEventHandlers, ev: Event) => any) | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/touchcancel_event) */
   ontouchcancel?:
@@ -10932,7 +11106,8 @@ interface HTMLAnchorElement extends HTMLElement, HTMLHyperlinkElementUtils {
    */
   rel: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLAnchorElement/relList) */
-  readonly relList: DOMTokenList;
+  get relList(): DOMTokenList;
+  set relList(value: string);
   /**
    * Sets or retrieves the relationship between the object and the destination of the link.
    * @deprecated
@@ -10990,10 +11165,19 @@ declare var HTMLAnchorElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLAreaElement)
  */
 interface HTMLAreaElement extends HTMLElement, HTMLHyperlinkElementUtils {
-  /** Sets or retrieves a text alternative to the graphic. */
+  /**
+   * Sets or retrieves a text alternative to the graphic.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLAreaElement/alt)
+   */
   alt: string;
-  /** Sets or retrieves the coordinates of the object. */
+  /**
+   * Sets or retrieves the coordinates of the object.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLAreaElement/coords)
+   */
   coords: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLAreaElement/download) */
   download: string;
   /**
    * Sets or gets whether clicks in this region cause action.
@@ -11007,8 +11191,13 @@ interface HTMLAreaElement extends HTMLElement, HTMLHyperlinkElementUtils {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLAreaElement/rel) */
   rel: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLAreaElement/relList) */
-  readonly relList: DOMTokenList;
-  /** Sets or retrieves the shape of the object. */
+  get relList(): DOMTokenList;
+  set relList(value: string);
+  /**
+   * Sets or retrieves the shape of the object.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLAreaElement/shape)
+   */
   shape: string;
   /**
    * Sets or retrieves the window or frame at which to target content.
@@ -11222,15 +11411,35 @@ interface HTMLButtonElement extends HTMLElement, PopoverInvokerElement {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLButtonElement/form)
    */
   readonly form: HTMLFormElement | null;
-  /** Overrides the action attribute (where the data on a form is sent) on the parent form element. */
+  /**
+   * Overrides the action attribute (where the data on a form is sent) on the parent form element.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLButtonElement/formAction)
+   */
   formAction: string;
-  /** Used to override the encoding (formEnctype attribute) specified on the form element. */
+  /**
+   * Used to override the encoding (formEnctype attribute) specified on the form element.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLButtonElement/formEnctype)
+   */
   formEnctype: string;
-  /** Overrides the submit method attribute previously specified on a form element. */
+  /**
+   * Overrides the submit method attribute previously specified on a form element.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLButtonElement/formMethod)
+   */
   formMethod: string;
-  /** Overrides any validation or required attributes on a form or form elements to allow it to be submitted without validation. This can be used to create a "save draft"-type submit option. */
+  /**
+   * Overrides any validation or required attributes on a form or form elements to allow it to be submitted without validation. This can be used to create a "save draft"-type submit option.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLButtonElement/formNoValidate)
+   */
   formNoValidate: boolean;
-  /** Overrides the target attribute on a form element. */
+  /**
+   * Overrides the target attribute on a form element.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLButtonElement/formTarget)
+   */
   formTarget: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLButtonElement/labels) */
   readonly labels: NodeListOf<HTMLLabelElement>;
@@ -11356,14 +11565,14 @@ interface HTMLCanvasElement extends HTMLElement {
   ): WebGL2RenderingContext | null;
   getContext(contextId: string, options?: any): RenderingContext | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLCanvasElement/toBlob) */
-  toBlob(callback: BlobCallback, type?: string, quality?: any): void;
+  toBlob(callback: BlobCallback, type?: string, quality?: number): void;
   /**
    * Returns the content of the current canvas as an image that you can use as a source for another canvas or an HTML element.
    * @param type The standard MIME type for the image format to return. If you do not specify this parameter, the default value is a PNG format image.
    *
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLCanvasElement/toDataURL)
    */
-  toDataURL(type?: string, quality?: any): string;
+  toDataURL(type?: string, quality?: number): string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLCanvasElement/transferControlToOffscreen) */
   transferControlToOffscreen(): OffscreenCanvas;
   addEventListener<K extends keyof HTMLElementEventMap>(
@@ -11545,7 +11754,7 @@ declare var HTMLDataListElement: {
 
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLDetailsElement) */
 interface HTMLDetailsElement extends HTMLElement {
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLDetailsElement/open) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLDetailsElement/name) */
   name: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLDetailsElement/open) */
   open: boolean;
@@ -11778,6 +11987,7 @@ interface HTMLElement
   title: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/translate) */
   translate: boolean;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/writingSuggestions) */
   writingSuggestions: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/attachInternals) */
   attachInternals(): ElementInternals;
@@ -11788,7 +11998,7 @@ interface HTMLElement
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/showPopover) */
   showPopover(): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/togglePopover) */
-  togglePopover(force?: boolean): boolean;
+  togglePopover(options?: boolean): boolean;
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
     listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
@@ -11841,6 +12051,7 @@ interface HTMLEmbedElement extends HTMLElement {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLEmbedElement/src)
    */
   src: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLEmbedElement/type) */
   type: string;
   /**
    * Sets or retrieves the width of the object.
@@ -11848,6 +12059,7 @@ interface HTMLEmbedElement extends HTMLElement {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLEmbedElement/width)
    */
   width: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLEmbedElement/getSVGDocument) */
   getSVGDocument(): Document | null;
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
@@ -12057,7 +12269,11 @@ interface HTMLFormElement extends HTMLElement {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLFormElement/action)
    */
   action: string;
-  /** Specifies whether autocomplete is applied to an editable text field. */
+  /**
+   * Specifies whether autocomplete is applied to an editable text field.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLFormElement/autocomplete)
+   */
   autocomplete: AutoFillBase;
   /**
    * Retrieves a collection, in source order, of all controls in a given form.
@@ -12095,10 +12311,15 @@ interface HTMLFormElement extends HTMLElement {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLFormElement/name)
    */
   name: string;
-  /** Designates a form that is not validated when submitted. */
+  /**
+   * Designates a form that is not validated when submitted.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLFormElement/noValidate)
+   */
   noValidate: boolean;
   rel: string;
-  readonly relList: DOMTokenList;
+  get relList(): DOMTokenList;
+  set relList(value: string);
   /**
    * Sets or retrieves the window or frame at which to target content.
    *
@@ -12608,7 +12829,8 @@ interface HTMLIFrameElement extends HTMLElement {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLIFrameElement/referrerPolicy) */
   referrerPolicy: ReferrerPolicy;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLIFrameElement/sandbox) */
-  readonly sandbox: DOMTokenList;
+  get sandbox(): DOMTokenList;
+  set sandbox(value: string);
   /**
    * Sets or retrieves whether the frame can be scrolled.
    * @deprecated
@@ -12632,6 +12854,7 @@ interface HTMLIFrameElement extends HTMLElement {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLIFrameElement/width)
    */
   width: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLIframeElement/getSVGDocument) */
   getSVGDocument(): Document | null;
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
@@ -12699,7 +12922,7 @@ interface HTMLImageElement extends HTMLElement {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLImageElement/decoding) */
   decoding: "async" | "sync" | "auto";
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLImageElement/fetchPriority) */
-  fetchPriority: string;
+  fetchPriority: "high" | "low" | "auto";
   /**
    * Sets or retrieves the height of the object.
    *
@@ -12881,15 +13104,35 @@ interface HTMLInputElement extends HTMLElement, PopoverInvokerElement {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/form)
    */
   readonly form: HTMLFormElement | null;
-  /** Overrides the action attribute (where the data on a form is sent) on the parent form element. */
+  /**
+   * Overrides the action attribute (where the data on a form is sent) on the parent form element.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/formAction)
+   */
   formAction: string;
-  /** Used to override the encoding (formEnctype attribute) specified on the form element. */
+  /**
+   * Used to override the encoding (formEnctype attribute) specified on the form element.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/formEnctype)
+   */
   formEnctype: string;
-  /** Overrides the submit method attribute previously specified on a form element. */
+  /**
+   * Overrides the submit method attribute previously specified on a form element.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/formMethod)
+   */
   formMethod: string;
-  /** Overrides any validation or required attributes on a form or form elements to allow it to be submitted without validation. This can be used to create a "save draft"-type submit option. */
+  /**
+   * Overrides any validation or required attributes on a form or form elements to allow it to be submitted without validation. This can be used to create a "save draft"-type submit option.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/formNoValidate)
+   */
   formNoValidate: boolean;
-  /** Overrides the target attribute on a form element. */
+  /**
+   * Overrides the target attribute on a form element.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/formTarget)
+   */
   formTarget: string;
   /**
    * Sets or retrieves the height of the object.
@@ -13141,7 +13384,11 @@ declare var HTMLInputElement: {
 interface HTMLLIElement extends HTMLElement {
   /** @deprecated */
   type: string;
-  /** Sets or retrieves the value of a list item. */
+  /**
+   * Sets or retrieves the value of a list item.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLLIElement/value)
+   */
   value: number;
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
@@ -13270,6 +13517,9 @@ declare var HTMLLegendElement: {
 interface HTMLLinkElement extends HTMLElement, LinkStyle {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLLinkElement/as) */
   as: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLLinkElement/blocking) */
+  get blocking(): DOMTokenList;
+  set blocking(value: string);
   /**
    * Sets or retrieves the character set used to encode the object.
    * @deprecated
@@ -13280,7 +13530,7 @@ interface HTMLLinkElement extends HTMLElement, LinkStyle {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLLinkElement/disabled) */
   disabled: boolean;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLLinkElement/fetchPriority) */
-  fetchPriority: string;
+  fetchPriority: "high" | "low" | "auto";
   /**
    * Sets or retrieves a destination URL or an anchor point.
    *
@@ -13312,13 +13562,16 @@ interface HTMLLinkElement extends HTMLElement, LinkStyle {
    */
   rel: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLLinkElement/relList) */
-  readonly relList: DOMTokenList;
+  get relList(): DOMTokenList;
+  set relList(value: string);
   /**
    * Sets or retrieves the relationship between the object and the destination of the link.
    * @deprecated
    */
   rev: string;
-  readonly sizes: DOMTokenList;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLLinkElement/sizes) */
+  get sizes(): DOMTokenList;
+  set sizes(value: string);
   /**
    * Sets or retrieves the window or frame at which to target content.
    * @deprecated
@@ -13562,6 +13815,7 @@ interface HTMLMediaElement extends HTMLElement {
   onencrypted:
     | ((this: HTMLMediaElement, ev: MediaEncryptedEvent) => any)
     | null;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLMediaElement/waitingforkey_event) */
   onwaitingforkey: ((this: HTMLMediaElement, ev: Event) => any) | null;
   /**
    * Gets a flag that specifies whether playback is paused.
@@ -13575,7 +13829,11 @@ interface HTMLMediaElement extends HTMLElement {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLMediaElement/playbackRate)
    */
   playbackRate: number;
-  /** Gets TimeRanges for the current media resource that has been played. */
+  /**
+   * Gets TimeRanges for the current media resource that has been played.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLMediaElement/played)
+   */
   readonly played: TimeRanges;
   /**
    * Gets or sets a value indicating what data should be preloaded, if any.
@@ -13595,7 +13853,11 @@ interface HTMLMediaElement extends HTMLElement {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLMediaElement/seekable)
    */
   readonly seekable: TimeRanges;
-  /** Gets a flag that indicates whether the client is currently moving to a new playback position in the media resource. */
+  /**
+   * Gets a flag that indicates whether the client is currently moving to a new playback position in the media resource.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLMediaElement/seeking)
+   */
   readonly seeking: boolean;
   /**
    * Available only in secure contexts.
@@ -13619,6 +13881,7 @@ interface HTMLMediaElement extends HTMLElement {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLMediaElement/volume)
    */
   volume: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLMediaElement/addTextTrack) */
   addTextTrack(
     kind: TextTrackKind,
     label?: string,
@@ -13851,9 +14114,17 @@ declare var HTMLMeterElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLModElement)
  */
 interface HTMLModElement extends HTMLElement {
-  /** Sets or retrieves reference information about the object. */
+  /**
+   * Sets or retrieves reference information about the object.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLModElement/cite)
+   */
   cite: string;
-  /** Sets or retrieves the date and time of a modification to the object. */
+  /**
+   * Sets or retrieves the date and time of a modification to the object.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLModElement/dateTime)
+   */
   dateTime: string;
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
@@ -14043,6 +14314,7 @@ interface HTMLObjectElement extends HTMLElement {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLObjectElement/checkValidity)
    */
   checkValidity(): boolean;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLObjectElement/getSVGDocument) */
   getSVGDocument(): Document | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLObjectElement/reportValidity) */
   reportValidity(): boolean;
@@ -14210,12 +14482,16 @@ interface HTMLOptionsCollection extends HTMLCollectionOf<HTMLOptionElement> {
    * When set to a smaller number, truncates the number of option elements in the corresponding container.
    *
    * When set to a greater number, adds new blank option elements to that container.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLOptionsCollection/length)
    */
   length: number;
   /**
    * Returns the index of the first selected item, if any, or −1 if there is no selected item.
    *
    * Can be set, to change the selection.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLOptionsCollection/selectedIndex)
    */
   selectedIndex: number;
   /**
@@ -14226,12 +14502,18 @@ interface HTMLOptionsCollection extends HTMLCollectionOf<HTMLOptionElement> {
    * If before is omitted, null, or a number out of range, then element will be added at the end of the list.
    *
    * This method will throw a "HierarchyRequestError" DOMException if element is an ancestor of the element into which it is to be inserted.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLOptionsCollection/add)
    */
   add(
     element: HTMLOptionElement | HTMLOptGroupElement,
     before?: HTMLElement | number | null,
   ): void;
-  /** Removes the item with index index from the collection. */
+  /**
+   * Removes the item with index index from the collection.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLOptionsCollection/remove)
+   */
   remove(index: number): void;
 }
 
@@ -14261,10 +14543,13 @@ interface HTMLOrSVGElement {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLOutputElement)
  */
 interface HTMLOutputElement extends HTMLElement {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLOutputElement/defaultValue) */
   defaultValue: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLOutputElement/form) */
   readonly form: HTMLFormElement | null;
-  readonly htmlFor: DOMTokenList;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLOutputElement/htmlFor) */
+  get htmlFor(): DOMTokenList;
+  set htmlFor(value: string);
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLOutputElement/labels) */
   readonly labels: NodeListOf<HTMLLabelElement>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLOutputElement/name) */
@@ -14545,7 +14830,11 @@ declare var HTMLProgressElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLQuoteElement)
  */
 interface HTMLQuoteElement extends HTMLElement {
-  /** Sets or retrieves reference information about the object. */
+  /**
+   * Sets or retrieves reference information about the object.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLQuoteElement/cite)
+   */
   cite: string;
   addEventListener<K extends keyof HTMLElementEventMap>(
     type: K,
@@ -14582,6 +14871,9 @@ declare var HTMLQuoteElement: {
 interface HTMLScriptElement extends HTMLElement {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLScriptElement/async) */
   async: boolean;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLScriptElement/blocking) */
+  get blocking(): DOMTokenList;
+  set blocking(value: string);
   /**
    * Sets or retrieves the character set used to encode the object.
    * @deprecated
@@ -14601,7 +14893,7 @@ interface HTMLScriptElement extends HTMLElement {
    */
   event: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLScriptElement/fetchPriority) */
-  fetchPriority: string;
+  fetchPriority: "high" | "low" | "auto";
   /**
    * Sets or retrieves the object that is bound to the event script.
    * @deprecated
@@ -14666,6 +14958,7 @@ declare var HTMLScriptElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLSelectElement)
  */
 interface HTMLSelectElement extends HTMLElement {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLSelectElement/autocomplete) */
   autocomplete: AutoFill;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLSelectElement/disabled) */
   disabled: boolean;
@@ -14875,13 +15168,27 @@ declare var HTMLSlotElement: {
 interface HTMLSourceElement extends HTMLElement {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLSourceElement/height) */
   height: number;
-  /** Gets or sets the intended media type of the media source. */
+  /**
+   * Gets or sets the intended media type of the media source.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLSourceElement/media)
+   */
   media: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLSourceElement/sizes) */
   sizes: string;
-  /** The address or URL of the a media resource that is to be considered. */
+  /**
+   * The address or URL of the a media resource that is to be considered.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLSourceElement/src)
+   */
   src: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLSourceElement/srcset) */
   srcset: string;
-  /** Gets or sets the MIME type of a media resource. */
+  /**
+   * Gets or sets the MIME type of a media resource.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLSourceElement/type)
+   */
   type: string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLSourceElement/width) */
   width: number;
@@ -14951,6 +15258,9 @@ declare var HTMLSpanElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLStyleElement)
  */
 interface HTMLStyleElement extends HTMLElement, LinkStyle {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLStyleElement/blocking) */
+  get blocking(): DOMTokenList;
+  set blocking(value: string);
   /**
    * Enables or disables the style sheet.
    *
@@ -15972,14 +16282,23 @@ declare var HTMLTitleElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLTrackElement)
  */
 interface HTMLTrackElement extends HTMLElement {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLTrackElement/default) */
   default: boolean;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLTrackElement/kind) */
   kind: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLTrackElement/label) */
   label: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLTrackElement/readyState) */
   readonly readyState: number;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLTrackElement/src) */
   src: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLTrackElement/srclang) */
   srclang: string;
-  /** Returns the TextTrack object corresponding to the text track of the track element. */
+  /**
+   * Returns the TextTrack object corresponding to the text track of the track element.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLTrackElement/track)
+   */
   readonly track: TextTrack;
   readonly NONE: 0;
   readonly LOADING: 1;
@@ -17209,6 +17528,70 @@ declare var ImageData: {
     sh?: number,
     settings?: ImageDataSettings,
   ): ImageData;
+};
+
+/**
+ * Available only in secure contexts.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageDecoder)
+ */
+interface ImageDecoder {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageDecoder/complete) */
+  readonly complete: boolean;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageDecoder/completed) */
+  readonly completed: Promise<void>;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageDecoder/tracks) */
+  readonly tracks: ImageTrackList;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageDecoder/type) */
+  readonly type: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageDecoder/close) */
+  close(): void;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageDecoder/decode) */
+  decode(options?: ImageDecodeOptions): Promise<ImageDecodeResult>;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageDecoder/reset) */
+  reset(): void;
+}
+
+declare var ImageDecoder: {
+  prototype: ImageDecoder;
+  new (init: ImageDecoderInit): ImageDecoder;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageDecoder/isTypeSupported_static) */
+  isTypeSupported(type: string): Promise<boolean>;
+};
+
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageTrack) */
+interface ImageTrack {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageTrack/animated) */
+  readonly animated: boolean;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageTrack/frameCount) */
+  readonly frameCount: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageTrack/repetitionCount) */
+  readonly repetitionCount: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageTrack/selected) */
+  selected: boolean;
+}
+
+declare var ImageTrack: {
+  prototype: ImageTrack;
+  new (): ImageTrack;
+};
+
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageTrackList) */
+interface ImageTrackList {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageTrackList/length) */
+  readonly length: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageTrackList/ready) */
+  readonly ready: Promise<void>;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageTrackList/selectedIndex) */
+  readonly selectedIndex: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ImageTrackList/selectedTrack) */
+  readonly selectedTrack: ImageTrack | null;
+  [index: number]: ImageTrack;
+}
+
+declare var ImageTrackList: {
+  prototype: ImageTrackList;
+  new (): ImageTrackList;
 };
 
 interface ImportMeta {
@@ -18712,7 +19095,39 @@ declare var MessageEvent: {
   new <T>(type: string, eventInitDict?: MessageEventInit<T>): MessageEvent<T>;
 };
 
-interface MessagePortEventMap {
+interface MessageEventTargetEventMap {
+  message: MessageEvent;
+  messageerror: MessageEvent;
+}
+
+interface MessageEventTarget<T> {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DedicatedWorkerGlobalScope/message_event) */
+  onmessage: ((this: T, ev: MessageEvent) => any) | null;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DedicatedWorkerGlobalScope/messageerror_event) */
+  onmessageerror: ((this: T, ev: MessageEvent) => any) | null;
+  addEventListener<K extends keyof MessageEventTargetEventMap>(
+    type: K,
+    listener: (this: T, ev: MessageEventTargetEventMap[K]) => any,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
+  addEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
+  removeEventListener<K extends keyof MessageEventTargetEventMap>(
+    type: K,
+    listener: (this: T, ev: MessageEventTargetEventMap[K]) => any,
+    options?: boolean | EventListenerOptions,
+  ): void;
+  removeEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | EventListenerOptions,
+  ): void;
+}
+
+interface MessagePortEventMap extends MessageEventTargetEventMap {
   message: MessageEvent;
   messageerror: MessageEvent;
 }
@@ -18722,11 +19137,7 @@ interface MessagePortEventMap {
  *
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MessagePort)
  */
-interface MessagePort extends EventTarget {
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/MessagePort/message_event) */
-  onmessage: ((this: MessagePort, ev: MessageEvent) => any) | null;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/MessagePort/messageerror_event) */
-  onmessageerror: ((this: MessagePort, ev: MessageEvent) => any) | null;
+interface MessagePort extends EventTarget, MessageEventTarget<MessagePort> {
   /**
    * Disconnects the port, so that it is no longer active.
    *
@@ -19039,6 +19450,74 @@ interface NamedNodeMap {
 declare var NamedNodeMap: {
   prototype: NamedNodeMap;
   new (): NamedNodeMap;
+};
+
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/NavigationActivation) */
+interface NavigationActivation {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/NavigationActivation/entry) */
+  readonly entry: NavigationHistoryEntry;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/NavigationActivation/from) */
+  readonly from: NavigationHistoryEntry | null;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/NavigationActivation/navigationType) */
+  readonly navigationType: NavigationType;
+}
+
+declare var NavigationActivation: {
+  prototype: NavigationActivation;
+  new (): NavigationActivation;
+};
+
+interface NavigationHistoryEntryEventMap {
+  dispose: Event;
+}
+
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/NavigationHistoryEntry) */
+interface NavigationHistoryEntry extends EventTarget {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/NavigationHistoryEntry/id) */
+  readonly id: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/NavigationHistoryEntry/index) */
+  readonly index: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/NavigationHistoryEntry/key) */
+  readonly key: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/NavigationHistoryEntry/dispose_event) */
+  ondispose: ((this: NavigationHistoryEntry, ev: Event) => any) | null;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/NavigationHistoryEntry/sameDocument) */
+  readonly sameDocument: boolean;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/NavigationHistoryEntry/url) */
+  readonly url: string | null;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/NavigationHistoryEntry/getState) */
+  getState(): any;
+  addEventListener<K extends keyof NavigationHistoryEntryEventMap>(
+    type: K,
+    listener: (
+      this: NavigationHistoryEntry,
+      ev: NavigationHistoryEntryEventMap[K],
+    ) => any,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
+  addEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
+  removeEventListener<K extends keyof NavigationHistoryEntryEventMap>(
+    type: K,
+    listener: (
+      this: NavigationHistoryEntry,
+      ev: NavigationHistoryEntryEventMap[K],
+    ) => any,
+    options?: boolean | EventListenerOptions,
+  ): void;
+  removeEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | EventListenerOptions,
+  ): void;
+}
+
+declare var NavigationHistoryEntry: {
+  prototype: NavigationHistoryEntry;
+  new (): NavigationHistoryEntry;
 };
 
 /**
@@ -19379,7 +19858,7 @@ interface Node extends EventTarget {
    *
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/cloneNode)
    */
-  cloneNode(deep?: boolean): Node;
+  cloneNode(subtree?: boolean): Node;
   /**
    * Returns a bitmask indicating the position of other relative to node.
    *
@@ -20046,6 +20525,30 @@ interface OverconstrainedError extends DOMException {
 declare var OverconstrainedError: {
   prototype: OverconstrainedError;
   new (constraint: string, message?: string): OverconstrainedError;
+};
+
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PageRevealEvent) */
+interface PageRevealEvent extends Event {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PageRevealEvent/viewTransition) */
+  readonly viewTransition: ViewTransition | null;
+}
+
+declare var PageRevealEvent: {
+  prototype: PageRevealEvent;
+  new (type: string, eventInitDict?: PageRevealEventInit): PageRevealEvent;
+};
+
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PageSwapEvent) */
+interface PageSwapEvent extends Event {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PageSwapEvent/activation) */
+  readonly activation: NavigationActivation | null;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PageSwapEvent/viewTransition) */
+  readonly viewTransition: ViewTransition | null;
+}
+
+declare var PageSwapEvent: {
+  prototype: PageSwapEvent;
+  new (type: string, eventInitDict?: PageSwapEventInit): PageSwapEvent;
 };
 
 /**
@@ -21191,6 +21694,7 @@ declare var PointerEvent: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PopStateEvent)
  */
 interface PopStateEvent extends Event {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PopStateEvent/hasUAVisualTransition) */
   readonly hasUAVisualTransition: boolean;
   /**
    * Returns a copy of the information that was provided to pushState() or replaceState().
@@ -21285,6 +21789,7 @@ interface PublicKeyCredential extends Credential {
 declare var PublicKeyCredential: {
   prototype: PublicKeyCredential;
   new (): PublicKeyCredential;
+  getClientCapabilities(): Promise<PublicKeyCredentialClientCapabilities>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/isConditionalMediationAvailable_static) */
   isConditionalMediationAvailable(): Promise<boolean>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/PublicKeyCredential/isUserVerifyingPlatformAuthenticatorAvailable_static) */
@@ -22362,7 +22867,7 @@ declare var ReadableStreamDefaultReader: {
 
 interface ReadableStreamGenericReader {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/closed) */
-  readonly closed: Promise<undefined>;
+  readonly closed: Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/cancel) */
   cancel(reason?: any): Promise<void>;
 }
@@ -22499,7 +23004,11 @@ interface Request extends Body {
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/integrity)
    */
   readonly integrity: string;
-  /** Returns a boolean indicating whether or not request can outlive the global in which it was created. */
+  /**
+   * Returns a boolean indicating whether or not request can outlive the global in which it was created.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/keepalive)
+   */
   readonly keepalive: boolean;
   /**
    * Returns request's HTTP method, which is "GET" by default.
@@ -22641,7 +23150,8 @@ declare var Response: {
  */
 interface SVGAElement extends SVGGraphicsElement, SVGURIReference {
   rel: string;
-  readonly relList: DOMTokenList;
+  get relList(): DOMTokenList;
+  set relList(value: string);
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAElement/target) */
   readonly target: SVGAnimatedString;
   addEventListener<K extends keyof SVGElementEventMap>(
@@ -22677,11 +23187,17 @@ declare var SVGAElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAngle)
  */
 interface SVGAngle {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAngle/unitType) */
   readonly unitType: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAngle/value) */
   value: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAngle/valueAsString) */
   valueAsString: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAngle/valueInSpecifiedUnits) */
   valueInSpecifiedUnits: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAngle/convertToSpecifiedUnits) */
   convertToSpecifiedUnits(unitType: number): void;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAngle/newValueSpecifiedUnits) */
   newValueSpecifiedUnits(unitType: number, valueInSpecifiedUnits: number): void;
   readonly SVG_ANGLETYPE_UNKNOWN: 0;
   readonly SVG_ANGLETYPE_UNSPECIFIED: 1;
@@ -22799,7 +23315,9 @@ declare var SVGAnimateTransformElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedAngle)
  */
 interface SVGAnimatedAngle {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedAngle/animVal) */
   readonly animVal: SVGAngle;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedAngle/baseVal) */
   readonly baseVal: SVGAngle;
 }
 
@@ -22814,7 +23332,9 @@ declare var SVGAnimatedAngle: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedBoolean)
  */
 interface SVGAnimatedBoolean {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedBoolean/animVal) */
   readonly animVal: boolean;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedBoolean/baseVal) */
   baseVal: boolean;
 }
 
@@ -22846,7 +23366,9 @@ declare var SVGAnimatedEnumeration: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedInteger)
  */
 interface SVGAnimatedInteger {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedInteger/animVal) */
   readonly animVal: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedInteger/baseVal) */
   baseVal: number;
 }
 
@@ -22878,7 +23400,9 @@ declare var SVGAnimatedLength: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedLengthList)
  */
 interface SVGAnimatedLengthList {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedLengthList/animVal) */
   readonly animVal: SVGLengthList;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedLengthList/baseVal) */
   readonly baseVal: SVGLengthList;
 }
 
@@ -22893,7 +23417,9 @@ declare var SVGAnimatedLengthList: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedNumber)
  */
 interface SVGAnimatedNumber {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedNumber/animVal) */
   readonly animVal: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedNumber/baseVal) */
   baseVal: number;
 }
 
@@ -22908,7 +23434,9 @@ declare var SVGAnimatedNumber: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedNumberList)
  */
 interface SVGAnimatedNumberList {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedNumberList/animVal) */
   readonly animVal: SVGNumberList;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedNumberList/baseVal) */
   readonly baseVal: SVGNumberList;
 }
 
@@ -22918,7 +23446,9 @@ declare var SVGAnimatedNumberList: {
 };
 
 interface SVGAnimatedPoints {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGPolygonElement/animatedPoints) */
   readonly animatedPoints: SVGPointList;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGPolygonElement/points) */
   readonly points: SVGPointList;
 }
 
@@ -22928,7 +23458,9 @@ interface SVGAnimatedPoints {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedPreserveAspectRatio)
  */
 interface SVGAnimatedPreserveAspectRatio {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedPreserveAspectRatio/animVal) */
   readonly animVal: SVGPreserveAspectRatio;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedPreserveAspectRatio/baseVal) */
   readonly baseVal: SVGPreserveAspectRatio;
 }
 
@@ -22943,7 +23475,9 @@ declare var SVGAnimatedPreserveAspectRatio: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedRect)
  */
 interface SVGAnimatedRect {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedRect/animVal) */
   readonly animVal: DOMRectReadOnly;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedRect/baseVal) */
   readonly baseVal: DOMRect;
 }
 
@@ -22975,7 +23509,9 @@ declare var SVGAnimatedString: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedTransformList)
  */
 interface SVGAnimatedTransformList {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedTransformList/animVal) */
   readonly animVal: SVGTransformList;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimatedTransformList/baseVal) */
   readonly baseVal: SVGTransformList;
 }
 
@@ -22988,12 +23524,19 @@ declare var SVGAnimatedTransformList: {
 interface SVGAnimationElement extends SVGElement, SVGTests {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/targetElement) */
   readonly targetElement: SVGElement | null;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/beginElement) */
   beginElement(): void;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/beginElementAt) */
   beginElementAt(offset: number): void;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/endElement) */
   endElement(): void;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/endElementAt) */
   endElementAt(offset: number): void;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/getCurrentTime) */
   getCurrentTime(): number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/getSimpleDuration) */
   getSimpleDuration(): number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/getStartTime) */
   getStartTime(): number;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -23104,12 +23647,19 @@ declare var SVGClipPathElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGComponentTransferFunctionElement)
  */
 interface SVGComponentTransferFunctionElement extends SVGElement {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGComponentTransferFunctionElement/amplitude) */
   readonly amplitude: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGComponentTransferFunctionElement/exponent) */
   readonly exponent: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGComponentTransferFunctionElement/intercept) */
   readonly intercept: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGComponentTransferFunctionElement/offset) */
   readonly offset: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGComponentTransferFunctionElement/slope) */
   readonly slope: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGComponentTransferFunctionElement/tableValues) */
   readonly tableValues: SVGAnimatedNumberList;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGComponentTransferFunctionElement/type) */
   readonly type: SVGAnimatedEnumeration;
   readonly SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN: 0;
   readonly SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY: 1;
@@ -23238,7 +23788,9 @@ interface SVGElement
     HTMLOrSVGElement {
   /** @deprecated */
   readonly className: any;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGElement/ownerSVGElement) */
   readonly ownerSVGElement: SVGSVGElement | null;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGElement/viewportElement) */
   readonly viewportElement: SVGElement | null;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -23384,8 +23936,11 @@ declare var SVGFEBlendElement: {
 interface SVGFEColorMatrixElement
   extends SVGElement,
     SVGFilterPrimitiveStandardAttributes {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEColorMatrixElement/in1) */
   readonly in1: SVGAnimatedString;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEColorMatrixElement/type) */
   readonly type: SVGAnimatedEnumeration;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEColorMatrixElement/values) */
   readonly values: SVGAnimatedNumberList;
   readonly SVG_FECOLORMATRIX_TYPE_UNKNOWN: 0;
   readonly SVG_FECOLORMATRIX_TYPE_MATRIX: 1;
@@ -23591,10 +24146,15 @@ declare var SVGFEConvolveMatrixElement: {
 interface SVGFEDiffuseLightingElement
   extends SVGElement,
     SVGFilterPrimitiveStandardAttributes {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEDiffuseLightingElement/diffuseConstant) */
   readonly diffuseConstant: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEDiffuseLightingElement/in1) */
   readonly in1: SVGAnimatedString;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEDiffuseLightingElement/kernelUnitLengthX) */
   readonly kernelUnitLengthX: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEDiffuseLightingElement/kernelUnitLengthY) */
   readonly kernelUnitLengthY: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEDiffuseLightingElement/surfaceScale) */
   readonly surfaceScale: SVGAnimatedNumber;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -23691,7 +24251,9 @@ declare var SVGFEDisplacementMapElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEDistantLightElement)
  */
 interface SVGFEDistantLightElement extends SVGElement {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEDistantLightElement/azimuth) */
   readonly azimuth: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEDistantLightElement/elevation) */
   readonly elevation: SVGAnimatedNumber;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -23938,9 +24500,13 @@ declare var SVGFEFuncRElement: {
 interface SVGFEGaussianBlurElement
   extends SVGElement,
     SVGFilterPrimitiveStandardAttributes {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEGaussianBlurElement/in1) */
   readonly in1: SVGAnimatedString;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEGaussianBlurElement/stdDeviationX) */
   readonly stdDeviationX: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEGaussianBlurElement/stdDeviationY) */
   readonly stdDeviationY: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEGaussianBlurElement/setStdDeviation) */
   setStdDeviation(stdDeviationX: number, stdDeviationY: number): void;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -24053,6 +24619,7 @@ declare var SVGFEMergeElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEMergeNodeElement)
  */
 interface SVGFEMergeNodeElement extends SVGElement {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEMergeNodeElement/in1) */
   readonly in1: SVGAnimatedString;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -24089,9 +24656,13 @@ declare var SVGFEMergeNodeElement: {
 interface SVGFEMorphologyElement
   extends SVGElement,
     SVGFilterPrimitiveStandardAttributes {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEMorphologyElement/in1) */
   readonly in1: SVGAnimatedString;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEMorphologyElement/operator) */
   readonly operator: SVGAnimatedEnumeration;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEMorphologyElement/radiusX) */
   readonly radiusX: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEMorphologyElement/radiusY) */
   readonly radiusY: SVGAnimatedNumber;
   readonly SVG_MORPHOLOGY_OPERATOR_UNKNOWN: 0;
   readonly SVG_MORPHOLOGY_OPERATOR_ERODE: 1;
@@ -24170,8 +24741,11 @@ declare var SVGFEOffsetElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEPointLightElement)
  */
 interface SVGFEPointLightElement extends SVGElement {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEPointLightElement/x) */
   readonly x: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEPointLightElement/y) */
   readonly y: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFEPointLightElement/z) */
   readonly z: SVGAnimatedNumber;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -24208,11 +24782,15 @@ declare var SVGFEPointLightElement: {
 interface SVGFESpecularLightingElement
   extends SVGElement,
     SVGFilterPrimitiveStandardAttributes {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFESpecularLightingElement/in1) */
   readonly in1: SVGAnimatedString;
   readonly kernelUnitLengthX: SVGAnimatedNumber;
   readonly kernelUnitLengthY: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFESpecularLightingElement/specularConstant) */
   readonly specularConstant: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFESpecularLightingElement/specularExponent) */
   readonly specularExponent: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFESpecularLightingElement/surfaceScale) */
   readonly surfaceScale: SVGAnimatedNumber;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -24258,8 +24836,11 @@ interface SVGFESpotLightElement extends SVGElement {
   readonly pointsAtY: SVGAnimatedNumber;
   readonly pointsAtZ: SVGAnimatedNumber;
   readonly specularExponent: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFESpotLightElement/x) */
   readonly x: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFESpotLightElement/y) */
   readonly y: SVGAnimatedNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFESpotLightElement/z) */
   readonly z: SVGAnimatedNumber;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -24383,11 +24964,17 @@ declare var SVGFETurbulenceElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFilterElement)
  */
 interface SVGFilterElement extends SVGElement, SVGURIReference {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFilterElement/filterUnits) */
   readonly filterUnits: SVGAnimatedEnumeration;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFilterElement/height) */
   readonly height: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFilterElement/primitiveUnits) */
   readonly primitiveUnits: SVGAnimatedEnumeration;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFilterElement/width) */
   readonly width: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFilterElement/x) */
   readonly x: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGFilterElement/y) */
   readonly y: SVGAnimatedLength;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -24546,8 +25133,11 @@ declare var SVGGeometryElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGGradientElement)
  */
 interface SVGGradientElement extends SVGElement, SVGURIReference {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGGradientElement/gradientTransform) */
   readonly gradientTransform: SVGAnimatedTransformList;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGGradientElement/gradientUnits) */
   readonly gradientUnits: SVGAnimatedEnumeration;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGGradientElement/spreadMethod) */
   readonly spreadMethod: SVGAnimatedEnumeration;
   readonly SVG_SPREADMETHOD_UNKNOWN: 0;
   readonly SVG_SPREADMETHOD_PAD: 1;
@@ -24745,9 +25335,13 @@ declare var SVGLengthList: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGLineElement)
  */
 interface SVGLineElement extends SVGGeometryElement {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGLineElement/x1) */
   readonly x1: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGLineElement/x2) */
   readonly x2: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGLineElement/y1) */
   readonly y1: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGLineElement/y2) */
   readonly y2: SVGAnimatedLength;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -24782,9 +25376,13 @@ declare var SVGLineElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGLinearGradientElement)
  */
 interface SVGLinearGradientElement extends SVGGradientElement {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGLinearGradientElement/x1) */
   readonly x1: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGLinearGradientElement/x2) */
   readonly x2: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGLinearGradientElement/y1) */
   readonly y1: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGLinearGradientElement/y2) */
   readonly y2: SVGAnimatedLength;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -25005,14 +25603,23 @@ declare var SVGNumber: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGNumberList)
  */
 interface SVGNumberList {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGNumberList/length) */
   readonly length: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGNumberList/numberOfItems) */
   readonly numberOfItems: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGNumberList/appendItem) */
   appendItem(newItem: SVGNumber): SVGNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGNumberList/clear) */
   clear(): void;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGNumberList/getItem) */
   getItem(index: number): SVGNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGNumberList/initialize) */
   initialize(newItem: SVGNumber): SVGNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGNumberList/insertItemBefore) */
   insertItemBefore(newItem: SVGNumber, index: number): SVGNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGNumberList/removeItem) */
   removeItem(index: number): SVGNumber;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGNumberList/replaceItem) */
   replaceItem(newItem: SVGNumber, index: number): SVGNumber;
   [index: number]: SVGNumber;
 }
@@ -25065,8 +25672,11 @@ interface SVGPatternElement
     SVGFitToViewBox,
     SVGURIReference {
   readonly height: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGPatternElement/patternContentUnits) */
   readonly patternContentUnits: SVGAnimatedEnumeration;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGPatternElement/patternTransform) */
   readonly patternTransform: SVGAnimatedTransformList;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGPatternElement/patternUnits) */
   readonly patternUnits: SVGAnimatedEnumeration;
   readonly width: SVGAnimatedLength;
   readonly x: SVGAnimatedLength;
@@ -25241,11 +25851,16 @@ declare var SVGPreserveAspectRatio: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGRadialGradientElement)
  */
 interface SVGRadialGradientElement extends SVGGradientElement {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGRadialGradientElement/cx) */
   readonly cx: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGRadialGradientElement/cy) */
   readonly cy: SVGAnimatedLength;
   readonly fr: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGRadialGradientElement/fx) */
   readonly fx: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGRadialGradientElement/fy) */
   readonly fy: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGRadialGradientElement/r) */
   readonly r: SVGAnimatedLength;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -25286,11 +25901,17 @@ declare var SVGRadialGradientElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGRectElement)
  */
 interface SVGRectElement extends SVGGeometryElement {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGRectElement/height) */
   readonly height: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGRectElement/rx) */
   readonly rx: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGRectElement/ry) */
   readonly ry: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGRectElement/width) */
   readonly width: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGRectElement/x) */
   readonly x: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGRectElement/y) */
   readonly y: SVGAnimatedLength;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -25489,6 +26110,7 @@ declare var SVGSetElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGStopElement)
  */
 interface SVGStopElement extends SVGElement {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGStopElement/offset) */
   readonly offset: SVGAnimatedNumber;
   addEventListener<K extends keyof SVGElementEventMap>(
     type: K,
@@ -25684,7 +26306,9 @@ declare var SVGTSpanElement: {
 };
 
 interface SVGTests {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/requiredExtensions) */
   readonly requiredExtensions: SVGStringList;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAnimationElement/systemLanguage) */
   readonly systemLanguage: SVGStringList;
 }
 
@@ -25694,15 +26318,25 @@ interface SVGTests {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextContentElement)
  */
 interface SVGTextContentElement extends SVGGraphicsElement {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextContentElement/lengthAdjust) */
   readonly lengthAdjust: SVGAnimatedEnumeration;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextContentElement/textLength) */
   readonly textLength: SVGAnimatedLength;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextContentElement/getCharNumAtPosition) */
   getCharNumAtPosition(point?: DOMPointInit): number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextContentElement/getComputedTextLength) */
   getComputedTextLength(): number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextContentElement/getEndPositionOfChar) */
   getEndPositionOfChar(charnum: number): DOMPoint;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextContentElement/getExtentOfChar) */
   getExtentOfChar(charnum: number): DOMRect;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextContentElement/getNumberOfChars) */
   getNumberOfChars(): number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextContentElement/getRotationOfChar) */
   getRotationOfChar(charnum: number): number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextContentElement/getStartPositionOfChar) */
   getStartPositionOfChar(charnum: number): DOMPoint;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextContentElement/getSubStringLength) */
   getSubStringLength(charnum: number, nchars: number): number;
   /** @deprecated */
   selectSubString(charnum: number, nchars: number): void;
@@ -25778,8 +26412,11 @@ declare var SVGTextElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextPathElement)
  */
 interface SVGTextPathElement extends SVGTextContentElement, SVGURIReference {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextPathElement/method) */
   readonly method: SVGAnimatedEnumeration;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextPathElement/spacing) */
   readonly spacing: SVGAnimatedEnumeration;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTextPathElement/startOffset) */
   readonly startOffset: SVGAnimatedLength;
   readonly TEXTPATH_METHODTYPE_UNKNOWN: 0;
   readonly TEXTPATH_METHODTYPE_ALIGN: 1;
@@ -25903,14 +26540,23 @@ declare var SVGTitleElement: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransform)
  */
 interface SVGTransform {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransform/angle) */
   readonly angle: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransform/matrix) */
   readonly matrix: DOMMatrix;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransform/type) */
   readonly type: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransform/setMatrix) */
   setMatrix(matrix?: DOMMatrix2DInit): void;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransform/setRotate) */
   setRotate(angle: number, cx: number, cy: number): void;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransform/setScale) */
   setScale(sx: number, sy: number): void;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransform/setSkewX) */
   setSkewX(angle: number): void;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransform/setSkewY) */
   setSkewY(angle: number): void;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransform/setTranslate) */
   setTranslate(tx: number, ty: number): void;
   readonly SVG_TRANSFORM_UNKNOWN: 0;
   readonly SVG_TRANSFORM_MATRIX: 1;
@@ -25939,16 +26585,27 @@ declare var SVGTransform: {
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransformList)
  */
 interface SVGTransformList {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransformList/length) */
   readonly length: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransformList/numberOfItems) */
   readonly numberOfItems: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransformList/appendItem) */
   appendItem(newItem: SVGTransform): SVGTransform;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransformList/clear) */
   clear(): void;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransformList/consolidate) */
   consolidate(): SVGTransform | null;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransformList/createSVGTransformFromMatrix) */
   createSVGTransformFromMatrix(matrix?: DOMMatrix2DInit): SVGTransform;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransformList/getItem) */
   getItem(index: number): SVGTransform;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransformList/initialize) */
   initialize(newItem: SVGTransform): SVGTransform;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransformList/insertItemBefore) */
   insertItemBefore(newItem: SVGTransform, index: number): SVGTransform;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransformList/removeItem) */
   removeItem(index: number): SVGTransform;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGTransformList/replaceItem) */
   replaceItem(newItem: SVGTransform, index: number): SVGTransform;
   [index: number]: SVGTransform;
 }
@@ -25959,6 +26616,7 @@ declare var SVGTransformList: {
 };
 
 interface SVGURIReference {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SVGAElement/href) */
   readonly href: SVGAnimatedString;
 }
 
@@ -26258,7 +26916,7 @@ interface Selection {
   containsNode(node: Node, allowPartialContainment?: boolean): boolean;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Selection/deleteFromDocument) */
   deleteFromDocument(): void;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Selection/removeAllRanges) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Selection/empty) */
   empty(): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Selection/extend) */
   extend(node: Node, offset?: number): void;
@@ -26279,7 +26937,7 @@ interface Selection {
     focusNode: Node,
     focusOffset: number,
   ): void;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Selection/collapse) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Selection/setPosition) */
   setPosition(node: Node | null, offset?: number): void;
   toString(): string;
 }
@@ -27149,7 +27807,8 @@ interface StyleSheet {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/StyleSheet/href) */
   readonly href: string | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/StyleSheet/media) */
-  readonly media: MediaList;
+  get media(): MediaList;
+  set media(mediaText: string);
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/StyleSheet/ownerNode) */
   readonly ownerNode: Element | ProcessingInstruction | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/StyleSheet/parentStyleSheet) */
@@ -27271,7 +27930,7 @@ interface SubtleCrypto {
   ): Promise<ArrayBuffer | JsonWebKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/generateKey) */
   generateKey(
-    algorithm: "Ed25519",
+    algorithm: "Ed25519" | { name: "Ed25519" },
     extractable: boolean,
     keyUsages: ReadonlyArray<"sign" | "verify">,
   ): Promise<CryptoKeyPair>;
@@ -28570,11 +29229,12 @@ declare var VideoPlaybackQuality: {
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ViewTransition) */
 interface ViewTransition {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ViewTransition/finished) */
-  readonly finished: Promise<undefined>;
+  readonly finished: Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ViewTransition/ready) */
-  readonly ready: Promise<undefined>;
+  readonly ready: Promise<void>;
+  types: ViewTransitionTypeSet;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ViewTransition/updateCallbackDone) */
-  readonly updateCallbackDone: Promise<undefined>;
+  readonly updateCallbackDone: Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ViewTransition/skipTransition) */
   skipTransition(): void;
 }
@@ -28582,6 +29242,22 @@ interface ViewTransition {
 declare var ViewTransition: {
   prototype: ViewTransition;
   new (): ViewTransition;
+};
+
+interface ViewTransitionTypeSet {
+  forEach(
+    callbackfn: (
+      value: string,
+      key: string,
+      parent: ViewTransitionTypeSet,
+    ) => void,
+    thisArg?: any,
+  ): void;
+}
+
+declare var ViewTransitionTypeSet: {
+  prototype: ViewTransitionTypeSet;
+  new (): ViewTransitionTypeSet;
 };
 
 interface VisualViewportEventMap {
@@ -29561,7 +30237,7 @@ interface WebGL2RenderingContextBase {
   ): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/clientWaitSync) */
   clientWaitSync(sync: WebGLSync, flags: GLbitfield, timeout: GLuint64): GLenum;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/compressedTexImage2D) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/compressedTexImage3D) */
   compressedTexImage3D(
     target: GLenum,
     level: GLint,
@@ -30295,7 +30971,7 @@ interface WebGL2RenderingContextBase {
 }
 
 interface WebGL2RenderingContextOverloads {
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/bufferData) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/bufferData) */
   bufferData(target: GLenum, size: GLsizeiptr, usage: GLenum): void;
   bufferData(
     target: GLenum,
@@ -30309,7 +30985,7 @@ interface WebGL2RenderingContextOverloads {
     srcOffset: number,
     length?: GLuint,
   ): void;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/bufferSubData) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/bufferSubData) */
   bufferSubData(
     target: GLenum,
     dstByteOffset: GLintptr,
@@ -30562,7 +31238,7 @@ interface WebGL2RenderingContextOverloads {
     srcOffset?: number,
     srcLength?: GLuint,
   ): void;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix2fv(
     location: WebGLUniformLocation | null,
     transpose: GLboolean,
@@ -30992,12 +31668,14 @@ declare var WebGLRenderingContext: {
 interface WebGLRenderingContextBase {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/canvas) */
   readonly canvas: HTMLCanvasElement | OffscreenCanvas;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/drawingBufferColorSpace) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/drawingBufferColorSpace) */
   drawingBufferColorSpace: PredefinedColorSpace;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/drawingBufferHeight) */
   readonly drawingBufferHeight: GLsizei;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/drawingBufferWidth) */
   readonly drawingBufferWidth: GLsizei;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/unpackColorSpace) */
+  unpackColorSpace: PredefinedColorSpace;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/activeTexture) */
   activeTexture(texture: GLenum): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/attachShader) */
@@ -31316,6 +31994,7 @@ interface WebGLRenderingContextBase {
   isShader(shader: WebGLShader | null): GLboolean;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/isTexture) */
   isTexture(texture: WebGLTexture | null): GLboolean;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/lineWidth) */
   lineWidth(width: GLfloat): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/linkProgram) */
   linkProgram(program: WebGLProgram): void;
@@ -32075,7 +32754,7 @@ interface WebTransport {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/incomingUnidirectionalStreams) */
   readonly incomingUnidirectionalStreams: ReadableStream;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/ready) */
-  readonly ready: Promise<undefined>;
+  readonly ready: Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/close) */
   close(closeInfo?: WebTransportCloseInfo): void;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebTransport/createBidirectionalStream) */
@@ -32254,7 +32933,7 @@ interface Window
   readonly length: number;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/location) */
   get location(): Location;
-  set location(href: string | Location);
+  set location(href: string);
   /**
    * Returns true if the location bar is visible; otherwise, returns false.
    *
@@ -32311,17 +32990,9 @@ interface Window
   readonly outerHeight: number;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/outerWidth) */
   readonly outerWidth: number;
-  /**
-   * @deprecated This is a legacy alias of `scrollX`.
-   *
-   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/scrollX)
-   */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/scrollX) */
   readonly pageXOffset: number;
-  /**
-   * @deprecated This is a legacy alias of `scrollY`.
-   *
-   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/scrollY)
-   */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/scrollY) */
   readonly pageYOffset: number;
   /**
    * Refers to either the parent WindowProxy, or itself.
@@ -32528,7 +33199,9 @@ interface WindowEventHandlersEventMap {
   offline: Event;
   online: Event;
   pagehide: PageTransitionEvent;
+  pagereveal: Event;
   pageshow: PageTransitionEvent;
+  pageswap: Event;
   popstate: PopStateEvent;
   rejectionhandled: PromiseRejectionEvent;
   storage: StorageEvent;
@@ -32571,10 +33244,14 @@ interface WindowEventHandlers {
   onpagehide:
     | ((this: WindowEventHandlers, ev: PageTransitionEvent) => any)
     | null;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/pagereveal_event) */
+  onpagereveal: ((this: WindowEventHandlers, ev: Event) => any) | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/pageshow_event) */
   onpageshow:
     | ((this: WindowEventHandlers, ev: PageTransitionEvent) => any)
     | null;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/pageswap_event) */
+  onpageswap: ((this: WindowEventHandlers, ev: Event) => any) | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/popstate_event) */
   onpopstate: ((this: WindowEventHandlers, ev: PopStateEvent) => any) | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/rejectionhandled_event) */
@@ -32649,11 +33326,11 @@ interface WindowOrWorkerGlobalScope {
   atob(data: string): string;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/btoa) */
   btoa(data: string): string;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/clearInterval) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/clearInterval) */
   clearInterval(id: number | undefined): void;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/clearTimeout) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/clearTimeout) */
   clearTimeout(id: number | undefined): void;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/createImageBitmap) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/createImageBitmap) */
   createImageBitmap(
     image: ImageBitmapSource,
     options?: ImageBitmapOptions,
@@ -32668,23 +33345,23 @@ interface WindowOrWorkerGlobalScope {
   ): Promise<ImageBitmap>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/fetch) */
   fetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response>;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/queueMicrotask) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/queueMicrotask) */
   queueMicrotask(callback: VoidFunction): void;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/reportError) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/reportError) */
   reportError(e: any): void;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/setInterval) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/setInterval) */
   setInterval(
     handler: TimerHandler,
     timeout?: number,
     ...arguments: any[]
   ): number;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/setTimeout) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/setTimeout) */
   setTimeout(
     handler: TimerHandler,
     timeout?: number,
     ...arguments: any[]
   ): number;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/structuredClone) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/structuredClone) */
   structuredClone<T = any>(value: T, options?: StructuredSerializeOptions): T;
 }
 
@@ -32693,21 +33370,19 @@ interface WindowSessionStorage {
   readonly sessionStorage: Storage;
 }
 
-interface WorkerEventMap extends AbstractWorkerEventMap {
-  message: MessageEvent;
-  messageerror: MessageEvent;
-}
+interface WorkerEventMap
+  extends AbstractWorkerEventMap,
+    MessageEventTargetEventMap {}
 
 /**
  * This Web Workers API interface represents a background task that can be easily created and can send messages back to its creator. Creating a worker is as simple as calling the Worker() constructor and specifying a script to be run in the worker thread.
  *
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Worker)
  */
-interface Worker extends EventTarget, AbstractWorker {
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Worker/message_event) */
-  onmessage: ((this: Worker, ev: MessageEvent) => any) | null;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Worker/messageerror_event) */
-  onmessageerror: ((this: Worker, ev: MessageEvent) => any) | null;
+interface Worker
+  extends EventTarget,
+    AbstractWorker,
+    MessageEventTarget<Worker> {
   /**
    * Clones message and transmits it to worker's global environment. transfer can be passed as a list of objects that are to be transferred rather than cloned.
    *
@@ -32819,11 +33494,11 @@ declare var WritableStreamDefaultController: {
  */
 interface WritableStreamDefaultWriter<W = any> {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStreamDefaultWriter/closed) */
-  readonly closed: Promise<undefined>;
+  readonly closed: Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStreamDefaultWriter/desiredSize) */
   readonly desiredSize: number | null;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStreamDefaultWriter/ready) */
-  readonly ready: Promise<undefined>;
+  readonly ready: Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStreamDefaultWriter/abort) */
   abort(reason?: any): Promise<void>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WritableStreamDefaultWriter/close) */
@@ -34194,17 +34869,9 @@ declare var orientation: number;
 declare var outerHeight: number;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/outerWidth) */
 declare var outerWidth: number;
-/**
- * @deprecated This is a legacy alias of `scrollX`.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/scrollX)
- */
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/scrollX) */
 declare var pageXOffset: number;
-/**
- * @deprecated This is a legacy alias of `scrollY`.
- *
- * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/scrollY)
- */
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/scrollY) */
 declare var pageYOffset: number;
 /**
  * Refers to either the parent WindowProxy, or itself.
@@ -34418,7 +35085,7 @@ declare var onbeforetoggle: ((this: Window, ev: Event) => any) | null;
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/blur_event)
  */
 declare var onblur: ((this: Window, ev: FocusEvent) => any) | null;
-/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/cancel_event) */
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLDialogElement/cancel_event) */
 declare var oncancel: ((this: Window, ev: Event) => any) | null;
 /**
  * Occurs when playback is possible, but would require further buffering.
@@ -34445,7 +35112,7 @@ declare var onchange: ((this: Window, ev: Event) => any) | null;
 declare var onclick: ((this: Window, ev: MouseEvent) => any) | null;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLDialogElement/close_event) */
 declare var onclose: ((this: Window, ev: Event) => any) | null;
-/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLCanvasElement/webglcontextlost_event) */
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLCanvasElement/contextlost_event) */
 declare var oncontextlost: ((this: Window, ev: Event) => any) | null;
 /**
  * Fires when the user clicks the right mouse button in the client area, opening the context menu.
@@ -34776,7 +35443,7 @@ declare var onsuspend: ((this: Window, ev: Event) => any) | null;
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLMediaElement/timeupdate_event)
  */
 declare var ontimeupdate: ((this: Window, ev: Event) => any) | null;
-/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLDetailsElement/toggle_event) */
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLElement/toggle_event) */
 declare var ontoggle: ((this: Window, ev: Event) => any) | null;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/touchcancel_event) */
 declare var ontouchcancel:
@@ -34886,8 +35553,12 @@ declare var onoffline: ((this: Window, ev: Event) => any) | null;
 declare var ononline: ((this: Window, ev: Event) => any) | null;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/pagehide_event) */
 declare var onpagehide: ((this: Window, ev: PageTransitionEvent) => any) | null;
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/pagereveal_event) */
+declare var onpagereveal: ((this: Window, ev: Event) => any) | null;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/pageshow_event) */
 declare var onpageshow: ((this: Window, ev: PageTransitionEvent) => any) | null;
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/pageswap_event) */
+declare var onpageswap: ((this: Window, ev: Event) => any) | null;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/popstate_event) */
 declare var onpopstate: ((this: Window, ev: PopStateEvent) => any) | null;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/rejectionhandled_event) */
@@ -34930,11 +35601,11 @@ declare var performance: Performance;
 declare function atob(data: string): string;
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/btoa) */
 declare function btoa(data: string): string;
-/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/clearInterval) */
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/clearInterval) */
 declare function clearInterval(id: number | undefined): void;
-/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/clearTimeout) */
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/clearTimeout) */
 declare function clearTimeout(id: number | undefined): void;
-/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/createImageBitmap) */
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/createImageBitmap) */
 declare function createImageBitmap(
   image: ImageBitmapSource,
   options?: ImageBitmapOptions,
@@ -34952,17 +35623,17 @@ declare function fetch(
   input: RequestInfo | URL,
   init?: RequestInit,
 ): Promise<Response>;
-/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/queueMicrotask) */
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/queueMicrotask) */
 declare function queueMicrotask(callback: VoidFunction): void;
-/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/reportError) */
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/reportError) */
 declare function reportError(e: any): void;
-/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/setInterval) */
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/setInterval) */
 declare function setInterval(
   handler: TimerHandler,
   timeout?: number,
   ...arguments: any[]
 ): number;
-/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/setTimeout) */
+/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/setTimeout) */
 declare function setTimeout(
   handler: TimerHandler,
   timeout?: number,
@@ -34976,7 +35647,7 @@ declare function structuredClone<
   value: T,
   options?: StructuredSerializeOptions,
 ): BetterTypeScriptLibInternals.StructuredClone.StructuredCloneOutput<T>;
-// /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/structuredClone) */
+// /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/structuredClone) */
 // declare function structuredClone<T = any>(value: T, options?: StructuredSerializeOptions): T;
 
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage) */
@@ -35057,6 +35728,7 @@ type HashAlgorithmIdentifier = AlgorithmIdentifier;
 type HeadersInit = [string, string][] | Record<string, string> | Headers;
 type IDBValidKey = number | string | Date | BufferSource | IDBValidKey[];
 type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
+type ImageBufferSource = AllowSharedBufferSource | ReadableStream;
 type Int32List = Int32Array | GLint[];
 type LineAndPositionSetting = number | AutoKeyword;
 type MediaProvider = MediaStream | MediaSource | Blob;
@@ -35073,6 +35745,7 @@ type OnErrorEventHandler = OnErrorEventHandlerNonNull | null;
 type OptionalPostfixToken<T extends string> = ` ${T}` | "";
 type OptionalPrefixToken<T extends string> = `${T} ` | "";
 type PerformanceEntryList = PerformanceEntry[];
+type PublicKeyCredentialClientCapabilities = Record<string, boolean>;
 type PublicKeyCredentialJSON = any;
 type RTCRtpTransform = RTCRtpScriptTransform;
 type ReadableStreamController<T> =
@@ -35110,6 +35783,7 @@ type Transferable =
   | TransformStream
   | AudioData
   | VideoFrame
+  | RTCDataChannel
   | ArrayBuffer;
 type Uint32List = Uint32Array | GLuint[];
 type VibratePattern = number | number[];
@@ -35399,6 +36073,7 @@ type NavigationTimingType =
   | "navigate"
   | "prerender"
   | "reload";
+type NavigationType = "push" | "reload" | "replace" | "traverse";
 type NotificationDirection = "auto" | "ltr" | "rtl";
 type NotificationPermission = "default" | "denied" | "granted";
 type OffscreenRenderingContextId =
@@ -35419,7 +36094,9 @@ type PanningModelType = "HRTF" | "equalpower";
 type PaymentComplete = "fail" | "success" | "unknown";
 type PaymentShippingType = "delivery" | "pickup" | "shipping";
 type PermissionName =
+  | "camera"
   | "geolocation"
+  | "microphone"
   | "midi"
   | "notifications"
   | "persistent-storage"
@@ -35444,6 +36121,7 @@ type RTCDegradationPreference =
   | "balanced"
   | "maintain-framerate"
   | "maintain-resolution";
+type RTCDtlsRole = "client" | "server" | "unknown";
 type RTCDtlsTransportState =
   | "closed"
   | "connected"
@@ -35472,6 +36150,7 @@ type RTCIceConnectionState =
 type RTCIceGathererState = "complete" | "gathering" | "new";
 type RTCIceGatheringState = "complete" | "gathering" | "new";
 type RTCIceProtocol = "tcp" | "udp";
+type RTCIceRole = "controlled" | "controlling" | "unknown";
 type RTCIceTcpCandidateType = "active" | "passive" | "so";
 type RTCIceTransportPolicy = "all" | "relay";
 type RTCIceTransportState =
@@ -35490,6 +36169,7 @@ type RTCPeerConnectionState =
   | "failed"
   | "new";
 type RTCPriorityType = "high" | "low" | "medium" | "very-low";
+type RTCQualityLimitationReason = "bandwidth" | "cpu" | "none" | "other";
 type RTCRtcpMuxPolicy = "require";
 type RTCRtpTransceiverDirection =
   | "inactive"
