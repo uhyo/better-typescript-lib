@@ -4,38 +4,67 @@ import { alias } from "../util/alias";
 import { upsert } from "../util/upsert";
 import { getStatementDeclName } from "./ast/getStatementDeclName";
 import { projectDir } from "./projectDir";
+import {
+  declareGlobalSymbol,
+  type ReplacementMap,
+  type ReplacementName,
+  type ReplacementTarget,
+} from "./ReplacementMap";
 
 const betterLibDir = path.join(projectDir, "lib");
+const aliasFilePath = path.join(betterLibDir, "alias.d.ts");
 
-export type ReplacementTarget = (
-  | {
-      type: "interface";
-      originalStatement: ts.InterfaceDeclaration;
-      members: Map<
-        string,
-        {
-          member: ts.TypeElement;
-          text: string;
-        }[]
-      >;
-    }
-  | {
-      type: "declare-global";
-      originalStatement: ts.ModuleDeclaration;
-      statements: ReplacementMap;
-    }
-  | {
-      type: "non-interface";
-      statement: ts.Statement;
-    }
-) & {
-  sourceFile: ts.SourceFile;
+type AliasFile = {
+  replacementMap: ReplacementMap;
 };
 
-export type ReplacementMap = Map<ReplacementName, ReplacementTarget[]>;
+// Cache for alias file statements
+let aliasFileCache: ts.SourceFile | undefined;
 
-export const declareGlobalSymbol = Symbol("declare global");
-export type ReplacementName = string | typeof declareGlobalSymbol;
+/**
+ * Load the alias file applied to the target file.
+ */
+export function loadAliasFile(
+  printer: ts.Printer,
+  targetFileName: string,
+): AliasFile {
+  if (!aliasFileCache) {
+    const aliasProgram = ts.createProgram([aliasFilePath], {});
+    const aliasFile = aliasProgram.getSourceFile(aliasFilePath);
+
+    if (!aliasFile) {
+      throw new Error("Alias file not found in the program");
+    }
+    aliasFileCache = aliasFile;
+  }
+  const aliasFile = aliasFileCache;
+  const statements = aliasFile.statements.flatMap((statement) => {
+    const name = getStatementDeclName(statement) ?? "";
+    const aliases = alias.get(name);
+    if (!aliases) {
+      return [statement];
+    }
+    return aliases.map((aliasDetails) => {
+      if (aliasDetails.file !== targetFileName) {
+        return statement;
+      }
+      return replaceAliases(statement, aliasDetails.replacement);
+    });
+  });
+
+  // Scan the target file
+  const replacementMap = scanStatements(printer, statements, aliasFile);
+  // mark everything as optional
+  for (const targets of replacementMap.values()) {
+    for (const target of targets) {
+      target.optional = true;
+    }
+  }
+
+  return {
+    replacementMap,
+  };
+}
 
 /**
  * Scan better lib file to determine which statements need to be replaced.
@@ -56,83 +85,82 @@ export function scanBetterFile(
 
 function scanStatements(
   printer: ts.Printer,
-  statements: ts.NodeArray<ts.Statement>,
+  statements: readonly ts.Statement[],
   sourceFile: ts.SourceFile,
 ): ReplacementMap {
   const replacementTargets = new Map<ReplacementName, ReplacementTarget[]>();
   for (const statement of statements) {
     const name = getStatementDeclName(statement) ?? "";
-    const aliasesMap =
-      alias.get(name) ?? new Map([[name, new Map<string, string>()]]);
-    for (const [targetName, typeMap] of aliasesMap) {
-      const transformedStatement = replaceAliases(statement, typeMap);
-      if (ts.isInterfaceDeclaration(transformedStatement)) {
-        const members = new Map<
-          string,
-          {
-            member: ts.TypeElement;
-            text: string;
-          }[]
-        >();
-        for (const member of transformedStatement.members) {
-          const memberName = member.name?.getText(sourceFile) ?? "";
-          upsert(members, memberName, (members = []) => {
-            const leadingSpacesMatch = /^\s*/.exec(
-              member.getFullText(sourceFile),
-            );
-            const leadingSpaces =
-              leadingSpacesMatch !== null ? leadingSpacesMatch[0] : "";
-            members.push({
-              member,
-              text:
-                leadingSpaces +
-                printer.printNode(ts.EmitHint.Unspecified, member, sourceFile),
-            });
-            return members;
+    const transformedStatement = statement;
+    if (ts.isInterfaceDeclaration(transformedStatement)) {
+      const members = new Map<
+        string,
+        {
+          member: ts.TypeElement;
+          text: string;
+        }[]
+      >();
+      for (const member of transformedStatement.members) {
+        const memberName = member.name?.getText(sourceFile) ?? "";
+        upsert(members, memberName, (members = []) => {
+          const leadingSpacesMatch = /^\s*/.exec(
+            member.getFullText(sourceFile),
+          );
+          const leadingSpaces =
+            leadingSpacesMatch !== null ? leadingSpacesMatch[0] : "";
+          members.push({
+            member,
+            text:
+              leadingSpaces +
+              printer.printNode(ts.EmitHint.Unspecified, member, sourceFile),
           });
-        }
-        upsert(replacementTargets, targetName, (targets = []) => {
-          targets.push({
-            type: "interface",
-            members,
-            originalStatement: transformedStatement,
-            sourceFile: sourceFile,
-          });
-          return targets;
-        });
-      } else if (
-        ts.isModuleDeclaration(transformedStatement) &&
-        ts.isIdentifier(transformedStatement.name) &&
-        transformedStatement.name.text === "global"
-      ) {
-        // declare global
-        upsert(replacementTargets, declareGlobalSymbol, (targets = []) => {
-          targets.push({
-            type: "declare-global",
-            originalStatement: transformedStatement,
-            statements:
-              transformedStatement.body &&
-              ts.isModuleBlock(transformedStatement.body)
-                ? scanStatements(
-                    printer,
-                    transformedStatement.body.statements,
-                    sourceFile,
-                  )
-                : new Map(),
-            sourceFile: sourceFile,
-          });
-          return targets;
-        });
-      } else {
-        upsert(replacementTargets, targetName, (statements = []) => {
-          statements.push({
-            type: "non-interface",
-            statement: transformedStatement,
-            sourceFile: sourceFile,
-          });
-          return statements;
+          return members;
         });
       }
+      upsert(replacementTargets, name, (targets = []) => {
+        targets.push({
+          type: "interface",
+          members,
+          originalStatement: transformedStatement,
+          optional: false,
+          sourceFile: sourceFile,
+        });
+        return targets;
+      });
+    } else if (
+      ts.isModuleDeclaration(transformedStatement) &&
+      ts.isIdentifier(transformedStatement.name) &&
+      transformedStatement.name.text === "global"
+    ) {
+      // declare global
+      upsert(replacementTargets, declareGlobalSymbol, (targets = []) => {
+        targets.push({
+          type: "declare-global",
+          originalStatement: transformedStatement,
+          statements:
+            transformedStatement.body &&
+            ts.isModuleBlock(transformedStatement.body)
+              ? scanStatements(
+                  printer,
+                  transformedStatement.body.statements,
+                  sourceFile,
+                )
+              : new Map(),
+          optional: false,
+          sourceFile: sourceFile,
+        });
+        return targets;
+      });
+    } else {
+      upsert(replacementTargets, name, (statements = []) => {
+        statements.push({
+          type: "non-interface",
+          statement: transformedStatement,
+          optional: false,
+          sourceFile: sourceFile,
+        });
+        return statements;
+      });
     }
   }
   return replacementTargets;
@@ -140,20 +168,34 @@ function scanStatements(
 
 function replaceAliases(
   statement: ts.Statement,
-  typeMap: Map<string, string>,
+  replacement: Map<string, string>,
 ): ts.Statement {
-  if (typeMap.size === 0) return statement;
   return ts.transform(statement, [
     (context) => (sourceStatement) => {
       const visitor = (node: ts.Node): ts.Node => {
+        if (ts.isInterfaceDeclaration(node)) {
+          const toName = replacement.get(node.name.text);
+          if (toName === undefined) {
+            return node;
+          }
+          const visited = ts.visitEachChild(node, visitor, context);
+          return ts.factory.updateInterfaceDeclaration(
+            visited,
+            visited.modifiers,
+            ts.factory.createIdentifier(toName),
+            visited.typeParameters,
+            visited.heritageClauses,
+            visited.members,
+          );
+        }
         if (ts.isTypeReferenceNode(node) && ts.isIdentifier(node.typeName)) {
-          const replacementType = typeMap.get(node.typeName.text);
-          if (replacementType === undefined) {
+          const toName = replacement.get(node.typeName.text);
+          if (toName === undefined) {
             return node;
           }
           return ts.factory.updateTypeReferenceNode(
             node,
-            ts.factory.createIdentifier(replacementType),
+            ts.factory.createIdentifier(toName),
             node.typeArguments,
           );
         }

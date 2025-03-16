@@ -12,13 +12,13 @@ Index: es5.d.ts
   */
 -declare function eval(x: string): any;
 +declare function eval(x: string): unknown;
- 
+
  /**
   * Converts a string to an integer.
   * @param string A string to convert into a number.
 @@ -115,14 +115,27 @@
    toLocaleString(): string;
- 
+
    /** Returns the primitive value of the specified object. */
    valueOf(): Object;
 -
@@ -42,30 +42,30 @@ Index: es5.d.ts
 +                [key in Key]: unknown;
 +              }
 +            : {});
- 
+
    /**
     * Determines whether an object exists in another object's prototype chain.
     * @param v Another object whose prototype chain is to be checked.
 @@ -137,75 +150,145 @@
  }
- 
+
  interface ObjectConstructor {
    new (value?: any): Object;
 -  (): any;
 -  (value: any): any;
 +  (): {};
 +  <T>(value: T): T extends object ? T : {};
- 
+
    /** A reference to the prototype for a class of objects. */
    readonly prototype: Object;
- 
+
    /**
     * Returns the prototype of an object.
     * @param o The object that references the prototype.
     */
 -  getPrototypeOf(o: any): any;
 +  getPrototypeOf(o: {}): unknown;
- 
+
    /**
     * Gets the own property descriptor of the specified object.
     * An own property descriptor is one that is defined directly on the object and is not inherited from the object's prototype.
@@ -77,7 +77,7 @@ Index: es5.d.ts
 +    o: {},
      p: PropertyKey,
    ): PropertyDescriptor | undefined;
- 
+
    /**
     * Returns the names of the own properties of an object. The own properties of an object are those that are defined directly
     * on that object, and are not inherited from the object's prototype. The properties of an object include both fields (objects) and functions.
@@ -85,14 +85,14 @@ Index: es5.d.ts
     */
 -  getOwnPropertyNames(o: any): string[];
 +  getOwnPropertyNames(o: {}): string[];
- 
+
    /**
     * Creates an object that has the specified prototype or that has null prototype.
     * @param o Object to use as a prototype. May be null.
     */
 -  create(o: object | null): any;
 +  create<O extends object>(o: O): O;
- 
+
    /**
 +   * Creates an object that has the specified prototype or that has null prototype.
 +   * @param o Object to use as a prototype. May be null.
@@ -124,7 +124,7 @@ Index: es5.d.ts
 +          ? O[K]
 +          : unknown;
 +  };
- 
+
    /**
 +   * Creates an object that has the specified prototype, and that optionally contains specified properties.
 +   * @param o Object to use as a prototype. May be null
@@ -178,7 +178,7 @@ Index: es5.d.ts
 +              : unknown;
 +        }
 +      : unknown);
- 
+
    /**
     * Adds one or more properties to an object, and/or modifies attributes of existing properties.
     * @param o Object on which to add or modify the properties. This can be a native JavaScript object or a DOM object.
@@ -207,7 +207,7 @@ Index: es5.d.ts
 +          ? O[K]
 +          : unknown;
 +  };
- 
+
    /**
     * Prevents the modification of attributes of existing properties, and prevents the addition of new properties.
     * @param o Object on which to lock the attributes.
@@ -254,14 +254,14 @@ Index: es5.d.ts
      ...args: A
    ): new (...args: B) => R;
  }
- 
+
  interface IArguments {
 -  [index: number]: any;
 +  [index: number]: unknown;
    length: number;
    callee: Function;
  }
- 
+
 @@ -486,24 +567,28 @@
     * Matches a string with a regular expression, and returns an array containing the results of that search.
     * @param regexp A variable name or string literal containing the regular expression pattern and flags.
@@ -276,7 +276,7 @@ Index: es5.d.ts
 +   * @param replaceValue A string containing the text to replace for every successful match of searchValue in this string.
     */
    replace(searchValue: string | RegExp, replaceValue: string): string;
- 
+
    /**
     * Replaces text in a string, using a regular expression or search string.
 -   * @param searchValue A string to search for.
@@ -293,7 +293,7 @@ Index: es5.d.ts
 +      ...rest: (string | number)[]
 +    ) => string,
    ): string;
- 
+
    /**
     * Finds the first substring match in a regular expression search.
 @@ -1200,37 +1285,71 @@
@@ -378,7 +378,7 @@ Index: es5.d.ts
 +    space?: string | number | null | undefined,
 +  ): string | undefined;
  }
- 
+
  /**
   * An intrinsic object that provides functions to convert JavaScript values to and from the JavaScript Object Notation (JSON) format.
 @@ -1294,23 +1413,25 @@
@@ -566,7 +566,7 @@ Index: es5.d.ts
      ) => U,
      initialValue: U,
    ): U;
- 
+
 @@ -1552,23 +1658,25 @@
     * which is coercible to the Boolean value false, or until the end of the array.
     * @param thisArg An object to which the this keyword can refer in the predicate function.
@@ -752,10 +752,10 @@ Index: es5.d.ts
      ) => U,
      initialValue: U,
    ): U;
- 
+
    [n: number]: T;
  }
- 
+
  interface ArrayConstructor {
 -  new (arrayLength?: number): any[];
    new <T>(arrayLength: number): T[];
@@ -768,12 +768,12 @@ Index: es5.d.ts
 +  isArray(arg: any): arg is unknown[];
 +  readonly prototype: unknown[];
  }
- 
+
  declare var Array: ArrayConstructor;
- 
+
 @@ -1716,9 +1807,11 @@
  }
- 
+
  declare type PromiseConstructorLike = new <T>(
    executor: (
 -    resolve: (value: T | PromiseLike<T>) => void,
@@ -783,7 +783,7 @@ Index: es5.d.ts
      reject: (reason?: any) => void,
    ) => void,
  ) => PromiseLike<T>;
- 
+
 @@ -1728,52 +1821,56 @@
     * @param onfulfilled The callback to execute when the Promise is resolved.
     * @param onrejected The callback to execute when the Promise is rejected.
@@ -815,7 +815,7 @@ Index: es5.d.ts
 +    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
 +  ): PromiseLike<T | U>;
  }
- 
+
 -/**
 - * Represents the completion of an asynchronous operation
 - */
@@ -841,7 +841,7 @@ Index: es5.d.ts
 +    onfulfilled: (value: T) => U | PromiseLike<U>,
 +    onrejected?: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
 +  ): Promise<U>;
- 
+
    /**
 +   * Attaches callbacks for the resolution and/or rejection of the Promise.
 +   * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -868,12 +868,12 @@ Index: es5.d.ts
 +    onrejected: ((reason: unknown) => U | PromiseLike<U>) | null | undefined,
 +  ): Promise<T | U>;
  }
- 
+
  /**
   * Recursively unwraps the "awaited type" of a type. Non-promise "thenables" should resolve to `never`. This emulates the behavior of `await`.
 @@ -1837,8 +1934,11 @@
  type Extract<T, U> = T extends U ? T : never;
- 
+
  /**
   * Construct a type with the properties of T except for those in type K.
 + *
@@ -881,7 +881,7 @@ Index: es5.d.ts
 + * @see {@link https://github.com/microsoft/TypeScript/issues/54451}
   */
  type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
- 
+
  /**
 @@ -2138,20 +2238,24 @@
     * is treated as length+end.
@@ -909,7 +909,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
 @@ -2161,21 +2265,24 @@
@@ -987,7 +987,7 @@ Index: es5.d.ts
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
 +    thisArg?: This,
    ): void;
- 
+
    /**
     * Returns the index of the first occurrence of a value in an array.
 @@ -2241,50 +2346,40 @@
@@ -1143,7 +1143,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Sorts an array.
 @@ -2438,25 +2523,23 @@
@@ -1174,7 +1174,7 @@ Index: es5.d.ts
    ): Int8Array<ArrayBuffer>;
  }
  declare var Int8Array: Int8ArrayConstructor;
- 
+
 @@ -2494,20 +2577,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
@@ -1201,7 +1201,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
 @@ -2517,21 +2604,24 @@
@@ -1279,7 +1279,7 @@ Index: es5.d.ts
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
 +    thisArg?: This,
    ): void;
- 
+
    /**
     * Returns the index of the first occurrence of a value in an array.
 @@ -2597,50 +2685,40 @@
@@ -1435,7 +1435,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Sorts an array.
 @@ -2794,25 +2862,23 @@
@@ -1466,7 +1466,7 @@ Index: es5.d.ts
    ): Uint8Array<ArrayBuffer>;
  }
  declare var Uint8Array: Uint8ArrayConstructor;
- 
+
 @@ -2852,20 +2918,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
@@ -1493,7 +1493,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
 @@ -2875,21 +2945,24 @@
@@ -1571,7 +1571,7 @@ Index: es5.d.ts
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
 +    thisArg?: This,
    ): void;
- 
+
    /**
     * Returns the index of the first occurrence of a value in an array.
 @@ -2955,50 +3026,40 @@
@@ -1727,7 +1727,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Sorts an array.
 @@ -3152,25 +3203,23 @@
@@ -1758,7 +1758,7 @@ Index: es5.d.ts
    ): Uint8ClampedArray<ArrayBuffer>;
  }
  declare var Uint8ClampedArray: Uint8ClampedArrayConstructor;
- 
+
 @@ -3208,20 +3257,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
@@ -1785,7 +1785,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
 @@ -3231,21 +3284,24 @@
@@ -2019,7 +2019,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Sorts an array.
 @@ -3507,25 +3541,23 @@
@@ -2050,7 +2050,7 @@ Index: es5.d.ts
    ): Int16Array<ArrayBuffer>;
  }
  declare var Int16Array: Int16ArrayConstructor;
- 
+
 @@ -3563,20 +3595,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
@@ -2077,7 +2077,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
 @@ -3586,21 +3622,24 @@
@@ -2155,7 +2155,7 @@ Index: es5.d.ts
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
 +    thisArg?: This,
    ): void;
- 
+
    /**
     * Returns the index of the first occurrence of a value in an array.
 @@ -3666,50 +3703,40 @@
@@ -2311,7 +2311,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Sorts an array.
 @@ -3863,25 +3880,23 @@
@@ -2369,7 +2369,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
 @@ -3941,21 +3960,24 @@
@@ -2447,7 +2447,7 @@ Index: es5.d.ts
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
 +    thisArg?: This,
    ): void;
- 
+
    /**
     * Returns the index of the first occurrence of a value in an array.
 @@ -4021,50 +4041,40 @@
@@ -2603,7 +2603,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Sorts an array.
 @@ -4218,25 +4218,23 @@
@@ -2634,7 +2634,7 @@ Index: es5.d.ts
    ): Int32Array<ArrayBuffer>;
  }
  declare var Int32Array: Int32ArrayConstructor;
- 
+
 @@ -4274,20 +4272,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
@@ -2661,7 +2661,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
 @@ -4297,21 +4299,24 @@
@@ -2895,7 +2895,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Sorts an array.
 @@ -4573,25 +4556,23 @@
@@ -2926,7 +2926,7 @@ Index: es5.d.ts
    ): Uint32Array<ArrayBuffer>;
  }
  declare var Uint32Array: Uint32ArrayConstructor;
- 
+
 @@ -4629,20 +4610,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
@@ -2953,7 +2953,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
 @@ -4652,21 +4637,24 @@
@@ -3031,7 +3031,7 @@ Index: es5.d.ts
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
 +    thisArg?: This,
    ): void;
- 
+
    /**
     * Returns the index of the first occurrence of a value in an array.
 @@ -4732,50 +4718,40 @@
@@ -3187,7 +3187,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Sorts an array.
 @@ -4929,25 +4895,23 @@
@@ -3218,7 +3218,7 @@ Index: es5.d.ts
    ): Float32Array<ArrayBuffer>;
  }
  declare var Float32Array: Float32ArrayConstructor;
- 
+
 @@ -4985,20 +4949,24 @@
     * is treated as length+end.
     * @param end If not specified, length of the this object is used as its default value.
@@ -3245,7 +3245,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Changes all array elements from `start` to `end` index to a static `value` and returns the modified array
 @@ -5008,21 +4976,24 @@
@@ -3323,7 +3323,7 @@ Index: es5.d.ts
 +    callbackfn: (this: This, value: number, index: number, array: this) => void,
 +    thisArg?: This,
    ): void;
- 
+
    /**
     * Returns the index of the first occurrence of a value in an array.
 @@ -5088,50 +5057,40 @@
@@ -3479,7 +3479,7 @@ Index: es5.d.ts
 +    ) => boolean,
 +    thisArg?: This,
    ): boolean;
- 
+
    /**
     * Sorts an array.
 @@ -5285,25 +5234,23 @@
@@ -3510,8 +3510,8 @@ Index: es5.d.ts
    ): Float64Array<ArrayBuffer>;
  }
  declare var Float64Array: Float64ArrayConstructor;
- 
-@@ -5564,4 +5511,33 @@
+
+@@ -5609,4 +5556,229 @@
      locales?: string | string[],
      options?: Intl.DateTimeFormatOptions,
    ): string;
@@ -3545,5 +3545,201 @@ Index: es5.d.ts
 +type UndefinedDomain = symbol | SomeFunction | SomeConstructor | undefined;
 +type StringifyResultT<A> = A extends UndefinedDomain ? undefined : string;
 +type StringifyResult<A> = StringifyResultT<A> | SomeExtends<UndefinedDomain, A>;
++
++interface TypedNumberArray<
++  TArrayBuffer extends ArrayBufferLike = ArrayBufferLike,
++> {
++  /**
++   * Determines whether all the members of an array satisfy the specified test.
++   * @param predicate A function that accepts up to three arguments. The every method calls
++   * the predicate function for each element in the array until the predicate returns a value
++   * which is coercible to the Boolean value false, or until the end of the array.
++   * @param thisArg An object to which the this keyword can refer in the predicate function.
++   * If thisArg is omitted, undefined is used as the this value.
++   */
++  every<This = undefined>(
++    predicate: (
++      this: This,
++      value: number,
++      index: number,
++      array: this,
++    ) => boolean,
++    thisArg?: This,
++  ): boolean;
++  /**
++   * Returns the elements of an array that meet the condition specified in a callback function.
++   * @param predicate A function that accepts up to three arguments. The filter method calls
++   * the predicate function one time for each element in the array.
++   * @param thisArg An object to which the this keyword can refer in the predicate function.
++   * If thisArg is omitted, undefined is used as the this value.
++   */
++  filter<This = undefined>(
++    predicate: (
++      this: This,
++      value: number,
++      index: number,
++      array: this,
++    ) => boolean,
++    thisArg?: This,
++  ): TypedNumberArray;
++  /**
++   * Returns the value of the first element in the array where predicate is true, and undefined
++   * otherwise.
++   * @param predicate find calls predicate once for each element of the array, in ascending
++   * order, until it finds one where predicate returns true. If such an element is found, find
++   * immediately returns that element value. Otherwise, find returns undefined.
++   * @param thisArg If provided, it will be used as the this value for each invocation of
++   * predicate. If it is not provided, undefined is used instead.
++   */
++  find<This = undefined>(
++    predicate: (this: This, value: number, index: number, obj: this) => boolean,
++    thisArg?: This,
++  ): number | undefined;
++  /**
++   * Returns the index of the first element in the array where predicate is true, and -1
++   * otherwise.
++   * @param predicate find calls predicate once for each element of the array, in ascending
++   * order, until it finds one where predicate returns true. If such an element is found,
++   * findIndex immediately returns that element index. Otherwise, findIndex returns -1.
++   * @param thisArg If provided, it will be used as the this value for each invocation of
++   * predicate. If it is not provided, undefined is used instead.
++   */
++  findIndex<This = undefined>(
++    predicate: (this: This, value: number, index: number, obj: this) => boolean,
++    thisArg?: This,
++  ): number;
++  /**
++   * Performs the specified action for each element in an array.
++   * @param callbackfn  A function that accepts up to three arguments. forEach calls the
++   * callbackfn function one time for each element in the array.
++   * @param thisArg  An object to which the this keyword can refer in the callbackfn function.
++   * If thisArg is omitted, undefined is used as the this value.
++   */
++  forEach<This = undefined>(
++    callbackfn: (this: This, value: number, index: number, array: this) => void,
++    thisArg?: This,
++  ): void;
++  /**
++   * Calls a defined callback function on each element of an array, and returns an array that
++   * contains the results.
++   * @param callbackfn A function that accepts up to three arguments. The map method calls the
++   * callbackfn function one time for each element in the array.
++   * @param thisArg An object to which the this keyword can refer in the callbackfn function.
++   * If thisArg is omitted, undefined is used as the this value.
++   */
++  map<This = undefined>(
++    callbackfn: (
++      this: This,
++      value: number,
++      index: number,
++      array: this,
++    ) => number,
++    thisArg?: This,
++  ): TypedNumberArray;
++  /**
++   * Calls the specified callback function for all the elements in an array. The return value of
++   * the callback function is the accumulated result, and is provided as an argument in the next
++   * call to the callback function.
++   * @param callbackfn A function that accepts up to four arguments. The reduce method calls the
++   * callbackfn function one time for each element in the array.
++   */
++  reduce<U = number>(
++    callbackfn: (
++      previousValue: number | U,
++      currentValue: number,
++      currentIndex: number,
++      array: this,
++    ) => U,
++  ): number | U;
++  /**
++   * Calls the specified callback function for all the elements in an array. The return value of
++   * the callback function is the accumulated result, and is provided as an argument in the next
++   * call to the callback function.
++   * @param callbackfn A function that accepts up to four arguments. The reduce method calls the
++   * callbackfn function one time for each element in the array.
++   * @param initialValue If initialValue is specified, it is used as the initial value to start
++   * the accumulation. The first call to the callbackfn function provides this value as an argument
++   * instead of an array value.
++   */
++  reduce<U = number>(
++    callbackfn: (
++      previousValue: U,
++      currentValue: number,
++      currentIndex: number,
++      array: this,
++    ) => U,
++    initialValue: U,
++  ): U;
++  /**
++   * Calls the specified callback function for all the elements in an array, in descending order.
++   * The return value of the callback function is the accumulated result, and is provided as an
++   * argument in the next call to the callback function.
++   * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls
++   * the callbackfn function one time for each element in the array.
++   */
++  reduceRight<U = number>(
++    callbackfn: (
++      previousValue: number | U,
++      currentValue: number,
++      currentIndex: number,
++      array: this,
++    ) => U,
++  ): number | U;
++  /**
++   * Calls the specified callback function for all the elements in an array, in descending order.
++   * The return value of the callback function is the accumulated result, and is provided as an
++   * argument in the next call to the callback function.
++   * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls
++   * the callbackfn function one time for each element in the array.
++   * @param initialValue If initialValue is specified, it is used as the initial value to start
++   * the accumulation. The first call to the callbackfn function provides this value as an argument
++   * instead of an array value.
++   */
++  reduceRight<U = number>(
++    callbackfn: (
++      previousValue: U,
++      currentValue: number,
++      currentIndex: number,
++      array: this,
++    ) => U,
++    initialValue: U,
++  ): U;
++  /**
++   * Determines whether the specified callback function returns true for any element of an array.
++   * @param predicate A function that accepts up to three arguments. The some method calls
++   * the predicate function for each element in the array until the predicate returns a value
++   * which is coercible to the Boolean value true, or until the end of the array.
++   * @param thisArg An object to which the this keyword can refer in the predicate function.
++   * If thisArg is omitted, undefined is used as the this value.
++   */
++  some<This = undefined>(
++    predicate: (
++      this: This,
++      value: number,
++      index: number,
++      array: this,
++    ) => boolean,
++    thisArg?: This,
++  ): boolean;
++}
++
++interface TypedNumberArrayConstructor {
++  /**
++   * Creates an array from an array-like or iterable object.
++   * @param arrayLike An array-like or iterable object to convert to an array.
++   */
++  from(arrayLike: ArrayLike<number>): TypedNumberArray<ArrayBuffer>;
++  /**
++   * Creates an array from an array-like or iterable object.
++   * @param arrayLike An array-like or iterable object to convert to an array.
++   * @param mapfn A mapping function to call on every element of the array.
++   * @param thisArg Value of 'this' used to invoke the mapfn.
++   */
++  from<T, This = undefined>(
++    arrayLike: ArrayLike<T>,
++    mapfn: (this: This, v: T, k: number) => number,
++    thisArg?: This,
++  ): TypedNumberArray<ArrayBuffer>;
++}
 
 ```

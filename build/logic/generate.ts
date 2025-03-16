@@ -5,11 +5,12 @@ import { upsert } from "../util/upsert";
 import { getStatementDeclName } from "./ast/getStatementDeclName";
 import {
   declareGlobalSymbol,
-  ReplacementMap,
-  ReplacementName,
-  ReplacementTarget,
-  scanBetterFile,
-} from "./scanBetterFile";
+  mergeReplacementMapInto,
+  type ReplacementMap,
+  type ReplacementName,
+  type ReplacementTarget,
+} from "./ReplacementMap";
+import { loadAliasFile, scanBetterFile } from "./scanBetterFile";
 
 type GenerateOptions = {
   emitOriginalAsComment?: boolean;
@@ -41,6 +42,11 @@ export function generate(
     : "";
 
   const replacementTargets = scanBetterFile(printer, targetFile);
+  const { replacementMap: aliasReplacementMap } = loadAliasFile(
+    printer,
+    targetFile,
+  );
+  mergeReplacementMapInto(replacementTargets, aliasReplacementMap);
 
   if (replacementTargets.size === 0) {
     return result + originalFile.text;
@@ -130,11 +136,21 @@ function generateStatements(
   for (const name of consumedReplacements) {
     replacementTargets.delete(name);
   }
-  if (replacementTargets.size > 0) {
-    result += "// --------------------\n";
-  }
+
+  let lineInserted = false;
   for (const target of replacementTargets.values()) {
     for (const statement of target) {
+      if (statement.optional) {
+        // Since target from aliases may not be present in the original file,
+        // aliases that have not been consumed are skipped.
+        continue;
+      }
+
+      if (!lineInserted) {
+        result += "// --------------------\n";
+        lineInserted = true;
+      }
+
       if (statement.type === "non-interface") {
         result += statement.statement.getFullText(statement.sourceFile);
       } else {
