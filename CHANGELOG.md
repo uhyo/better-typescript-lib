@@ -1,8 +1,10 @@
 # Changelog
 
-## Unreleased
+## v.2.11.0
 
-- fix: correct return type of `document.getElementById` from `HTMLElement | null` to `Element | null` to account for more general situations like `SVGElement`
+- fix: correct return type of `document.getElementById` from `HTMLElement | null` to `Element | null` to account for more general situations like `SVGElement` (https://github.com/uhyo/better-typescript-lib/pull/65)
+- Mark `Omit` as deprecated (https://github.com/uhyo/better-typescript-lib/pull/66)
+- Upgraded TypeScript to `5.8.2`. (https://github.com/uhyo/better-typescript-lib/pull/69)
 
 ## v2.10.1
 
