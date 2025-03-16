@@ -663,6 +663,11 @@ interface BigInt64ArrayConstructor {
     byteOffset?: number,
     length?: number,
   ): BigInt64Array<TArrayBuffer>;
+  new (
+    buffer: ArrayBuffer,
+    byteOffset?: number,
+    length?: number,
+  ): BigInt64Array<ArrayBuffer>;
   new (array: ArrayLike<bigint> | ArrayBuffer): BigInt64Array<ArrayBuffer>;
 
   /** The size in bytes of each element in the array. */
@@ -694,18 +699,28 @@ interface BigInt64ArrayConstructor {
 }
 //     /**
 //      * Creates an array from an array-like or iterable object.
-//      * @param arrayLike An array-like or iterable object to convert to an array.
-//      * @param mapfn A mapping function to call on every element of the array.
-//      * @param thisArg Value of 'this' used to invoke the mapfn.
+//      * @param arrayLike An array-like object to convert to an array.
 //      */
 //     from(arrayLike: ArrayLike<bigint>): BigInt64Array<ArrayBuffer>;
 //     /**
 //      * Creates an array from an array-like or iterable object.
-//      * @param arrayLike An array-like or iterable object to convert to an array.
+//      * @param arrayLike An array-like object to convert to an array.
 //      * @param mapfn A mapping function to call on every element of the array.
 //      * @param thisArg Value of 'this' used to invoke the mapfn.
 //      */
 //     from<U>(arrayLike: ArrayLike<U>, mapfn: (v: U, k: number) => bigint, thisArg?: any): BigInt64Array<ArrayBuffer>;
+//     /**
+//      * Creates an array from an array-like or iterable object.
+//      * @param elements An iterable object to convert to an array.
+//      */
+//     from(elements: Iterable<bigint>): BigInt64Array<ArrayBuffer>;
+//     /**
+//      * Creates an array from an array-like or iterable object.
+//      * @param elements An iterable object to convert to an array.
+//      * @param mapfn A mapping function to call on every element of the array.
+//      * @param thisArg Value of 'this' used to invoke the mapfn.
+//      */
+//     from<T>(elements: Iterable<T>, mapfn?: (v: T, k: number) => bigint, thisArg?: any): BigInt64Array<ArrayBuffer>;
 
 declare var BigInt64Array: BigInt64ArrayConstructor;
 
@@ -1141,6 +1156,11 @@ interface BigUint64ArrayConstructor {
     byteOffset?: number,
     length?: number,
   ): BigUint64Array<TArrayBuffer>;
+  new (
+    buffer: ArrayBuffer,
+    byteOffset?: number,
+    length?: number,
+  ): BigUint64Array<ArrayBuffer>;
   new (array: ArrayLike<bigint> | ArrayBuffer): BigUint64Array<ArrayBuffer>;
 
   /** The size in bytes of each element in the array. */
@@ -1172,12 +1192,28 @@ interface BigUint64ArrayConstructor {
 }
 //     /**
 //      * Creates an array from an array-like or iterable object.
-//      * @param arrayLike An array-like or iterable object to convert to an array.
+//      * @param arrayLike An array-like object to convert to an array.
+//      */
+//     from(arrayLike: ArrayLike<bigint>): BigUint64Array<ArrayBuffer>;
+//     /**
+//      * Creates an array from an array-like or iterable object.
+//      * @param arrayLike An array-like object to convert to an array.
 //      * @param mapfn A mapping function to call on every element of the array.
 //      * @param thisArg Value of 'this' used to invoke the mapfn.
 //      */
-//     from(arrayLike: ArrayLike<bigint>): BigUint64Array;
-//     from<U>(arrayLike: ArrayLike<U>, mapfn: (v: U, k: number) => bigint, thisArg?: any): BigUint64Array;
+//     from<U>(arrayLike: ArrayLike<U>, mapfn: (v: U, k: number) => bigint, thisArg?: any): BigUint64Array<ArrayBuffer>;
+//     /**
+//      * Creates an array from an array-like or iterable object.
+//      * @param elements An iterable object to convert to an array.
+//      */
+//     from(elements: Iterable<bigint>): BigUint64Array<ArrayBuffer>;
+//     /**
+//      * Creates an array from an array-like or iterable object.
+//      * @param elements An iterable object to convert to an array.
+//      * @param mapfn A mapping function to call on every element of the array.
+//      * @param thisArg Value of 'this' used to invoke the mapfn.
+//      */
+//     from<T>(elements: Iterable<T>, mapfn?: (v: T, k: number) => bigint, thisArg?: any): BigUint64Array<ArrayBuffer>;
 
 declare var BigUint64Array: BigUint64ArrayConstructor;
 

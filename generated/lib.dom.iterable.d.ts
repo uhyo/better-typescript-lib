@@ -3,11 +3,6 @@
 /// Window Iterable APIs
 /////////////////////////////
 
-interface AbortSignal {
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AbortSignal/any_static) */
-  any(signals: Iterable<AbortSignal>): AbortSignal;
-}
-
 interface AudioParam {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioParam/setValueCurveAtTime) */
   setValueCurveAtTime(
@@ -198,6 +193,10 @@ interface IDBObjectStore {
   ): IDBIndex;
 }
 
+interface ImageTrackList {
+  [Symbol.iterator](): ArrayIterator<ImageTrack>;
+}
+
 interface MIDIInputMap extends ReadonlyMap<string, MIDIInput> {}
 
 interface MIDIOutput {
@@ -368,7 +367,7 @@ interface SubtleCrypto {
   ): Promise<CryptoKey>;
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/SubtleCrypto/generateKey) */
   generateKey(
-    algorithm: "Ed25519",
+    algorithm: "Ed25519" | { name: "Ed25519" },
     extractable: boolean,
     keyUsages: ReadonlyArray<"sign" | "verify">,
   ): Promise<CryptoKeyPair>;
@@ -460,6 +459,8 @@ interface URLSearchParams {
   /** Returns a list of values in the search params. */
   values(): URLSearchParamsIterator<string>;
 }
+
+interface ViewTransitionTypeSet extends Set<string> {}
 
 interface WEBGL_draw_buffers {
   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WEBGL_draw_buffers/drawBuffersWEBGL) */
@@ -702,7 +703,7 @@ interface WebGL2RenderingContextOverloads {
     srcOffset?: number,
     srcLength?: GLuint,
   ): void;
-  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGLRenderingContext/uniformMatrix) */
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebGL2RenderingContext/uniformMatrix) */
   uniformMatrix2fv(
     location: WebGLUniformLocation | null,
     transpose: GLboolean,

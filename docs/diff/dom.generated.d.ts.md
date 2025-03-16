@@ -5,7 +5,7 @@ Index: dom.generated.d.ts
 ===================================================================
 --- dom.generated.d.ts
 +++ dom.generated.d.ts
-@@ -3293,11 +3293,16 @@
+@@ -3356,11 +3356,16 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioParamMap) */
@@ -25,7 +25,7 @@ Index: dom.generated.d.ts
  }
  
  declare var AudioParamMap: {
-@@ -3726,9 +3731,9 @@
+@@ -3789,9 +3794,9 @@
    bytes(): Promise<Uint8Array>;
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/formData) */
    formData(): Promise<FormData>;
@@ -36,7 +36,7 @@ Index: dom.generated.d.ts
    text(): Promise<string>;
  }
  
-@@ -6927,11 +6932,11 @@
+@@ -7044,11 +7049,11 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CustomStateSet) */
@@ -51,7 +51,7 @@ Index: dom.generated.d.ts
  }
  
  declare var CustomStateSet: {
-@@ -8375,9 +8380,9 @@
+@@ -8530,9 +8535,9 @@
    /**
     * Returns a reference to the first object with the specified value of the ID attribute.
     * @param elementId String that specifies the ID value.
@@ -62,7 +62,7 @@ Index: dom.generated.d.ts
     * Returns a HTMLCollection of the elements in the object on which the method was invoked (a document or an element) that have all the classes given by classNames. The classNames argument is interpreted as a space-separated list of classes.
     *
     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/getElementsByClassName)
-@@ -8563,9 +8568,9 @@
+@@ -8719,9 +8724,9 @@
   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DocumentFragment)
   */
  interface DocumentFragment extends Node, NonElementParentNode, ParentNode {
@@ -73,7 +73,7 @@ Index: dom.generated.d.ts
  
  declare var DocumentFragment: {
    prototype: DocumentFragment;
-@@ -9378,11 +9383,11 @@
+@@ -9542,11 +9547,11 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/EventCounts) */
@@ -88,7 +88,7 @@ Index: dom.generated.d.ts
  }
  
  declare var EventCounts: {
-@@ -9914,11 +9919,16 @@
+@@ -10078,11 +10083,16 @@
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FontFaceSet/check) */
    check(font: string, text?: string): boolean;
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FontFaceSet/load) */
@@ -108,7 +108,7 @@ Index: dom.generated.d.ts
    addEventListener<K extends keyof FontFaceSetEventMap>(
      type: K,
      listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any,
-@@ -16210,15 +16220,16 @@
+@@ -16529,15 +16539,16 @@
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Highlight/priority) */
    priority: number;
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Highlight/type) */
@@ -128,7 +128,7 @@ Index: dom.generated.d.ts
  }
  
  declare var Highlight: {
-@@ -16227,15 +16238,16 @@
+@@ -16546,15 +16557,16 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HighlightRegistry) */
@@ -148,7 +148,7 @@ Index: dom.generated.d.ts
  }
  
  declare var HighlightRegistry: {
-@@ -17663,11 +17675,16 @@
+@@ -18046,11 +18058,16 @@
   *
   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIInputMap)
   */
@@ -168,7 +168,7 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIInputMap: {
-@@ -17730,11 +17747,16 @@
+@@ -18113,11 +18130,16 @@
   *
   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIOutputMap)
   */
@@ -188,7 +188,7 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIOutputMap: {
-@@ -19528,9 +19550,9 @@
+@@ -20007,9 +20029,9 @@
    new (): NodeList;
  };
  
@@ -199,7 +199,7 @@ Index: dom.generated.d.ts
     * Performs the specified action for each node in an list.
     * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.
     * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
-@@ -22073,11 +22095,11 @@
+@@ -22578,11 +22600,11 @@
  };
  
  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCStatsReport) */
@@ -214,14 +214,34 @@ Index: dom.generated.d.ts
  }
  
  declare var RTCStatsReport: {
-@@ -34926,13 +34948,16 @@
+@@ -29203,15 +29225,11 @@
+   new (): ViewTransition;
+ };
+ 
+ interface ViewTransitionTypeSet {
+-  forEach(
+-    callbackfn: (
+-      value: string,
+-      key: string,
+-      parent: ViewTransitionTypeSet,
+-    ) => void,
+-    thisArg?: any,
++  forEach<This = undefined>(
++    callbackfn: (this: This, value: string, key: string, parent: this) => void,
++    thisArg?: This,
+   ): void;
+ }
+ 
+ declare var ViewTransitionTypeSet: {
+@@ -35597,13 +35615,16 @@
    handler: TimerHandler,
    timeout?: number,
    ...arguments: any[]
  ): number;
-+
- /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/structuredClone) */
+-/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/structuredClone) */
 -declare function structuredClone<T = any>(
++
++/** [MDN Reference](https://developer.mozilla.org/docs/Web/API/structuredClone) */
 +declare function structuredClone<
 +  const T extends BetterTypeScriptLibInternals.StructuredClone.Constraint<T>,
 +>(
@@ -233,7 +253,7 @@ Index: dom.generated.d.ts
  declare var sessionStorage: Storage;
  declare function addEventListener<K extends keyof WindowEventMap>(
    type: K,
-@@ -35607,4 +35632,125 @@
+@@ -36287,4 +36308,125 @@
    | "blob"
    | "document"
    | "json"
