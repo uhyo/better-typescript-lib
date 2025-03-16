@@ -27,20 +27,37 @@ const es2020TypedBigIntArrays = ["BigInt64Array", "BigUint64Array"];
 export const alias = new Map([
   [
     "TypedNumberArray",
-    es5TypedArrays.map((name) => ({
-      file: "lib.es5.d.ts",
-      replacement: new Map([["TypedNumberArray", name]]),
-    })),
+    es5TypedArrays
+      .map((name) => ({
+        file: "lib.es5.d.ts",
+        replacement: new Map([["TypedNumberArray", name]]),
+      }))
+      .concat([
+        {
+          file: "lib.esnext.float16.d.ts",
+          replacement: new Map([["TypedNumberArray", "Float16Array"]]),
+        },
+      ]),
   ],
   [
     "TypedNumberArrayConstructor",
-    es5TypedArrays.map((name) => ({
-      file: "lib.es5.d.ts",
-      replacement: new Map([
-        ["TypedNumberArray", name],
-        ["TypedNumberArrayConstructor", `${name}Constructor`],
+    es5TypedArrays
+      .map((name) => ({
+        file: "lib.es5.d.ts",
+        replacement: new Map([
+          ["TypedNumberArray", name],
+          ["TypedNumberArrayConstructor", `${name}Constructor`],
+        ]),
+      }))
+      .concat([
+        {
+          file: "lib.esnext.float16.d.ts",
+          replacement: new Map([
+            ["TypedNumberArray", "Float16Array"],
+            ["TypedNumberArrayConstructor", "Float16ArrayConstructor"],
+          ]),
+        },
       ]),
-    })),
   ],
   [
     "TypedNumberArrayConstructorIter",
