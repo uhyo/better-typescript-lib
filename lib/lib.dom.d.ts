@@ -230,6 +230,13 @@ interface CustomStateSet {
   ): void;
 }
 
+interface ViewTransitionTypeSet {
+  forEach<This = undefined>(
+    callbackfn: (this: This, value: string, key: string, parent: this) => void,
+    thisArg?: This,
+  ): void;
+}
+
 interface Document
   extends Node,
     DocumentOrShadowRoot,

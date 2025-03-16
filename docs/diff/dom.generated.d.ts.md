@@ -214,7 +214,26 @@ Index: dom.generated.d.ts
  }
  
  declare var RTCStatsReport: {
-@@ -35597,13 +35619,16 @@
+@@ -29203,15 +29225,11 @@
+   new (): ViewTransition;
+ };
+ 
+ interface ViewTransitionTypeSet {
+-  forEach(
+-    callbackfn: (
+-      value: string,
+-      key: string,
+-      parent: ViewTransitionTypeSet,
+-    ) => void,
+-    thisArg?: any,
++  forEach<This = undefined>(
++    callbackfn: (this: This, value: string, key: string, parent: this) => void,
++    thisArg?: This,
+   ): void;
+ }
+ 
+ declare var ViewTransitionTypeSet: {
+@@ -35597,13 +35615,16 @@
    handler: TimerHandler,
    timeout?: number,
    ...arguments: any[]
@@ -234,7 +253,7 @@ Index: dom.generated.d.ts
  declare var sessionStorage: Storage;
  declare function addEventListener<K extends keyof WindowEventMap>(
    type: K,
-@@ -36287,4 +36312,125 @@
+@@ -36287,4 +36308,125 @@
    | "blob"
    | "document"
    | "json"

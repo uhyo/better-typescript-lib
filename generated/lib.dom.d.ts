@@ -29245,15 +29245,12 @@ declare var ViewTransition: {
 };
 
 interface ViewTransitionTypeSet {
-  forEach(
-    callbackfn: (
-      value: string,
-      key: string,
-      parent: ViewTransitionTypeSet,
-    ) => void,
-    thisArg?: any,
+  forEach<This = undefined>(
+    callbackfn: (this: This, value: string, key: string, parent: this) => void,
+    thisArg?: This,
   ): void;
 }
+//     forEach(callbackfn: (value: string, key: string, parent: ViewTransitionTypeSet) => void, thisArg?: any): void;
 
 declare var ViewTransitionTypeSet: {
   prototype: ViewTransitionTypeSet;
