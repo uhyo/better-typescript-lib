@@ -23,9 +23,9 @@ Almost all `any` usage in TypeScript's built-in type definitions is replaced wit
 
 ## Why better-typescript-lib?
 
-Why don't we just fix TypeScript's built-in type definitions rather than maintaining a separate package? Actually, most of improvements in better-typescript-lib are unlikely to be accepted by TypeScript's maintainers if presented as possible improvement to TypeScript itself. This is because the improvements are too breaking to existing codebases.
+Why don't we just fix TypeScript's built-in type definitions rather than maintaining a separate package? Actually, most of improvements in better-typescript-lib are unlikely to be accepted by TypeScript's maintainers if presented as possible improvement to TypeScript itself. This is because the improvements are often severe breaking changes to existing codebases.
 
-A large part of `any` usage in TypeScript's built-in type definitions are there before the `unknown` type was introduced in TypeScript 3.0. Back then, there was no good way to represent “any value” in TypeScript's type system. Therefore, `any` was used as the best approximation. Aside from `any`, there are a lot of possible improvements that became possible as TypeScript evolved.
+A large part of `any` usage in TypeScript's built-in type definitions are there before the `unknown` type was introduced in TypeScript 3.0. Back then, there was no good way to represent “any value” in TypeScript's type system and `any` was used as the best approximation. Aside from `any`, there are a lot of possible improvements that became possible as TypeScript evolved.
 
 In other words, if you don't care about breaking changes (for example, you are starting a new project), you are just suffering from stale type definitions from the old days without getting any benefits from the maintained backward compatibility.
 
