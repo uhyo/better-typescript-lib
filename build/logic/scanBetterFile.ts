@@ -31,6 +31,7 @@ export function loadAliasFile(
   if (!aliasFileCache) {
     const aliasProgram = ts.createProgram([aliasFilePath], {
       noLib: true,
+      types: [],
     });
     const aliasFile = aliasProgram.getSourceFile(aliasFilePath);
 
@@ -73,6 +74,7 @@ export function scanBetterFile(
   const betterLibFile = path.join(betterLibDir, targetFile);
   const betterProgram = ts.createProgram([betterLibFile], {
     noLib: true,
+    types: [],
   });
   const betterFile = betterProgram.getSourceFile(betterLibFile);
   if (!betterFile) {
