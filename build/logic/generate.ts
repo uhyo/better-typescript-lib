@@ -138,14 +138,8 @@ function generateStatements(
   }
 
   let lineInserted = false;
-  for (const target of replacementTargets.values()) {
-    for (const statement of target) {
-      if (statement.optional) {
-        // Since target from aliases may not be present in the original file,
-        // aliases that have not been consumed are skipped.
-        continue;
-      }
-
+  for (const [name, targets] of replacementTargets.entries()) {
+    for (const statement of targets) {
       if (!lineInserted) {
         result += "// --------------------\n";
         lineInserted = true;

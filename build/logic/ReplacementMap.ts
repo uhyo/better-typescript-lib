@@ -22,7 +22,6 @@ export type ReplacementTarget = (
       statement: ts.Statement;
     }
 ) & {
-  optional: boolean;
   sourceFile: ts.SourceFile;
 };
 

@@ -42,24 +42,19 @@ export function loadAliasFile(
     const name = getStatementDeclName(statement) ?? "";
     const aliases = alias.get(name);
     if (!aliases) {
+      console.warn(`Warning: No alias found for ${name}`);
       return [statement];
     }
-    return aliases.map((aliasDetails) => {
+    return aliases.flatMap((aliasDetails) => {
       if (aliasDetails.file !== targetFileName) {
-        return statement;
+        return [];
       }
-      return replaceAliases(statement, aliasDetails.replacement);
+      return [replaceAliases(statement, aliasDetails.replacement)];
     });
   });
 
   // Scan the target file
   const replacementMap = scanStatements(printer, statements, aliasFile);
-  // mark everything as optional
-  for (const targets of replacementMap.values()) {
-    for (const target of targets) {
-      target.optional = true;
-    }
-  }
 
   return {
     replacementMap,
@@ -122,7 +117,6 @@ function scanStatements(
           type: "interface",
           members,
           originalStatement: transformedStatement,
-          optional: false,
           sourceFile: sourceFile,
         });
         return targets;
@@ -146,7 +140,6 @@ function scanStatements(
                   sourceFile,
                 )
               : new Map(),
-          optional: false,
           sourceFile: sourceFile,
         });
         return targets;
@@ -156,7 +149,6 @@ function scanStatements(
         statements.push({
           type: "non-interface",
           statement: transformedStatement,
-          optional: false,
           sourceFile: sourceFile,
         });
         return statements;
