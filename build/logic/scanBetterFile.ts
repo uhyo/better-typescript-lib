@@ -29,7 +29,9 @@ export function loadAliasFile(
   targetFileName: string,
 ): AliasFile {
   if (!aliasFileCache) {
-    const aliasProgram = ts.createProgram([aliasFilePath], {});
+    const aliasProgram = ts.createProgram([aliasFilePath], {
+      noLib: true,
+    });
     const aliasFile = aliasProgram.getSourceFile(aliasFilePath);
 
     if (!aliasFile) {
@@ -69,7 +71,9 @@ export function scanBetterFile(
   targetFile: string,
 ): ReplacementMap {
   const betterLibFile = path.join(betterLibDir, targetFile);
-  const betterProgram = ts.createProgram([betterLibFile], {});
+  const betterProgram = ts.createProgram([betterLibFile], {
+    noLib: true,
+  });
   const betterFile = betterProgram.getSourceFile(betterLibFile);
   if (!betterFile) {
     // This happens when the better file of that name does not exist.
