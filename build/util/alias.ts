@@ -19,7 +19,6 @@ const es5TypedArrays = [
   "Uint32Array",
   "Float32Array",
   "Float64Array",
-  "Float16Array",
 ];
 
 const es2020TypedBigIntArrays = ["BigInt64Array", "BigUint64Array"];
