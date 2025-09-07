@@ -14,8 +14,8 @@
   },
   "devDependencies": {
     "@types/node": "^16.9.6",
-    "tsd": "^0.31.2",
-    "typescript": "^5.8.2"
+    "tsd": "^0.33.0",
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "@typescript/lib-decorators": "file:../dist-package/decorators",
@@ -35,8 +35,5 @@
     "@typescript/lib-scripthost": "file:../dist-package/scripthost",
     "@typescript/lib-webworker": "file:../dist-package/webworker",
     "@typescript/lib-es2024": "file:../dist-package/es2024"
-  },
-  "overrides": {
-    "@tsd/typescript": "~5.8.2"
   }
 }

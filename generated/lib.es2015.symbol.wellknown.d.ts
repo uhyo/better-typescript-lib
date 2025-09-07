@@ -303,7 +303,7 @@ interface String {
 //     replace(searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string;
 
 interface ArrayBuffer {
-  readonly [Symbol.toStringTag]: string;
+  readonly [Symbol.toStringTag]: "ArrayBuffer";
 }
 
 interface DataView<TArrayBuffer extends ArrayBufferLike> {
