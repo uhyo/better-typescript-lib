@@ -7,7 +7,7 @@
   "devDependencies": {
     "@jsdevtools/npm-publish": "^1.4.3",
     "@types/diff": "^5.0.2",
-    "@types/node": "^16.9.6",
+    "@types/node": "^24.3.1",
     "@types/prettier": "^2.6.0",
     "diff": "^5.0.0",
     "json5": "^2.2.3",
