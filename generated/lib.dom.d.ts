@@ -19836,7 +19836,7 @@ interface Node extends EventTarget {
    *
    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/parentElement)
    */
-  readonly parentElement: HTMLElement | null;
+  readonly parentElement: Element | null;
   /**
    * Returns the parent.
    *
@@ -19941,6 +19941,12 @@ interface Node extends EventTarget {
   readonly DOCUMENT_POSITION_CONTAINED_BY: 0x10;
   readonly DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: 0x20;
 }
+//     /**
+//      * Returns the parent element.
+//      *
+//      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/parentElement)
+//      */
+//     readonly parentElement: HTMLElement | null;
 
 declare var Node: {
   prototype: Node;

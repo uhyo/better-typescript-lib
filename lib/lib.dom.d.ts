@@ -255,3 +255,12 @@ interface Document
 interface DocumentFragment extends Node, NonElementParentNode, ParentNode {
   getElementById(elementId: string): Element | null;
 }
+
+interface Node extends EventTarget {
+  /**
+   * Returns the parent element.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/parentElement)
+   */
+  readonly parentElement: Element | null;
+}
