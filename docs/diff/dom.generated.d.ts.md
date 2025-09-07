@@ -5,10 +5,10 @@ Index: dom.generated.d.ts
 ===================================================================
 --- dom.generated.d.ts
 +++ dom.generated.d.ts
-@@ -3356,11 +3356,16 @@
- };
- 
- /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioParamMap) */
+@@ -4053,11 +4053,16 @@
+  *
+  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/AudioParamMap)
+  */
  interface AudioParamMap {
 -  forEach(
 -    callbackfn: (value: AudioParam, key: string, parent: AudioParamMap) => void,
@@ -25,8 +25,8 @@ Index: dom.generated.d.ts
  }
  
  declare var AudioParamMap: {
-@@ -3789,9 +3794,9 @@
-   bytes(): Promise<Uint8Array>;
+@@ -4721,9 +4726,9 @@
+   bytes(): Promise<Uint8Array<ArrayBuffer>>;
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/formData) */
    formData(): Promise<FormData>;
    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/json) */
@@ -36,10 +36,10 @@ Index: dom.generated.d.ts
    text(): Promise<string>;
  }
  
-@@ -7044,11 +7049,11 @@
- };
- 
- /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CustomStateSet) */
+@@ -9110,11 +9115,11 @@
+  *
+  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/CustomStateSet)
+  */
  interface CustomStateSet {
 -  forEach(
 -    callbackfn: (value: string, key: string, parent: CustomStateSet) => void,
@@ -51,32 +51,37 @@ Index: dom.generated.d.ts
  }
  
  declare var CustomStateSet: {
-@@ -8530,9 +8535,9 @@
-   /**
-    * Returns a reference to the first object with the specified value of the ID attribute.
-    * @param elementId String that specifies the ID value.
+@@ -10953,10 +10958,14 @@
+    *
+    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/exitPointerLock)
     */
+   exitPointerLock(): void;
 -  getElementById(elementId: string): HTMLElement | null;
-+  getElementById(elementId: string): Element | null;
    /**
-    * Returns a HTMLCollection of the elements in the object on which the method was invoked (a document or an element) that have all the classes given by classNames. The classNames argument is interpreted as a space-separated list of classes.
++   * Returns a reference to the first object with the specified value of the ID attribute.
++   * @param elementId String that specifies the ID value.
++   */
++  getElementById(elementId: string): Element | null;
++  /**
+    * The **`getElementsByClassName`** method of of all child elements which have all of the given class name(s).
     *
     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/getElementsByClassName)
-@@ -8719,9 +8724,9 @@
+    */
+@@ -11133,9 +11142,9 @@
   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DocumentFragment)
   */
  interface DocumentFragment extends Node, NonElementParentNode, ParentNode {
    readonly ownerDocument: Document;
 -  getElementById(elementId: string): HTMLElement | null;
 +  getElementById(elementId: string): Element | null;
+   /** [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) */
+   get textContent(): string;
+   set textContent(value: string | null);
  }
- 
- declare var DocumentFragment: {
-   prototype: DocumentFragment;
-@@ -9542,11 +9547,11 @@
- };
- 
- /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/EventCounts) */
+@@ -12257,11 +12266,11 @@
+  *
+  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/EventCounts)
+  */
  interface EventCounts {
 -  forEach(
 -    callbackfn: (value: number, key: string, parent: EventCounts) => void,
@@ -88,10 +93,10 @@ Index: dom.generated.d.ts
  }
  
  declare var EventCounts: {
-@@ -10078,11 +10083,16 @@
-   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FontFaceSet/check) */
-   check(font: string, text?: string): boolean;
-   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/FontFaceSet/load) */
+@@ -13038,11 +13047,16 @@
+    *
+    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/FontFaceSet/load)
+    */
    load(font: string, text?: string): Promise<FontFace[]>;
 -  forEach(
 -    callbackfn: (value: FontFace, key: FontFace, parent: FontFaceSet) => void,
@@ -108,10 +113,10 @@ Index: dom.generated.d.ts
    addEventListener<K extends keyof FontFaceSetEventMap>(
      type: K,
      listener: (this: FontFaceSet, ev: FontFaceSetEventMap[K]) => any,
-@@ -16529,15 +16539,16 @@
-   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Highlight/priority) */
-   priority: number;
-   /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Highlight/type) */
+@@ -20056,15 +20070,16 @@
+    *
+    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Highlight/type)
+    */
    type: HighlightType;
 -  forEach(
 +  forEach<This = undefined>(
@@ -128,10 +133,10 @@ Index: dom.generated.d.ts
  }
  
  declare var Highlight: {
-@@ -16546,15 +16557,16 @@
- };
- 
- /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HighlightRegistry) */
+@@ -20077,15 +20092,16 @@
+  *
+  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HighlightRegistry)
+  */
  interface HighlightRegistry {
 -  forEach(
 +  forEach<This = undefined>(
@@ -148,7 +153,7 @@ Index: dom.generated.d.ts
  }
  
  declare var HighlightRegistry: {
-@@ -18046,11 +18058,16 @@
+@@ -21942,11 +21958,16 @@
   *
   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIInputMap)
   */
@@ -168,7 +173,7 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIInputMap: {
-@@ -18113,11 +18130,16 @@
+@@ -22020,11 +22041,16 @@
   *
   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MIDIOutputMap)
   */
@@ -188,21 +193,37 @@ Index: dom.generated.d.ts
  }
  
  declare var MIDIOutputMap: {
-@@ -20007,9 +20029,9 @@
+@@ -24447,13 +24473,13 @@
+    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/ownerDocument)
+    */
+   readonly ownerDocument: Document | null;
+   /**
+-   * The read-only **`parentElement`** property of Node interface returns the DOM node's parent Element, or `null` if the node either has no parent, or its parent isn't a DOM Element.
++   * Returns the parent element.
+    *
+    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/parentElement)
+    */
+-  readonly parentElement: HTMLElement | null;
++  readonly parentElement: Element | null;
+   /**
+    * The read-only **`parentNode`** property of the Node interface returns the parent of the specified node in the DOM tree.
+    *
+    * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/parentNode)
+@@ -24722,9 +24748,9 @@
    new (): NodeList;
  };
  
  interface NodeListOf<TNode extends Node> extends NodeList {
 -  item(index: number): TNode;
 +  item(index: number): TNode | null;
-   /**
-    * Performs the specified action for each node in an list.
-    * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the list.
-    * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
-@@ -22578,11 +22600,11 @@
- };
- 
- /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCStatsReport) */
+   forEach(
+     callbackfn: (value: TNode, key: number, parent: NodeListOf<TNode>) => void,
+     thisArg?: any,
+   ): void;
+@@ -28693,11 +28719,11 @@
+  *
+  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/RTCStatsReport)
+  */
  interface RTCStatsReport {
 -  forEach(
 -    callbackfn: (value: any, key: string, parent: RTCStatsReport) => void,
@@ -214,7 +235,7 @@ Index: dom.generated.d.ts
  }
  
  declare var RTCStatsReport: {
-@@ -29203,15 +29225,11 @@
+@@ -38390,15 +38416,11 @@
    new (): ViewTransition;
  };
  
@@ -233,7 +254,7 @@ Index: dom.generated.d.ts
  }
  
  declare var ViewTransitionTypeSet: {
-@@ -35597,13 +35615,16 @@
+@@ -45428,13 +45450,16 @@
    handler: TimerHandler,
    timeout?: number,
    ...arguments: any[]
@@ -253,7 +274,7 @@ Index: dom.generated.d.ts
  declare var sessionStorage: Storage;
  declare function addEventListener<K extends keyof WindowEventMap>(
    type: K,
-@@ -36287,4 +36308,125 @@
+@@ -46126,4 +46151,125 @@
    | "blob"
    | "document"
    | "json"
