@@ -12,7 +12,7 @@
     "diff": "^5.0.0",
     "json5": "^2.2.3",
     "prettier": "^3.2.5",
-    "typescript": "^5.8.2"
+    "typescript": "^5.9.2"
   },
   "scripts": {
     "build:tsc": "tsc",
