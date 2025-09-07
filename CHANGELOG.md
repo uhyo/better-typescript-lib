@@ -1,6 +1,12 @@
 # Changelog
 
-## v.2.11.0
+## v2.12.0
+
+- fix: change `Node#parentElement` to allow non-`HTMLElement` parents (https://github.com/uhyo/better-typescript-lib/pull/77)
+- fix: preserve call signatures of target object in `Object.assign` (https://github.com/uhyo/better-typescript-lib/pull/76)
+- Upgraded TypeScript to `5.9`. (https://github.com/uhyo/better-typescript-lib/pull/78)
+
+## v2.11.0
 
 - fix: correct return type of `document.getElementById` from `HTMLElement | null` to `Element | null` to account for more general situations like `SVGElement` (https://github.com/uhyo/better-typescript-lib/pull/65)
 - Mark `Omit` as deprecated (https://github.com/uhyo/better-typescript-lib/pull/66)
