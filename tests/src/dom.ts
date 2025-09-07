@@ -161,3 +161,29 @@ const test = async (url: string) => {
   const svgElement: SVGElement = {} as SVGElement;
   const elementOrNull: typeof element = svgElement;
 }
+
+// Node.parentElement
+{
+  const div = document.createElement("div");
+  const parent = div.parentElement;
+  expectType<Element | null>(parent);
+
+  // Verify that the return type is not specifically HTMLElement
+  expectNotType<HTMLElement | null>(parent);
+
+  // Verify that SVGElement can be assigned to parentElement (without type assertion)
+  const svgElement: SVGElement = {} as SVGElement;
+  const elementOrNull: typeof parent = svgElement;
+
+  // Test with SVG elements
+  const svgElement2 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  const svgParent = svgElement2.parentElement;
+  expectType<Element | null>(svgParent);
+
+  // Verify SVG elements work with parentElement
+  if (svgParent) {
+    expectType<Element>(svgParent);
+    // Should be able to call methods available on Element
+    svgParent.getAttribute("id");
+  }
+}
