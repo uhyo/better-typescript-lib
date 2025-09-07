@@ -328,7 +328,7 @@ interface ObjectConstructor {
   assign<T extends {}, Ts extends readonly any[]>(
     target: T,
     ...sources: Ts
-  ): Intersect<[T, ...Ts]>;
+  ): T & Intersect<Ts>;
 
   /**
    * Returns an array of all symbol properties found directly on object o.
