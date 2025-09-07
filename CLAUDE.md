@@ -21,6 +21,8 @@ This project generates alternative TypeScript standard library definitions with 
 
 - **`TypeScript/`** - Git submodule containing the official TypeScript repository for source lib files
 
+  - Note: `TypeScript/lib/lib.dom.d.ts` and `TypeScript/lib/lib.es5.d.ts` are HUGE. Never try to read the whole file at once. Always grep for specific parts.
+
 - **`tests/`** - Type-level tests using `tsd` to verify the improved type definitions work correctly
 
 ## Essential Commands
